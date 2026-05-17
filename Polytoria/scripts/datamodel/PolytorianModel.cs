@@ -43,7 +43,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	private int _loadAppearanceCount = 0;
 
 	internal Skeleton3D Skeleton = null!;
-	internal AnimationTree AnimTree = null!;
+	internal Godot.AnimationTree AnimTree = null!;
 
 	private ImageAsset? _faceImage;
 	private MeshAsset? _bodyMesh;
@@ -283,7 +283,7 @@ public sealed partial class PolytorianModel : CharacterModel
 		LeftLegMeshInstance.MaterialOverride = _leftLegMat;
 		RightLegMeshInstance.MaterialOverride = _rightLegMat;
 
-		AnimTree = GDNode.GetNode<AnimationTree>("AnimationTree");
+		AnimTree = GDNode.GetNode<Godot.AnimationTree>("AnimationTree");
 		AnimTree.Active = true;
 
 		base.Init();

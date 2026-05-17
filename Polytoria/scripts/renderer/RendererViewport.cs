@@ -79,7 +79,7 @@ public partial class RendererViewport : SubViewport
 		PolytorianModel ptm = (PolytorianModel)npc.Character!;
 
 		ptm.SetAnimationOverrideTo(true);
-		AnimationPlayer ply = ptm.AnimTree.GetNode<AnimationPlayer>(ptm.AnimTree.AnimPlayer);
+		Godot.AnimationPlayer ply = ptm.AnimTree.GetNode<Godot.AnimationPlayer>(ptm.AnimTree.AnimPlayer);
 		PolytorianModel.AvatarLoadResponse loadRes = await ptm.InternalLoadAppearance(id, loadToolNpc: true);
 
 		if (loadRes.HasTool)

@@ -61,6 +61,11 @@ public partial class InsertMenuPopup : PopupPanel
 			"Marker3D",
 			"Camera",
 		},
+		[new() { Title = "Animation"}] = new()
+		{
+			"AnimationPlayer",
+			"AnimationTree",
+		},
 		[new() { Title = "Character", RecommendOn = [typeof(CharacterModel)] }] = new()
 		{
 			"Accessory",

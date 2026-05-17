@@ -9,7 +9,7 @@ namespace Polytoria.Client.UI.Notification;
 
 public partial class UIScreenshotNotification : UINotificationBase
 {
-	[Export] public AnimationPlayer AnimPlay = null!;
+	[Export] public Godot.AnimationPlayer AnimPlay = null!;
 	[Export] public TextureRect IconRect = null!;
 	[Export] public Button ViewButton = null!;
 

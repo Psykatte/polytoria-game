@@ -13,7 +13,7 @@ public partial class UIHealthbar : Control
 	[Export] private ProgressBar _staminaBar = null!;
 	[Export] private Label _healthLabel = null!;
 	[Export] private TextureRect _heart = null!;
-	[Export] private AnimationPlayer _staminaBarAnim = null!;
+	[Export] private Godot.AnimationPlayer _staminaBarAnim = null!;
 	public CoreUIRoot CoreUI = null!;
 
 	private bool _staminaBarAppeared = false;

@@ -21,7 +21,7 @@ public partial class UIInventory : Control
 
 	[Export] private Control _backpackFlowContainer = null!;
 	[Export] private Control _backpackNoneView = null!;
-	[Export] private AnimationPlayer _backpackAnim = null!;
+	[Export] private Godot.AnimationPlayer _backpackAnim = null!;
 
 	public CoreUIRoot CoreUI = null!;
 	public bool IsBackpackOpened = false;

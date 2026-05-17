@@ -16,9 +16,9 @@ public partial class UIChat : Control
 	[Export] private LineEdit _chatField = null!;
 	[Export] private Control _chatLayout = null!;
 	[Export] private ScrollContainer _chatScroll = null!;
-	[Export] private AnimationPlayer _animPlayer = null!;
+	[Export] private Godot.AnimationPlayer _animPlayer = null!;
 	[Export] private Button _sendButton = null!;
-	[Export] private AnimationPlayer _sendAnim = null!;
+	[Export] private Godot.AnimationPlayer _sendAnim = null!;
 	[Export] private Control _chatFieldPanel = null!;
 
 	public CoreUIRoot CoreUI = null!;

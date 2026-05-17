@@ -23,7 +23,7 @@ public partial class UIEmoteWheel : Control
 	[Export] private Control _emoteTarget = null!;
 	[Export] private Control _emoteContainer = null!;
 	[Export] private Button _closeButton = null!;
-	[Export] private AnimationPlayer _animPlay = null!;
+	[Export] private Godot.AnimationPlayer _animPlay = null!;
 
 	private readonly Dictionary<string, UIEmoteItem> _keyToItem = [];
 	private UIEmoteItem? _oldItem = null;

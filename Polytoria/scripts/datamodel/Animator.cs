@@ -16,8 +16,8 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class Animator : Instance
 {
-	public AnimationTree AnimationTree = null!;
-	internal AnimationPlayer AnimPlay => AnimationTree.GetNode<AnimationPlayer>(AnimationTree.AnimPlayer);
+	public Godot.AnimationTree AnimationTree = null!;
+	internal Godot.AnimationPlayer AnimPlay => AnimationTree.GetNode<Godot.AnimationPlayer>(AnimationTree.AnimPlayer);
 
 	private AnimationNodeBlendTree _blendTreeRoot = null!;
 	private AnimationNodeBlendTree _blendTree = null!;
@@ -131,7 +131,7 @@ public partial class Animator : Instance
 
 	internal void AnimatorInit()
 	{
-		AnimationTree ??= GDNode.GetNode<AnimationTree>("AnimationTree");
+		AnimationTree ??= GDNode.GetNode<Godot.AnimationTree>("AnimationTree");
 		// Get the TreeRoot
 		if (AnimationTree.TreeRoot is not AnimationNodeBlendTree tree)
 		{

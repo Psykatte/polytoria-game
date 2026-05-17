@@ -9,7 +9,7 @@ namespace Polytoria.Client.UI.Playerlist;
 
 public partial class UILeaderboardUserOptions : Control
 {
-	[Export] private AnimationPlayer _animPlay = null!;
+	[Export] private Godot.AnimationPlayer _animPlay = null!;
 	[Export] private Control _optionsLayout = null!;
 	[Export] private Button _addFriendBtn = null!;
 	[Export] private Button _removeFriendBtn = null!;
