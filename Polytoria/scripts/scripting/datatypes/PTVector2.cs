@@ -54,6 +54,9 @@ public class PTVector2 : IScriptGDObject
 	/// The length of the vector.
 	/// </summary>
 	[ScriptProperty] public float Magnitude => vector.Length();
+	/// <summary>
+	/// The normalized version of the vector.
+	/// </summary>
 	[ScriptProperty] public PTVector2 Normalized => FromGDClass(vector.Normalized());
 	/// <summary>
 	/// The squared length of the vector.

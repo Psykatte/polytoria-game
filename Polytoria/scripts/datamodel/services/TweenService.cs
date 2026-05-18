@@ -466,6 +466,9 @@ public sealed partial class TweenService : Instance
 			}
 		}
 
+		/// <summary>
+		/// Returns whether or not this tween is running
+		/// </summary>
 		[ScriptProperty] public bool IsRunning => tween.IsRunning();
 		/// <summary>
 		/// Returns the elapsed time of this tween

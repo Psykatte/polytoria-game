@@ -259,6 +259,9 @@ public partial class UIField : Instance
 	/// </summary>
 	[ScriptProperty] public PTSignal VisibilityChanged { get; private set; } = new();
 
+	/// <summary>
+	/// Indicates whether the UI element is visible in the UI hierarchy.
+	/// </summary>
 	[ScriptProperty] public bool IsVisibleInTree => NodeControl.IsVisibleInTree();
 
 	internal bool IsParentedToUI = false;

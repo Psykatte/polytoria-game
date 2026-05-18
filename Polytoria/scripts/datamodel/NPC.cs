@@ -458,6 +458,9 @@ public partial class NPC : Physical
 	[ScriptProperty, ScriptLegacyProperty("Grounded")]
 	public bool IsOnGround => CharBody3D.IsOnFloor();
 
+	/// <summary>
+	/// Indicates if NPC is on the ceiling.
+	/// </summary>
 	[ScriptProperty]
 	public bool IsOnCeiling => CharBody3D.IsOnCeiling();
 

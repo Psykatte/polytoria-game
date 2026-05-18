@@ -313,6 +313,9 @@ public struct PTSignalConnection() : IScriptObject
 	internal PTSignal Signal = null!;
 	internal PTCallback Callback = null!;
 
+	/// <summary>
+	/// Disconnect this signal.
+	/// </summary>
 	[ScriptMethod]
 	public readonly void Disconnect()
 	{
