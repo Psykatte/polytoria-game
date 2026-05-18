@@ -1,0 +1,94 @@
+Name: Grabbable
+Description: Grabbable represents a object that can be dragged by user. It can
+  be parented to Physical to give user ability to drag that object.
+Category: physics
+BaseType: Instance
+Properties:
+  - Name: Force
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the force used to drag this object.
+  - Name: MaxRange
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines how far this object can be dragged.
+  - Name: MaxGrabbableRange
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the max range that this object can be grabbed from.
+  - Name: UseDragForce
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if dragging this object should affect physics.
+  - Name: PermissionMode
+    Type: GrabbablePermissionModeEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the permission mode for this grabber
+  - Name: Dragger
+    Type: Player
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns the current dragger
+  - Name: PermissionPredicate
+    Type: () -> ()
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: >-
+      A predicate function deciding whether this player can grab this object.
+      `PermissionMode` must be set to `GrabbablePermissionMode.Scripted`
+
+
+      Example usage:
+
+      ```lua
+
+      grabbable.PermissionMode = Enums.GrabbablePermissionMode.Scripted
+
+      grabbable.PermissionPredicate = function(player)
+        return player.Name == "Player1"
+      end
+
+      ```
+Methods: []
+Events:
+  - Name: Grabbed
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this object has been grabbed
+    Arguments:
+      Name: grabber
+      Type: Player
+  - Name: Released
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this object has been released
+    Arguments: ""
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

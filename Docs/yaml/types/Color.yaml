@@ -1,0 +1,196 @@
+Name: Color
+Description: >-
+  Color is a data type that represents a color.
+    
+    The alpha property is between 0 and 1. 0 is fully transparent and 1 is fully visible.
+Category: types
+BaseType: null
+Properties:
+  - Name: R
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Red color component
+  - Name: G
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Green color component
+  - Name: B
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Blue color component
+  - Name: A
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Alpha (opacity) color component
+Methods:
+  - Name: New
+    ReturnType: Color
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color with the set R, G, B and A values
+  - Name: New
+    ReturnType: Color
+    Parameters:
+      - Name: d
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color with the set R, G, B and A values
+  - Name: New
+    ReturnType: Color
+    Parameters:
+      - Name: r
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: g
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: b
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color with the set R, G, B and A values
+  - Name: New
+    ReturnType: Color
+    Parameters:
+      - Name: r
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: g
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: b
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: a
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color with the set R, G, B and A values
+  - Name: Random
+    ReturnType: Color
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Returns a random color with an alpha value of 1.
+  - Name: FromRGB
+    ReturnType: Color
+    Parameters:
+      - Name: r
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: g
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: b
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: a
+        Type: number
+        IsOptional: true
+        DefaultValue: "1"
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color from the specified RGBA value.
+  - Name: FromHex
+    ReturnType: Color
+    Parameters:
+      - Name: hex
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color from the specified hex value.
+  - Name: ToHex
+    ReturnType: string
+    Parameters:
+      - Name: c
+        Type: Color
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Converts a Color value to its hexadecimal string representation.
+  - Name: FromHSV
+    ReturnType: Color
+    Parameters:
+      - Name: h
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: s
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: v
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+      - Name: a
+        Type: number
+        IsOptional: true
+        DefaultValue: "1"
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new Color from the specified HSV value.
+  - Name: Lerp
+    ReturnType: Color
+    Parameters:
+      - Name: a
+        Type: Color
+        IsOptional: false
+        DefaultValue: ""
+      - Name: b
+        Type: Color
+        IsOptional: false
+        DefaultValue: ""
+      - Name: t
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Linearly interpolates colors a and b by t.
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

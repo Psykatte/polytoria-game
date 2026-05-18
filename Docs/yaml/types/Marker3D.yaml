@@ -1,0 +1,33 @@
+Name: Marker3D
+Description: Marker3D is a object that allows marking a specific point in world.
+  This will hint an axis gizmo in local test and creator.
+Category: world
+BaseType: Dynamic
+Properties:
+  - Name: Length
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Length of this Marker
+  - Name: AppearOnTop
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if this marker should appear on top of everything else in 3D.
+  - Name: VisibleInDev
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if this marker should be visible in development.
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

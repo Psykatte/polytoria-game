@@ -1,4 +1,4 @@
-<img src="docs/header.svg" width="100%">
+<img src="assets/header.svg" width="100%">
 
 # Polytoria
 
@@ -8,7 +8,7 @@
 
 Polytoria is a 3D multiplayer gaming platform built on top of the [Godot Engine](https://godotengine.org/). It provides a set of tools for creating your multiplayer games, with server-client architecture, synchronized state replication and scripting powered by [Luau](https://luau.org/). Worlds can be published to [polytoria.com](http://polytoria.com/), which is accessible from Windows, macOS and Linux, with mobile in the works!
 
-![15 Seconds by phoe](docs/creator.png)
+![15 Seconds by phoe](assets/creator.png)
 
 *Photo credit: [15 Seconds by phoe](https://polytoria.com/places/12661)*
 

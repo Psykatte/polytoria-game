@@ -1,0 +1,32 @@
+Name: BuiltInFontAsset
+Description: Font asset that's built-in with the client
+Category: assets
+BaseType: FontAsset
+Properties:
+  - Name: FontPreset
+    Type: BuiltInTextFontPresetEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Target font to use
+  - Name: FontWeight
+    Type: FontWeightEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Font weight for this font
+  - Name: FontStyle
+    Type: FontStyleEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Font style for this font
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

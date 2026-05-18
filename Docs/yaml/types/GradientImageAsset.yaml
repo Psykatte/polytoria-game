@@ -1,0 +1,54 @@
+Name: GradientImageAsset
+Description: GradientImageAsset is a class that provides gradient image that can
+  be dynamically changed.
+Category: assets
+BaseType: ImageAsset
+Properties:
+  - Name: Series
+    Type: ColorSeries
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The color series for this gradient
+  - Name: Width
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the width of this image
+  - Name: Height
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the height of this image
+  - Name: Fill
+    Type: GradientImageFillEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the fill mode of the gradient
+  - Name: FillFrom
+    Type: Vector2
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the starting point of the gradient
+  - Name: FillTo
+    Type: Vector2
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the ending point of the gradient
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

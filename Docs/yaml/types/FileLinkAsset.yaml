@@ -1,0 +1,18 @@
+Name: FileLinkAsset
+Description: Represents a link to a file path in the file system
+Category: assets
+BaseType: BaseAsset
+Properties:
+  - Name: LinkedID
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The ID of the file
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

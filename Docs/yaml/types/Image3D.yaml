@@ -1,0 +1,67 @@
+Name: Image3D
+Description: Image3D are objects that can have an image texture and are placed in the world.
+Category: world
+BaseType: Dynamic
+Properties:
+  - Name: Image
+    Type: ImageAsset
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Specifies the image of the Image3D.
+  - Name: TextureScale
+    Type: Vector2
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The scale of the texture on the Image3D.
+  - Name: TextureOffset
+    Type: Vector2
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The offset of the texture on the Image3D.
+  - Name: Color
+    Type: Color
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the color of the Image3D.
+  - Name: CastShadows
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether or not the Image3D should cast shadows.
+  - Name: Shaded
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether or not the Image3D should be affected by lighting.
+  - Name: FaceCamera
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether or not the Image3D should always face the camera.
+  - Name: TextureFilter
+    Type: TextureFilterEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the texture filter mode.
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

@@ -1,0 +1,95 @@
+Name: WorldsService
+Description: \!! WIP Class, WorldsService is a service that is used to join
+  players to other worlds. This class is currently unavailable in public
+  servers. **This is not recommended for use at this time.**
+Category: services
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: NewServerAsync
+    ReturnType: string
+    Parameters:
+      - Name: placePath
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Request a new server with data
+  - Name: NewServerAsync
+    ReturnType: string
+    Parameters:
+      - Name: data
+        Type: NewServerRequestData
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Request a new server with data
+  - Name: JoinPlaceAsync
+    ReturnType: nil
+    Parameters:
+      - Name: plr
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+      - Name: to
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Join a player to a public server of the specified world
+  - Name: JoinPlacePartyAsync
+    ReturnType: nil
+    Parameters:
+      - Name: plrs
+        Type: "{ Player }"
+        IsOptional: false
+        DefaultValue: ""
+      - Name: to
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Join a party of player to a public server of the specified world
+  - Name: JoinPrivateAsync
+    ReturnType: nil
+    Parameters:
+      - Name: plr
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+      - Name: accessID
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Join a player to a private server of the specified world
+  - Name: JoinPrivatePartyAsync
+    ReturnType: nil
+    Parameters:
+      - Name: players
+        Type: "{ Player }"
+        IsOptional: false
+        DefaultValue: ""
+      - Name: accessID
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Join a party of player to a private server of the specified world
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Worlds

@@ -1,0 +1,12 @@
+Name: UIVFlow
+Description: UIVFlow is a class that aligns all of it's children vertically and
+  wraps them around at the borders.
+Category: ui
+BaseType: UIFlowLayout
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

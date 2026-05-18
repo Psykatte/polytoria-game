@@ -1,0 +1,23 @@
+{
+  "name": "polytoria-docs-2",
+  "version": "1.0.0",
+  "description": "Polytoria 2.0 Documentation",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "node autogen/mdgen.js && mkdocs serve",
+    "build": "npm run gen && mkdocs build",
+    "build-ci": "npm i && node autogen/mdgen.js && mkdocs build",
+    "gen": "node autogen/yamlgen.js && node autogen/mdgen.js"
+  },
+  "keywords": [],
+  "author": "Polytoria Contributors",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "fast-xml-parser": "^5.3.3",
+    "yaml": "^2.8.2"
+  }
+}

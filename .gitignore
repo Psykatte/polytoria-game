@@ -72,6 +72,19 @@ TestResults/
 /Polytoria/test.packed
 /Polytoria/test.ptpacked
 
+## -- Documentation Generation -- ##
+
+/Docs/__pycache__
+/Docs/node_modules
+/Docs/def.json
+
+/Docs/docs/api/types/*
+/Docs/docs/api/enums/*
+
+!/Docs/docs/api/types/index.md
+!/Docs/docs/api/enums/index.md
+
+/Docs/site
 
 ## -- Sample projects -- ##
 

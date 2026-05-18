@@ -1,0 +1,32 @@
+Name: MeshAnimationInfo
+Description: MeshAnimationInfo contains the animation information for meshes.
+Category: misc
+BaseType: null
+Properties:
+  - Name: Name
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The name of this animation
+  - Name: Length
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The length of this animation
+  - Name: IsPlaying
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Indicates the playing state of this animation.
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

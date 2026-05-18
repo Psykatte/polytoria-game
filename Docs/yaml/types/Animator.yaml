@@ -1,0 +1,54 @@
+Name: Animator
+Description: WIP class
+Category: world
+BaseType: Instance
+Properties:
+  - Name: CurrentAnimation
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the currently playing animation name
+Methods:
+  - Name: PlayAnimation
+    ReturnType: nil
+    Parameters:
+      - Name: animationKey
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Play animation
+  - Name: PlayOneShotAnimation
+    ReturnType: nil
+    Parameters:
+      - Name: animationKey
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Play one-shot animation
+  - Name: StopAnimation
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Stop current animation
+  - Name: StopOneShotAnimation
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Stop one-shot animation
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null
