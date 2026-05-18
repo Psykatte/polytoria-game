@@ -1,84 +1,43 @@
 const fs = require("fs")
 const path = require("path")
-const yaml = require("yaml")
 
-const yamlAPIPath = path.join(__dirname, "../", "yaml", "types")
-const mdAPIPath = path.join(__dirname, "../", "docs/api", "types")
+const defJsonPath  = path.join(__dirname, "../", "../", "Polytoria", "def.json")
+const mdAPIPath    = path.join(__dirname, "../", "docs/api", "types")
 const iconDataPath = path.join(__dirname, "../", "docs/theme/.icons", "polytoria")
-const yamlEnumPath = path.join(__dirname, "../", "yaml", "enums")
-const mdEnumPath = path.join(__dirname, "../", "docs/api", "enums")
+const mdEnumPath   = path.join(__dirname, "../", "docs/api", "enums")
+
+const data = JSON.parse(fs.readFileSync(defJsonPath, "utf-8"))
 
 // Cleanup md (excluding index.md files)
-if (fs.existsSync(mdAPIPath)) {
-    const files = fs.readdirSync(mdAPIPath)
-    for (const file of files) {
-        if (file !== 'index.md') {
-            const filePath = path.join(mdAPIPath, file)
-            fs.rmSync(filePath, { recursive: true, force: true })
-        }
+function cleanDir(dir) {
+    if (!fs.existsSync(dir)) return
+    for (const file of fs.readdirSync(dir)) {
+        if (file === "index.md") continue
+        fs.rmSync(path.join(dir, file), { recursive: true, force: true })
     }
 }
+cleanDir(mdAPIPath)
+cleanDir(mdEnumPath)
+fs.mkdirSync(mdAPIPath, { recursive: true })
+fs.mkdirSync(mdEnumPath, { recursive: true })
 
-if (fs.existsSync(mdEnumPath)) {
-    const files = fs.readdirSync(mdEnumPath)
-    for (const file of files) {
-        if (file !== 'index.md') {
-            const filePath = path.join(mdEnumPath, file)
-            fs.rmSync(filePath, { recursive: true, force: true })
-        }
-    }
-}
+// ─── Process API Classes ──────────────────────────────────────────────────────
 
-// Create directories
-if (!fs.existsSync(mdAPIPath)) {
-    fs.mkdirSync(mdAPIPath, { recursive: true })
-}
-
-if (!fs.existsSync(yamlAPIPath)) {
-    fs.mkdirSync(yamlAPIPath, { recursive: true })
-}
-
-if (!fs.existsSync(mdEnumPath)) {
-    fs.mkdirSync(mdEnumPath, { recursive: true })
-}
-
-if (!fs.existsSync(yamlEnumPath)) {
-    fs.mkdirSync(yamlEnumPath, { recursive: true })
-}
-
-// Process API Classes
-const yamlFiles = fs.readdirSync(yamlAPIPath).filter(file => file.endsWith('.yaml'));
-
+// First pass: build inherited-by index
 const inheritedBy = {}
-const classDataMap = {}
-
-// First pass, check for inherited by
-for (const yamlFile of yamlFiles) {
-    const yamlPath = path.join(yamlAPIPath, yamlFile)
-    const yamlContent = fs.readFileSync(yamlPath, "utf-8")
-    const c = yaml.parse(yamlContent)
-    const className = path.basename(yamlFile, '.yaml')
-    classDataMap[className] = c
-
-    if (c.BaseType) {
-        if (!inheritedBy[c.BaseType]) {
-            inheritedBy[c.BaseType] = []
-        }
-        inheritedBy[c.BaseType].push(c.Name || className)
-    }
+for (const c of data.Classes) {
+    if (!c.BaseType) continue
+    if (!inheritedBy[c.BaseType]) inheritedBy[c.BaseType] = []
+    inheritedBy[c.BaseType].push(c.Name)
 }
 
-// Second pass, generate md files
-for (const yamlFile of yamlFiles) {
-    const className = path.basename(yamlFile, '.yaml')
-    const c = classDataMap[className]
+for (const c of data.Classes) {
+    const className = c.Name
 
     let mdPath
     if (c.Category) {
         const catDir = path.join(mdAPIPath, c.Category)
-        if (!fs.existsSync(catDir)) {
-            fs.mkdirSync(catDir, { recursive: true })
-        }
+        fs.mkdirSync(catDir, { recursive: true })
         mdPath = path.join(catDir, className + ".md")
     } else {
         mdPath = path.join(mdAPIPath, className + ".md")
@@ -88,40 +47,29 @@ for (const yamlFile of yamlFiles) {
     const iconPath = path.join(iconDataPath, c.Name + ".svg")
     const emojiExists = fs.existsSync(iconPath)
 
-    function appendLine(str) {
-        mk += str + "\n"
-    }
+    function appendLine(str) { mk += str + "\n" }
 
     appendLine("---")
     appendLine("title: " + c.Name)
     appendLine("description:")
-    if (emojiExists) {
-        appendLine("icon: polytoria/" + c.Name)
-    } else {
-        appendLine("icon: polytoria/Unknown")
-    }
+    appendLine(emojiExists ? "icon: polytoria/" + c.Name : "icon: polytoria/Unknown")
     appendLine("---")
     appendLine("")
-    if (emojiExists) {
-        appendLine(`# :polytoria-${c.Name}: ` + c.Name)
-    } else {
-        appendLine("# " + c.Name)
-    }
+    appendLine(emojiExists ? `# :polytoria-${c.Name}: ` + c.Name : "# " + c.Name)
 
     if (c.BaseType) {
         appendLine("")
         appendLine(`{{ inherits("${c.BaseType}") }}`)
     }
 
-    // Inherited by
-    const children = inheritedBy[c.Name || className]
+    const children = inheritedBy[c.Name]
     if (children && children.length > 0) {
         appendLine("")
         appendLine(`{{ inherited_by([${children.map(n => `"${n}"`).join(", ")}]) }}`)
     }
 
     appendLine("")
-    appendLine(c.Description)
+    appendLine(c.Description || "Missing documentation!")
     appendLine("")
 
     if (c.Remarks) {
@@ -159,15 +107,14 @@ for (const yamlFile of yamlFiles) {
         appendLine("")
     }
 
-    const properties = c.Properties ? (Array.isArray(c.Properties) ? c.Properties : [c.Properties]) : [];
-
+    const properties = c.Properties ?? []
     if (properties.length > 0) {
         appendLine("")
         appendLine("## Properties")
         appendLine("")
     }
-
     for (const prop of properties) {
+        if (prop.IsObsolete) continue
         appendLine(`### ${prop.Name}:${prop.Type} { property }`)
         appendLine(``)
         appendLine(prop.Description || "Missing documentation!")
@@ -183,22 +130,16 @@ for (const yamlFile of yamlFiles) {
         }
     }
 
-    const methods = c.Methods ? (Array.isArray(c.Methods) ? c.Methods : [c.Methods]) : [];
-
+    const methods = (c.Methods ?? []).filter(m => !m.IsObsolete && !m.Name.startsWith("__"))
     if (methods.length > 0) {
         appendLine("")
         appendLine("## Methods")
         appendLine("")
     }
     for (const m of methods) {
-        if (m.IsObsolete) continue
-        let params = []
-
-        const parameters = m.Parameters ? (Array.isArray(m.Parameters) ? m.Parameters : [m.Parameters]) : [];
-        for (const p of parameters) {
-            params.push(`${p.Name};${p.Type}${p.IsOptional ? "?" : ""}`)
-        }
-
+        const params = (m.Parameters ?? []).map(p =>
+            `${p.Name};${p.Type}${p.IsOptional ? "?" : ""}`
+        )
         appendLine(`### ${m.Name}(${params.join(",")}):${m.ReturnType || "void"} { method }`)
         appendLine(``)
         appendLine(m.Description || "Missing documentation!")
@@ -225,22 +166,14 @@ for (const yamlFile of yamlFiles) {
         }
     }
 
-    const events = c.Events ? (Array.isArray(c.Events) ? c.Events : [c.Events]) : [];
-
+    const events = c.Events ?? []
     if (events.length > 0) {
         appendLine("")
         appendLine("## Events")
         appendLine("")
     }
-
     for (const e of events) {
-        let args = []
-
-        const aargs = e.Arguments ? (Array.isArray(e.Arguments) ? e.Arguments : [e.Arguments]) : [];
-        for (const arg of aargs) {
-            args.push(`${arg.Name};${arg.Type}`)
-        }
-
+        const args = (e.Parameters ?? []).map(p => `${p.Name};${p.Type}`)
         appendLine(`### ${e.Name}(${args.join(",")}) { event }`)
         appendLine(``)
         appendLine(e.Description || "")
@@ -249,51 +182,41 @@ for (const yamlFile of yamlFiles) {
 
     fs.writeFileSync(mdPath, mk)
 }
+console.log(`Converted ${data.Classes.length} classes to Markdown`)
 
-console.log(`Converted ${yamlFiles.length} YAML files to Markdown`)
+// ─── Process Enums ────────────────────────────────────────────────────────────
 
-// Process Enums
-const yamlEnumFiles = fs.readdirSync(yamlEnumPath).filter(file => file.endsWith('.yaml'));
-
-for (const yamlFile of yamlEnumFiles) {
-    const yamlPath = path.join(yamlEnumPath, yamlFile);
-    const yamlContent = fs.readFileSync(yamlPath, "utf-8");
-
-    const e = yaml.parse(yamlContent);
-    const enumName = path.basename(yamlFile, '.yaml');
-    let mdPath = path.join(mdEnumPath, enumName + ".md")
+for (const e of data.Enums) {
+    const mdPath = path.join(mdEnumPath, e.Name + ".md")
     let mk = ""
+    function appendLine(str) { mk += str + "\n" }
 
-    function appendLine(str) {
-        mk += str + "\n"
-    }
+    const desc = e.Description && e.Description !== "Missing Documentation" ? e.Description : ""
 
     appendLine("---")
     appendLine("title: " + e.Name)
-    appendLine("description: " + (e.Description && e.Description !== "Missing Documentation" ? e.Description : ""))
+    appendLine("description: " + desc)
     appendLine("icon: polytoria/Enum")
     appendLine("---")
     appendLine("")
     appendLine("# " + e.Name)
     appendLine("")
 
-    if (e.Description && e.Description !== "Missing Documentation") {
-        appendLine(e.Description)
+    if (desc) {
+        appendLine(desc)
         appendLine("")
     }
 
     appendLine("| Name | Description |")
     appendLine("| --- | --- |")
 
-    const options = e.Options ? (Array.isArray(e.Options) ? e.Options : [e.Options]) : [];
-    for (const option of options) {
-        const optionName = typeof option === 'string' ? option : option.Name;
-        const optionDesc = typeof option === 'string' ? "" : (option.Description || "");
-        const displayDesc = optionDesc === "Missing Documentation" ? "" : optionDesc;
-        appendLine(`| \`${e.Name}.${optionName}\` | ${displayDesc} |`)
+    for (const option of (e.Options ?? [])) {
+        const optName = typeof option === "string" ? option : option.Name
+        const optDesc = typeof option === "string" ? "" : (option.Description || "")
+        const display = optDesc === "Missing Documentation" ? "" : optDesc
+        appendLine(`| \`${e.Name}.${optName}\` | ${display} |`)
     }
 
     fs.writeFileSync(mdPath, mk)
 }
-
-console.log(`Converted ${yamlEnumFiles.length} enum YAML files to Markdown`)
+console.log(`Converted ${data.Enums.length} enums to Markdown`)

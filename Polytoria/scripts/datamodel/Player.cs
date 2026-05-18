@@ -89,6 +89,7 @@ public sealed partial class Player : NPC
 	/// <summary>
 	/// Fires when this player chats
 	/// </summary>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> Chatted { get; private set; } = new();
 

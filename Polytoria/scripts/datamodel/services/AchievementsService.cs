@@ -37,6 +37,7 @@ public sealed partial class AchievementsService : Instance
 	/// <summary>
 	/// Fires when the local player got an achievement
 	/// </summary>
+	/// <param name="achievementID" type="number"></param>
 	[ScriptProperty] public PTSignal<int> GotAchievement { get; private set; } = new();
 
 	/// <summary>

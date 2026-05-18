@@ -1,8 +1,0 @@
-Name: AddonPermission
-InternalName: AddonPermissionEnum
-Description: ""
-Options:
-  - Name: IORead
-    Description: ""
-  - Name: IOWrite
-    Description: ""

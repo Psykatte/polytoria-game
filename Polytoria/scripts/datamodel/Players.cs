@@ -60,12 +60,14 @@ public sealed partial class Players : Instance
 	/// <summary>
 	/// Fires when player has connected
 	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
 	public PTSignal<Player> PlayerAdded { get; private set; } = new();
 
 	/// <summary>
 	/// Fires when player has disconnected
 	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
 	public PTSignal<Player> PlayerRemoved { get; private set; } = new();
 

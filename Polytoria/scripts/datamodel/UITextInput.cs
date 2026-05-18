@@ -272,10 +272,12 @@ public partial class UITextInput : UIView
 	/// <summary>
 	/// Fires when user submitted the text
 	/// </summary>
+	/// <param name="text" type="string"></param>
 	[ScriptProperty] public PTSignal<string> Submitted { get; private set; } = new();
 	/// <summary>
 	/// Fires when user changed the text
 	/// </summary>
+	/// <param name="text" type="string"></param>
 	[ScriptProperty] public PTSignal<string> Changed { get; private set; } = new();
 	/// <summary>
 	/// Fires when user focuses on this input field

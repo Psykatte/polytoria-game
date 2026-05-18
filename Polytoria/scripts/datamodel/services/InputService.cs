@@ -134,14 +134,20 @@ public sealed partial class InputService : Instance
 	/// <summary>
 	/// Fires when key has been pressed
 	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyDown { get; private set; } = new();
 	/// <summary>
 	/// Fires when key has been released
 	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyUp { get; private set; } = new();
 	/// <summary>
 	/// Fires when analog input has been changed
 	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="value" type="number"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, float> AxisValueChanged { get; private set; } = new();
 	[ScriptLegacyProperty("KeyDown")] public PTSignal LegacyKeyDown { get; private set; } = new();
 	[ScriptLegacyProperty("KeyUp")] public PTSignal LegacyKeyUp { get; private set; } = new();

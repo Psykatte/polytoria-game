@@ -30,12 +30,15 @@ public sealed partial class ChatService : Instance
 	/// <summary>
 	/// Fire when there's new chat message from player
 	/// </summary>
+	/// <param name="sender" type="Player"></param>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<Player, string> NewChatMessage { get; private set; } = new();
 
 	/// <summary>
 	/// Fire when there's new message from broadcast/unicast
 	/// </summary>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> MessageReceived { get; private set; } = new();
 

@@ -307,18 +307,22 @@ public partial class Instance : NetworkedObject
 	/// <summary>
 	/// Fires when child has been added to this instance
 	/// </summary>
+	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildAdded { get; private set; } = new();
 	/// <summary>
 	/// Fires when child has been removed from this instance (either via reparent or delete)
 	/// </summary>
+	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildRemoved { get; private set; } = new();
 	/// <summary>
 	/// Fires when child is being deleted from this instance
 	/// </summary>
+	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleting { get; private set; } = new();
 	/// <summary>
 	/// Fires when child has been deleted from this instance
 	/// </summary>
+	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleted { get; private set; } = new();
 
 	internal void AddLegacyNameToParent()

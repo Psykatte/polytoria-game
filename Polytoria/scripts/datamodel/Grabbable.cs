@@ -110,6 +110,7 @@ public partial class Grabbable : Instance
 	/// <summary>
 	/// Fires when this object has been grabbed
 	/// </summary>
+	/// <param name="grabber" type="Player"></param>
 	[ScriptProperty] public PTSignal<Player> Grabbed { get; private set; } = new();
 	/// <summary>
 	/// Fires when this object has been released

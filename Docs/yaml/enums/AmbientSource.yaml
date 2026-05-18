@@ -1,8 +1,0 @@
-Name: AmbientSource
-InternalName: AmbientSourceEnum
-Description: ""
-Options:
-  - Name: Skybox
-    Description: ""
-  - Name: Color
-    Description: ""

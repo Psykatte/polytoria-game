@@ -66,10 +66,12 @@ public partial class Physical : Dynamic
 	/// <summary>
 	/// Fires when this object has collide with other object
 	/// </summary>
+	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> Touched { get; private set; } = new();
 	/// <summary>
 	/// Fires when this object has stopped colliding with other object
 	/// </summary>
+	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> TouchEnded { get; private set; } = new();
 	/// <summary>
 	/// Fires when cursor is hovered on this object. Only fired locally
@@ -82,6 +84,7 @@ public partial class Physical : Dynamic
 	/// <summary>
 	/// Fires when this object has been clicked by a player
 	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty] public PTSignal<Player> Clicked { get; private set; } = new();
 
 	public event Action<CollisionShape3D>? CollisionShapeAdded;

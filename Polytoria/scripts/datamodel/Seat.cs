@@ -52,10 +52,12 @@ public partial class Seat : Part
 	/// <summary>
 	/// Fires when an occupant sits on the seat.
 	/// </summary>
+	/// <param name="occupant" type="NPC"></param>
 	[ScriptProperty] public PTSignal<NPC> Sat { get; private set; } = new();
 	/// <summary>
 	/// Fires when an occupant leaves the seat.
 	/// </summary>
+	/// <param name="occupant" type="NPC"></param>
 	[ScriptProperty] public PTSignal<NPC> Vacated { get; private set; } = new();
 
 	public override void Init()

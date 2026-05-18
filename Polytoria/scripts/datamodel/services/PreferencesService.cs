@@ -20,6 +20,8 @@ public sealed partial class PreferencesService : Instance
 	/// <summary>
 	/// Fired when a user preference setting is changed.
 	/// </summary>
+	/// <param name="settingName" type="string"></param>
+	/// <param name="setTo" type="any"></param>
 	[ScriptProperty] public PTSignal<string, object> SettingChanged { get; private set; } = new();
 	/// <summary>
 	/// Determines whether the player has photo mode enabled.

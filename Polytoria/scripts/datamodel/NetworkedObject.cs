@@ -249,6 +249,7 @@ public partial class NetworkedObject : IScriptObject
 	/// <summary>
 	/// Fires when a property of this object has changed
 	/// </summary>
+	/// <param name="propertyName" type="string"></param>
 	[ScriptProperty] public PTSignal<string> PropertyChanged { get; private set; } = new();
 	/// <summary>
 	/// Fires when this object has been renamed
