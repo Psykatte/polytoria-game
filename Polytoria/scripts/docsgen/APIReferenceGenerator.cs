@@ -77,10 +77,13 @@ public class APIReferenceGenerator
 					(property.PropertyType.IsGenericType &&
 					 property.PropertyType.GetGenericTypeDefinition().Name.StartsWith(nameof(PTSignal))))
 				{
+					string eventKey = "P:" + type.FullName + "." + property.Name;
+					Dictionary<string, string> eventParamDocs = xmlDocs?.GetMemberParams(eventKey) ?? [];
+
 					ScriptEvent eventDef = new()
 					{
 						Name = property.Name,
-						Description = xmlDocs?.GetMemberSummary("P:" + type.FullName + "." + property.Name),
+						Description = xmlDocs?.GetMemberSummary(eventKey),
 					};
 
 					Type propertyType = property.PropertyType;
@@ -92,16 +95,35 @@ public class APIReferenceGenerator
 						for (int i = 0; i < genericArgs.Length; i++)
 						{
 							string tn = ProcessTypeName(genericArgs[i]) ?? "any";
+							string pName = tn.ToCamelCase();
 							ScriptParameter param = new()
 							{
-								Name = tn.ToCamelCase(),
+								Name = pName,
 								Type = tn,
+								Description = eventParamDocs.TryGetValue(pName, out string? d) ? d : null,
 								IsOptional = false,
 								DefaultValue = null
 							};
 							paramsDef.Add(param);
 						}
 
+						eventDef.Parameters = paramsDef;
+					}
+					else if (eventParamDocs.Count > 0)
+					{
+						// Non-generic PTSignal — adopt hand-documented params verbatim
+						List<ScriptParameter> paramsDef = [];
+						foreach ((string pName, string pDesc) in eventParamDocs)
+						{
+							paramsDef.Add(new ScriptParameter
+							{
+								Name = pName,
+								Type = "any",
+								Description = pDesc,
+								IsOptional = false,
+								DefaultValue = null
+							});
+						}
 						eventDef.Parameters = paramsDef;
 					}
 
@@ -243,12 +265,14 @@ public class APIReferenceGenerator
 			}
 
 			StaticAttribute? staticA = type.GetCustomAttribute<StaticAttribute>();
+			DocCategoryAttribute? categoryA = type.GetCustomAttribute<DocCategoryAttribute>();
 
 			string typeKey = "T:" + type.FullName;
 			ScriptClass typeDef = new()
 			{
 				Name = ProcessClassName(type),
 				BaseType = ((type.BaseType != null && type.BaseType.IsAssignableTo(typeof(Node))) || type.BaseType == typeof(object) || type.BaseType == typeof(ValueType)) ? null : type.BaseType?.Name ?? null,
+				Category = categoryA?.Category,
 				Description = xmlDocs?.GetMemberSummary(typeKey),
 				Remarks = xmlDocs?.GetMemberSection(typeKey, "remarks"),
 				Examples = xmlDocs?.GetMemberExamples(typeKey),
@@ -619,6 +643,7 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? BaseType;
+		public string? Category;
 		public string? Description;
 		public string? Remarks;
 		public List<string>? Examples;
@@ -660,6 +685,18 @@ internal sealed class XmlDocReader
 	}
 
 	public string? GetMemberSummary(string key) => GetMemberSection(key, "summary");
+
+	public Dictionary<string, string> GetMemberParams(string key)
+	{
+		Dictionary<string, string> result = [];
+		if (!_members.TryGetValue(key, out XElement? el)) return result;
+		foreach (XElement p in el.Elements("param"))
+		{
+			string? pName = (string?)p.Attribute("name");
+			if (pName != null) result[pName] = RenderInline(p);
+		}
+		return result;
+	}
 
 	public string? GetMemberSection(string key, string tag)
 	{
