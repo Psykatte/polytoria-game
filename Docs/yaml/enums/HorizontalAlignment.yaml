@@ -1,5 +1,6 @@
 Name: HorizontalAlignment
 InternalName: TextHorizontalAlignmentEnum
+Description: ""
 Options:
   - Name: Left
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: Right
     Description: ""
-Description: ""

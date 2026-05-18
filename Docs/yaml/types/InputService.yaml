@@ -1,225 +1,297 @@
 Name: InputService
+BaseType: Instance
 Description: InputService is a class used for retrieving user input data, such
   as the mouse and keyboard.
-Category: services
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: IsWindowFocused
     Type: boolean
+    Description: Indicates whether the game window is currently focused.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the game window is currently focused.
   - Name: IsTouchscreen
     Type: boolean
+    Description: Indicates whether the input device is a touchscreen.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the input device is a touchscreen.
   - Name: IsGameFocused
     Type: boolean
+    Description: Indicates whether the game is currently focused.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the game is currently focused.
   - Name: IsInputFocused
     Type: boolean
+    Description: Indicates whether an input is currently focused.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether an input is currently focused.
   - Name: IsGamepadConnected
     Type: boolean
+    Description: Indicates whether a gamepad is currently connected.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether a gamepad is currently connected.
   - Name: IsMenuOpened
     Type: boolean
+    Description: Indicates whether the game menu is currently opened.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the game menu is currently opened.
   - Name: CursorLocked
     Type: boolean
+    Description: Determines whether the cursor is currently locked.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the cursor is currently locked.
   - Name: CursorVisible
     Type: boolean
+    Description: Determines whether the cursor is currently visible.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the cursor is currently visible.
   - Name: MousePosition
     Type: Vector2
+    Description: Indicates the current position of the mouse cursor.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates the current position of the mouse cursor.
   - Name: ScreenWidth
     Type: number
+    Description: Indicates the width of the screen.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates the width of the screen.
   - Name: ScreenHeight
     Type: number
+    Description: Indicates the height of the screen.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates the height of the screen.
 Methods:
   - Name: GetMouseWorldPosition
     ReturnType: Vector3
+    Returns: null
+    Description: Returns the 3D world-space position corresponding to the current
+      mouse cursor location.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: ignoreList
         Type: "{ Instance }"
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Returns the 3D world-space position corresponding to the current
-      mouse cursor location.
+    IsSemiStatic: false
   - Name: GetVector2
     ReturnType: InputActionVector2
+    Returns: null
+    Description: Returns the current Vector2 value of the action.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: actionName
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Returns the current Vector2 value of the action.
+    IsSemiStatic: false
   - Name: GetButton
     ReturnType: InputActionButton
+    Returns: null
+    Description: Returns true if the specified button is being held down.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: actionName
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Returns true if the specified button is being held down.
+    IsSemiStatic: false
   - Name: GetAxis
     ReturnType: InputActionAxis
+    Returns: null
+    Description: Returns the value of the specified axis.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: actionName
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Returns the value of the specified axis.
+    IsSemiStatic: false
   - Name: BindButton
     ReturnType: InputActionButton
+    Returns: null
+    Description: Bind a new Button Input Action
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: name
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Bind a new Button Input Action
+    IsSemiStatic: false
   - Name: BindAxis
     ReturnType: InputActionAxis
+    Returns: null
+    Description: Bind new Axis Input Action
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: name
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Bind new Axis Input Action
+    IsSemiStatic: false
   - Name: BindVector2
     ReturnType: InputActionVector2
+    Returns: null
+    Description: Bind new Vector2 Input Action
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: name
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Bind new Vector2 Input Action
+    IsSemiStatic: false
 Events:
   - Name: GameFocused
-    Parameters: null
     Description: Fires when the game has been focused
+    Parameters: null
     Arguments: ""
   - Name: GameUnfocused
-    Parameters: null
     Description: Fires when the game has been unfocused
+    Parameters: null
     Arguments: ""
   - Name: GamepadConnected
-    Parameters: null
     Description: Fires when gamepad is connected
+    Parameters: null
     Arguments: ""
   - Name: GamepadDisconnected
-    Parameters: null
     Description: Fires when gamepad has been disconnected
+    Parameters: null
     Arguments: ""
   - Name: KeyDown
+    Description: Fires when key has been pressed
     Parameters:
-      - Name: keyCodeEnum
-        Type: KeyCodeEnum
+      - Name: keyCode
+        Type: KeyCode
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: boolean
         Type: boolean
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when key has been pressed
     Arguments:
       - Name: keycode
         Type: KeyCodeEnum
       - Name: gameFocused
         Type: boolean
   - Name: KeyUp
+    Description: Fires when key has been released
     Parameters:
-      - Name: keyCodeEnum
-        Type: KeyCodeEnum
+      - Name: keyCode
+        Type: KeyCode
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: boolean
         Type: boolean
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when key has been released
     Arguments:
       - Name: keycode
         Type: KeyCodeEnum
       - Name: gameFocused
         Type: boolean
   - Name: AxisValueChanged
+    Description: Fires when analog input has been changed
     Parameters:
-      - Name: keyCodeEnum
-        Type: KeyCodeEnum
+      - Name: keyCode
+        Type: KeyCode
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: number
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when analog input has been changed
     Arguments:
       - Name: keycode
         Type: KeyCodeEnum
@@ -229,3 +301,4 @@ IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Input
+Category: services

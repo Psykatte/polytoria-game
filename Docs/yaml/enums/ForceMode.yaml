@@ -1,5 +1,6 @@
 Name: ForceMode
 InternalName: ForceModeEnum
+Description: ""
 Options:
   - Name: Force
     Description: ""
@@ -9,4 +10,3 @@ Options:
     Description: ""
   - Name: VelocityChange
     Description: ""
-Description: ""

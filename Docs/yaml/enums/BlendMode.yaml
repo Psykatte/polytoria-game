@@ -1,5 +1,6 @@
 Name: BlendMode
 InternalName: BlendModeEnum
+Description: ""
 Options:
   - Name: Mix
     Description: ""
@@ -9,4 +10,3 @@ Options:
     Description: ""
   - Name: Multiply
     Description: ""
-Description: ""

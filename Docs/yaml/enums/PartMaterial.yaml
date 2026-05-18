@@ -1,5 +1,6 @@
 Name: PartMaterial
 InternalName: PartMaterialEnum
+Description: ""
 Options:
   - Name: SmoothPlastic
     Description: ""
@@ -43,4 +44,3 @@ Options:
     Description: ""
   - Name: Wood
     Description: ""
-Description: ""

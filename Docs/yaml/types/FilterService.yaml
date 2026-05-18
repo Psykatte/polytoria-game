@@ -1,22 +1,31 @@
 Name: FilterService
-Description: FilterService is a service which processes and filter user inputs
-Category: services
 BaseType: Instance
+Description: FilterService is a service which processes and filter user inputs
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Filter
     ReturnType: string
+    Returns: null
+    Description: Filter a string
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: input
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Filter a string
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Filter
+Category: services

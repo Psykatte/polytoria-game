@@ -1,18 +1,23 @@
 Name: IntValue
-Description: IntValue is an object that holds an integer value.
-Category: values
 BaseType: ValueBase
+Description: IntValue is an object that holds an integer value.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Value
     Type: number
+    Description: The value of this object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The value of this object.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: values

@@ -1,149 +1,203 @@
 Name: PolytorianModel
-Description: PolytorianModel is a CharacterModel that represent default Polytoria Character.
-Category: world
 BaseType: CharacterModel
+Description: PolytorianModel is a CharacterModel that represent default Polytoria Character.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: HeadColor
     Type: Color
+    Description: The head color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The head color
   - Name: TorsoColor
     Type: Color
+    Description: The torso color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The torso color
   - Name: LeftArmColor
     Type: Color
+    Description: The left arm color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The left arm color
   - Name: RightArmColor
     Type: Color
+    Description: The right arm color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The right arm color
   - Name: LeftLegColor
     Type: Color
+    Description: The left leg color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The left leg color
   - Name: RightLegColor
     Type: Color
+    Description: The right leg color
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The right leg color
   - Name: FaceImage
     Type: ImageAsset
+    Description: The face image to use
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The face image to use
   - Name: BodyMesh
     Type: MeshAsset
+    Description: The body mesh to use, the mesh must be in Polytoria Body rig format.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The body mesh to use, the mesh must be in Polytoria Body rig format.
   - Name: Ragdolling
     Type: boolean
+    Description: Returns true if this character is ragdolling
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns true if this character is ragdolling
   - Name: RagdollPosition
     Type: Vector3
-    IsAccessibleByScripts: true
-    IsReadOnly: true
-    IsObsolete: false
-    IsStatic: false
     Description: Returns the current global ragdoll position, if ragdoll haven't
       starts yet. Returns `Vector3.Zero`
-  - Name: RagdollRotation
-    Type: Vector3
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
+  - Name: RagdollRotation
+    Type: Vector3
     Description: Returns the current global ragdoll rotation, if ragdoll haven't
       starts yet. Returns `Vector3.Zero`
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
 Methods:
   - Name: StartRagdoll
     ReturnType: nil
+    Returns: null
+    Description: Start ragdoll
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: force
         Type: Vector3
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Start ragdoll
+    IsSemiStatic: false
   - Name: StopRagdoll
     ReturnType: nil
+    Returns: null
+    Description: Stop ragdoll
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Stop ragdoll
+    IsSemiStatic: false
   - Name: GetAttachment
     ReturnType: Dynamic
+    Returns: null
+    Description: Get an attachment from this character.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: attachmentEnum
-        Type: CharacterAttachmentEnum
+        Type: CharacterAttachment
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Get an attachment from this character.
+    IsSemiStatic: false
   - Name: LoadAppearance
     ReturnType: nil
+    Returns: null
+    Description: Load an appearance.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: userID
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: loadTool
         Type: boolean
+        Description: null
         IsOptional: true
         DefaultValue: "True"
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Load an appearance.
+    IsSemiStatic: false
   - Name: ClearAppearance
     ReturnType: nil
+    Returns: null
+    Description: Clear current appearance.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Clear current appearance.
+    IsSemiStatic: false
 Events:
   - Name: RagdollStarted
-    Parameters: null
     Description: Fires when ragdoll has been started
+    Parameters: null
     Arguments: ""
   - Name: RagdollStopped
-    Parameters: null
     Description: Fires when ragdoll has been stopped
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

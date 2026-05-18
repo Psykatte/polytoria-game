@@ -1,54 +1,69 @@
 Name: GradientImageAsset
+BaseType: ImageAsset
 Description: GradientImageAsset is a class that provides gradient image that can
   be dynamically changed.
-Category: assets
-BaseType: ImageAsset
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Series
     Type: ColorSeries
+    Description: The color series for this gradient
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The color series for this gradient
   - Name: Width
     Type: number
+    Description: Determines the width of this image
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the width of this image
   - Name: Height
     Type: number
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines the height of this image
-  - Name: Fill
-    Type: GradientImageFillEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: Fill
+    Type: GradientImageFill
     Description: Determines the fill mode of the gradient
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: FillFrom
     Type: Vector2
+    Description: Determines the starting point of the gradient
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the starting point of the gradient
   - Name: FillTo
     Type: Vector2
+    Description: Determines the ending point of the gradient
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the ending point of the gradient
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: assets

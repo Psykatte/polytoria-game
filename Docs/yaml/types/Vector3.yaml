@@ -1,516 +1,760 @@
 Name: Vector3
-Description: Vector3 is a 3D vector with an x, y and z component.
-Category: types
 BaseType: null
+Description: Vector3 is a 3D vector with an x, y and z component.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: X
     Type: number
+    Description: The X component of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The X component of the vector.
   - Name: Y
     Type: number
+    Description: The Y component of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The Y component of the vector.
   - Name: Z
     Type: number
+    Description: The Z component of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The Z component of the vector.
   - Name: Forward
     Type: Vector3
+    Description: Shorthand for Vector3.New(0, 0, -1).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(0, 0, -1).
   - Name: Back
     Type: Vector3
+    Description: Shorthand for Vector3.New(0, 0, 1).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(0, 0, 1).
   - Name: Down
     Type: Vector3
+    Description: Shorthand for Vector3.New(0, -1, 0).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(0, -1, 0).
   - Name: Left
     Type: Vector3
+    Description: Shorthand for Vector3.New(-1, 0, 0).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(-1, 0, 0).
   - Name: One
     Type: Vector3
+    Description: Shorthand for Vector3.New(1, 1, 1).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(1, 1, 1).
   - Name: Zero
     Type: Vector3
+    Description: Shorthand for Vector3.New(0, 0, 0).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(0, 0, 0).
   - Name: Right
     Type: Vector3
+    Description: Shorthand for Vector3.New(1, 0, 0).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(1, 0, 0).
   - Name: Up
     Type: Vector3
+    Description: Shorthand for Vector3.New(0, 1, 0).
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Shorthand for Vector3.New(0, 1, 0).
   - Name: Magnitude
     Type: number
+    Description: The length of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The length of the vector.
   - Name: Normalized
     Type: Vector3
+    Description: The normalized version of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The normalized version of the vector.
   - Name: SqrMagnitude
     Type: number
+    Description: The squared length of the vector.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The squared length of the vector.
 Methods:
   - Name: New
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 with the given Vector2 components and a z
+      component of 0.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 with the given Vector2 components and a z
-      component of 0.
+    IsSemiStatic: false
   - Name: New
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 with the given Vector2 components and a z
+      component of 0.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: d
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 with the given Vector2 components and a z
-      component of 0.
+    IsSemiStatic: false
   - Name: New
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 with the given Vector2 components and a z
+      component of 0.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: x
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: y
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 with the given Vector2 components and a z
-      component of 0.
+    IsSemiStatic: false
   - Name: New
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 with the given Vector2 components and a z
+      component of 0.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: x
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: y
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: z
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 with the given Vector2 components and a z
-      component of 0.
+    IsSemiStatic: false
   - Name: New
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 with the given Vector2 components and a z
+      component of 0.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: v
         Type: Vector2
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 with the given Vector2 components and a z
-      component of 0.
+    IsSemiStatic: false
   - Name: Angle
     ReturnType: number
+    Returns: null
+    Description: Returns the angle in degrees between from and to.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: from
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: to
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the angle in degrees between from and to.
+    IsSemiStatic: true
   - Name: Cross
     ReturnType: Vector3
+    Returns: null
+    Description: Returns the cross product of lhs and rhs.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: lhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: rhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the cross product of lhs and rhs.
+    IsSemiStatic: true
   - Name: Distance
     ReturnType: number
+    Returns: null
+    Description: Returns the distance between a and b.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: a
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: b
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the distance between a and b.
+    IsSemiStatic: true
   - Name: Dot
     ReturnType: number
+    Returns: null
+    Description: Returns the dot product of lhs and rhs.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: lhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: rhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the dot product of lhs and rhs.
+    IsSemiStatic: true
   - Name: Lerp
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 that is the linear interpolation between a
+      and b by t.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: a
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: b
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: t
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 that is the linear interpolation between a
-      and b by t.
+    IsSemiStatic: true
   - Name: Max
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a vector that is made from the largest components of two vectors.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: lhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: rhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a vector that is made from the largest components of two vectors.
+    IsSemiStatic: true
   - Name: Min
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a vector that is made from the smallest components of two vectors.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: lhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: rhs
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a vector that is made from the smallest components of two vectors.
+    IsSemiStatic: true
   - Name: MoveTowards
     ReturnType: Vector3
+    Returns: null
+    Description: Calculate a position between the points specified by current and
+      target, moving no farther than the distance specified by maxDistanceDelta.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: current
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: target
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: maxDistanceDelta
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Calculate a position between the points specified by current and
-      target, moving no farther than the distance specified by maxDistanceDelta.
+    IsSemiStatic: true
   - Name: Normalize
     ReturnType: Vector3
+    Returns: null
+    Description: Returns a new Vector3 that is the normalized version of the given vector.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: value
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns a new Vector3 that is the normalized version of the given vector.
+    IsSemiStatic: true
   - Name: Project
     ReturnType: Vector3
+    Returns: null
+    Description: Returns the projection of a vector onto another vector.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: vector
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: onNormal
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the projection of a vector onto another vector.
+    IsSemiStatic: true
+  - Name: ProjectOnPlane
+    ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
+    Parameters:
+      - Name: vector
+        Type: Vector3
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: planeNormal
+        Type: Vector3
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    IsSemiStatic: true
   - Name: Reflect
     ReturnType: Vector3
+    Returns: null
+    Description: Returns the reflection of a vector off the plane defined by a normal.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: inDirection
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: inNormal
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the reflection of a vector off the plane defined by a normal.
+    IsSemiStatic: true
   - Name: SignedAngle
     ReturnType: number
+    Returns: null
+    Description: Returns the signed angle in degrees between from and to.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: from
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: to
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: axis
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Returns the signed angle in degrees between from and to.
+    IsSemiStatic: true
   - Name: Slerp
     ReturnType: Vector3
+    Returns: null
+    Description: Spherically interpolates between two vectors.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: a
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: b
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: t
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Spherically interpolates between two vectors.
+    IsSemiStatic: true
   - Name: Floor
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Ceil
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Round
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Abs
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Sign
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Rotated
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: axis
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: angle
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: LimitLength
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: length
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: Clamp
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: min
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: max
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: RadToDeg
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
   - Name: DegToRad
     ReturnType: Vector3
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: val
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Missing Documentation
+    IsSemiStatic: true
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: types

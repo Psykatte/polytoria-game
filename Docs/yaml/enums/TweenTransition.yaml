@@ -1,5 +1,6 @@
 Name: TweenTransition
 InternalName: TweenTransitionEnum
+Description: ""
 Options:
   - Name: Linear
     Description: ""
@@ -25,4 +26,3 @@ Options:
     Description: ""
   - Name: Spring
     Description: ""
-Description: ""

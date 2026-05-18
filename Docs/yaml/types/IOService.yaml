@@ -1,93 +1,139 @@
 Name: IOService
+BaseType: Instance
 Description: Class for interacting with IO in project, only usable with scripts
   with the respective permission.
-Category: services
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: ReadBytesFromPath
     ReturnType: buffer
+    Returns: null
+    Description: Reads the buffer file from the given path.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: path
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Reads the buffer file from the given path.
+    IsSemiStatic: false
   - Name: ReadTextFromPath
     ReturnType: string
+    Returns: null
+    Description: Reads the text file data from the given path.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: path
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Reads the text file data from the given path.
+    IsSemiStatic: false
   - Name: WriteBytesToPath
     ReturnType: nil
+    Returns: null
+    Description: Writes buffer data to the file in the project.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: path
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: bytes
         Type: buffer
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Writes buffer data to the file in the project.
+    IsSemiStatic: false
   - Name: WriteTextToPath
     ReturnType: nil
+    Returns: null
+    Description: Writes the text file data to the path.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: path
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: txt
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Writes the text file data to the path.
+    IsSemiStatic: false
   - Name: ListProjectFiles
     ReturnType: "{ string }"
+    Returns: null
+    Description: Lists all files in the project.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Lists all files in the project.
+    IsSemiStatic: false
   - Name: ReadBytesFromID
     ReturnType: buffer
+    Returns: null
+    Description: Reads the file data from the linked ID.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: id
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Reads the file data from the linked ID.
+    IsSemiStatic: false
   - Name: GetPathFromID
     ReturnType: string
+    Returns: null
+    Description: Gets the file path from the linked ID.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: indexID
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Gets the file path from the linked ID.
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: IO
+Category: services

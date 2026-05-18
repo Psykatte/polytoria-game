@@ -1,75 +1,96 @@
 Name: CreatorInterface
+BaseType: null
 Description: CreatorInterface represent the user interface of the creator. This
   class is only available in the creator.
-Category: addons
-BaseType: null
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: ToolMode
-    Type: ToolModeEnum
+    Type: CreatorToolMode
+    Description: Returns the target tool mode
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns the target tool mode
   - Name: TargetPartColor
     Type: Color
-    IsAccessibleByScripts: true
-    IsReadOnly: true
-    IsObsolete: false
-    IsStatic: false
     Description: Returns the target part color
-  - Name: TargetPartMaterial
-    Type: PartMaterialEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
+  - Name: TargetPartMaterial
+    Type: PartMaterial
     Description: Returns the target part material
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
   - Name: MoveSnapEnabled
     Type: boolean
+    Description: Returns the move snapping value
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns the move snapping value
   - Name: MoveSnapping
     Type: number
+    Description: Returns whenever the move snapping is enabled by the user
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns whenever the move snapping is enabled by the user
   - Name: UserMoveSnapping
     Type: number
+    Description: Returns the move snapping value defined by the user
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns the move snapping value defined by the user
   - Name: RotateSnapEnabled
     Type: boolean
+    Description: Returns whenever the rotate snapping is enabled by the user
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns whenever the rotate snapping is enabled by the user
   - Name: RotateSnapping
     Type: number
+    Description: Returns the rotate snapping value
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns the rotate snapping value
   - Name: UserRotateSnapping
     Type: number
+    Description: Returns the rotate snapping value defined by the user
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns the rotate snapping value defined by the user
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: addons

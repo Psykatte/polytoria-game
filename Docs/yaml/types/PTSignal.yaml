@@ -1,51 +1,77 @@
 Name: PTSignal
-Description: A signal which scripts can subscribe to
-Category: scripting
 BaseType: null
+Description: A signal which scripts can subscribe to
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Connect
     ReturnType: PTSignalConnection
+    Returns: null
+    Description: Connect a function to this signal
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: action
         Type: () -> ()
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Connect a function to this signal
+    IsSemiStatic: false
   - Name: Disconnect
     ReturnType: nil
+    Returns: null
+    Description: Disconnect a function from this signal
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: action
         Type: () -> ()
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Disconnect a function from this signal
+    IsSemiStatic: false
   - Name: Wait
     ReturnType: any
+    Returns: null
+    Description: Wait until this signal's emitted
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Wait until this signal's emitted
+    IsSemiStatic: false
   - Name: Once
     ReturnType: nil
+    Returns: null
+    Description: Listen to this signal only once
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: action
         Type: () -> ()
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Listen to this signal only once
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: scripting

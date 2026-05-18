@@ -1,140 +1,173 @@
 Name: UIField
-Description: UIField is the abstract base class of all UI classes.
-Category: ui
 BaseType: Instance
+Description: UIField is the abstract base class of all UI classes.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: PositionOffset
     Type: Vector2
+    Description: The offset of the UI element in pixels.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The offset of the UI element in pixels.
   - Name: PositionRelative
     Type: Vector2
+    Description: The position of the UI element relative to its parent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The position of the UI element relative to its parent.
   - Name: Rotation
     Type: number
+    Description: The rotation of the UI element in degrees.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The rotation of the UI element in degrees.
   - Name: SizeOffset
     Type: Vector2
+    Description: The size offset of the UI element in pixels.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The size offset of the UI element in pixels.
   - Name: SizeRelative
     Type: Vector2
+    Description: The size of the UI element relative to its parent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The size of the UI element relative to its parent.
   - Name: ClipDescendants
     Type: boolean
+    Description: Determines whether the UI element clips its descendants.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the UI element clips its descendants.
   - Name: PivotPoint
     Type: Vector2
+    Description: The pivot point of the UI element.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The pivot point of the UI element.
   - Name: Scale
     Type: Vector2
+    Description: The scale of the UI element.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The scale of the UI element.
   - Name: Visible
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines whether the UI element is visible.
-  - Name: MaskMode
-    Type: MaskModeEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: MaskMode
+    Type: UIMaskMode
     Description: Determines the mask mode of the UI element.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: IgnoreMouse
     Type: boolean
+    Description: Determines if the UI field should be ignored by mouse input
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines if the UI field should be ignored by mouse input
   - Name: ZIndex
     Type: number
+    Description: Determines the ZIndex value of this UI field.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the ZIndex value of this UI field.
   - Name: AbsolutePosition
     Type: Vector2
+    Description: The absolute position of the UI element in pixels.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The absolute position of the UI element in pixels.
   - Name: AbsoluteSize
     Type: Vector2
+    Description: The absolute size of the UI element in pixels.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The absolute size of the UI element in pixels.
   - Name: IsVisibleInTree
     Type: boolean
+    Description: Indicates whether the UI element is visible in the UI hierarchy.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the UI element is visible in the UI hierarchy.
 Methods: []
 Events:
   - Name: MouseEnter
-    Parameters: null
     Description: Fires when user's cursor hovers on this UI
+    Parameters: null
     Arguments: ""
   - Name: MouseExit
-    Parameters: null
     Description: Fires when user's cursor leaves this UI
+    Parameters: null
     Arguments: ""
   - Name: MouseDown
-    Parameters: null
     Description: Fires when user hold down mouse on this UI
+    Parameters: null
     Arguments: ""
   - Name: MouseUp
-    Parameters: null
     Description: Fires when user release mouse on this UI
+    Parameters: null
     Arguments: ""
   - Name: TransformChanged
-    Parameters: null
     Description: Fires when this UI transform has been changed
+    Parameters: null
     Arguments: ""
   - Name: VisibilityChanged
-    Parameters: null
     Description: Fires when this UI visibility has been changed
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: ui

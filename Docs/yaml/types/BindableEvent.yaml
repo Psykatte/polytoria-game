@@ -1,25 +1,33 @@
 Name: BindableEvent
+BaseType: Instance
 Description: BindableEvent is an event that can be called to communicate between
   scripts in the same boundary.
-Category: networking
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Invoke
     ReturnType: nil
+    Returns: null
+    Description: Invoke this event with parameters
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: par
         Type: any
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Invoke this event with parameters
+    IsSemiStatic: false
 Events:
   - Name: Invoked
-    Parameters: null
     Description: Fires when this event has been invoked
+    Parameters: null
     Arguments:
       Name: ...
       Type: any
@@ -27,3 +35,4 @@ IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: networking

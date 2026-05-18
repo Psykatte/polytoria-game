@@ -1,7 +1,9 @@
 Name: Folder
-Description: Folder is similar to a model, used for storing objects in the place.
-Category: world
 BaseType: Instance
+Description: Folder is similar to a model, used for storing objects in the place.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -9,3 +11,4 @@ IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

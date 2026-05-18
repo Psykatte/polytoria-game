@@ -1,8 +1,10 @@
 Name: UIFlowLayout
+BaseType: UIHVLayout
 Description: UIFlowLayout is a class that aligns all of it's children
   horizontally or vertically and wraps them around at the borders.
-Category: ui
-BaseType: UIHVLayout
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -10,3 +12,4 @@ IsStatic: false
 IsAbstract: true
 IsInstantiable: false
 StaticAlias: null
+Category: ui

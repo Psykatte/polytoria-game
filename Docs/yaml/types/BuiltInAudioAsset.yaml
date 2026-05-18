@@ -1,18 +1,23 @@
 Name: BuiltInAudioAsset
-Description: Audio asset that's built-in with the client
-Category: assets
 BaseType: AudioAsset
+Description: Audio asset that's built-in with the client
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: AudioPreset
-    Type: BuiltInAudioPresetEnum
+    Type: BuiltInAudioPreset
+    Description: The target audio to use
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The target audio to use
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: assets

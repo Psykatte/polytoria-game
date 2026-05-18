@@ -1,54 +1,74 @@
 Name: NumberRange
+BaseType: null
 Description: NumberRange is a data type that represents a range between two
   numbers, defined by a minimum and maximum value.
-Category: types
-BaseType: null
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Min
     Type: number
+    Description: Determines the minimum value of the range.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the minimum value of the range.
   - Name: Max
     Type: number
+    Description: Determines the maximum value of the range.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the maximum value of the range.
 Methods:
   - Name: New
     ReturnType: NumberRange
+    Returns: null
+    Description: Creates a new NumberRange object with the specified minimum and
+      maximum values.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: from
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: to
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: true
-    Description: Creates a new NumberRange object with the specified minimum and
-      maximum values.
+    IsSemiStatic: false
   - Name: Lerp
     ReturnType: number
+    Returns: null
+    Description: Linearly interpolates between the minimum and maximum values of the
+      range based on the parameter t, which is typically between 0 and 1.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: t
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Linearly interpolates between the minimum and maximum values of the
-      range based on the parameter t, which is typically between 0 and 1.
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: types

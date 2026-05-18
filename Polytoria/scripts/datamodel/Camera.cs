@@ -14,6 +14,9 @@ using static Polytoria.Datamodel.Environment;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Represents the local player's camera. Controls perspective, follow mode, field of view, and raycasting from screen space.
+/// </summary>
 [Instantiable]
 public sealed partial class Camera : Dynamic
 {
@@ -76,6 +79,12 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The camera's field of view in degrees.
+	/// </summary>
+	/// <remarks>
+	/// Only applies when the camera is not in orthographic mode. Typical values range from 60 to 120.
+	/// </remarks>
 	[Editable, ScriptProperty, DefaultValue(75)]
 	public float FOV
 	{
@@ -848,6 +857,20 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Checks whether a world-space position is visible within the camera's view frustum.
+	/// </summary>
+	/// <param name="pos">The world-space position to test.</param>
+	/// <returns>
+	/// <c>true</c> if <c>pos</c> lies within the camera frustum, <c>false</c> otherwise.
+	/// </returns>
+	/// <example>
+	/// ```lua
+	/// if Camera.IsPositionInView(part.Position) then
+	///     print("Part is on screen")
+	/// end
+	/// ```
+	/// </example>
 	[ScriptMethod]
 	public bool IsPositionInView(Vector3 pos)
 	{

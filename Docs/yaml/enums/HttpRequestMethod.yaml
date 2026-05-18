@@ -1,5 +1,6 @@
 Name: HttpRequestMethod
 InternalName: HttpRequestMethodEnum
+Description: ""
 Options:
   - Name: Get
     Description: ""
@@ -11,4 +12,3 @@ Options:
     Description: ""
   - Name: Patch
     Description: ""
-Description: ""

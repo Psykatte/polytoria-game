@@ -1,7 +1,9 @@
 Name: FontAsset
-Description: Base class for font assets
-Category: assets
 BaseType: ResourceAsset
+Description: Base class for font assets
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -9,3 +11,4 @@ IsStatic: false
 IsAbstract: true
 IsInstantiable: false
 StaticAlias: null
+Category: assets

@@ -1,5 +1,6 @@
 Name: MeshAnimationType
 InternalName: MeshAnimationTypeEnum
+Description: ""
 Options:
   - Name: Normal
     Description: ""
@@ -11,4 +12,3 @@ Options:
     Description: ""
   - Name: OneShotImpluse
     Description: ""
-Description: ""

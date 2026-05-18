@@ -1,7 +1,9 @@
 Name: UIViewport
-Description: UIViewport is a UI object that allows displaying 3D content on 2D UI
-Category: ui
 BaseType: UIField
+Description: UIViewport is a UI object that allows displaying 3D content on 2D UI
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -9,3 +11,4 @@ IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: ui

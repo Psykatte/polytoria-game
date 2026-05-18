@@ -1,8 +1,10 @@
 Name: Model
+BaseType: Dynamic
 Description: Model is an instance that can hold other instances, and which
   transform affects its children.
-Category: world
-BaseType: Dynamic
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -10,3 +12,4 @@ IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

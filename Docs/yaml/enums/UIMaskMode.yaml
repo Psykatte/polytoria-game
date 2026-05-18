@@ -1,5 +1,6 @@
 Name: UIMaskMode
 InternalName: MaskModeEnum
+Description: ""
 Options:
   - Name: Disabled
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: ClipAndDraw
     Description: ""
-Description: ""

@@ -1,5 +1,6 @@
 Name: TweenDirection
 InternalName: TweenDirectionEnum
+Description: ""
 Options:
   - Name: In
     Description: ""
@@ -9,4 +10,3 @@ Options:
     Description: ""
   - Name: OutIn
     Description: ""
-Description: ""

@@ -1,5 +1,6 @@
 Name: MeshCollisionType
 InternalName: CollisionTypeEnum
+Description: ""
 Options:
   - Name: Bounds
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: Exact
     Description: ""
-Description: ""

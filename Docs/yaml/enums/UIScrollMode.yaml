@@ -1,5 +1,6 @@
 Name: UIScrollMode
 InternalName: ScrollModeEnum
+Description: ""
 Options:
   - Name: Disabled
     Description: ""
@@ -9,4 +10,3 @@ Options:
     Description: ""
   - Name: NeverShow
     Description: ""
-Description: ""

@@ -1,52 +1,78 @@
 Name: ScriptSharedTable
+BaseType: null
 Description: Shared table of object. This class provides a table which any
   scripts can modify.
-Category: scripting
-BaseType: null
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Clear
     ReturnType: nil
+    Returns: null
+    Description: Clear the shared table
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Clear the shared table
+    IsSemiStatic: false
   - Name: Remove
     ReturnType: nil
+    Returns: null
+    Description: Remove the key from shared table
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: key
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Remove the key from shared table
+    IsSemiStatic: false
   - Name: ClearPrefix
     ReturnType: nil
+    Returns: null
+    Description: Clear all keys with the prefix
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: prefix
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Clear all keys with the prefix
+    IsSemiStatic: false
   - Name: ClearSuffix
     ReturnType: nil
+    Returns: null
+    Description: Clear all keys with the suffix
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: suffix
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Clear all keys with the suffix
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: scripting

@@ -1,39 +1,68 @@
 Name: Light
-Description: Light is an abstract base class for all light objects in the world.
-Category: misc
 BaseType: Dynamic
+Description: Light is an abstract base class for all light objects in the world.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
+  - Name: Enabled
+    Type: boolean
+    Description: Missing Documentation
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: Color
     Type: Color
+    Description: Sets the color of the light.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Sets the color of the light.
   - Name: Brightness
     Type: number
+    Description: Sets the brightness of the light.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Sets the brightness of the light.
+  - Name: LightSize
+    Type: number
+    Description: Missing Documentation
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: Specular
     Type: number
+    Description: Sets the specular intensity of the light.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Sets the specular intensity of the light.
   - Name: Shadows
     Type: boolean
+    Description: Enables or disables shadows cast by the light.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Enables or disables shadows cast by the light.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: true
 IsInstantiable: false
 StaticAlias: null
+Category: misc

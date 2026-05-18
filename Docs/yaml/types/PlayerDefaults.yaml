@@ -1,147 +1,191 @@
 Name: PlayerDefaults
+BaseType: HiddenBase
 Description: PlayerDefaults is a service used for storing the default values of
   the  Player when created.
-Category: game
-BaseType: HiddenBase
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: MaxHealth
     Type: number
+    Description: The default maximum health of the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default maximum health of the player.
   - Name: WalkSpeed
     Type: number
+    Description: The default walking speed of the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default walking speed of the player.
   - Name: SprintSpeed
     Type: number
+    Description: The default sprinting speed of the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default sprinting speed of the player.
   - Name: JumpPower
     Type: number
+    Description: The default jump power of the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default jump power of the player.
   - Name: RespawnTime
     Type: number
+    Description: The default time the player has to wait before respawning.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default time the player has to wait before respawning.
   - Name: ChatColor
     Type: Color
+    Description: The default chat color of the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The default chat color of the player.
   - Name: CanMove
     Type: boolean
+    Description: Determines whether the player can move by default.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the player can move by default.
   - Name: StaminaBurn
     Type: number
+    Description: The rate at which the player's stamina depletes while sprinting.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The rate at which the player's stamina depletes while sprinting.
   - Name: UseStamina
     Type: boolean
+    Description: Determines whether the player uses stamina.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the player uses stamina.
   - Name: StaminaEnabled
     Type: boolean
+    Description: Legacy value for stamina.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: false
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Legacy value for stamina.
   - Name: Stamina
     Type: number
+    Description: Determines the default stamina of players.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the default stamina of players.
   - Name: MaxStamina
     Type: number
+    Description: Determines the default maximum stamina of players.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the default maximum stamina of players.
   - Name: StaminaRegen
     Type: number
+    Description: Determines the rate at which the player's stamina regenerates.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the rate at which the player's stamina regenerates.
   - Name: UseHeadTurning
     Type: boolean
+    Description: Determines whether the player uses head turning by default.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the player uses head turning by default.
   - Name: UseBubbleChat
     Type: boolean
+    Description: Determines whether the player uses bubble chat by default.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the player uses bubble chat by default.
   - Name: AutoLoadAppearance
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines whether the player's appearance is automatically loaded
       by default.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: LoadAppearanceTools
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines whether the player's equippable appearance tool should
       be loaded.
-  - Name: MovementMode
-    Type: PlayerMovementModeEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: MovementMode
+    Type: PlayerMovementMode
     Description: Determine the movement mode for the player.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods:
   - Name: LoadDefaults
     ReturnType: nil
+    Returns: null
+    Description: Resets the specified player back to their default values.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Resets the specified player back to their default values.
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: PlayerDefaults
+Category: game

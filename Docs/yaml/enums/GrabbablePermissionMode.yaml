@@ -1,5 +1,6 @@
 Name: GrabbablePermissionMode
 InternalName: GrabbablePermissionModeEnum
+Description: ""
 Options:
   - Name: None
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: Scripted
     Description: ""
-Description: ""

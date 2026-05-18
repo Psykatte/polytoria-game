@@ -1,209 +1,296 @@
 Name: HttpService
-Description: Http is a service used for HTTP communications and requests.
-Category: services
 BaseType: Instance
+Description: Http is a service used for HTTP communications and requests.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: RequestAsync
     ReturnType: HttpResponseData
+    Returns: null
+    Description: Send a request using the `HttpRequestData`
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: data
         Type: HttpRequestData
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Send a request using the `HttpRequestData`
+    IsSemiStatic: false
   - Name: GetAsync
     ReturnType: string
+    Returns: null
+    Description: Sends a GET request to the specified URL.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Sends a GET request to the specified URL.
+    IsSemiStatic: false
   - Name: PostAsync
     ReturnType: string
+    Returns: null
+    Description: Sends a POST request to the specified URL.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: body
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Sends a POST request to the specified URL.
+    IsSemiStatic: false
   - Name: PutAsync
     ReturnType: string
+    Returns: null
+    Description: Sends a PUT request to the specified URL.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: body
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Sends a PUT request to the specified URL.
+    IsSemiStatic: false
   - Name: DeleteAsync
     ReturnType: string
+    Returns: null
+    Description: Sends a DELETE request to the specified url.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: body
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Sends a DELETE request to the specified url.
+    IsSemiStatic: false
   - Name: PatchAsync
     ReturnType: string
+    Returns: null
+    Description: Sends a PATCH request to the specified url.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: body
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Sends a PATCH request to the specified url.
+    IsSemiStatic: false
   - Name: GetBufferAsync
     ReturnType: buffer
-    Parameters:
-      - Name: url
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: headers
-        Type: table
-        IsOptional: true
-        DefaultValue: null
-    IsAsync: true
-    IsObsolete: false
-    IsStatic: false
+    Returns: null
     Description: Sends a GET request to the specified url, and return the response
       as buffer.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
+    Parameters:
+      - Name: url
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: headers
+        Type: table
+        Description: null
+        IsOptional: true
+        DefaultValue: null
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    IsSemiStatic: false
   - Name: PostBufferAsync
     ReturnType: buffer
-    Parameters:
-      - Name: url
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: body
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: headers
-        Type: table
-        IsOptional: true
-        DefaultValue: null
-    IsAsync: true
-    IsObsolete: false
-    IsStatic: false
+    Returns: null
     Description: Sends a POST request to the specified url, and return the response
       as buffer.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
+    Parameters:
+      - Name: url
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: body
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: headers
+        Type: table
+        Description: null
+        IsOptional: true
+        DefaultValue: null
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    IsSemiStatic: false
   - Name: PutBufferAsync
     ReturnType: buffer
-    Parameters:
-      - Name: url
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: body
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: headers
-        Type: table
-        IsOptional: true
-        DefaultValue: null
-    IsAsync: true
-    IsObsolete: false
-    IsStatic: false
+    Returns: null
     Description: Sends a PUT request to the specified url, and return the response
       as buffer.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
+    Parameters:
+      - Name: url
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: body
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: headers
+        Type: table
+        Description: null
+        IsOptional: true
+        DefaultValue: null
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    IsSemiStatic: false
   - Name: DeleteBufferAsync
     ReturnType: buffer
-    Parameters:
-      - Name: url
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: body
-        Type: string
-        IsOptional: false
-        DefaultValue: ""
-      - Name: headers
-        Type: table
-        IsOptional: true
-        DefaultValue: null
-    IsAsync: true
-    IsObsolete: false
-    IsStatic: false
+    Returns: null
     Description: Sends a DELETE request to the specified url, and return the
       response as buffer.
-  - Name: PatchBufferAsync
-    ReturnType: buffer
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: url
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: body
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: headers
         Type: table
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: true
     IsObsolete: false
     IsStatic: false
+    IsSemiStatic: false
+  - Name: PatchBufferAsync
+    ReturnType: buffer
+    Returns: null
     Description: Sends a PATCH request to the specified url, and return the response
       as buffer.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
+    Parameters:
+      - Name: url
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: body
+        Type: string
+        Description: null
+        IsOptional: false
+        DefaultValue: ""
+      - Name: headers
+        Type: table
+        Description: null
+        IsOptional: true
+        DefaultValue: null
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Http
+Category: services

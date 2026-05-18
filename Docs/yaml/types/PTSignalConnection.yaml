@@ -1,18 +1,26 @@
 Name: PTSignalConnection
-Description: PTSignalConnection represents a signal for this connection
-Category: scripting
 BaseType: null
+Description: PTSignalConnection represents a signal for this connection
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Disconnect
     ReturnType: nil
+    Returns: null
+    Description: Disconnect this signal
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Disconnect this signal
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: scripting

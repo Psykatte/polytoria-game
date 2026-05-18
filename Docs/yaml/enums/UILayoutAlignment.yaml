@@ -1,5 +1,6 @@
 Name: UILayoutAlignment
 InternalName: UILayoutAlignmentEnum
+Description: ""
 Options:
   - Name: Start
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: End
     Description: ""
-Description: ""

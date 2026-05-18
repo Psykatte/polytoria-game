@@ -1,5 +1,6 @@
 Name: ClientPlatform
 InternalName: ClientPlatformEnum
+Description: ""
 Options:
   - Name: Desktop
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: VR
     Description: ""
-Description: ""

@@ -1,7 +1,9 @@
 Name: LightingModifier
-Description: Base class for lighting modifiers
-Category: misc
 BaseType: Instance
+Description: Base class for lighting modifiers
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -9,3 +11,4 @@ IsStatic: false
 IsAbstract: true
 IsInstantiable: false
 StaticAlias: null
+Category: misc

@@ -1,25 +1,32 @@
 Name: PTImageAsset
-Description: An image asset that's loaded from Polytoria.
-Category: assets
 BaseType: ImageAsset
+Description: An image asset that's loaded from Polytoria.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: ImageID
     Type: number
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Asset ID of this image
-  - Name: ImageType
-    Type: ImageTypeEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: ImageType
+    Type: ImageType
     Description: Image type of this image
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: assets

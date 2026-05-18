@@ -1,75 +1,100 @@
 Name: Tool
-Description: Tools are objects that can be held by the player.
-Category: world
 BaseType: RigidBody
+Description: Tools are objects that can be held by the player.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Droppable
     Type: boolean
+    Description: Determines whether the tool can be dropped by the player.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the tool can be dropped by the player.
   - Name: IconImage
     Type: ImageAsset
+    Description: The icon for this tool, appears in inventory.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The icon for this tool, appears in inventory.
   - Name: Holder
     Type: NPC
+    Description: Determines who is currently holding this tool.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines who is currently holding this tool.
 Methods:
   - Name: Activate
     ReturnType: nil
+    Returns: null
+    Description: Activates the tool, similarly to pressing the mouse button.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Activates the tool, similarly to pressing the mouse button.
+    IsSemiStatic: false
   - Name: Deactivate
     ReturnType: nil
+    Returns: null
+    Description: Deactivates the tool, similarly to releasing the mouse button.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Deactivates the tool, similarly to releasing the mouse button.
+    IsSemiStatic: false
   - Name: PlayAnimation
     ReturnType: nil
+    Returns: null
+    Description: Plays the specified animation on the holder of the tool.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: animationName
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Plays the specified animation on the holder of the tool.
+    IsSemiStatic: false
 Events:
   - Name: Equipped
-    Parameters: null
     Description: Fires when this tool has been equipped
+    Parameters: null
     Arguments: ""
   - Name: Unequipped
-    Parameters: null
     Description: Fires when this tool has been unequipped
+    Parameters: null
     Arguments: ""
   - Name: Activated
-    Parameters: null
     Description: Fires when this tool has been activated (via mouse press or
       `Tool:Activate`)
+    Parameters: null
     Arguments: ""
   - Name: Deactivated
-    Parameters: null
     Description: Fires when this tool has been deactivated (via mouse release or
       `Tool:Deactivate`)
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

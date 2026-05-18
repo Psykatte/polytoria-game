@@ -124,6 +124,25 @@ for (const yamlFile of yamlFiles) {
     appendLine(c.Description)
     appendLine("")
 
+    if (c.Remarks) {
+        appendLine('!!! note "Remarks"')
+        appendLine("    " + c.Remarks.replace(/\n/g, "\n    "))
+        appendLine("")
+    }
+
+    if (c.Examples && c.Examples.length > 0) {
+        for (const ex of c.Examples) {
+            appendLine('!!! example "Example"')
+            appendLine("    " + ex.replace(/\n/g, "\n    "))
+            appendLine("")
+        }
+    }
+
+    if (c.SeeAlso && c.SeeAlso.length > 0) {
+        appendLine("**See also:** " + c.SeeAlso.map(s => `[${s}](/api/types/${s}/)`).join(", "))
+        appendLine("")
+    }
+
     if (c.IsStatic) {
         appendLine("")
         appendLine(`{{ staticclass(${c.StaticAlias ? `"${c.StaticAlias}"` : ""}) }}`)
@@ -153,6 +172,15 @@ for (const yamlFile of yamlFiles) {
         appendLine(``)
         appendLine(prop.Description || "Missing documentation!")
         appendLine(``)
+        if (prop.Remarks) {
+            appendLine('!!! note "Remarks"')
+            appendLine("    " + prop.Remarks.replace(/\n/g, "\n    "))
+            appendLine(``)
+        }
+        if (prop.SeeAlso && prop.SeeAlso.length > 0) {
+            appendLine("**See also:** " + prop.SeeAlso.map(s => `[${s}](/api/types/${s}/)`).join(", "))
+            appendLine(``)
+        }
     }
 
     const methods = c.Methods ? (Array.isArray(c.Methods) ? c.Methods : [c.Methods]) : [];
@@ -175,6 +203,26 @@ for (const yamlFile of yamlFiles) {
         appendLine(``)
         appendLine(m.Description || "Missing documentation!")
         appendLine(``)
+        if (m.Returns) {
+            appendLine(`!!! quote "**Returns:** <span style="font-weight: normal;">${m.Returns}</span>"`)
+            appendLine(``)
+        }
+        if (m.Remarks) {
+            appendLine('!!! note "Remarks"')
+            appendLine("    " + m.Remarks.replace(/\n/g, "\n    "))
+            appendLine(``)
+        }
+        if (m.Examples && m.Examples.length > 0) {
+            for (const ex of m.Examples) {
+                appendLine('!!! example "Example"')
+                appendLine("    " + ex.replace(/\n/g, "\n    "))
+                appendLine(``)
+            }
+        }
+        if (m.SeeAlso && m.SeeAlso.length > 0) {
+            appendLine("**See also:** " + m.SeeAlso.map(s => `[${s}](/api/types/${s}/)`).join(", "))
+            appendLine(``)
+        }
     }
 
     const events = c.Events ? (Array.isArray(c.Events) ? c.Events : [c.Events]) : [];

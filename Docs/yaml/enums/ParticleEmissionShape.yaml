@@ -1,5 +1,6 @@
 Name: ParticleEmissionShape
 InternalName: ParticleEmissionShapeEnum
+Description: ""
 Options:
   - Name: Point
     Description: ""
@@ -11,4 +12,3 @@ Options:
     Description: ""
   - Name: Ring
     Description: ""
-Description: ""

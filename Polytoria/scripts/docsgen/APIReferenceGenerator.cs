@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Polytoria.DocsGen.APIReferenceGenerator;
 
 namespace Polytoria.DocsGen;
@@ -33,6 +34,13 @@ public class APIReferenceGenerator
 		List<ScriptEnum> enums = [];
 		List<Type> missingEnums = [];
 		Dictionary<Type, ScriptClass> classMap = [];
+
+		XmlDocReader? xmlDocs = null;
+		if (FileAccess.FileExists("res://Polytoria.xml"))
+		{
+			using var docFile = FileAccess.Open("res://Polytoria.xml", FileAccess.ModeFlags.Read);
+			xmlDocs = new XmlDocReader(docFile.GetAsText());
+		}
 
 		foreach (Type type in types)
 		{
@@ -72,6 +80,7 @@ public class APIReferenceGenerator
 					ScriptEvent eventDef = new()
 					{
 						Name = property.Name,
+						Description = xmlDocs?.GetMemberSummary("P:" + type.FullName + "." + property.Name),
 					};
 
 					Type propertyType = property.PropertyType;
@@ -100,10 +109,14 @@ public class APIReferenceGenerator
 				}
 				else
 				{
+					string propKey = "P:" + type.FullName + "." + property.Name;
 					ScriptProperty propDef = new()
 					{
 						Name = property.Name,
 						Type = ProcessTypeName(property.PropertyType),
+						Description = xmlDocs?.GetMemberSummary(propKey),
+						Remarks = xmlDocs?.GetMemberSection(propKey, "remarks"),
+						SeeAlso = xmlDocs?.GetMemberSeeAlso(propKey),
 						IsAccessibleByScripts = !(editableAttribute != null && propAttribute == null),
 						IsObsolete = property.GetCustomAttribute<Attributes.ObsoleteAttribute>() != null,
 						IsStatic = property.GetAccessors(true)[0].IsStatic
@@ -167,10 +180,29 @@ public class APIReferenceGenerator
 
 				if (returnType == typeof(Node)) continue;
 
+				string methodName = metaMethodAttribute != null ? GetMetamethodIndexer(metaMethodAttribute.Metamethod) : methodAttribute?.MethodName ?? method.Name;
+				(string? mDesc, string? mRemarks, string? mReturns, List<string>? mExamples, List<string>? mSeeAlso, Dictionary<string, string> mParamDocs) = xmlDocs?.GetMethodDocs(type.FullName!, method.Name) ?? (null, null, null, null, null, []);
+
+				// Populate parameter descriptions from XML docs
+				for (int i = 0; i < paramsDef.Count; i++)
+				{
+					ScriptParameter p = paramsDef[i];
+					if (mParamDocs.TryGetValue(p.Name, out string? pDesc))
+					{
+						p.Description = pDesc;
+						paramsDef[i] = p;
+					}
+				}
+
 				ScriptMethod methodDef = new()
 				{
-					Name = metaMethodAttribute != null ? GetMetamethodIndexer(metaMethodAttribute.Metamethod) : methodAttribute?.MethodName ?? method.Name,
+					Name = methodName,
 					ReturnType = ProcessTypeName(returnType),
+					Returns = mReturns,
+					Description = mDesc,
+					Remarks = mRemarks,
+					Examples = mExamples,
+					SeeAlso = mSeeAlso,
 					IsAsync = asyncFunc,
 					Parameters = paramsDef,
 					IsObsolete = method.GetCustomAttribute<Attributes.ObsoleteAttribute>() != null,
@@ -212,10 +244,15 @@ public class APIReferenceGenerator
 
 			StaticAttribute? staticA = type.GetCustomAttribute<StaticAttribute>();
 
+			string typeKey = "T:" + type.FullName;
 			ScriptClass typeDef = new()
 			{
 				Name = ProcessClassName(type),
 				BaseType = ((type.BaseType != null && type.BaseType.IsAssignableTo(typeof(Node))) || type.BaseType == typeof(object) || type.BaseType == typeof(ValueType)) ? null : type.BaseType?.Name ?? null,
+				Description = xmlDocs?.GetMemberSummary(typeKey),
+				Remarks = xmlDocs?.GetMemberSection(typeKey, "remarks"),
+				Examples = xmlDocs?.GetMemberExamples(typeKey),
+				SeeAlso = xmlDocs?.GetMemberSeeAlso(typeKey),
 				IsStatic = staticA != null,
 				StaticAlias = staticA?.Alias,
 				IsAbstract = type.IsDefined(typeof(AbstractAttribute), false),
@@ -234,7 +271,20 @@ public class APIReferenceGenerator
 
 		foreach ((string key, Type enumType) in ScriptService.EnumMap)
 		{
-			enums.Add(new() { Name = key, InternalName = enumType.Name, Options = Enum.GetNames(enumType) });
+			List<ScriptEnumValue> options = Enum.GetNames(enumType)
+				.Select(n => new ScriptEnumValue
+				{
+					Name = n,
+					Description = xmlDocs?.GetMemberSummary("F:" + enumType.FullName + "." + n),
+				})
+				.ToList();
+			enums.Add(new()
+			{
+				Name = key,
+				InternalName = enumType.Name,
+				Description = xmlDocs?.GetMemberSummary("T:" + enumType.FullName),
+				Options = options,
+			});
 		}
 		apiRef.Enums = enums;
 
@@ -381,7 +431,7 @@ public class APIReferenceGenerator
 	public static void GenerateRefFile()
 	{
 		string docData = JsonSerializer.Serialize(GenerateReferences(), APIRefGenerationContext.Default.APIReferenceRoot);
-		using FileAccess file = FileAccess.Open("res://apiref.json", FileAccess.ModeFlags.Write);
+		using FileAccess file = FileAccess.Open("res://def.json", FileAccess.ModeFlags.Write);
 		file.StoreString(docData);
 		file.Close();
 	}
@@ -510,6 +560,7 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? Type;
+		public string? Description;
 		public bool IsOptional;
 		public string? DefaultValue;
 	}
@@ -518,6 +569,11 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? ReturnType;
+		public string? Returns;
+		public string? Description;
+		public string? Remarks;
+		public List<string>? Examples;
+		public List<string>? SeeAlso;
 		public List<ScriptParameter> Parameters;
 		public bool IsAsync;
 		public bool IsObsolete;
@@ -529,6 +585,9 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? Type;
+		public string? Description;
+		public string? Remarks;
+		public List<string>? SeeAlso;
 		public bool IsAccessibleByScripts;
 		public bool IsReadOnly;
 		public bool IsObsolete;
@@ -538,20 +597,32 @@ public class APIReferenceGenerator
 	public struct ScriptEvent
 	{
 		public string Name;
+		public string? Description;
 		public List<ScriptParameter> Parameters;
+	}
+
+	public struct ScriptEnumValue
+	{
+		public string Name;
+		public string? Description;
 	}
 
 	public struct ScriptEnum
 	{
 		public string Name;
 		public string InternalName;
-		public string[] Options;
+		public string? Description;
+		public List<ScriptEnumValue> Options;
 	}
 
 	public struct ScriptClass
 	{
 		public string Name;
 		public string? BaseType;
+		public string? Description;
+		public string? Remarks;
+		public List<string>? Examples;
+		public List<string>? SeeAlso;
 		public List<ScriptProperty> Properties;
 		public List<ScriptMethod> Methods;
 		public List<ScriptEvent> Events;
@@ -570,10 +641,116 @@ public class APIReferenceGenerator
 	}
 }
 
+internal sealed class XmlDocReader
+{
+	private readonly Dictionary<string, XElement> _members = new(StringComparer.Ordinal);
+
+	public XmlDocReader(string xmlContent)
+	{
+		try
+		{
+			var doc = XDocument.Parse(xmlContent);
+			foreach (XElement member in doc.Descendants("member"))
+			{
+				string? name = (string?)member.Attribute("name");
+				if (name != null) _members[name] = member;
+			}
+		}
+		catch { }
+	}
+
+	public string? GetMemberSummary(string key) => GetMemberSection(key, "summary");
+
+	public string? GetMemberSection(string key, string tag)
+	{
+		if (!_members.TryGetValue(key, out XElement? el)) return null;
+		XElement? section = el.Element(tag);
+		return section != null ? RenderInline(section) : null;
+	}
+
+	public List<string>? GetMemberExamples(string key)
+	{
+		if (!_members.TryGetValue(key, out XElement? el)) return null;
+		List<string> list = el.Elements("example").Select(RenderInline).ToList();
+		return list.Count > 0 ? list : null;
+	}
+
+	public List<string>? GetMemberSeeAlso(string key)
+	{
+		if (!_members.TryGetValue(key, out XElement? el)) return null;
+		List<string> list = el.Elements("seealso")
+			.Select(e => ((string?)e.Attribute("cref") ?? "").Split('.').Last())
+			.Where(s => s.Length > 0)
+			.ToList();
+		return list.Count > 0 ? list : null;
+	}
+
+	public (string? Summary, string? Remarks, string? Returns, List<string>? Examples, List<string>? SeeAlso, Dictionary<string, string> ParamDocs)
+		GetMethodDocs(string typeFullName, string methodName)
+	{
+		string prefix = "M:" + typeFullName + "." + methodName;
+		string? foundKey = null;
+		foreach (string k in _members.Keys)
+		{
+			if (k == prefix || (k.StartsWith(prefix) && k.Length > prefix.Length && k[prefix.Length] == '('))
+			{
+				foundKey = k;
+				break;
+			}
+		}
+		if (foundKey == null) return (null, null, null, null, null, []);
+
+		Dictionary<string, string> paramDocs = [];
+		if (_members.TryGetValue(foundKey, out XElement? el))
+		{
+			foreach (XElement p in el.Elements("param"))
+			{
+				string? pName = (string?)p.Attribute("name");
+				if (pName != null) paramDocs[pName] = RenderInline(p);
+			}
+		}
+
+		return (
+			GetMemberSection(foundKey, "summary"),
+			GetMemberSection(foundKey, "remarks"),
+			GetMemberSection(foundKey, "returns"),
+			GetMemberExamples(foundKey),
+			GetMemberSeeAlso(foundKey),
+			paramDocs
+		);
+	}
+
+	private static string RenderInline(XElement el)
+	{
+		var sb = new System.Text.StringBuilder();
+		foreach (XNode node in el.Nodes())
+		{
+			if (node is XText text)
+			{
+				string[] parts = text.Value.Split([' ', '\t', '\n', '\r'], StringSplitOptions.RemoveEmptyEntries);
+				if (parts.Length > 0) { sb.Append(' '); sb.Append(string.Join(" ", parts)); }
+			}
+			else if (node is XElement child)
+			{
+				switch (child.Name.LocalName)
+				{
+					case "c": sb.Append(" `").Append(child.Value.Trim()).Append('`'); break;
+					case "code": sb.Append("\n```lua\n").Append(child.Value.Trim()).Append("\n```"); break;
+					case "para": sb.Append("\n\n").Append(RenderInline(child).TrimStart()); break;
+					case "see": sb.Append(' ').Append(((string?)child.Attribute("cref") ?? "").Split('.').Last()); break;
+					default: sb.Append(RenderInline(child)); break;
+				}
+			}
+		}
+		return sb.ToString().Trim();
+	}
+}
+
 [JsonSourceGenerationOptions(IncludeFields = true)]
 [JsonSerializable(typeof(APIReferenceRoot))]
 [JsonSerializable(typeof(ScriptClass))]
 [JsonSerializable(typeof(ScriptEnum))]
+[JsonSerializable(typeof(ScriptEnumValue))]
 [JsonSerializable(typeof(ScriptEvent))]
 [JsonSerializable(typeof(ScriptProperty))]
 [JsonSerializable(typeof(ScriptMethod))]
@@ -584,6 +761,7 @@ public class APIReferenceGenerator
 [JsonSerializable(typeof(bool))]
 [JsonSerializable(typeof(List<ScriptClass>))]
 [JsonSerializable(typeof(List<ScriptEnum>))]
+[JsonSerializable(typeof(List<ScriptEnumValue>))]
 [JsonSerializable(typeof(List<string>))]
 [JsonSerializable(typeof(List<ScriptProperty>))]
 [JsonSerializable(typeof(List<ScriptMethod>))]

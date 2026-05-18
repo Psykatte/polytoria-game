@@ -1,85 +1,112 @@
 Name: NetworkEvent
+BaseType: Instance
 Description: NetworkEvents are events that can be called to communicate between
   server and client. NetMessages are the class used for sharing data between
   server and client when sending NetworkEvents.
-Category: networking
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Reliable
     Type: boolean
+    Description: Determines if this network event should send messages reliably.
+      Recommended to be off if you're passing lot of data that doesn't need to
+      arrive reliably.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines if this network event should send messages reliably.
-      Recommended to be off if you're passing lot of data that doesn't need to
-      arrive reliably.
 Methods:
   - Name: InvokeServer
     ReturnType: nil
+    Returns: null
+    Description: Sends a message to the server.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: msg
         Type: NetMessage
+        Description: ""
         IsOptional: true
         DefaultValue: null
       - Name: _
         Type: any
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Sends a message to the server.
+    IsSemiStatic: false
   - Name: InvokeClient
     ReturnType: nil
+    Returns: null
+    Description: Sends a message to a specific client.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: msg
         Type: NetMessage
+        Description: message
         IsOptional: true
         DefaultValue: null
       - Name: player
         Type: Player
+        Description: player
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Sends a message to a specific client.
+    IsSemiStatic: false
   - Name: InvokeClients
     ReturnType: nil
+    Returns: null
+    Description: Sends a message to all connected clients.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: msg
         Type: NetMessage
+        Description: NetMessage to send
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Sends a message to all connected clients.
+    IsSemiStatic: false
 Events:
   - Name: InvokedServer
+    Description: Fires when server receives message from client
     Parameters:
       - Name: player
         Type: Player
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: netMessage
         Type: NetMessage
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when server receives message from client
     Arguments:
       - Name: sender
         Type: Player
       - Name: msg
         Type: NetMessage
   - Name: InvokedClient
+    Description: Fires when client receives message from server
     Parameters:
       - Name: netMessage
         Type: NetMessage
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when client receives message from server
     Arguments:
       - Name: msg
         Type: NetMessage
@@ -87,3 +114,4 @@ IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: networking

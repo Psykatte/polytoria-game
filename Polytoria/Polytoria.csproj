@@ -84,6 +84,9 @@
 		<IsMobile>true</IsMobile>
 		<DebugType>Full</DebugType>
 		<DebugSymbols>True</DebugSymbols>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<DocumentationFile>$(MSBuildProjectDirectory)/Polytoria.xml</DocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
 	</PropertyGroup>
 
 	<!-- Strip out Creator -->

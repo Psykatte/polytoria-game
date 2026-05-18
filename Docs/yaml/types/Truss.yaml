@@ -1,18 +1,23 @@
 Name: Truss
-Description: Trusses are parts that can be climbed by the player.
-Category: world
 BaseType: Part
+Description: Trusses are parts that can be climbed by the player.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: ClimbSpeed
     Type: number
+    Description: The speed at which the player can climb the truss.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The speed at which the player can climb the truss.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

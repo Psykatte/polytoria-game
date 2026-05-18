@@ -1,44 +1,50 @@
 Name: Explosion
+BaseType: Dynamic
 Description: Explosion is a deadly explosion killing players and applying force
   to parts at the given position.
-Category: effects
-BaseType: Dynamic
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Radius
     Type: number
+    Description: Determines the radius of this explosion
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the radius of this explosion
   - Name: Force
     Type: number
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines the force of this explosion that will be applied to
       affected hits
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: AffectAnchored
     Type: boolean
+    Description: Determines if this explosion should affect anchored parts or not
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines if this explosion should affect anchored parts or not
   - Name: Damage
     Type: number
+    Description: Damage that is applied to the player
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Damage that is applied to the player
   - Name: AffectPredicate
     Type: () -> ()
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: |-
       A predicate function deciding whether this part should be accepted or not
           
@@ -49,17 +55,25 @@ Properties:
         return true
       end
       ```
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods: []
 Events:
   - Name: Touched
+    Description: Fires when this explosion affects an instance
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when this explosion affects an instance
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: effects

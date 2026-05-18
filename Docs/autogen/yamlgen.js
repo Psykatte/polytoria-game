@@ -13,7 +13,7 @@ if (!fs.existsSync(yamlEnumPath)) {
     fs.mkdirSync(yamlEnumPath, { recursive: true })
 }
 
-const data = JSON.parse(fs.readFileSync("def.json", "utf-8"))
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, "../", "../", "Polytoria", "def.json"), "utf-8"))
 
 // Track current classes and enums
 const currentClasses = new Set(data.Classes.map(c => c.Name))
@@ -55,31 +55,33 @@ for (const c of data.Classes) {
 
     // Load existing data if file exists
     let existingDescriptions = { Properties: {}, Methods: {}, Events: {} };
+    let existingRemarks = { Properties: {}, Methods: {} };
     let existingArguments = { Events: {} };
-    let existingClassDescription = "Missing Documentation";
+    let existingClassDescription = "";
+    let existingClassRemarks = null;
     let existingClassCategory = "";
 
     if (fs.existsSync(yamlPath)) {
         const existingYaml = fs.readFileSync(yamlPath, "utf-8");
         const existingData = yaml.parse(existingYaml);
 
-        // Preserve existing class description
-        if (existingData.Description) {
-            existingClassDescription = existingData.Description;
-        }
+        existingClassDescription = existingData.Description || "";
+        existingClassRemarks = existingData.Remarks || null;
 
-        // Preserve existing category
         if (existingData.Category) {
             existingClassCategory = existingData.Category;
         }
 
-        // Build lookup maps for existing descriptions
+        // Build lookup maps for existing descriptions and remarks
         if (existingData.Properties) {
             const props = Array.isArray(existingData.Properties)
                 ? existingData.Properties
                 : [existingData.Properties];
             props.forEach(p => {
-                if (p.Name) existingDescriptions.Properties[p.Name] = p.Description || "";
+                if (p.Name) {
+                    existingDescriptions.Properties[p.Name] = p.Description || "";
+                    existingRemarks.Properties[p.Name] = p.Remarks || null;
+                }
             });
         }
 
@@ -88,7 +90,10 @@ for (const c of data.Classes) {
                 ? existingData.Methods
                 : [existingData.Methods];
             methods.forEach(m => {
-                if (m.Name) existingDescriptions.Methods[m.Name] = m.Description || "";
+                if (m.Name) {
+                    existingDescriptions.Methods[m.Name] = m.Description || "";
+                    existingRemarks.Methods[m.Name] = m.Remarks || null;
+                }
             });
         }
 
@@ -105,12 +110,21 @@ for (const c of data.Classes) {
         }
     }
 
+    // YAML description wins when it's real content; JSON description used as fallback
+    function mergeDesc(yamlDesc, jsonDesc) {
+        if (!yamlDesc || yamlDesc === "Missing Documentation") return jsonDesc || "Missing Documentation";
+        return yamlDesc;
+    }
+
     let obj = {
+        ...c,
         Name: c.Name,
-        Description: existingClassDescription,
+        Description: mergeDesc(existingClassDescription, c.Description),
+        Remarks: existingClassRemarks !== null ? existingClassRemarks : (c.Remarks || null),
+        Examples: c.Examples || null,
+        SeeAlso: c.SeeAlso || null,
         Category: existingClassCategory,
         BaseType: c.BaseType,
-        ...c,
         Properties: [],
         Methods: [],
         Events: [],
@@ -121,7 +135,11 @@ for (const c of data.Classes) {
         if (prop.IsObsolete) continue
         obj.Properties.push({
             ...prop,
-            Description: existingDescriptions.Properties[prop.Name] || "Missing Documentation"
+            Description: mergeDesc(existingDescriptions.Properties[prop.Name], prop.Description),
+            Remarks: prop.Name in existingRemarks.Properties
+                ? existingRemarks.Properties[prop.Name]
+                : (prop.Remarks || null),
+            SeeAlso: prop.SeeAlso || null,
         })
     }
 
@@ -133,7 +151,13 @@ for (const c of data.Classes) {
         if (m.Name.startsWith("__")) continue
         obj.Methods.push({
             ...m,
-            Description: existingDescriptions.Methods[m.Name] || "Missing Documentation"
+            Description: mergeDesc(existingDescriptions.Methods[m.Name], m.Description),
+            Remarks: m.Name in existingRemarks.Methods
+                ? existingRemarks.Methods[m.Name]
+                : (m.Remarks || null),
+            Examples: m.Examples || null,
+            SeeAlso: m.SeeAlso || null,
+            Returns: m.Returns || null,
         })
     }
 
@@ -141,7 +165,7 @@ for (const c of data.Classes) {
     for (const e of c.Events) {
         obj.Events.push({
             ...e,
-            Description: existingDescriptions.Events[e.Name] || "Missing Documentation",
+            Description: mergeDesc(existingDescriptions.Events[e.Name], e.Description),
             Arguments: existingArguments.Events[e.Name] || ""
         })
     }
@@ -176,14 +200,18 @@ for (const e of data.Enums) {
         }
     }
 
-    // Add enum description
-    obj.Description = existingEnumDescription || "";
+    // Prefer YAML description for enum if it's real content; fall back to JSON
+    obj.Description = (!existingEnumDescription || existingEnumDescription === "Missing Documentation")
+        ? (e.Description || "")
+        : existingEnumDescription;
 
-    // Add options
+    // Add options — e.Options is now [{Name, Description?}] from JSON
     for (const option of e.Options) {
+        const optName = typeof option === "string" ? option : option.Name;
+        const jsonDesc = typeof option === "string" ? "" : (option.Description || "");
         obj.Options.push({
-            Name: option,
-            Description: existingDescriptions[option] || ""
+            Name: optName,
+            Description: existingDescriptions[optName] || jsonDesc || ""
         })
     }
 

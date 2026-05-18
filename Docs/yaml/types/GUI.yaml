@@ -1,25 +1,32 @@
 Name: GUI
-Description: GUI is a class that is used to create a GUI.
-Category: ui
 BaseType: Instance
+Description: GUI is a class that is used to create a GUI.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Visible
     Type: boolean
+    Description: Determines whether the GUI is visible or not.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the GUI is visible or not.
   - Name: ZIndex
     Type: number
+    Description: Determines the ZIndex (layer) of the GUI.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the ZIndex (layer) of the GUI.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: ui

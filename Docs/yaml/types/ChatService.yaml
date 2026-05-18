@@ -1,14 +1,12 @@
 Name: ChatService
-Description: Chat is a static class used for various actions regarding the chat.
-Category: services
 BaseType: Instance
+Description: Chat is a static class used for various actions regarding the chat.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: ChatPredicate
     Type: () -> ()
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: >
       A callback function that filters chat messages before they are processed
       by the server, and displayed to other players.
@@ -24,66 +22,89 @@ Properties:
       end
 
       ```
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods:
   - Name: BroadcastMessage
     ReturnType: nil
+    Returns: null
+    Description: Sends a chat message to all players.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: msg
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Sends a chat message to all players.
+    IsSemiStatic: false
   - Name: UnicastMessage
     ReturnType: nil
+    Returns: null
+    Description: Sends a chat message to a specific player.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: msg
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: plr
         Type: Player
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Sends a chat message to a specific player.
+    IsSemiStatic: false
 Events:
   - Name: NewChatMessage
+    Description: Fires when new chat message has been received from player
     Parameters:
       - Name: player
         Type: Player
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: string
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when new chat message has been received from player
     Arguments:
       - Name: sender
         Type: Player
       - Name: message
         Type: string
   - Name: MessageReceived
+    Description: Fires when new message has been received from either
+      `BroadcastMessage` or `UnicastMessage`
     Parameters:
       - Name: string
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when new message has been received from either
-      `BroadcastMessage` or `UnicastMessage`
     Arguments:
       Name: message
       Type: string
   - Name: MessageDeclined
-    Parameters: null
     Description: Fires when message has been declined by the server
+    Parameters: null
     Arguments: ""
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Chat
+Category: services

@@ -1,97 +1,142 @@
 Name: CreatorSelections
+BaseType: Instance
 Description: CreatorSelections is an object that manages selections in the game
   instance. This class is only available in the creator.
-Category: addons
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: Select
     ReturnType: nil
+    Returns: null
+    Description: Select an instance
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Select an instance
+    IsSemiStatic: false
   - Name: SelectChild
     ReturnType: nil
+    Returns: null
+    Description: Select all children of the instance
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Select all children of the instance
+    IsSemiStatic: false
   - Name: GetSelected
     ReturnType: "{ Instance }"
+    Returns: null
+    Description: Get all selected instances
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Get all selected instances
+    IsSemiStatic: false
   - Name: Deselect
     ReturnType: nil
+    Returns: null
+    Description: Deselect the instance
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Deselect the instance
+    IsSemiStatic: false
   - Name: SelectOnly
     ReturnType: nil
+    Returns: null
+    Description: Deselect all, then select the instance
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Deselect all, then select the instance
+    IsSemiStatic: false
   - Name: DeselectAll
     ReturnType: nil
+    Returns: null
+    Description: Deselect all instances
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Deselect all instances
+    IsSemiStatic: false
   - Name: HasSelected
     ReturnType: boolean
+    Returns: null
+    Description: Check if instance has been selected
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Check if instance has been selected
+    IsSemiStatic: false
 Events:
   - Name: Selected
+    Description: Fires when an instance has been selected
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when an instance has been selected
     Arguments: ""
   - Name: Deselected
+    Description: Fires when an instance has been deselected
     Parameters:
       - Name: instance
         Type: Instance
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fires when an instance has been deselected
     Arguments: ""
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Selections
+Category: addons

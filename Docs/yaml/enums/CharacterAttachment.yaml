@@ -1,5 +1,6 @@
 Name: CharacterAttachment
 InternalName: CharacterAttachmentEnum
+Description: ""
 Options:
   - Name: Head
     Description: ""
@@ -31,4 +32,3 @@ Options:
     Description: ""
   - Name: FootRight
     Description: ""
-Description: ""

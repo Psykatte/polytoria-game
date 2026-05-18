@@ -1,5 +1,6 @@
 Name: CreatorToolMode
 InternalName: ToolModeEnum
+Description: ""
 Options:
   - Name: Select
     Description: ""
@@ -13,4 +14,3 @@ Options:
     Description: ""
   - Name: Brush
     Description: ""
-Description: ""

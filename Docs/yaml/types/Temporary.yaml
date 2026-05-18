@@ -1,8 +1,10 @@
 Name: Temporary
+BaseType: ServerHidden
 Description: A temporary container. All class that were instantiated from
   `Instance.New` will have this class as their first parent.
-Category: misc
-BaseType: ServerHidden
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events: []
@@ -10,3 +12,4 @@ IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: misc

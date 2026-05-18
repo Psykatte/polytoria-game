@@ -1,36 +1,44 @@
 Name: PreferencesService
+BaseType: Instance
 Description: PreferencesService is a service that allows scripts to access some
   of the user preferences
-Category: services
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: UsePhotoMode
     Type: boolean
+    Description: Determines whether the player has photo mode enabled.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Determines whether the player has photo mode enabled.
   - Name: UsePostProcessing
     Type: boolean
+    Description: Determines whether the player has post-processing effects enabled.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Determines whether the player has post-processing effects enabled.
 Methods: []
 Events:
   - Name: SettingChanged
+    Description: Fired when a user preference setting is changed.
     Parameters:
       - Name: string
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: null
       - Name: any
         Type: any
+        Description: null
         IsOptional: false
         DefaultValue: null
-    Description: Fired when a user preference setting is changed.
     Arguments:
       - Name: settingName
         Type: string
@@ -40,3 +48,4 @@ IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Preferences
+Category: services

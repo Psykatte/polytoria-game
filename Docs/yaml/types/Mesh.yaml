@@ -1,131 +1,178 @@
 Name: Mesh
+BaseType: Entity
 Description: Represents a part that can have custom mesh applied to it, the mesh
   may be from the Polytoria Store (Hats, Tools and Heads) or user-uploaded
   meshes.
-Category: world
-BaseType: Entity
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Asset
     Type: MeshAsset
+    Description: The mesh asset used by this Mesh.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The mesh asset used by this Mesh.
   - Name: IncludeOffset
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Whether to keep the offset of the mesh or recenter it.
-  - Name: CollisionType
-    Type: CollisionTypeEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: CollisionType
+    Type: MeshCollisionType
     Description: The type of collision shape to apply to the mesh.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: PlayAnimationOnStart
     Type: boolean
+    Description: Whether to play the mesh's animation automatically when the mesh is loaded.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Whether to play the mesh's animation automatically when the mesh is loaded.
   - Name: UsePartColor
     Type: boolean
+    Description: Whether to use the color of the part this mesh is attached to.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Whether to use the color of the part this mesh is attached to.
   - Name: Color
     Type: Color
+    Description: The color of the mesh.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The color of the mesh.
   - Name: CastShadows
     Type: boolean
+    Description: Whether the mesh casts shadows.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Whether the mesh casts shadows.
   - Name: CurrentAnimation
     Type: string
+    Description: Indicates the name of the current animation playing on the mesh.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates the name of the current animation playing on the mesh.
   - Name: IsAnimationPlaying
     Type: boolean
+    Description: Indicates whether an animation is currently playing on the mesh.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether an animation is currently playing on the mesh.
   - Name: Loading
     Type: boolean
+    Description: Indicates whether this mesh is currently being loaded.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether this mesh is currently being loaded.
 Methods:
   - Name: PlayAnimation
     ReturnType: nil
+    Returns: null
+    Description: Plays the specified animation on the mesh.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: animationName
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: speed
         Type: number
+        Description: null
         IsOptional: true
         DefaultValue: "1"
       - Name: loop
         Type: boolean
+        Description: null
         IsOptional: true
         DefaultValue: "True"
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Plays the specified animation on the mesh.
+    IsSemiStatic: false
   - Name: StopAnimation
     ReturnType: nil
+    Returns: null
+    Description: Stops the specified animation on the mesh.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: animationName
         Type: string
+        Description: null
         IsOptional: true
         DefaultValue: null
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Stops the specified animation on the mesh.
+    IsSemiStatic: false
   - Name: GetAnimations
     ReturnType: "{ string }"
+    Returns: null
+    Description: Gets a list of all animations available on the mesh.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Gets a list of all animations available on the mesh.
+    IsSemiStatic: false
   - Name: GetAnimationInfo
     ReturnType: "{ MeshAnimationInfo }"
+    Returns: null
+    Description: Gets the animation info.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Gets the animation info.
+    IsSemiStatic: false
 Events:
   - Name: Loaded
-    Parameters: null
     Description: Fires when this mesh has been loaded.
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

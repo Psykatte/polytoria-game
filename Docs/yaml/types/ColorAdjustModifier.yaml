@@ -1,40 +1,51 @@
 Name: ColorAdjustModifier
+BaseType: LightingModifier
 Description: ColorAdjustModifier is a LightingModifier that allows the
   adjustment of lighting
-Category: elements
-BaseType: LightingModifier
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Brightness
     Type: number
+    Description: Determines the brightness adjustment.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the brightness adjustment.
   - Name: Contrast
     Type: number
+    Description: Determines the contrast adjustment.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the contrast adjustment.
   - Name: Saturation
     Type: number
+    Description: Determines the saturation adjustment.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the saturation adjustment.
   - Name: TintColor
     Type: Color
+    Description: Determines the tint color.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the tint color.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: elements

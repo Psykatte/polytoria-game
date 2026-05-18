@@ -1,5 +1,6 @@
 Name: ImageType
 InternalName: ImageTypeEnum
+Description: ""
 Options:
   - Name: Asset
     Description: ""
@@ -17,4 +18,3 @@ Options:
     Description: ""
   - Name: PlaceIcon
     Description: ""
-Description: ""

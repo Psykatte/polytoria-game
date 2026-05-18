@@ -1,5 +1,6 @@
 Name: CameraMode
 InternalName: CameraModeEnum
+Description: ""
 Options:
   - Name: Follow
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: Scripted
     Description: ""
-Description: ""

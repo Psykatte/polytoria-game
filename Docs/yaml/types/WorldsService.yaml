@@ -1,95 +1,138 @@
 Name: WorldsService
+BaseType: Instance
 Description: \!! WIP Class, WorldsService is a service that is used to join
   players to other worlds. This class is currently unavailable in public
   servers. **This is not recommended for use at this time.**
-Category: services
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: NewServerAsync
     ReturnType: string
+    Returns: null
+    Description: Request a new server with data
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
-      - Name: placePath
+      - Name: worldPath
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Request a new server with data
+    IsSemiStatic: false
   - Name: NewServerAsync
     ReturnType: string
+    Returns: null
+    Description: Request a new server with data
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: data
         Type: NewServerRequestData
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Request a new server with data
-  - Name: JoinPlaceAsync
+    IsSemiStatic: false
+  - Name: JoinWorldAsync
     ReturnType: nil
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: plr
         Type: Player
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: to
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Join a player to a public server of the specified world
-  - Name: JoinPlacePartyAsync
+    IsSemiStatic: false
+  - Name: JoinWorldPartyAsync
     ReturnType: nil
+    Returns: null
+    Description: Missing Documentation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: plrs
         Type: "{ Player }"
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: to
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Join a party of player to a public server of the specified world
+    IsSemiStatic: false
   - Name: JoinPrivateAsync
     ReturnType: nil
+    Returns: null
+    Description: Join a player to a private server of the specified world
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: plr
         Type: Player
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: accessID
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Join a player to a private server of the specified world
+    IsSemiStatic: false
   - Name: JoinPrivatePartyAsync
     ReturnType: nil
+    Returns: null
+    Description: Join a party of player to a private server of the specified world
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: players
         Type: "{ Player }"
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: accessID
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: true
     IsObsolete: false
     IsStatic: false
-    Description: Join a party of player to a private server of the specified world
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Worlds
+Category: services

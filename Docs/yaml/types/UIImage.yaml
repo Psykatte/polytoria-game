@@ -1,46 +1,77 @@
 Name: UIImage
-Description: UIImage is a class that can be used to display images.
-Category: ui
 BaseType: UIField
+Description: UIImage is a class that can be used to display images.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Image
     Type: ImageAsset
+    Description: The image asset used for the image.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The image asset used for the image.
   - Name: Color
     Type: Color
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: The color applied to the image.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: StretchMode
-    Type: ImageStretchModeEnum
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
+    Type: ImageStretchMode
     Description: Determines how the image is stretched within the view.
-  - Name: TextureFilter
-    Type: TextureFilterEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: TextureFilter
+    Type: TextureFilter
     Description: Determine the image filter mode.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+  - Name: FlipHorizontal
+    Type: boolean
+    Description: Missing Documentation
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+  - Name: FlipVertical
+    Type: boolean
+    Description: Missing Documentation
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
   - Name: Loading
     Type: boolean
+    Description: Indicates whether the image is currently loading.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the image is currently loading.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: ui

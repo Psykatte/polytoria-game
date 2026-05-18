@@ -74,9 +74,12 @@ TestResults/
 
 ## -- Documentation Generation -- ##
 
+/Polytoria/def.json
+/Polytoria/Polytoria.xml
+
+/Docs/.venv
 /Docs/__pycache__
 /Docs/node_modules
-/Docs/def.json
 
 /Docs/docs/api/types/*
 /Docs/docs/api/enums/*

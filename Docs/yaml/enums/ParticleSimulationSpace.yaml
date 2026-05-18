@@ -1,8 +1,8 @@
 Name: ParticleSimulationSpace
 InternalName: ParticleSimulationSpaceEnum
+Description: ""
 Options:
   - Name: Local
     Description: ""
   - Name: World
     Description: ""
-Description: ""

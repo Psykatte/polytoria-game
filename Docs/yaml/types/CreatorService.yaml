@@ -1,41 +1,50 @@
 Name: CreatorService
+BaseType: null
 Description: CreatorService is the class that manages the creator. This class is
   only available in the creator.
-Category: services
-BaseType: null
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Interface
     Type: CreatorInterface
+    Description: The interface
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: The interface
   - Name: CurrentGame
     Type: World
+    Description: Current active game
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: true
-    Description: Current active game
   - Name: LocalTestActive
     Type: boolean
+    Description: Returns true if local test is active
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Returns true if local test is active
 Methods: []
 Events:
   - Name: LocalTestStarted
-    Parameters: null
     Description: Fires when local testing starts
+    Parameters: null
     Arguments: ""
   - Name: LocalTestStopped
-    Parameters: null
     Description: Fires when local testing ends
+    Parameters: null
     Arguments: ""
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Creator
+Category: services

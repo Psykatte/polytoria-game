@@ -1,5 +1,6 @@
 Name: VerticalAlignment
 InternalName: TextVerticalAlignmentEnum
+Description: ""
 Options:
   - Name: Top
     Description: ""
@@ -7,4 +8,3 @@ Options:
     Description: ""
   - Name: Bottom
     Description: ""
-Description: ""

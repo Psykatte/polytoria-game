@@ -1,18 +1,26 @@
 Name: Teams
-Description: Teams is a collection of Team objects used to manage player teams.
-Category: game
 BaseType: Instance
+Description: Teams is a collection of Team objects used to manage player teams.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: GetTeams
     ReturnType: "{ Team }"
+    Returns: null
+    Description: Get all the teams
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Get all the teams
+    IsSemiStatic: false
 Events: []
 IsStatic: true
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: Teams
+Category: game

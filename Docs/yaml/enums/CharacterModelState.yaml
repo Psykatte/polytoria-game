@@ -1,5 +1,6 @@
 Name: CharacterModelState
 InternalName: CharacterModelStateEnum
+Description: ""
 Options:
   - Name: Idle
     Description: ""
@@ -11,4 +12,3 @@ Options:
     Description: ""
   - Name: Climbing
     Description: ""
-Description: ""

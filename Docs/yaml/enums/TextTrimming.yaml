@@ -1,5 +1,6 @@
 Name: TextTrimming
 InternalName: TextTrimmingEnum
+Description: ""
 Options:
   - Name: None
     Description: ""
@@ -11,4 +12,3 @@ Options:
     Description: ""
   - Name: WordEllipsis
     Description: ""
-Description: ""

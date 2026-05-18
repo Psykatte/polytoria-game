@@ -1,5 +1,6 @@
 Name: PartShape
 InternalName: ShapeEnum
+Description: ""
 Options:
   - Name: Brick
     Description: ""
@@ -21,4 +22,3 @@ Options:
     Description: ""
   - Name: Frame
     Description: ""
-Description: ""

@@ -1,47 +1,60 @@
 Name: HttpResponseData
-Description: HttpResponseData represents the result of an HTTP request.
-Category: types
 BaseType: null
+Description: HttpResponseData represents the result of an HTTP request.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Success
     Type: boolean
+    Description: Indicates whether the HTTP request completed successfully.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: Indicates whether the HTTP request completed successfully.
   - Name: StatusCode
     Type: number
+    Description: The HTTP status code returned by the server.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The HTTP status code returned by the server.
   - Name: Headers
     Type: table
-    IsAccessibleByScripts: true
-    IsReadOnly: true
-    IsObsolete: false
-    IsStatic: false
     Description: A table containing the HTTP response headers returned by the
       server, represented as key-value pairs.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
   - Name: Body
     Type: string
+    Description: The response payload returned by the server as a string.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The response payload returned by the server as a string.
   - Name: Buffer
     Type: buffer
+    Description: The response payload returned by the server as a buffer.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The response payload returned by the server as a buffer.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: types

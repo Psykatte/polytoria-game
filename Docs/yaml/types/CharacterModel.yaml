@@ -1,43 +1,58 @@
 Name: CharacterModel
-Description: Base class for Character Models
-Category: world
 BaseType: Dynamic
+Description: Base class for Character Models
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: CurrentState
-    Type: CharacterModelStateEnum
+    Type: CharacterModelState
+    Description: Current state of this character.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Current state of this character.
   - Name: CurrentSpeed
     Type: number
+    Description: Current state animation speed of this character.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Current state animation speed of this character.
   - Name: Animator
     Type: Animator
+    Description: The animator for this character
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The animator for this character
 Methods:
   - Name: GetAttachment
     ReturnType: Dynamic
+    Returns: null
+    Description: Get attachment dynamic from this character
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: attachmentEnum
-        Type: CharacterAttachmentEnum
+        Type: CharacterAttachment
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Get attachment dynamic from this character
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

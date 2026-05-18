@@ -1,47 +1,60 @@
 Name: ProceduralSky
+BaseType: Sky
 Description: ProceduralSky is a type of sky that generates its appearance
   procedurally based on the position of the sun and its properties.
-Category: lighting
-BaseType: Sky
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: SunSize
     Type: number
+    Description: The size of the sun in the sky.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The size of the sun in the sky.
   - Name: SkyTint
     Type: Color
+    Description: The tint color of the sky.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The tint color of the sky.
   - Name: HorizonColor
     Type: Color
+    Description: The color of the horizon in the sky.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The color of the horizon in the sky.
   - Name: GroundColor
     Type: Color
+    Description: The color of the ground in the sky.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The color of the ground in the sky.
   - Name: Exposure
     Type: number
+    Description: The exposure level of the sky.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The exposure level of the sky.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: lighting

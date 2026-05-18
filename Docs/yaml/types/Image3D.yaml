@@ -1,67 +1,86 @@
 Name: Image3D
-Description: Image3D are objects that can have an image texture and are placed in the world.
-Category: world
 BaseType: Dynamic
+Description: Image3D are objects that can have an image texture and are placed in the world.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Image
     Type: ImageAsset
+    Description: Specifies the image of the Image3D.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Specifies the image of the Image3D.
   - Name: TextureScale
     Type: Vector2
+    Description: The scale of the texture on the Image3D.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The scale of the texture on the Image3D.
   - Name: TextureOffset
     Type: Vector2
+    Description: The offset of the texture on the Image3D.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The offset of the texture on the Image3D.
   - Name: Color
     Type: Color
+    Description: Determines the color of the Image3D.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the color of the Image3D.
   - Name: CastShadows
     Type: boolean
+    Description: Determines whether or not the Image3D should cast shadows.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether or not the Image3D should cast shadows.
   - Name: Shaded
     Type: boolean
+    Description: Determines whether or not the Image3D should be affected by lighting.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether or not the Image3D should be affected by lighting.
   - Name: FaceCamera
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Determines whether or not the Image3D should always face the camera.
-  - Name: TextureFilter
-    Type: TextureFilterEnum
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: TextureFilter
+    Type: TextureFilter
     Description: Determines the texture filter mode.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

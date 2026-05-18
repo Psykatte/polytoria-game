@@ -1,5 +1,6 @@
 Name: FontPreset
 InternalName: BuiltInTextFontPresetEnum
+Description: ""
 Options:
   - Name: SourceSans
     Description: ""
@@ -27,4 +28,3 @@ Options:
     Description: ""
   - Name: JetBrainsMono
     Description: ""
-Description: ""

@@ -1,41 +1,50 @@
 Name: InputActionButton
-Description: InputActionButton is a class that represents input action of button type.
-Category: input
 BaseType: InputAction
+Description: InputActionButton is a class that represents input action of button type.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Buttons
     Type: InputButtonCollection
+    Description: Collection of button inputs.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Collection of button inputs.
   - Name: IsPressed
     Type: boolean
-    IsAccessibleByScripts: true
-    IsReadOnly: false
-    IsObsolete: false
-    IsStatic: false
     Description: Returns true if any of the buttons in the collection is currently
       being pressed.
-  - Name: Weight
-    Type: number
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
+  - Name: Weight
+    Type: number
     Description: Returns the current analog input of the button.
+    Remarks: null
+    SeeAlso: null
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
 Methods: []
 Events:
   - Name: Pressed
-    Parameters: null
     Description: Fires when this button has been pressed
+    Parameters: null
     Arguments: ""
   - Name: Released
-    Parameters: null
     Description: Fires when this button has been released
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: input

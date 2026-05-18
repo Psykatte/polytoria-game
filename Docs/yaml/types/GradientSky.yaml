@@ -1,95 +1,122 @@
 Name: GradientSky
-Description: GradientSky is a class that is used to set a gradient skybox in the world.
-Category: lighting
 BaseType: Sky
+Description: GradientSky is a class that is used to set a gradient skybox in the world.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: SunDiscColor
     Type: Color
+    Description: Determines the color emitting off the sun.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the color emitting off the sun.
   - Name: SunDiscMultiplier
     Type: number
+    Description: Determines the multiplier of the sun.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the multiplier of the sun.
   - Name: SunDiscExponent
     Type: number
+    Description: Determines the exponent of the sun.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the exponent of the sun.
   - Name: SunHaloColor
     Type: Color
+    Description: Determines the color of the sun halo.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the color of the sun halo.
   - Name: SunHaloExponent
     Type: number
+    Description: Determines the exponent of the sun halo.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the exponent of the sun halo.
   - Name: SunHaloContribution
     Type: number
+    Description: Determines the contribution of the sun halo.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the contribution of the sun halo.
   - Name: HorizonLineColor
     Type: Color
+    Description: Determines the horizon line's color.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the horizon line's color.
   - Name: HorizonLineExponent
     Type: number
+    Description: Determines the horizon line's exponent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the horizon line's exponent.
   - Name: HorizonLineContribution
     Type: number
+    Description: Determines how much the horizon line contributes.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines how much the horizon line contributes.
   - Name: SkyGradientTop
     Type: Color
+    Description: Determines the top color of the gradient.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the top color of the gradient.
   - Name: SkyGradientBottom
     Type: Color
+    Description: Determines the bottom color of the gradient.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the bottom color of the gradient.
   - Name: SkyGradientExponent
     Type: number
+    Description: Determines the gradient's exponent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the gradient's exponent.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: lighting

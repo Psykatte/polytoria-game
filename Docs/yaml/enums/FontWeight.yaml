@@ -1,5 +1,6 @@
 Name: FontWeight
 InternalName: FontWeightEnum
+Description: ""
 Options:
   - Name: Thin
     Description: ""
@@ -19,4 +20,3 @@ Options:
     Description: ""
   - Name: Black
     Description: ""
-Description: ""

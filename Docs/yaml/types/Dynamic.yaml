@@ -1,170 +1,235 @@
 Name: Dynamic
+BaseType: Instance
 Description: Dynamic is the base class where all objects with a position,
   rotation and scale derive from.
-Category: world
-BaseType: Instance
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Position
     Type: Vector3
+    Description: The position of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The position of the object.
   - Name: Rotation
     Type: Vector3
+    Description: The rotation of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The rotation of the object.
   - Name: Size
     Type: Vector3
+    Description: The size of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The size of the object.
   - Name: LocalPosition
     Type: Vector3
+    Description: The position of the object relative to its parent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The position of the object relative to its parent.
   - Name: LocalRotation
     Type: Vector3
+    Description: The rotation of the object relative to its parent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The rotation of the object relative to its parent.
   - Name: LocalSize
     Type: Vector3
+    Description: The size of the object relative to its parent.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The size of the object relative to its parent.
   - Name: Quaternion
     Type: Quaternion
+    Description: The rotation of the object represented as a quaternion.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The rotation of the object represented as a quaternion.
   - Name: LocalQuaternion
     Type: Quaternion
+    Description: The local rotation of the object represented as a quaternion.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The local rotation of the object represented as a quaternion.
   - Name: Locked
     Type: boolean
+    Description: Determines whether the object can be selected in the Creator.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines whether the object can be selected in the Creator.
   - Name: Forward
     Type: Vector3
+    Description: The forward direction vector of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The forward direction vector of the object.
   - Name: Right
     Type: Vector3
+    Description: The right direction vector of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The right direction vector of the object.
   - Name: Up
     Type: Vector3
+    Description: The up direction vector of the object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: true
     IsObsolete: false
     IsStatic: false
-    Description: The up direction vector of the object.
 Methods:
   - Name: LookAt
     ReturnType: nil
+    Returns: null
+    Description: Orients the object to look at a target with a specified up vector.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: target
         Type: any
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Orients the object to look at a target with a specified up vector.
+    IsSemiStatic: false
   - Name: LookAt
     ReturnType: nil
+    Returns: null
+    Description: Orients the object to look at a target with a specified up vector.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: target
         Type: any
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: up
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Orients the object to look at a target with a specified up vector.
+    IsSemiStatic: false
   - Name: Translate
     ReturnType: nil
+    Returns: null
+    Description: Moves the transform in the direction and distance of translation.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: translation
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Moves the transform in the direction and distance of translation.
+    IsSemiStatic: false
   - Name: RotateAround
     ReturnType: nil
+    Returns: null
+    Description: Rotates the object around a point by the specified Euler angles.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: point
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: axis
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
       - Name: angle
         Type: number
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Rotates the object around a point by the specified Euler angles.
+    IsSemiStatic: false
   - Name: Rotate
     ReturnType: nil
+    Returns: null
+    Description: Rotates the object by the specified Euler angles.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: eulerAngles
         Type: Vector3
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Rotates the object by the specified Euler angles.
+    IsSemiStatic: false
   - Name: GetBounds
     ReturnType: Bounds
+    Returns: null
+    Description: Gets the bounding box of the object.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Gets the bounding box of the object.
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

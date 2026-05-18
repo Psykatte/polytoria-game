@@ -1,15 +1,18 @@
 Name: AddonToolItem
-Description: AddonToolItem represents a tool item in the tools menu of the addon.
-Category: addons
 BaseType: null
+Description: AddonToolItem represents a tool item in the tools menu of the addon.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods: []
 Events:
   - Name: Pressed
-    Parameters: null
     Description: Fires when this tool item has been pressed
+    Parameters: null
     Arguments: ""
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: addons

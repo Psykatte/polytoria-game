@@ -1,54 +1,85 @@
 Name: Animator
-Description: WIP class
-Category: world
 BaseType: Instance
+Description: WIP class
+Remarks: |-
+  MemoryPack GenerateType: Object
+  ```lua
+  string Keystring ID
+  ```
+Examples: null
+SeeAlso: null
 Properties:
   - Name: CurrentAnimation
     Type: string
+    Description: Determines the currently playing animation name
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: Determines the currently playing animation name
 Methods:
   - Name: PlayAnimation
     ReturnType: nil
+    Returns: null
+    Description: Play animation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: animationKey
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Play animation
+    IsSemiStatic: false
   - Name: PlayOneShotAnimation
     ReturnType: nil
+    Returns: null
+    Description: Play one-shot animation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: animationKey
         Type: string
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Play one-shot animation
+    IsSemiStatic: false
   - Name: StopAnimation
     ReturnType: nil
+    Returns: null
+    Description: Stop current animation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Stop current animation
+    IsSemiStatic: false
   - Name: StopOneShotAnimation
     ReturnType: nil
+    Returns: null
+    Description: Stop one-shot animation
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters: []
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Stop one-shot animation
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: world

@@ -1,33 +1,48 @@
 Name: InputButtonCollection
-Description: A collection of Input Buttons
-Category: input
 BaseType: null
+Description: A collection of Input Buttons
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties: []
 Methods:
   - Name: AddButton
     ReturnType: nil
+    Returns: null
+    Description: Adds a new input button.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: btn
         Type: InputButton
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Adds a new input button.
+    IsSemiStatic: false
   - Name: RemoveButton
     ReturnType: nil
+    Returns: null
+    Description: Removes existing input button.
+    Remarks: null
+    Examples: null
+    SeeAlso: null
     Parameters:
       - Name: btn
         Type: InputButton
+        Description: null
         IsOptional: false
         DefaultValue: ""
     IsAsync: false
     IsObsolete: false
     IsStatic: false
-    Description: Removes existing input button.
+    IsSemiStatic: false
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: input

@@ -1,18 +1,23 @@
 Name: BoolValue
-Description: BoolValue is a ValueBase that stores a boolean.
-Category: values
 BaseType: ValueBase
+Description: BoolValue is a ValueBase that stores a boolean.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Value
     Type: boolean
+    Description: The value of this object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The value of this object.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: true
 StaticAlias: null
+Category: values

@@ -1,53 +1,68 @@
 Name: RayResult
-Description: RayResult is a data type that contains data about a raycast result.
-Category: types
 BaseType: null
+Description: RayResult is a data type that contains data about a raycast result.
+Remarks: null
+Examples: null
+SeeAlso: null
 Properties:
   - Name: Origin
     Type: Vector3
+    Description: The origin point of the ray.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The origin point of the ray.
   - Name: Direction
     Type: Vector3
+    Description: The direction vector of the ray.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The direction vector of the ray.
   - Name: Position
     Type: Vector3
+    Description: The position where the ray hit an object.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The position where the ray hit an object.
   - Name: Normal
     Type: Vector3
+    Description: The surface normal at the point where the ray hit.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The surface normal at the point where the ray hit.
   - Name: Distance
     Type: number
+    Description: The distance from the ray's origin to the hit point.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The distance from the ray's origin to the hit point.
   - Name: Instance
     Type: Instance
+    Description: The instance that was hit by the ray.
+    Remarks: null
+    SeeAlso: null
     IsAccessibleByScripts: true
     IsReadOnly: false
     IsObsolete: false
     IsStatic: false
-    Description: The instance that was hit by the ray.
 Methods: []
 Events: []
 IsStatic: false
 IsAbstract: false
 IsInstantiable: false
 StaticAlias: null
+Category: types

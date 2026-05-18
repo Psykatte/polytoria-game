@@ -1,5 +1,6 @@
 Name: SkyboxPreset
 InternalName: SkyboxEnum
+Description: ""
 Options:
   - Name: Day1
     Description: ""
@@ -43,4 +44,3 @@ Options:
     Description: ""
   - Name: Sunset5
     Description: ""
-Description: ""
