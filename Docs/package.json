@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node autogen/mdgen.js && mkdocs serve",
     "build": "npm run gen && mkdocs build",
-    "build-ci": "npm i && node autogen/mdgen.js && mkdocs build",
+    "build-ci": "npm i && node autogen/mdgen.js --strict && mkdocs build",
     "gen": "node autogen/mdgen.js"
   },
   "keywords": [],

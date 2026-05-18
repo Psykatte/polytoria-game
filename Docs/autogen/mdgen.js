@@ -1,12 +1,23 @@
 const fs = require("fs")
 const path = require("path")
 
+const STRICT = process.argv.includes("--strict")
+
 const defJsonPath  = path.join(__dirname, "../", "../", "Polytoria", "def.json")
 const mdAPIPath    = path.join(__dirname, "../", "docs/api", "types")
 const iconDataPath = path.join(__dirname, "../", "docs/theme/.icons", "polytoria")
 const mdEnumPath   = path.join(__dirname, "../", "docs/api", "enums")
 
 const data = JSON.parse(fs.readFileSync(defJsonPath, "utf-8"))
+
+// Track scriptable members that lack a /// <summary> in C#.
+const undocumented = []
+function isMissing(desc) {
+    return !desc || desc.trim() === "" || desc === "Missing Documentation"
+}
+function flagMissing(kind, name) {
+    if (kind && name) undocumented.push(`${kind}  ${name}`)
+}
 
 // Cleanup md (excluding index.md files)
 function cleanDir(dir) {
@@ -71,6 +82,7 @@ for (const c of data.Classes) {
     appendLine("")
     appendLine(c.Description || "Missing documentation!")
     appendLine("")
+    if (isMissing(c.Description)) flagMissing("class   ", c.Name)
 
     if (c.Remarks) {
         appendLine('!!! note "Remarks"')
@@ -119,6 +131,7 @@ for (const c of data.Classes) {
         appendLine(``)
         appendLine(prop.Description || "Missing documentation!")
         appendLine(``)
+        if (isMissing(prop.Description)) flagMissing("property", `${c.Name}.${prop.Name}`)
         if (prop.Remarks) {
             appendLine('!!! note "Remarks"')
             appendLine("    " + prop.Remarks.replace(/\n/g, "\n    "))
@@ -144,6 +157,7 @@ for (const c of data.Classes) {
         appendLine(``)
         appendLine(m.Description || "Missing documentation!")
         appendLine(``)
+        if (isMissing(m.Description)) flagMissing("method  ", `${c.Name}.${m.Name}`)
         if (m.Returns) {
             appendLine(`!!! quote "**Returns:** <span style="font-weight: normal;">${m.Returns}</span>"`)
             appendLine(``)
@@ -178,6 +192,7 @@ for (const c of data.Classes) {
         appendLine(``)
         appendLine(e.Description || "")
         appendLine(``)
+        if (isMissing(e.Description)) flagMissing("event   ", `${c.Name}.${e.Name}`)
     }
 
     fs.writeFileSync(mdPath, mk)
@@ -207,6 +222,8 @@ for (const e of data.Enums) {
         appendLine("")
     }
 
+    if (isMissing(e.Description)) flagMissing("enum    ", e.Name)
+
     appendLine("| Name | Description |")
     appendLine("| --- | --- |")
 
@@ -215,8 +232,21 @@ for (const e of data.Enums) {
         const optDesc = typeof option === "string" ? "" : (option.Description || "")
         const display = optDesc === "Missing Documentation" ? "" : optDesc
         appendLine(`| \`${e.Name}.${optName}\` | ${display} |`)
+        if (isMissing(optDesc)) flagMissing("enumval ", `${e.Name}.${optName}`)
     }
 
     fs.writeFileSync(mdPath, mk)
 }
 console.log(`Converted ${data.Enums.length} enums to Markdown`)
+
+// ─── Undocumented-member report ───────────────────────────────────────────────
+
+if (undocumented.length > 0) {
+    const prefix = STRICT ? "ERROR" : "WARNING"
+    console.warn(`\n${prefix}: ${undocumented.length} scriptable member(s) lack an XML doc <summary>:`)
+    for (const entry of undocumented) console.warn(`  ${entry}`)
+    if (STRICT) {
+        console.error(`\nFailing because --strict was set.`)
+        process.exit(1)
+    }
+}
