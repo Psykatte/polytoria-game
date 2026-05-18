@@ -135,7 +135,7 @@ function findInsertionPoint(lines, memberIdx, kind) {
     }
 
     let i = memberIdx - 1
-    while (i >= 0 && lines[i].trim().startsWith("[")) {
+    while (i >= 0 && /^\s*\[/.test(lines[i]) && !/\bpublic\b/.test(lines[i])) {
         i--
     }
     const insertAt = i + 1
