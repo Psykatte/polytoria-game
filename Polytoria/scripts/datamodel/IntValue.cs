@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// IntValue is an object that holds an integer value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class IntValue : ValueBase
 {
 	private int _val = 0;

@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel.Resources;
 /// PTMeshAnimationAsset is an animation asset where animation is loaded from Polytoria mesh.
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTMeshAnimationAsset : MeshAnimationAsset
 {
 	private uint _assetID;

@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// Represents a network message used for communication between clients and servers.
 /// </summary>
+[DocCategory("networking")]
 public partial class NetMessage : IScriptObject
 {
 	public Dictionary<string, string> Strings = [];

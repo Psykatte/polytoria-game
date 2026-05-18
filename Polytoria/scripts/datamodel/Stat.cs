@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel;
 /// Stat is an object that represents a player stat to which players can be assigned to have their own number or string values.
 /// </summary>
 [Instantiable]
+[DocCategory("game")]
 public partial class Stat : Instance
 {
 	private string _displayName = "";

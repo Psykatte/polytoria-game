@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// Clothing represents a clothing that can be applied to a PolytorianModel
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Clothing : Instance
 {
 	private ImageAsset? _asset;

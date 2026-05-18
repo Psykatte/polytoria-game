@@ -18,6 +18,7 @@ namespace Polytoria.Datamodel;
 /// Physical represents an object affected by physics in the world.
 /// </summary>
 [Abstract]
+[DocCategory("physics")]
 public partial class Physical : Dynamic
 {
 	public const float MinMass = 0.01f;

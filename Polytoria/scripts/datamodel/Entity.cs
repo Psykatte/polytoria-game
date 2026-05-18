@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Entity represents a physics object that's related to building blocks (inherited by Part and Mesh)
 /// </summary>
 [Abstract]
+[DocCategory("physics")]
 public abstract partial class Entity : RigidBody
 {
 	private bool _isSpawn = false;

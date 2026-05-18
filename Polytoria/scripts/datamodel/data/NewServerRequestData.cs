@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// NewServerRequestData represents the request data for a new server instance, to be used with WorldsService.
 /// </summary>
+[DocCategory("misc")]
 public partial class NewServerRequestData : IScriptObject
 {
 	[ScriptProperty] public string WorldPath { get; set; } = "";

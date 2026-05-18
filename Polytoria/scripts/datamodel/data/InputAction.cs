@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// A collection of Input Buttons
 /// </summary>
+[DocCategory("input")]
 public class InputButtonCollection : IEnumerable, IScriptObject
 {
 	private readonly List<InputButton> _buttons = [];
@@ -72,6 +73,7 @@ public class InputButtonCollection : IEnumerable, IScriptObject
 [JsonDerivedType(typeof(InputActionButton), "Button")]
 [JsonDerivedType(typeof(InputActionAxis), "Axis")]
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
+[DocCategory("input")]
 public abstract class InputAction : IScriptObject
 {
 	private string _name = "";
@@ -92,6 +94,7 @@ public abstract class InputAction : IScriptObject
 /// <summary>
 /// InputButton is a class that represents a button KeyCode
 /// </summary>
+[DocCategory("input")]
 public class InputButton : IScriptObject
 {
 	/// <summary>
@@ -137,6 +140,7 @@ public class InputButton : IScriptObject
 /// <summary>
 /// InputActionVector2 is a class that represents input action of Vector2 type.
 /// </summary>
+[DocCategory("input")]
 public class InputActionVector2 : InputAction
 {
 	/// <summary>
@@ -165,6 +169,7 @@ public class InputActionVector2 : InputAction
 /// <summary>
 /// InputActionButton is a class that represents input action of button type.
 /// </summary>
+[DocCategory("input")]
 public class InputActionButton : InputAction
 {
 	/// <summary>
@@ -194,6 +199,7 @@ public class InputActionButton : InputAction
 /// <summary>
 /// InputActionAxis is a class that represents input action of axis type.
 /// </summary>
+[DocCategory("input")]
 public class InputActionAxis : InputAction
 {
 	/// <summary>

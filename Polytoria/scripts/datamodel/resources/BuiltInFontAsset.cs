@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Font asset that's built-in with the client
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class BuiltInFontAsset : FontAsset
 {
 	private BuiltInTextFontPresetEnum _fontPreset;

@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// ColorValue is an object that holds a Color value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class ColorValue : ValueBase
 {
 	private Color _val = new(1, 1, 1);

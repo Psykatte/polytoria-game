@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// Base class for Character Models
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class CharacterModel : Dynamic
 {
 	private CharacterModelStateEnum _currentState = CharacterModelStateEnum.Idle;

@@ -10,4 +10,5 @@ namespace Polytoria.Datamodel;
 /// Base class for lighting modifiers
 /// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class LightingModifier : Instance { }

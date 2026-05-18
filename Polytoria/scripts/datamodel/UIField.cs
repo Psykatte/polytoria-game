@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel;
 /// UIField is the abstract base class of all UI classes.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIField : Instance
 {
 	internal Control NodeControl = null!;

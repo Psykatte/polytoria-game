@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel;
 /// Scripts are abstract base classes representing Lua code that can be executed in the game.
 /// </summary>
 [Abstract]
+[DocCategory("scripting")]
 public partial class Script : Instance
 {
 	public bool Ran = false;

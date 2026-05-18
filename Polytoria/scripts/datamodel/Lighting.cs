@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel;
 /// Lighting is responsible for controlling the state of the lighting in the place. It provides many different options for creators to enhance and fine-tune the visuals of their worlds.
 /// </summary>
 [Static("Lighting")]
+[DocCategory("game")]
 public sealed partial class Lighting : Instance
 {
 	private WorldEnvironment _worldEnv = null!;

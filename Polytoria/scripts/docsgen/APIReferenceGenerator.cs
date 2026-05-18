@@ -78,7 +78,8 @@ public class APIReferenceGenerator
 					 property.PropertyType.GetGenericTypeDefinition().Name.StartsWith(nameof(PTSignal))))
 				{
 					string eventKey = "P:" + type.FullName + "." + property.Name;
-					Dictionary<string, string> eventParamDocs = xmlDocs?.GetMemberParams(eventKey) ?? [];
+					List<(string Name, string? Type, string? Description)> docParams =
+						xmlDocs?.GetMemberParamsTyped(eventKey) ?? [];
 
 					ScriptEvent eventDef = new()
 					{
@@ -89,36 +90,37 @@ public class APIReferenceGenerator
 					Type propertyType = property.PropertyType;
 					if (propertyType.IsGenericType)
 					{
+						// Generic PTSignal<T1, T2…>: types come from reflection;
+						// names + descriptions are pulled from matching <param> tags by index.
 						Type[] genericArgs = propertyType.GetGenericArguments();
 						List<ScriptParameter> paramsDef = [];
 
 						for (int i = 0; i < genericArgs.Length; i++)
 						{
 							string tn = ProcessTypeName(genericArgs[i]) ?? "any";
-							string pName = tn.ToCamelCase();
-							ScriptParameter param = new()
+							(string Name, string? Type, string? Description) doc = i < docParams.Count ? docParams[i] : (tn.ToCamelCase(), null, null);
+							paramsDef.Add(new ScriptParameter
 							{
-								Name = pName,
+								Name = doc.Name,
 								Type = tn,
-								Description = eventParamDocs.TryGetValue(pName, out string? d) ? d : null,
+								Description = doc.Description,
 								IsOptional = false,
 								DefaultValue = null
-							};
-							paramsDef.Add(param);
+							});
 						}
 
 						eventDef.Parameters = paramsDef;
 					}
-					else if (eventParamDocs.Count > 0)
+					else if (docParams.Count > 0)
 					{
-						// Non-generic PTSignal — adopt hand-documented params verbatim
+						// Non-generic PTSignal: both name and type come from <param name="…" type="…">.
 						List<ScriptParameter> paramsDef = [];
-						foreach ((string pName, string pDesc) in eventParamDocs)
+						foreach ((string pName, string? pType, string? pDesc) in docParams)
 						{
 							paramsDef.Add(new ScriptParameter
 							{
 								Name = pName,
-								Type = "any",
+								Type = pType ?? "any",
 								Description = pDesc,
 								IsOptional = false,
 								DefaultValue = null
@@ -686,14 +688,22 @@ internal sealed class XmlDocReader
 
 	public string? GetMemberSummary(string key) => GetMemberSection(key, "summary");
 
-	public Dictionary<string, string> GetMemberParams(string key)
+	/// <summary>
+	/// Returns ordered (name, type, description) tuples for a member's &lt;param&gt; tags.
+	/// Recognizes a non-standard `type="…"` attribute used by PTSignal fields whose
+	/// generic args don't carry semantic naming (e.g. <c>PTSignal</c>, <c>BindableEvent</c>).
+	/// </summary>
+	public List<(string Name, string? Type, string? Description)> GetMemberParamsTyped(string key)
 	{
-		Dictionary<string, string> result = [];
+		List<(string, string?, string?)> result = [];
 		if (!_members.TryGetValue(key, out XElement? el)) return result;
 		foreach (XElement p in el.Elements("param"))
 		{
 			string? pName = (string?)p.Attribute("name");
-			if (pName != null) result[pName] = RenderInline(p);
+			if (pName == null) continue;
+			string? pType = (string?)p.Attribute("type");
+			string desc = RenderInline(p);
+			result.Add((pName, pType, string.IsNullOrEmpty(desc) ? null : desc));
 		}
 		return result;
 	}

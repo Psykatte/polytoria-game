@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// StringValue is an object that holds a string value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class StringValue : ValueBase
 {
 	private string _val = "";

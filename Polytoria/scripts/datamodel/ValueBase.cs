@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// ValueBase is an abstract base class for objects that hold a value.
 /// </summary>
 [Abstract]
+[DocCategory("values")]
 public partial class ValueBase : Instance
 {
 	/// <summary>

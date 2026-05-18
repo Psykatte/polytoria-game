@@ -12,6 +12,7 @@ namespace Polytoria.Scripting.Datatypes;
 /// <summary>
 /// Represents a quaternion used for rotations.
 /// </summary>
+[DocCategory("types")]
 public class PTQuaternion : IScriptGDObject
 {
 	internal Quaternion quat;

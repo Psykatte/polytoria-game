@@ -22,6 +22,7 @@ namespace Polytoria.Datamodel.Creator;
 [Static("Selections")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("addons")]
 public sealed partial class CreatorSelections : Instance
 {
 	public readonly List<Instance> SelectedInstances = [];

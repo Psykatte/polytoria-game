@@ -24,6 +24,7 @@ namespace Polytoria.Datamodel.Services;
 [Static("Social")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class SocialService : Instance
 {
 	private readonly PTHttpClient _client = new();

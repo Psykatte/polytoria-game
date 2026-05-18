@@ -10,6 +10,7 @@ namespace Polytoria.Scripting.Datatypes;
 /// <summary>
 /// Represents a bounding box in 3D space.
 /// </summary>
+[DocCategory("types")]
 public class PTBounds : IScriptGDObject
 {
 	internal Aabb aabb;

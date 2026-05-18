@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Services;
 /// InputService is a class used for retrieving user input data, such as the mouse and keyboard.
 /// </summary>
 [Static("Input"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class InputService : Instance
 {
 	private bool _cursorLocked = false;

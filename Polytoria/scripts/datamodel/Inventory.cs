@@ -10,4 +10,5 @@ namespace Polytoria.Datamodel;
 /// Inventory is a container for Tools, equippable by player.
 /// </summary>
 [Static]
+[DocCategory("game")]
 public sealed partial class Inventory : HiddenBase { }

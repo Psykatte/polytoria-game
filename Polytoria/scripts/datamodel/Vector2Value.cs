@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Vector2Value is an object that holds a Vector2 value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class Vector2Value : ValueBase
 {
 	private Vector2 _val = new(0, 0);

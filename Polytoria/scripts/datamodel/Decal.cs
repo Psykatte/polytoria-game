@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// Decals are objects that can have an image texture and are wrapped around other objects.
 /// </summary>
 [Instantiable]
+[DocCategory("elements")]
 public sealed partial class Decal : Dynamic
 {
 	private ImageAsset? _asset;

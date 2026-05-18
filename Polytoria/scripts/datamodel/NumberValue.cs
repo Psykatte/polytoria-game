@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// NumberValue is an object that holds a number value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class NumberValue : ValueBase
 {
 	private float _val = 0;

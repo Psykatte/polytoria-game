@@ -18,6 +18,7 @@ namespace Polytoria.Datamodel;
 /// Sounds are objects that can be placed in the world and play audio.
 /// </summary>
 [Instantiable]
+[DocCategory("elements")]
 public sealed partial class Sound : Dynamic
 {
 	public const float SoundDistanceMultipler = 1.25f;

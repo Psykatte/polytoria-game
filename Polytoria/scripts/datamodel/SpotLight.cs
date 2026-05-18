@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// SpotLight is a source of light emitting in a specific direction and angle that can be placed in the world.
 /// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class SpotLight : Light
 {
 	internal SpotLight3D GDSpotLight = null!;

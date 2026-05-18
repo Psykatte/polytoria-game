@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Audio asset that's built-in with the client
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class BuiltInAudioAsset : AudioAsset
 {
 	private BuiltInAudioPresetEnum _audioPreset;

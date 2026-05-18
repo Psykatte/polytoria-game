@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel;
 /// NPC (non-player character) is an object similar to a Player but that can be controlled by code. Like players, it can walk and jump, and its body part colors can be customized.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class NPC : Physical
 {
 	public override float SyncInterval { get; protected set; } = 0.05f;

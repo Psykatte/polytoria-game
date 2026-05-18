@@ -18,6 +18,7 @@ namespace Polytoria.Datamodel;
 /// Tools are objects that can be held by the player.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Tool : RigidBody
 {
 	private bool _droppable = true;

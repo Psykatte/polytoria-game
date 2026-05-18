@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel.Resources;
 /// \!! WIP Class, Base class for animation loaded from meshes
 /// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class MeshAnimationAsset : ResourceAsset
 {
 	private MeshAnimationTypeEnum _animationType = MeshAnimationTypeEnum.Normal;

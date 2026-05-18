@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// Stats is a collection of Stat objects used to manage player stats.
 /// </summary>
 [Static("Stats")]
+[DocCategory("game")]
 public sealed partial class Stats : Instance
 {
 	public PTSignal<Stat> StatAdded { get; private set; } = new();

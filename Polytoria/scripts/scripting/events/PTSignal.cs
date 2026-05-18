@@ -19,6 +19,7 @@ namespace Polytoria.Scripting;
 /// A signal which scripts can subscribe to
 /// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
+[DocCategory("scripting")]
 public class PTSignal : IScriptObject
 {
 	public event Action? Subscribed;
@@ -308,6 +309,7 @@ public class PTSignal : IScriptObject
 	}
 }
 
+[DocCategory("scripting")]
 public struct PTSignalConnection() : IScriptObject
 {
 	internal PTSignal Signal = null!;

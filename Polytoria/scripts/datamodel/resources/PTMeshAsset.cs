@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel.Resources;
 /// A mesh asset that's loaded from Polytoria.
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTMeshAsset : MeshAsset
 {
 	private uint _assetID;

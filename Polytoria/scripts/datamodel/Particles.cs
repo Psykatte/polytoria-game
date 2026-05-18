@@ -19,6 +19,7 @@ namespace Polytoria.Datamodel;
 /// Particles represents a particle system that can be used to create various visual effects.
 /// </summary>
 [Instantiable]
+[DocCategory("effects")]
 public sealed partial class Particles : Dynamic
 {
 	private const double AabbUpdateIntervalSec = 3;

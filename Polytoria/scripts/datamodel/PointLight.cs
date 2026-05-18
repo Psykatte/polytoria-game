@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel;
 /// PointLight is a type of light that emits light in all directions from a single point.
 /// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class PointLight : Light
 {
 	internal OmniLight3D GDOmniLight = null!;

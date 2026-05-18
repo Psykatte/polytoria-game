@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Resources;
 /// GradientImageAsset is a class that provides gradient image that can be dynamically changed.
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class GradientImageAsset : ImageAsset
 {
 	private const int MaxTextureSize = 1024 * 2;

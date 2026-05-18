@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel.Services;
 /// </summary>
 [Static("Datastore"), ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class DatastoreService : Instance
 {
 	private readonly Dictionary<string, Datastore> datastores = [];

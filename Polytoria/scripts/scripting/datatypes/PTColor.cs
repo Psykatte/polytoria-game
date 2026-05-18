@@ -10,6 +10,7 @@ namespace Polytoria.Scripting.Datatypes;
 /// <summary>
 /// Color is a data type that represents a color. The alpha property is between 0 and 1. 0 is fully transparent and 1 is fully visible.
 /// </summary>
+[DocCategory("types")]
 public class PTColor : IScriptGDObject
 {
 	Color color;

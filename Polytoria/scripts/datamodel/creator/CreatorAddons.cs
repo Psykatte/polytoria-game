@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel.Creator;
 /// Service for managing addons
 /// </summary>
 [Static("Addons")]
+[DocCategory("addons")]
 public sealed partial class CreatorAddons : Instance
 {
 	private const float CleanupTimeout = 10;
@@ -68,6 +69,7 @@ public sealed partial class CreatorAddons : Instance
 	/// <summary>
 	/// AddonObject represents an addon in the creator. This object serves as the main interface for addon developers to interact with the addon system.
 	/// </summary>
+	[DocCategory("addons")]
 	public class AddonObject : IScriptObject
 	{
 		private string _addonName = "No name";
@@ -155,6 +157,7 @@ public sealed partial class CreatorAddons : Instance
 	/// <summary>
 	/// AddonToolItem represents a tool item in the tools menu of the addon.
 	/// </summary>
+	[DocCategory("addons")]
 	public class AddonToolItem(string txt) : IScriptObject
 	{
 		public string Text = txt;

@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// ColorAdjustModifier is a LightingModifier that allows the adjustment of lighting
 /// </summary>
 [Instantiable]
+[DocCategory("elements")]
 public partial class ColorAdjustModifier : LightingModifier
 {
 	private float _brightness;

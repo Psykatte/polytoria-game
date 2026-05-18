@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// HttpResponseData represents the result of an HTTP request.
 /// </summary>
+[DocCategory("types")]
 public partial class HttpResponseData : IScriptObject
 {
 	/// <summary>

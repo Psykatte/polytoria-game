@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel;
 /// RigidBody is the base class for object affected by physics, and can also be used as a container for other physics objects.
 /// </summary>
 [Instantiable]
+[DocCategory("physics")]
 public partial class RigidBody : Physical
 {
 	internal RigidBody3D GDRigidBody = null!;

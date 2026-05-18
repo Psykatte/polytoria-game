@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel;
 /// Grabbable represents a object that can be dragged by user. It can be parented to Physical to give user ability to drag that object.
 /// </summary>
 [Instantiable]
+[DocCategory("physics")]
 public partial class Grabbable : Instance
 {
 	private bool _dragging = false;

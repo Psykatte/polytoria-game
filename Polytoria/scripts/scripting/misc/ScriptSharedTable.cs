@@ -10,6 +10,7 @@ namespace Polytoria.Scripting;
 /// <summary>
 /// Shared table of object. This class provides a table which any scripts can modify.
 /// </summary>
+[DocCategory("scripting")]
 public partial class ScriptSharedTable : IScriptObject
 {
 	internal Dictionary<object, object> SharedDict = [];

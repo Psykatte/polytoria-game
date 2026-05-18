@@ -21,6 +21,7 @@ namespace Polytoria.Datamodel.Services;
 [Static("Worlds")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class WorldsService : Instance
 {
 	private const string WorldAPINonServerMsg = "Worlds API can only be called on server";

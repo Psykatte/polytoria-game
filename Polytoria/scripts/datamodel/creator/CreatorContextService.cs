@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel.Creator;
 [Static("CreatorContext")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class CreatorContextService : Instance
 {
 	internal Camera Freelook = null!;

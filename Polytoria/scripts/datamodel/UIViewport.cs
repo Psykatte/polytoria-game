@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIViewport is a UI object that allows displaying 3D content on 2D UI
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIViewport : UIField
 {
 	private SubViewport _subViewport = null!;

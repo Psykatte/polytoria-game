@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel;
 /// Players is the container class for all Player instances.
 /// </summary>
 [Static("Players")]
+[DocCategory("game")]
 public sealed partial class Players : Instance
 {
 	private bool _playerCollisionEnabled = true;

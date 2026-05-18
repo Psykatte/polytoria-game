@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIHLayout is a class that aligns all of it's children horizontally.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIHLayout : UIHVLayout
 {
 	public override Node CreateGDNode()

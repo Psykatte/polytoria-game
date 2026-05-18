@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel.Services;
 /// PresenceService is a service that allows ClientScripts to set the active status of the player. Which will be used to display in supported integrations.
 /// </summary>
 [Static("Presence"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PresenceService : Instance
 {
 	private const long DiscordAppID = 715468601540476959;

@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel.Services;
 [Static("Assets")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class AssetsService : Instance
 {
 	public readonly Dictionary<string, FileLinkAsset> FileLinks = [];

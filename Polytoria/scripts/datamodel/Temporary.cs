@@ -10,4 +10,5 @@ namespace Polytoria.Datamodel;
 /// A temporary container. All class that were instantiated from <c>Instance.New</c> will have this class as their first parent.
 /// </summary>
 [Static, ExplorerExclude, SaveIgnore]
+[DocCategory("misc")]
 public sealed partial class Temporary : ServerHidden { }

@@ -21,6 +21,7 @@ namespace Polytoria.Datamodel;
 /// PolytorianModel is a CharacterModel that represent default Polytoria Character.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class PolytorianModel : CharacterModel
 {
 	private const double NetLookBlendUpdateInterval = 0.1;

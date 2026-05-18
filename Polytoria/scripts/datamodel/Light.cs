@@ -19,6 +19,7 @@ namespace Polytoria.Datamodel;
 /// Light is an abstract base class for all light objects in the world.
 /// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class Light : Dynamic
 {
 	const float IntensityConversion = 4f;

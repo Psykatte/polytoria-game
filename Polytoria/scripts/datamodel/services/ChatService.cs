@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Services;
 /// Chat is a static class used for various actions regarding the chat.
 /// </summary>
 [Static("Chat"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class ChatService : Instance
 {
 	private const int AllowedMessagePerWindow = 5;

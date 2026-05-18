@@ -18,6 +18,7 @@ namespace Polytoria.Datamodel;
 /// Represents the local player's camera. Controls perspective, follow mode, field of view, and raycasting from screen space.
 /// </summary>
 [Instantiable]
+[DocCategory("game")]
 public sealed partial class Camera : Dynamic
 {
 	public const float ClipSafeMargin = 2.0f;

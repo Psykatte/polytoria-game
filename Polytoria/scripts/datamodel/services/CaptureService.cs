@@ -18,6 +18,7 @@ namespace Polytoria.Datamodel.Services;
 /// Service for capturing photos
 /// </summary>
 [Static("Capture")]
+[DocCategory("services")]
 public sealed partial class CaptureService : Instance
 {
 	private const int CaptureCooldownSec = 3;

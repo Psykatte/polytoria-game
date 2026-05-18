@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// Trusses are parts that can be climbed by the player.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Truss : Part
 {
 	private float _climbSpeed;

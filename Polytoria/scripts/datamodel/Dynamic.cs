@@ -19,6 +19,7 @@ namespace Polytoria.Datamodel;
 /// Dynamic is the base class where all objects with a position, rotation and scale derive from.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Dynamic : Instance
 {
 	internal Node3D GDNode3D = null!;

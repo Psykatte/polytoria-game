@@ -10,4 +10,5 @@ namespace Polytoria.Datamodel;
 /// ServerHidden, similar to Hidden, is a container for objects that are meant to be hidden. Unlike Hidden, ServerHidden won't replicate its contents to clients and can only be accessed by the server.
 /// </summary>
 [Static("ServerHidden")]
+[DocCategory("game")]
 public partial class ServerHidden : HiddenBase { }

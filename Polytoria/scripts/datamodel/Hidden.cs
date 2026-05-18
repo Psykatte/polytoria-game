@@ -10,4 +10,5 @@ namespace Polytoria.Datamodel;
 /// Hidden is a object used for hiding instances.
 /// </summary>
 [Static("Hidden")]
+[DocCategory("game")]
 public partial class Hidden : HiddenBase { }

@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// Explosion is a deadly explosion killing players and applying force to parts at the given position.
 /// </summary>
 [Instantiable]
+[DocCategory("effects")]
 public partial class Explosion : Dynamic
 {
 	private const float ExplosionParticleTimeSec = 10f;

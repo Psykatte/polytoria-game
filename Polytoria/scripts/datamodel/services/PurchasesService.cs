@@ -24,6 +24,7 @@ namespace Polytoria.Datamodel.Services;
 /// Service responsible for handling in-game purchases and ownership verification.
 /// </summary>
 [Static("Purchases"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PurchasesService : Instance
 {
 	private readonly PTHttpClient _client = new();

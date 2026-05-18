@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// Color series is a data type that represents a collection of color and points, also known as gradient.
 /// </summary>
+[DocCategory("types")]
 public readonly struct ColorSeries : IScriptObject, IData
 {
 	internal struct ColorPoint(float offset, Color color)

@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Services;
 /// Service for managing achievements
 /// </summary>
 [Static("Achievements")]
+[DocCategory("services")]
 public sealed partial class AchievementsService : Instance
 {
 	private const int MaxRequestsPerMinute = 30;

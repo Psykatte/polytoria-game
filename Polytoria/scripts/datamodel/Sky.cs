@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Sky is an abstract base class representing the sky in the game world.
 /// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class Sky : Instance
 {
 	public Material SkyMaterial { get; set; } = null!;

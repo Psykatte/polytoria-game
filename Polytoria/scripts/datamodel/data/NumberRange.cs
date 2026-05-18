@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// NumberRange is a data type that represents a range between two numbers, defined by a minimum and maximum value.
 /// </summary>
+[DocCategory("types")]
 public struct NumberRange : IScriptObject, IData
 {
 	private float _min = 0;

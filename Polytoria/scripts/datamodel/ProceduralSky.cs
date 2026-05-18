@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// ProceduralSky is a type of sky that generates its appearance procedurally based on the position of the sun and its properties.
 /// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class ProceduralSky : Sky
 {
 	private ProceduralSkyMaterial _mat = null!;

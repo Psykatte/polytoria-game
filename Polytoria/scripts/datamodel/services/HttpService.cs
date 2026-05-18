@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Services;
 /// </summary>
 [Static("Http"), ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class HttpService : Instance
 {
 	private const int MaxRequestsPerMinute = 90;

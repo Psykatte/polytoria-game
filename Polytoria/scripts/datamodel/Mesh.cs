@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel;
 /// Represents a part that can have custom mesh applied to it, the mesh may be from the Polytoria Store (Hats, Tools and Heads) or user-uploaded meshes.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Mesh : Entity
 {
 	private MeshAsset? _asset;
@@ -602,6 +603,7 @@ public sealed partial class Mesh : Entity
 	/// <summary>
 	/// MeshAnimationInfo contains the animation information for meshes.
 	/// </summary>
+	[DocCategory("misc")]
 	public struct MeshAnimationInfo : IScriptObject
 	{
 		/// <summary>

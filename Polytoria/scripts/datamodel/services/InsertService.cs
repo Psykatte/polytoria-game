@@ -22,6 +22,7 @@ namespace Polytoria.Datamodel.Services;
 /// Insert is a class used for inserting user-generated models into your game via scripts.
 /// </summary>
 [Static("Insert"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class InsertService : Instance
 {
 	private readonly PTHttpClient _httpClient = new();

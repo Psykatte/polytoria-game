@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel;
 /// Teams is a collection of Team objects used to manage player teams.
 /// </summary>
 [Static("Teams")]
+[DocCategory("game")]
 public sealed partial class Teams : Instance
 {
 	public PTSignal<Team> TeamAdded { get; private set; } = new();

@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Base class for image assets
 /// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class ImageAsset : ResourceAsset
 {
 }

@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Accessory represents an attachable object that can be equipped by a CharacterModel.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Accessory : Dynamic
 {
 	private CharacterModel? _targetCharacter;

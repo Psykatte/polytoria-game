@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// Team is an object that represents a player team to which players can be assigned.
 /// </summary>
 [Instantiable]
+[DocCategory("game")]
 public partial class Team : Instance
 {
 	private string _displayName = "";

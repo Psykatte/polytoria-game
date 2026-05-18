@@ -11,4 +11,5 @@ namespace Polytoria.Datamodel;
 /// Model is an instance that can hold other instances, and which transform affects its children.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Model : Dynamic, IGroup { }

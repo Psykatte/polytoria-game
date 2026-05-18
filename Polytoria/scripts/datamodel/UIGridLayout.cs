@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIGridLayout is a class that arranges all of it's children in a grid layout
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIGridLayout : UIContainer
 {
 	private int _columns;

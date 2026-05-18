@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel;
 /// Environment is the primary object intended for storing active objects in the place.
 /// </summary>
 [Static("Environment")]
+[DocCategory("game")]
 public sealed partial class Environment : Instance
 {
 	private const int MaxOverlaps = 2048;
@@ -558,6 +559,7 @@ public sealed partial class Environment : Instance
 	/// <summary>
 	/// RayResult is a data type that contains data about a raycast result.
 	/// </summary>
+	[DocCategory("types")]
 	public struct RayResult : IScriptObject
 	{
 		/// <summary>

@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// Datastore is an object that represent datastore connection.
 /// </summary>
+[DocCategory("scripting")]
 public partial class Datastore : IScriptObject
 {
 	private string _dsKey = null!;

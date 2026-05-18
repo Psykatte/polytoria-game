@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel.Services;
 /// </summary>
 [Static("Filter"), ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class FilterService : Instance
 {
 	private static List<string> _profanityList = [];

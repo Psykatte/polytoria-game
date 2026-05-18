@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIView is a class that displays a rectangle in your place's UI.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIView : UIField
 {
 	private StyleBoxFlat _styleBox = null!;

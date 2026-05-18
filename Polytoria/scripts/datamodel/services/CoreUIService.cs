@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Services;
 /// CoreUI is a static class that allows for the toggling of certain core GUI.
 /// </summary>
 [Static("CoreUI")]
+[DocCategory("services")]
 public sealed partial class CoreUIService : Instance
 {
 	private const string CoreUIPath = "res://scenes/client/ui/core_ui.tscn";

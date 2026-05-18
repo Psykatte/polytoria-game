@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// UIImage is a class that can be used to display images.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIImage : UIField
 {
 	public TextureRect GDTextureRect = null!;

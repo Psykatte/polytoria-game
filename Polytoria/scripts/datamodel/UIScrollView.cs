@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIScrollView is a class that allows the user to scroll content within a view.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIScrollView : UIContainer
 {
 	private ScrollContainer _scrollContainer = null!;

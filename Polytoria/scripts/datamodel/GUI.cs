@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// GUI is a class that is used to create a GUI.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class GUI : Instance
 {
 	private Control _control = null!;

@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel.Data;
 /// <summary>
 /// HttpRequestData represents the data required to construct an HTTP request
 /// </summary>
+[DocCategory("types")]
 public partial class HttpRequestData : IScriptObject
 {
 	/// <summary>

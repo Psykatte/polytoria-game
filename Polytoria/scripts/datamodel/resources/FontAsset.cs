@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Base class for font assets
 /// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class FontAsset : ResourceAsset
 {
 }

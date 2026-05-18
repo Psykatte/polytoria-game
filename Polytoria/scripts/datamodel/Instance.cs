@@ -27,6 +27,7 @@ namespace Polytoria.Datamodel;
 /// </summary>
 [Abstract]
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
+[DocCategory("misc")]
 public partial class Instance : NetworkedObject
 {
 	private const float WaitChildWarningSec = 10.0f;

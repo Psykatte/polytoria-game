@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// BodyPosition are objects that apply a force to their parent until they reach the target position.
 /// </summary>
 [Instantiable]
+[DocCategory("physics")]
 public partial class BodyPosition : Instance
 {
 	private Vector3 _targetPosition = new(0, 0, 0);

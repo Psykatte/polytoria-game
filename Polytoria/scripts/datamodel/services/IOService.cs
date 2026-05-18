@@ -20,6 +20,7 @@ namespace Polytoria.Datamodel.Services;
 [Static("IO")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class IOService : Instance
 {
 	private const string PolyCreatorTempPath = "polyc_temp";

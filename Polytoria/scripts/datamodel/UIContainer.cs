@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// Base class for all UI containers
 /// </summary>
 [Abstract]
+[DocCategory("ui")]
 public partial class UIContainer : UIField
 {
 }

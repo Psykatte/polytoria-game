@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// InstanceValue is an object that holds an Instance value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class InstanceValue : ValueBase
 {
 	private Instance? _val;

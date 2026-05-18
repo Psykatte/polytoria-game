@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel;
 /// GUI3D is a class that allows GUI to be displayed in a 3D space.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class GUI3D : Dynamic
 {
 	private readonly StandardMaterial3D _material = new();

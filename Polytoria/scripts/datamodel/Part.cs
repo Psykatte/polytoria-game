@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// Parts represent the basic building blocks of the world.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Part : Entity
 {
 	private MeshInstance3D? _mesh;

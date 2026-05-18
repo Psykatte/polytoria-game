@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// Text3D is a class that represents 3D text in the game world.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Text3D : Dynamic
 {
 	private const float FontSizeConversion = 10.5f;

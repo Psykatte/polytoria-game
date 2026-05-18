@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Abstract class for audio
 /// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class AudioAsset : ResourceAsset
 {
 }

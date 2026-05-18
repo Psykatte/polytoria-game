@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel.Services;
 [Static("Preferences")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PreferencesService : Instance
 {
 	/// <summary>

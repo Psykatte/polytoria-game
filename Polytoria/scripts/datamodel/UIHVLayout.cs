@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIHVLayout is an abstract class that provides horizontal and vertical layout functionality for UI elements.
 /// </summary>
 [Abstract]
+[DocCategory("ui")]
 public partial class UIHVLayout : UIContainer
 {
 	private UILayoutAlignmentEnum _childAlignment;

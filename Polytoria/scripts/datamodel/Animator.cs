@@ -17,6 +17,7 @@ namespace Polytoria.Datamodel;
 /// WIP class
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Animator : Instance
 {
 	public AnimationTree AnimationTree = null!;

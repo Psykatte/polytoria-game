@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel.Services;
 /// TweenService is a service for managing tweens
 /// </summary>
 [Static("Tween"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class TweenService : Instance
 {
 	private readonly Dictionary<int, WeakReference<Tween>> _legacyTweenIDs = [];
@@ -364,6 +365,7 @@ public sealed partial class TweenService : Instance
 	/// <summary>
 	/// An object that represents tween
 	/// </summary>
+	[DocCategory("misc")]
 	public class TweenObject : IScriptObject
 	{
 		internal Tween tween = null!;

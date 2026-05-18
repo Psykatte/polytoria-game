@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// UIButton is a class that represents a clickable button UI element.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIButton : UILabel
 {
 	private Color _pressedColor = new(0.6f, 0.6f, 0.6f, 1);

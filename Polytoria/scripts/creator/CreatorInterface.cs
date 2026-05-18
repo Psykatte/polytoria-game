@@ -29,6 +29,7 @@ namespace Polytoria.Creator;
 /// <summary>
 /// CreatorInterface represent the user interface of the creator. This class is only available in the creator.
 /// </summary>
+[DocCategory("addons")]
 public partial class CreatorInterface : Control, IScriptObject
 {
 	public const string IntroRanFile = "user://creator/introran";

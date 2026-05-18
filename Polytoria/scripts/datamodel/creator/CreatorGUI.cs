@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel.Creator;
 /// CreatorGUI is an object that allows GUI to overlay on top of the viewport in the creator. This class is only available in the creator.
 /// </summary>
 [ExplorerExclude, SaveIgnore]
+[DocCategory("addons")]
 public sealed partial class CreatorGUI : Instance
 {
 	public override Node CreateGDNode()

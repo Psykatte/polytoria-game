@@ -27,6 +27,7 @@ namespace Polytoria.Datamodel.Creator;
 /// CreatorService is the class that manages the creator. This class is only available in the creator.
 /// </summary>
 [Static("Creator"), ExplorerExclude]
+[DocCategory("services")]
 public sealed partial class CreatorService : Node, IScriptObject
 {
 	public const string PolytoriaFolderName = "Polytoria/";

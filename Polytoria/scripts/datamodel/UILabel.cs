@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel;
 /// UILabel is a class that can be used to display text.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UILabel : UIView
 {
 	private readonly Label _label = new();

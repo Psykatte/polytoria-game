@@ -23,6 +23,7 @@ namespace Polytoria.Datamodel;
 /// Player represents a user playing the game.
 /// </summary>
 [ExplorerExclude]
+[DocCategory("game")]
 public sealed partial class Player : NPC
 {
 	private const double MaxAFKTime = 60 * 15;

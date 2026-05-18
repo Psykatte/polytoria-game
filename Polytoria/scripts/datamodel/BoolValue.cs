@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// BoolValue is a ValueBase that stores a boolean.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class BoolValue : ValueBase
 {
 	private bool _val = false;

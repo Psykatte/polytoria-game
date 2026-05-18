@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Seats are parts the player can sit on.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Seat : Part
 {
 	private bool _canNPCSit;

@@ -12,6 +12,7 @@ namespace Polytoria.Scripting.Datatypes;
 /// <summary>
 /// Vector3 is a 3D vector with an x, y and z component.
 /// </summary>
+[DocCategory("types")]
 public class PTVector3 : IScriptGDObject
 {
 	internal Vector3 vector;

@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel;
 /// UITextInput is a class that allows the user to enter text.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UITextInput : UIView
 {
 	private readonly TextEdit _textEdit = new();

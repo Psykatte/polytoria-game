@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// Vector3Value is an object that holds a Vector3 value.
 /// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class Vector3Value : ValueBase
 {
 	private Vector3 _val = new(0, 0, 0);

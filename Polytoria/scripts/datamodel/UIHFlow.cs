@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// UIHFlow is a class that aligns all of it's children horizontally and wraps them around at the borders.
 /// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIHFlow : UIFlowLayout
 {
 	public override Node CreateGDNode()

@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// BindableEvent is an event that can be called to communicate between scripts in the same boundary.
 /// </summary>
 [Instantiable]
+[DocCategory("networking")]
 public sealed partial class BindableEvent : Instance
 {
 	/// <summary>

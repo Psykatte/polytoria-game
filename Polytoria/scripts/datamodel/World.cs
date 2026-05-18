@@ -30,6 +30,7 @@ namespace Polytoria.Datamodel;
 /// World is the root object in the Polytoria instance tree. It is the object from which everything is descended.
 /// </summary>
 [Static("world")]
+[DocCategory("world")]
 public sealed partial class World : Instance
 {
 	private const double SyncInterval = 5.0;

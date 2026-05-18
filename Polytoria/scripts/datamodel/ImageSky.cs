@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// ImageSky is a class that is used to set a custom image skybox in the world. You can set the images used for the individual sides of the skybox by changing the image properties. Any image from the library can be used for the skybox.
 /// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class ImageSky : Sky
 {
 	private readonly Texture2D _empty = GD.Load<Texture2D>("res://assets/textures/empty.png");

@@ -30,6 +30,7 @@ namespace Polytoria.Datamodel;
 /// </summary>
 [Abstract]
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicProperties | DynamicallyAccessedMemberTypes.NonPublicFields | DynamicallyAccessedMemberTypes.NonPublicMethods)]
+[DocCategory("networking")]
 public partial class NetworkedObject : IScriptObject
 {
 	private const float DefaultUnreliableSyncInterval = 1;

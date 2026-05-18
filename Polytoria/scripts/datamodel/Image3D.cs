@@ -15,6 +15,7 @@ namespace Polytoria.Datamodel;
 /// Image3D are objects that can have an image texture and are placed in the world.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Image3D : Dynamic
 {
 	private ImageAsset? _asset;

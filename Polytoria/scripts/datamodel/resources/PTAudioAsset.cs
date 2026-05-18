@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Audio asset which is loaded from Polytoria
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTAudioAsset : AudioAsset
 {
 	private uint _audioID = 0;

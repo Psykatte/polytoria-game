@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// PlayerDefaults is a service used for storing the default values of the Player when created.
 /// </summary>
 [Static("PlayerDefaults")]
+[DocCategory("game")]
 public sealed partial class PlayerDefaults : HiddenBase
 {
 	private float _maxHealth;

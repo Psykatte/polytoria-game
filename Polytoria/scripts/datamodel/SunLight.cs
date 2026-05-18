@@ -14,6 +14,7 @@ namespace Polytoria.Datamodel;
 /// SunLight is the main directional light source representing the sun in the game world.
 /// </summary>
 [Static]
+[DocCategory("lighting")]
 public sealed partial class SunLight : Light
 {
 #if CREATOR

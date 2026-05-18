@@ -11,6 +11,7 @@ namespace Polytoria.Datamodel;
 /// GradientSky is a class that is used to set a gradient skybox in the world.
 /// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class GradientSky : Sky
 {
 	private ShaderMaterial _mat = null!;

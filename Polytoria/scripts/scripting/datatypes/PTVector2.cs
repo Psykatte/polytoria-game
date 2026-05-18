@@ -11,6 +11,7 @@ namespace Polytoria.Scripting.Datatypes;
 /// <summary>
 /// Vector2 is a 2D vector with an x and y component.
 /// </summary>
+[DocCategory("types")]
 public class PTVector2 : IScriptGDObject
 {
 	Vector2 vector;

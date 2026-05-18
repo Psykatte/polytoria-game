@@ -10,6 +10,7 @@ namespace Polytoria.Datamodel;
 /// Marker3D is a object that allows marking a specific point in world. This will hint an axis gizmo in local test and creator.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Marker3D : Dynamic
 {
 	private MeshInstance3D _meshInstance = null!;

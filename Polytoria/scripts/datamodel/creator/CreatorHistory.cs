@@ -16,6 +16,7 @@ namespace Polytoria.Datamodel.Creator;
 [Static("History")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("addons")]
 public sealed partial class CreatorHistory : Instance
 {
 	private const float DeleteTimeoutSec = 60;

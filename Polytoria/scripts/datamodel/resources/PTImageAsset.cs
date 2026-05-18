@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel.Resources;
 /// An image asset that's loaded from Polytoria.
 /// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTImageAsset : ImageAsset
 {
 	private uint _imageID;
