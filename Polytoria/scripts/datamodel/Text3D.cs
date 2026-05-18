@@ -10,6 +10,9 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Text3D is a class that represents 3D text in the game world.
+/// </summary>
 [Instantiable]
 public sealed partial class Text3D : Dynamic
 {
@@ -34,6 +37,9 @@ public sealed partial class Text3D : Dynamic
 	private TextHorizontalAlignmentEnum _horizontalAlignment = TextHorizontalAlignmentEnum.Center;
 	private TextVerticalAlignmentEnum _verticalAlignment = TextVerticalAlignmentEnum.Middle;
 
+	/// <summary>
+	/// The text content displayed.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string Text
 	{
@@ -48,6 +54,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The size of the font used for the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float FontSize
 	{
@@ -67,6 +76,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The color of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -79,6 +91,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The width of the text outline.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public int OutlineWidth
 	{
@@ -93,6 +108,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The color of the text outline.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color OutlineColor
 	{
@@ -106,6 +124,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the text should always be facing the camera.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool FaceCamera
 	{
@@ -118,6 +139,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the horizontal alignment of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextHorizontalAlignmentEnum HorizontalAlignment
 	{
@@ -145,6 +169,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the vertical alignment of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextVerticalAlignmentEnum VerticalAlignment
 	{
@@ -172,6 +199,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The font asset used for the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public FontAsset? FontAsset
 	{
@@ -240,6 +270,9 @@ public sealed partial class Text3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the text should be affected by lighting.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool Shaded
 	{

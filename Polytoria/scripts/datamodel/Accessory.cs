@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Accessory represents an attachable object that can be equipped by a CharacterModel.
+/// </summary>
 [Instantiable]
 public partial class Accessory : Dynamic
 {
@@ -14,6 +17,9 @@ public partial class Accessory : Dynamic
 	private PolytorianModel.CharacterAttachmentEnum _targetAttachment;
 	private RemoteTransform3D? remoteTransform;
 
+	/// <summary>
+	/// Specifies the character attachment point
+	/// </summary>
 	[Editable, ScriptProperty]
 	public PolytorianModel.CharacterAttachmentEnum TargetAttachment
 	{

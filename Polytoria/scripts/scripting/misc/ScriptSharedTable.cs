@@ -7,22 +7,34 @@ using System.Collections.Generic;
 
 namespace Polytoria.Scripting;
 
+/// <summary>
+/// Shared table of object. This class provides a table which any scripts can modify.
+/// </summary>
 public partial class ScriptSharedTable : IScriptObject
 {
 	internal Dictionary<object, object> SharedDict = [];
 
+	/// <summary>
+	/// Clear the shared table
+	/// </summary>
 	[ScriptMethod]
 	public void Clear()
 	{
 		SharedDict.Clear();
 	}
 
+	/// <summary>
+	/// Remove the key from shared table
+	/// </summary>
 	[ScriptMethod]
 	public void Remove(string key)
 	{
 		SharedDict.Remove(key);
 	}
 
+	/// <summary>
+	/// Clear all keys with the prefix
+	/// </summary>
 	[ScriptMethod]
 	public void ClearPrefix(string prefix)
 	{
@@ -35,6 +47,9 @@ public partial class ScriptSharedTable : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Clear all keys with the suffix
+	/// </summary>
 	[ScriptMethod]
 	public void ClearSuffix(string suffix)
 	{

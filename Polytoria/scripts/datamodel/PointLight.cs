@@ -11,6 +11,9 @@ using Polytoria.Creator.Spatial;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// PointLight is a type of light that emits light in all directions from a single point.
+/// </summary>
 [Instantiable]
 public sealed partial class PointLight : Light
 {
@@ -45,6 +48,9 @@ public sealed partial class PointLight : Light
 		base.InitOverrides();
 	}
 
+	/// <summary>
+	/// The range of the point light's illumination.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(30f)]
 	public float Range
 	{

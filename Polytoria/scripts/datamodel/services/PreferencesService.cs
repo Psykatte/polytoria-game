@@ -8,13 +8,25 @@ using Polytoria.Scripting;
 namespace Polytoria.Datamodel.Services;
 
 // TODO: Fix this service, uses old ClientSettings
+/// <summary>
+/// PreferencesService is a service that allows scripts to access some of the user preferences
+/// </summary>
 [Static("Preferences")]
 [ExplorerExclude]
 [SaveIgnore]
 public sealed partial class PreferencesService : Instance
 {
+	/// <summary>
+	/// Fired when a user preference setting is changed.
+	/// </summary>
 	[ScriptProperty] public PTSignal<string, object> SettingChanged { get; private set; } = new();
+	/// <summary>
+	/// Determines whether the player has photo mode enabled.
+	/// </summary>
 	[ScriptProperty] public static bool UsePhotoMode => false;//ClientSettings.Singleton.Settings.PhotoMode;
+	/// <summary>
+	/// Determines whether the player has post-processing effects enabled.
+	/// </summary>
 	[ScriptProperty] public static bool UsePostProcessing => false;//ClientSettings.Singleton.Settings.PostProcessing;
 
 

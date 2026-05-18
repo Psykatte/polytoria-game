@@ -7,5 +7,8 @@ using Polytoria.Datamodel.Interfaces;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Model is an instance that can hold other instances, and which transform affects its children.
+/// </summary>
 [Instantiable]
 public sealed partial class Model : Dynamic, IGroup { }

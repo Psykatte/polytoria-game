@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIHFlow is a class that aligns all of it's children horizontally and wraps them around at the borders.
+/// </summary>
 [Instantiable]
 public partial class UIHFlow : UIFlowLayout
 {

@@ -6,5 +6,8 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ServerHidden, similar to Hidden, is a container for objects that are meant to be hidden. Unlike Hidden, ServerHidden won't replicate its contents to clients and can only be accessed by the server.
+/// </summary>
 [Static("ServerHidden")]
 public partial class ServerHidden : HiddenBase { }

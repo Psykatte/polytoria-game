@@ -6,6 +6,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Base class for all UI containers
+/// </summary>
 [Abstract]
 public partial class UIContainer : UIField
 {

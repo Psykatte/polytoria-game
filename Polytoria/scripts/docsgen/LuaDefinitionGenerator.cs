@@ -44,6 +44,9 @@ public class LuaDefinitionGenerator
 		File.WriteAllText(atFolder.PathJoin("def.json"), JsonSerializer.Serialize(refer, APIRefGenerationContext.Default.APIReferenceRoot));
 
 		// Add PTSignal type definitions
+		/// <summary>
+		/// PTSignalConnection represents a signal for this connection
+		/// </summary>
 		builder.AppendLine("declare class PTSignalConnection");
 		builder.AppendLine("\tfunction Disconnect(self): ()");
 		builder.AppendLine("end");

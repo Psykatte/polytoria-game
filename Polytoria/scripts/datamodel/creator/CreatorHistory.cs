@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Creator;
 
+/// <summary>
+/// CreatorHistory is a class that manages history (undo-redo) of this game instance. This class is only available in the creator.
+/// </summary>
 [Static("History")]
 [ExplorerExclude]
 [SaveIgnore]
@@ -56,12 +59,18 @@ public sealed partial class CreatorHistory : Instance
 		CreatorService.Interface.StatusBar?.SetStatus("Redo " + action.Title);
 	}
 
+	/// <summary>
+	/// Creates new action
+	/// </summary>
 	[ScriptMethod]
 	public void NewAction(string title)
 	{
 		_currentAction = new HistoryAction { Title = title };
 	}
 
+	/// <summary>
+	/// Add do callback
+	/// </summary>
 	[ScriptMethod]
 	public void AddDoCallback(PTCallback callback)
 	{
@@ -76,6 +85,9 @@ public sealed partial class CreatorHistory : Instance
 		_currentAction.DoCallbacks.Add(callback);
 	}
 
+	/// <summary>
+	/// Add undo callback
+	/// </summary>
 	[ScriptMethod]
 	public void AddUndoCallback(PTCallback callback)
 	{
@@ -90,6 +102,9 @@ public sealed partial class CreatorHistory : Instance
 		_currentAction.UndoCallbacks.Add(callback);
 	}
 
+	/// <summary>
+	/// Commit the current action
+	/// </summary>
 	[ScriptMethod]
 	public void CommitAction()
 	{

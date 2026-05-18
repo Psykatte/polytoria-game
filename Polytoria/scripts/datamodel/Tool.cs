@@ -14,6 +14,9 @@ using System.Linq;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Tools are objects that can be held by the player.
+/// </summary>
 [Instantiable]
 public sealed partial class Tool : RigidBody
 {
@@ -21,6 +24,9 @@ public sealed partial class Tool : RigidBody
 	private ImageAsset? _iconImage;
 	private NPC? _holder = null;
 
+	/// <summary>
+	/// Determines whether the tool can be dropped by the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Droppable
 	{
@@ -32,6 +38,9 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// The icon for this tool, appears in inventory.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? IconImage
 	{
@@ -64,6 +73,9 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Determines who is currently holding this tool.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public NPC? Holder
 	{
@@ -83,15 +95,27 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Fires when this tool has been equipped
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Equipped { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when this tool has been unequipped
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Unequipped { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when this tool has been activated (via mouse press or <c>Tool:Activate</c>)
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Activated { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when this tool has been deactivated (via mouse release or <c>Tool:Deactivate</c>)
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Deactivated { get; private set; } = new();
 
@@ -209,6 +233,9 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Activates the tool, similarly to pressing the mouse button.
+	/// </summary>
 	[ScriptMethod]
 	public void Activate()
 	{
@@ -219,6 +246,9 @@ public sealed partial class Tool : RigidBody
 		RpcId(1, nameof(NetRecvActivate));
 	}
 
+	/// <summary>
+	/// Deactivates the tool, similarly to releasing the mouse button.
+	/// </summary>
 	[ScriptMethod]
 	public void Deactivate()
 	{
@@ -306,6 +336,9 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Plays the specified animation on the holder of the tool.
+	/// </summary>
 	[ScriptMethod, ScriptLegacyMethod("Play")]
 	public void PlayAnimation(string animationName)
 	{

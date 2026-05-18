@@ -11,6 +11,9 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UITextInput is a class that allows the user to enter text.
+/// </summary>
 [Instantiable]
 public partial class UITextInput : UIView
 {
@@ -28,6 +31,9 @@ public partial class UITextInput : UIView
 	private BuiltInFontAsset.BuiltInTextFontPresetEnum _fontPreset;
 	private FontAsset? _fontAsset;
 
+	/// <summary>
+	/// The text of the label.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string Text
 	{
@@ -51,6 +57,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// The color of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color TextColor
 	{
@@ -64,6 +73,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determines how text is justified.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextHorizontalAlignmentEnum JustifyText
 	{
@@ -88,6 +100,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// The font size of the label.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float FontSize
 	{
@@ -101,6 +116,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determine if this text input can be typed in multi-line.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool MultiLine
 	{
@@ -114,6 +132,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// The placeholder text displayed when the input is empty.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string Placeholder
 	{
@@ -127,6 +148,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// The color of the placeholder text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color PlaceholderColor
 	{
@@ -140,6 +164,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// The color of the text when the input is read-only.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color ReadOnlyColor
 	{
@@ -153,6 +180,9 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determine if this text input is read-only.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool ReadOnly
 	{
@@ -191,6 +221,9 @@ public partial class UITextInput : UIView
 	}
 	*/
 
+	/// <summary>
+	/// The font asset used for the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public FontAsset? FontAsset
 	{
@@ -235,9 +268,21 @@ public partial class UITextInput : UIView
 		}
 	}
 
+	/// <summary>
+	/// Fires when user submitted the text
+	/// </summary>
 	[ScriptProperty] public PTSignal<string> Submitted { get; private set; } = new();
+	/// <summary>
+	/// Fires when user changed the text
+	/// </summary>
 	[ScriptProperty] public PTSignal<string> Changed { get; private set; } = new();
+	/// <summary>
+	/// Fires when user focuses on this input field
+	/// </summary>
 	[ScriptProperty] public PTSignal FocusEnter { get; private set; } = new();
+	/// <summary>
+	/// Fires when user defocused from this input field
+	/// </summary>
 	[ScriptProperty] public PTSignal FocusExit { get; private set; } = new();
 
 	private void OnFontLoaded(Resource resource)
@@ -308,6 +353,9 @@ public partial class UITextInput : UIView
 		base.PreDelete();
 	}
 
+	/// <summary>
+	/// Forces the local player to focus on the text input.
+	/// </summary>
 	[ScriptMethod]
 	public void Focus()
 	{

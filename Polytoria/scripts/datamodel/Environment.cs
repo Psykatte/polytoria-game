@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Environment is the primary object intended for storing active objects in the place.
+/// </summary>
 [Static("Environment")]
 public sealed partial class Environment : Instance
 {
@@ -28,6 +31,9 @@ public sealed partial class Environment : Instance
 
 	internal Camera3D? CurrentGDCamera;
 
+	/// <summary>
+	/// Determines the current camera which the player is using to view the world.
+	/// </summary>
 	[ScriptProperty]
 	public Camera? CurrentCamera
 	{
@@ -69,6 +75,9 @@ public sealed partial class Environment : Instance
 	private NavigationRegion3D _navRegion = null!;
 	private NavigationMesh _navMesh = null!;
 
+	/// <summary>
+	/// The direction and strength of gravity in the world.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 Gravity
 	{
@@ -85,6 +94,9 @@ public sealed partial class Environment : Instance
 		}
 	}
 
+	/// <summary>
+	/// The height at which unanchored parts are destroyed when they fall below it.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(-2000f)]
 	public float PartDestroyHeight
 	{
@@ -96,6 +108,9 @@ public sealed partial class Environment : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not to automatically build a navigation mesh for NPC pathfinding. This property is disabled by default so there are no performance issues with larger maps.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool AutoGenerateNavMesh
 	{
@@ -251,6 +266,9 @@ public sealed partial class Environment : Instance
 		SpawnPoints.Remove(spawnpoint);
 	}
 
+	/// <summary>
+	/// Casts a ray from origin with a specified direction and returns a RayResult for the first hit object.
+	/// </summary>
 	[ScriptMethod]
 	public RayResult? Raycast(Vector3 origin, Vector3 direction, float maxDistance = 10000f, Instance[]? ignoreList = null)
 	{
@@ -291,6 +309,9 @@ public sealed partial class Environment : Instance
 		return null;
 	}
 
+	/// <summary>
+	/// Casts a ray from origin with a specified direction and returns a RayResult array for all hit objects.
+	/// </summary>
 	[ScriptMethod]
 	public RayResult[] RaycastAll(Vector3 origin, Vector3 direction, float maxDistance = 1000, Instance[]? ignoreList = null)
 	{
@@ -354,6 +375,9 @@ public sealed partial class Environment : Instance
 		return instance;
 	}
 
+	/// <summary>
+	/// Returns a list of instances intersecting with the sphere in the given position and radius.
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] OverlapSphere(Vector3 origin, float radius, Instance[]? ignoreList = null)
 	{
@@ -370,6 +394,9 @@ public sealed partial class Environment : Instance
 		return PerformOverlap(ignoreList, query);
 	}
 
+	/// <summary>
+	/// Returns a list of instances intersecting with the box in the given position, size and rotation.
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] OverlapBox(Vector3 pos, Vector3 size, Vector3 rot, Instance[]? ignoreList = null)
 	{
@@ -437,6 +464,9 @@ public sealed partial class Environment : Instance
 		explod.Parent = Root.Environment;
 	}
 
+	/// <summary>
+	/// Rebuilds the navigation mesh which determines the empty space where NPCs can pathfind in.
+	/// </summary>
 	[ScriptMethod]
 	public void RebuildNavMesh()
 	{
@@ -481,6 +511,9 @@ public sealed partial class Environment : Instance
 		_navRegion.BakeNavigationMesh();
 	}
 
+	/// <summary>
+	/// Returns a point on the navigation mesh at the given position.
+	/// </summary>
 	[ScriptMethod]
 	public Vector3 GetPointOnNavMesh(Vector3 toPoint)
 	{
@@ -522,12 +555,30 @@ public sealed partial class Environment : Instance
 		return rids;
 	}
 
+	/// <summary>
+	/// RayResult is a data type that contains data about a raycast result.
+	/// </summary>
 	public struct RayResult : IScriptObject
 	{
+		/// <summary>
+		/// The origin point of the ray.
+		/// </summary>
 		[ScriptProperty] public Vector3 Origin { get; set; }
+		/// <summary>
+		/// The direction vector of the ray.
+		/// </summary>
 		[ScriptProperty] public Vector3 Direction { get; set; }
+		/// <summary>
+		/// The position where the ray hit an object.
+		/// </summary>
 		[ScriptProperty] public Vector3 Position { get; set; }
+		/// <summary>
+		/// The surface normal at the point where the ray hit.
+		/// </summary>
 		[ScriptProperty] public Vector3 Normal { get; set; }
+		/// <summary>
+		/// The distance from the ray's origin to the hit point.
+		/// </summary>
 		[ScriptProperty] public float Distance { get; set; }
 		[ScriptProperty] public Instance? Instance { get; set; }
 

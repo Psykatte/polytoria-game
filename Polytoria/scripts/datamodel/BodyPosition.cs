@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// BodyPosition are objects that apply a force to their parent until they reach the target position.
+/// </summary>
 [Instantiable]
 public partial class BodyPosition : Instance
 {
@@ -14,6 +17,9 @@ public partial class BodyPosition : Instance
 	private float _force = 0;
 	private float _acceptanceDistance = 2;
 
+	/// <summary>
+	/// Determines the target position that the body applies forces to get to.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 TargetPosition
 	{
@@ -25,6 +31,9 @@ public partial class BodyPosition : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines how much force the body applies.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public float Force
 	{
@@ -36,6 +45,9 @@ public partial class BodyPosition : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines how close the body has to be to the target position to stop applying forces to it.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(2)]
 	public float AcceptanceDistance
 	{

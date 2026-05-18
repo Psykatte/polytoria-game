@@ -13,6 +13,9 @@ using Polytoria.Utils;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// NPC (non-player character) is an object similar to a Player but that can be controlled by code. Like players, it can walk and jump, and its body part colors can be customized.
+/// </summary>
 [Instantiable]
 public partial class NPC : Physical
 {
@@ -63,6 +66,9 @@ public partial class NPC : Physical
 	protected override float PositionSyncThreshold => 0.1f;
 	protected override float RotationSyncThreshold => 1f;
 
+	/// <summary>
+	/// Determines the linear velocity of this NPC.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public override Vector3 Velocity
 	{
@@ -218,6 +224,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// The offset to the seat at which the NPC is positioned when sitting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 SeatOffset
 	{
@@ -229,6 +238,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// The current health of the NPC.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Health
 	{
@@ -245,6 +257,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// The maximum health of the NPC.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float MaxHealth
 	{
@@ -256,6 +271,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the jump power of the NPC.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float JumpPower
 	{
@@ -267,6 +285,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the walking speed of the NPC.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float WalkSpeed
 	{
@@ -278,6 +299,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the NPC uses a nametag.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseNametag
 	{
@@ -291,6 +315,9 @@ public partial class NPC : Physical
 	}
 
 
+	/// <summary>
+	/// Determines the offset position of the NPC's nametag.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 NametagOffset
 	{
@@ -303,6 +330,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the visibility radius of the NPC's nametag.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float NametagVisibleRadius
 	{
@@ -314,6 +344,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the display name of the NPC.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string DisplayName
 	{
@@ -325,6 +358,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the sound played when the NPC jumps.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Sound? JumpSound
 	{
@@ -336,12 +372,21 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether the NPC is currently sitting.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public bool IsSitting { get; internal set; } = false;
 
+	/// <summary>
+	/// Indicates whether the NPC is currently dead.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public bool IsDead { get; internal set; } = false;
 
+	/// <summary>
+	/// Indicates the tool currently held by the NPC.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public Tool? HoldingTool
 	{
@@ -356,6 +401,9 @@ public partial class NPC : Physical
 		internal set => _holdingTool = value;
 	}
 
+	/// <summary>
+	/// Indicates the seat in which the NPC is currently sitting.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public Seat? SittingIn
 	{
@@ -370,6 +418,9 @@ public partial class NPC : Physical
 		internal set => _sittingIn = value;
 	}
 
+	/// <summary>
+	/// The character model associated with the NPC.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public CharacterModel? Character
 	{
@@ -384,6 +435,9 @@ public partial class NPC : Physical
 		internal set => _character = value;
 	}
 
+	/// <summary>
+	/// Determines the instance the NPC should walk towards.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public Dynamic? MoveTarget
 	{
@@ -398,24 +452,45 @@ public partial class NPC : Physical
 		set => _moveTarget = value;
 	}
 
+	/// <summary>
+	/// Indicates if NPC is standing on ground.
+	/// </summary>
 	[ScriptProperty, ScriptLegacyProperty("Grounded")]
 	public bool IsOnGround => CharBody3D.IsOnFloor();
 
 	[ScriptProperty]
 	public bool IsOnCeiling => CharBody3D.IsOnCeiling();
 
+	/// <summary>
+	/// Indicates the distance to the navigation destination.
+	/// </summary>
 	[ScriptProperty] public float NavDestinationDistance => _navAgent == null ? Mathf.Inf : _navAgent.DistanceToTarget();
+	/// <summary>
+	/// Indicates whether the NPC has reached its navigation destination.
+	/// </summary>
 	[ScriptProperty] public bool NavDestinationReached => _navAgent != null && _navAgent.IsTargetReached();
+	/// <summary>
+	/// Indicates whether the navigation destination is valid.
+	/// </summary>
 	[ScriptProperty] public bool NavDestinationValid => _navAgent != null && _navAgent.IsTargetReachable();
 
 	public Vector3 CharacterVelocity = Vector3.Zero;
 
+	/// <summary>
+	/// Triggered when the NPC dies.
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Died { get; private set; } = new();
 
+	/// <summary>
+	/// Triggered when the NPC lands on the ground after a jump or fall.
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Landed { get; private set; } = new();
 
+	/// <summary>
+	/// Triggered when the NPC finishes navigating to a destination.
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal NavFinished { get; private set; } = new();
 
@@ -709,6 +784,9 @@ public partial class NPC : Physical
 		base.PhysicsProcess(delta);
 	}
 
+	/// <summary>
+	/// Move this NPC while respecting collisions.
+	/// </summary>
 	[ScriptMethod]
 	public void Move(Vector3 velo)
 	{
@@ -718,6 +796,9 @@ public partial class NPC : Physical
 		CharBody3D.MoveAndSlide();
 	}
 
+	/// <summary>
+	/// Kills the NPC.
+	/// </summary>
 	[ScriptMethod]
 	public void Kill()
 	{
@@ -752,6 +833,9 @@ public partial class NPC : Physical
 		Died.Invoke();
 	}
 
+	/// <summary>
+	/// Try to detect stairs and step up. Returns true if the NPC has stepped up.
+	/// </summary>
 	[ScriptMethod]
 	public bool TryStepUp()
 	{
@@ -844,6 +928,9 @@ public partial class NPC : Physical
 		return false;
 	}
 
+	/// <summary>
+	/// Makes the NPC jump.
+	/// </summary>
 	[ScriptMethod]
 	public virtual void Jump()
 	{
@@ -866,12 +953,18 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Makes the NPC sit on a specified seat.
+	/// </summary>
 	[ScriptMethod]
 	public void Sit(Seat seat)
 	{
 		Rpc(nameof(NetSit), seat.NetworkedObjectID);
 	}
 
+	/// <summary>
+	/// Unsits the NPC from the current seat.
+	/// </summary>
 	[ScriptMethod]
 	public void Unsit(bool addForce = true)
 	{
@@ -927,6 +1020,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Equips the NPC with a specified tool.
+	/// </summary>
 	[ScriptMethod]
 	public void EquipTool(Tool tool)
 	{
@@ -1016,6 +1112,9 @@ public partial class NPC : Physical
 		Character?.SetBlendValue(CharacterModel.CharacterModelBlendEnum.ToolHoldRight, 0);
 	}
 
+	/// <summary>
+	/// Unequips the currently equipped tool from the NPC.
+	/// </summary>
 	[ScriptMethod, ScriptLegacyMethod("DropTools")]
 	public void DropTool()
 	{
@@ -1042,6 +1141,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Loads the appearance of the NPC based on a user ID.
+	/// </summary>
 	[ScriptMethod]
 	public void LoadAppearance(int userID)
 	{
@@ -1051,6 +1153,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Clears the NPC's current appearance.
+	/// </summary>
 	[ScriptMethod]
 	public void ClearAppearance()
 	{
@@ -1060,6 +1165,9 @@ public partial class NPC : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the position the NPC should walk towards.
+	/// </summary>
 	[ScriptMethod]
 	public void SetNavDestination(Vector3 pos)
 	{
@@ -1094,6 +1202,9 @@ public partial class NPC : Physical
 		NavFinished.Invoke();
 	}
 
+	/// <summary>
+	/// Respawns the NPC.
+	/// </summary>
 	[ScriptMethod]
 	public void Respawn()
 	{
@@ -1111,12 +1222,18 @@ public partial class NPC : Physical
 		UpdateCollision();
 	}
 
+	/// <summary>
+	/// Applies damage to the NPC.
+	/// </summary>
 	[ScriptMethod]
 	public void TakeDamage(float dmg)
 	{
 		Health -= dmg;
 	}
 
+	/// <summary>
+	/// Heals the NPC by a specified amount.
+	/// </summary>
 	[ScriptMethod]
 	public void Heal(float amount)
 	{

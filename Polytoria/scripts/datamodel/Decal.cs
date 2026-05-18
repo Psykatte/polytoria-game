@@ -8,6 +8,9 @@ using Polytoria.Datamodel.Resources;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Decals are objects that can have an image texture and are wrapped around other objects.
+/// </summary>
 [Instantiable]
 public sealed partial class Decal : Dynamic
 {
@@ -17,6 +20,9 @@ public sealed partial class Decal : Dynamic
 	private Color _color = new(1, 1, 1);
 	private float _energy;
 
+	/// <summary>
+	/// The image texture applied to the decal.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? Image
 	{
@@ -48,6 +54,9 @@ public sealed partial class Decal : Dynamic
 	}
 
 
+	/// <summary>
+	/// Energy multiplier for the decal.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1)]
 	public float Energy
 	{
@@ -60,6 +69,9 @@ public sealed partial class Decal : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The color tint applied to the decal.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{

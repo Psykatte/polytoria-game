@@ -6,5 +6,8 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Hidden is a object used for hiding instances.
+/// </summary>
 [Static("Hidden")]
 public partial class Hidden : HiddenBase { }

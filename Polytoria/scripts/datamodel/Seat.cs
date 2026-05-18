@@ -7,6 +7,9 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Seats are parts the player can sit on.
+/// </summary>
 [Instantiable]
 public partial class Seat : Part
 {
@@ -14,6 +17,9 @@ public partial class Seat : Part
 
 	private NPC? _occupant = null;
 
+	/// <summary>
+	/// Indicates who is currently occupying the seat.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public NPC? Occupant
 	{
@@ -28,6 +34,9 @@ public partial class Seat : Part
 		set => _occupant = value;
 	}
 
+	/// <summary>
+	/// Determines whether NPCs are allowed to sit on this seat or only players.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool CanNPCSit
 	{
@@ -39,7 +48,13 @@ public partial class Seat : Part
 		}
 	}
 
+	/// <summary>
+	/// Fires when an occupant sits on the seat.
+	/// </summary>
 	[ScriptProperty] public PTSignal<NPC> Sat { get; private set; } = new();
+	/// <summary>
+	/// Fires when an occupant leaves the seat.
+	/// </summary>
 	[ScriptProperty] public PTSignal<NPC> Vacated { get; private set; } = new();
 
 	public override void Init()

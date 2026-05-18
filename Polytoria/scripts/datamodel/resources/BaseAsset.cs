@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Base class for all assets
+/// </summary>
 [Abstract]
 public partial class BaseAsset : NetworkedObject
 {

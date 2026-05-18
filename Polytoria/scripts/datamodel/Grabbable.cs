@@ -11,6 +11,9 @@ using static Polytoria.Datamodel.Environment;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Grabbable represents a object that can be dragged by user. It can be parented to Physical to give user ability to drag that object.
+/// </summary>
 [Instantiable]
 public partial class Grabbable : Instance
 {
@@ -24,6 +27,9 @@ public partial class Grabbable : Instance
 	private Player? _dragger;
 	private GrabbablePermissionModeEnum _permissionMode = GrabbablePermissionModeEnum.Everyone;
 
+	/// <summary>
+	/// Determines the force used to drag this object.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(10)]
 	public float Force
 	{
@@ -35,6 +41,9 @@ public partial class Grabbable : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines how far this object can be dragged.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(8)]
 	public float MaxRange
 	{
@@ -46,6 +55,9 @@ public partial class Grabbable : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines the max range that this object can be grabbed from.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(12)]
 	public float MaxGrabbableRange
 	{
@@ -57,6 +69,9 @@ public partial class Grabbable : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines if dragging this object should affect physics.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool UseDragForce
 	{
@@ -68,6 +83,9 @@ public partial class Grabbable : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines the permission mode for this grabber
+	/// </summary>
 	[Editable, ScriptProperty]
 	public GrabbablePermissionModeEnum PermissionMode
 	{
@@ -79,9 +97,22 @@ public partial class Grabbable : Instance
 		}
 	}
 
+	/// <summary>
+	/// Returns the current dragger
+	/// </summary>
 	[ScriptProperty] public Player? Dragger => _dragger;
+	/// <summary>
+	/// <para>A predicate function deciding whether this player can grab this object. <c>PermissionMode</c> must be set to <c>GrabbablePermissionMode.Scripted</c></para>
+	/// <para>Example usage: ``<c>lua grabbable.PermissionMode = Enums.GrabbablePermissionMode.Scripted grabbable.PermissionPredicate = function(player) return player.Name == "Player1" end </c>``</para>
+	/// </summary>
 	[ScriptProperty] public PTFunction? PermissionPredicate { get; set; }
+	/// <summary>
+	/// Fires when this object has been grabbed
+	/// </summary>
 	[ScriptProperty] public PTSignal<Player> Grabbed { get; private set; } = new();
+	/// <summary>
+	/// Fires when this object has been released
+	/// </summary>
 	[ScriptProperty] public PTSignal<Player> Released { get; private set; } = new();
 
 	public override void EnterTree()

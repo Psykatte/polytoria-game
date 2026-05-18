@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// Datastore is an object that represent datastore connection.
+/// </summary>
 public partial class Datastore : IScriptObject
 {
 	private string _dsKey = null!;
@@ -21,6 +24,9 @@ public partial class Datastore : IScriptObject
 
 	[ScriptLegacyProperty("Loaded")] public PTSignal LegacyLoaded { get; private set; } = new();
 
+	/// <summary>
+	/// The key identifying this Datastore connection.
+	/// </summary>
 	[ScriptProperty]
 	public string Key => _dsKey;
 
@@ -33,18 +39,27 @@ public partial class Datastore : IScriptObject
 		LegacyLoaded.Invoke();
 	}
 
+	/// <summary>
+	/// Retrieves a value from the datastore asynchronously using the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<object?> GetAsync(string key)
 	{
 		return await Provider.ReadData(key);
 	}
 
+	/// <summary>
+	/// Stores a value in the datastore asynchronously using the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public async Task SetAsync(string key, object value)
 	{
 		await Provider.WriteData(key, value);
 	}
 
+	/// <summary>
+	/// Removes a value from the datastore asynchronously using the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public async Task RemoveAsync(string key)
 	{
@@ -100,6 +115,9 @@ public partial class Datastore : IScriptObject
 		});
 	}
 
+	/// <summary>
+	/// Disconnect this datastore connection, this should be called when you finish using the datastore.
+	/// </summary>
 	[ScriptMethod]
 	public void Disconnect()
 	{

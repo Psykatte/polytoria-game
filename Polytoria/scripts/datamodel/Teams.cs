@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Teams is a collection of Team objects used to manage player teams.
+/// </summary>
 [Static("Teams")]
 public sealed partial class Teams : Instance
 {
@@ -28,6 +31,9 @@ public sealed partial class Teams : Instance
 		TeamUpdateDispatch?.Invoke();
 	}
 
+	/// <summary>
+	/// Get all the teams
+	/// </summary>
 	[ScriptMethod]
 	public Team[] GetTeams()
 	{

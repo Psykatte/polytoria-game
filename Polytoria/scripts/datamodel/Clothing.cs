@@ -8,6 +8,9 @@ using Polytoria.Datamodel.Resources;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Clothing represents a clothing that can be applied to a PolytorianModel
+/// </summary>
 [Instantiable]
 public partial class Clothing : Instance
 {
@@ -16,6 +19,9 @@ public partial class Clothing : Instance
 
 	internal Texture2D? ClothTexture;
 
+	/// <summary>
+	/// The clothing texture to use
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? Image
 	{

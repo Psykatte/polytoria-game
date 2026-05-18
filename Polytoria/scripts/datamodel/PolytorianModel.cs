@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// PolytorianModel is a CharacterModel that represent default Polytoria Character.
+/// </summary>
 [Instantiable]
 public sealed partial class PolytorianModel : CharacterModel
 {
@@ -72,6 +75,9 @@ public sealed partial class PolytorianModel : CharacterModel
 
 	public PhysicalBone3D? VelocityPhysicalBone;
 
+	/// <summary>
+	/// The head color
+	/// </summary>
 	[Editable, ScriptProperty, Export, SyncVar]
 	public Color HeadColor
 	{
@@ -85,6 +91,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The torso color
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color TorsoColor
 	{
@@ -98,6 +107,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The left arm color
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color LeftArmColor
 	{
@@ -111,6 +123,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The right arm color
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color RightArmColor
 	{
@@ -124,6 +139,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The left leg color
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color LeftLegColor
 	{
@@ -137,6 +155,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The right leg color
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color RightLegColor
 	{
@@ -163,6 +184,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The face image to use
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public ImageAsset? FaceImage
 	{
@@ -203,6 +227,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// The body mesh to use, the mesh must be in Polytoria Body rig format.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public MeshAsset? BodyMesh
 	{
@@ -235,15 +262,30 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// Returns true if this character is ragdolling
+	/// </summary>
 	[ScriptProperty] public bool Ragdolling { get; private set; } = false;
+	/// <summary>
+	/// Returns the current global ragdoll position, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
+	/// </summary>
 	[ScriptProperty] public Vector3 RagdollPosition => VelocityPhysicalBone == null ? Vector3.Zero : VelocityPhysicalBone.GlobalPosition;
+	/// <summary>
+	/// Returns the current global ragdoll rotation, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
+	/// </summary>
 	[ScriptProperty] public Vector3 RagdollRotation => VelocityPhysicalBone == null ? Vector3.Zero : VelocityPhysicalBone.GlobalRotationDegrees.FlipEuler();
 
 	// These two's not reliable yet, as it doesn't wait for mesh to load. TODO: Come back and fix
 	public bool IsAvatarLoaded { get; private set; } = false;
 	public event Action? AvatarLoaded;
 
+	/// <summary>
+	/// Fires when ragdoll has been started
+	/// </summary>
 	[ScriptProperty] public PTSignal RagdollStarted { get; private set; } = new();
+	/// <summary>
+	/// Fires when ragdoll has been stopped
+	/// </summary>
 	[ScriptProperty] public PTSignal RagdollStopped { get; private set; } = new();
 
 	public override void Init()
@@ -566,6 +608,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
+	/// <summary>
+	/// Start ragdoll
+	/// </summary>
 	[ScriptMethod]
 	public void StartRagdoll(Vector3? force = null)
 	{
@@ -573,6 +618,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		Rpc(nameof(NetStartRagdoll), force.Value);
 	}
 
+	/// <summary>
+	/// Stop ragdoll
+	/// </summary>
 	[ScriptMethod]
 	public void StopRagdoll()
 	{
@@ -615,6 +663,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		RagdollStopped.Invoke();
 	}
 
+	/// <summary>
+	/// Get an attachment from this character.
+	/// </summary>
 	[ScriptMethod]
 	public override Dynamic GetAttachment(CharacterAttachmentEnum attachmentEnum)
 	{
@@ -725,6 +776,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		RecvBlendValue(CharacterModelBlendEnum.LookY, lookYBlend);
 	}
 
+	/// <summary>
+	/// Load an appearance.
+	/// </summary>
 	[ScriptMethod]
 	public void LoadAppearance(int userID, bool loadTool = true)
 	{
@@ -732,6 +786,9 @@ public sealed partial class PolytorianModel : CharacterModel
 		_ = InternalLoadAppearance(userID, loadTool);
 	}
 
+	/// <summary>
+	/// Clear current appearance.
+	/// </summary>
 	[ScriptMethod]
 	public void ClearAppearance()
 	{

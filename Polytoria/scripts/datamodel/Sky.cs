@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Sky is an abstract base class representing the sky in the game world.
+/// </summary>
 [Abstract]
 public partial class Sky : Instance
 {

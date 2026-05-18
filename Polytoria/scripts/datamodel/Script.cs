@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Scripts are abstract base classes representing Lua code that can be executed in the game.
+/// </summary>
 [Abstract]
 public partial class Script : Instance
 {
@@ -32,6 +35,9 @@ public partial class Script : Instance
 	private bool _compatibility = false;
 	private bool _isEnabled = true;
 
+	/// <summary>
+	/// The source code of the script as a string.
+	/// </summary>
 	[Editable(IsHidden = true), NoSync, CloneInclude, SaveIgnore]
 	public string Source
 	{
@@ -54,6 +60,9 @@ public partial class Script : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determine if this script should be enabled. Note that setting it to false during runtime won't stop the script immediately, rather it would stop any running threads when it hits any yield function.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool IsEnabled
 	{
@@ -75,6 +84,9 @@ public partial class Script : Instance
 		}
 	}
 
+	/// <summary>
+	/// A linked script asset associated with this script.
+	/// </summary>
 	[Editable, NoSync, CloneInclude, SaveInclude]
 	public FileLinkAsset? LinkedScript
 	{
@@ -90,6 +102,9 @@ public partial class Script : Instance
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether the script is running in compatibility mode.
+	/// </summary>
 	[Editable]
 	public bool Compatibility
 	{
@@ -185,6 +200,9 @@ public partial class Script : Instance
 		base.HiddenChanged(to);
 	}
 
+	/// <summary>
+	/// Calls a function in the script with the given arguments.
+	/// </summary>
 	[ScriptMethod]
 	public void Call(string funcName, params object?[]? args)
 	{
@@ -198,6 +216,9 @@ public partial class Script : Instance
 		}
 	}
 
+	/// <summary>
+	/// Calls a function in the script asynchronously with the given arguments.
+	/// </summary>
 	[ScriptMethod]
 	public async void CallAsync(string funcName, params object?[]? args)
 	{
@@ -220,6 +241,9 @@ public partial class Script : Instance
 		}
 	}
 
+	/// <summary>
+	/// Link script with the target file path
+	/// </summary>
 	[ScriptMethod(Permissions = ScriptPermissionFlags.IOWrite)]
 	public void LinkWithScriptFile(string scriptPath)
 	{

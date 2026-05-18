@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// PlayerDefaults is a service used for storing the default values of the Player when created.
+/// </summary>
 [Static("PlayerDefaults")]
 public sealed partial class PlayerDefaults : HiddenBase
 {
@@ -28,6 +31,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 	private bool _loadAppearanceTools;
 	private Player.PlayerMovementModeEnum _movementMode;
 
+	/// <summary>
+	/// The default maximum health of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float MaxHealth
 	{
@@ -39,6 +45,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// The default walking speed of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float WalkSpeed
 	{
@@ -50,6 +59,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// The default sprinting speed of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SprintSpeed
 	{
@@ -61,6 +73,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// The default jump power of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float JumpPower
 	{
@@ -72,6 +87,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// The default time the player has to wait before respawning.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float RespawnTime
 	{
@@ -83,6 +101,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// The default chat color of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color ChatColor
 	{
@@ -95,6 +116,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 	}
 
 
+	/// <summary>
+	/// Determines whether the player can move by default.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool CanMove
 	{
@@ -107,6 +131,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 	}
 
 
+	/// <summary>
+	/// The rate at which the player's stamina depletes while sprinting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float StaminaBurn
 	{
@@ -118,6 +145,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player uses stamina.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("StaminaEnabled")]
 	public bool UseStamina
 	{
@@ -129,6 +159,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Legacy value for stamina.
+	/// </summary>
 	[Editable(IsHidden = true)]
 	public bool StaminaEnabled
 	{
@@ -139,6 +172,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines the default stamina of players.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true)]
 	public float Stamina
 	{
@@ -150,6 +186,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines the default maximum stamina of players.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float MaxStamina
 	{
@@ -161,6 +200,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines the rate at which the player's stamina regenerates.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float StaminaRegen
 	{
@@ -173,6 +215,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 	}
 
 
+	/// <summary>
+	/// Determines whether the player uses head turning by default.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseHeadTurning
 	{
@@ -184,6 +229,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player uses bubble chat by default.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseBubbleChat
 	{
@@ -195,6 +243,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player's appearance is automatically loaded by default.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AutoLoadAppearance
 	{
@@ -206,6 +257,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player's equippable appearance tool should be loaded.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool LoadAppearanceTools
 	{
@@ -217,6 +271,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		}
 	}
 
+	/// <summary>
+	/// Determine the movement mode for the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Player.PlayerMovementModeEnum MovementMode
 	{
@@ -236,6 +293,9 @@ public sealed partial class PlayerDefaults : HiddenBase
 		base.Init();
 	}
 
+	/// <summary>
+	/// Resets the specified player back to their default values.
+	/// </summary>
 	[ScriptMethod]
 	public void LoadDefaults()
 	{

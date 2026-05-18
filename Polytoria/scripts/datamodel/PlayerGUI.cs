@@ -8,6 +8,9 @@ using Polytoria.Client.UI;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// PlayerGUI is a class that contains all custom GUIs.
+/// </summary>
 [Static("PlayerGUI")]
 public partial class PlayerGUI : Instance
 {

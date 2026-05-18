@@ -6,6 +6,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Base class for image assets
+/// </summary>
 [Abstract]
 public partial class ImageAsset : ResourceAsset
 {

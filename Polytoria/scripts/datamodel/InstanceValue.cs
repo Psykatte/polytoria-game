@@ -6,11 +6,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// InstanceValue is an object that holds an Instance value.
+/// </summary>
 [Instantiable]
 public partial class InstanceValue : ValueBase
 {
 	private Instance? _val;
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Instance? Value
 	{

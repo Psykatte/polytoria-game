@@ -10,6 +10,9 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIImage is a class that can be used to display images.
+/// </summary>
 [Instantiable]
 public partial class UIImage : UIField
 {
@@ -24,6 +27,9 @@ public partial class UIImage : UIField
 	private bool _flipH = false;
 	private bool _flipV = false;
 
+	/// <summary>
+	/// The image asset used for the image.
+	/// </summary>
 	[Editable, ScriptProperty, Export]
 	public ImageAsset? Image
 	{
@@ -80,6 +86,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// The color applied to the image.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -92,6 +101,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// Determines how the image is stretched within the view.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageStretchModeEnum StretchMode
 	{
@@ -110,6 +122,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// Determine the image filter mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(TextureFilterEnum.Linear)]
 	public TextureFilterEnum TextureFilter
 	{
@@ -153,6 +168,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether the image is currently loading.
+	/// </summary>
 	[ScriptProperty]
 	public bool Loading { get; private set; } = false;
 

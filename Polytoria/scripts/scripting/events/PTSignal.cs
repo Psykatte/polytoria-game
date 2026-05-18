@@ -15,6 +15,9 @@ using Script = Polytoria.Datamodel.Script;
 namespace Polytoria.Scripting;
 
 
+/// <summary>
+/// A signal which scripts can subscribe to
+/// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
 public class PTSignal : IScriptObject
 {
@@ -74,6 +77,9 @@ public class PTSignal : IScriptObject
 		signals.Remove(this);
 	}
 
+	/// <summary>
+	/// Connect a function to this signal
+	/// </summary>
 	[ScriptMethod]
 	public PTSignalConnection Connect(PTCallback action)
 	{
@@ -120,6 +126,9 @@ public class PTSignal : IScriptObject
 		Connect(cb);
 	}
 
+	/// <summary>
+	/// Disconnect a function from this signal
+	/// </summary>
 	[ScriptMethod]
 	public void Disconnect(PTCallback action)
 	{
@@ -165,6 +174,9 @@ public class PTSignal : IScriptObject
 		return "<PTSignal>";
 	}
 
+	/// <summary>
+	/// Wait until this signal's emitted
+	/// </summary>
 	[ScriptMethod]
 	public async Task<object?[]> Wait()
 	{
@@ -173,6 +185,9 @@ public class PTSignal : IScriptObject
 		return await tcs.Task;
 	}
 
+	/// <summary>
+	/// Listen to this signal only once
+	/// </summary>
 	[ScriptMethod]
 	public void Once(PTCallback action)
 	{

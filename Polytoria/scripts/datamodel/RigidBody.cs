@@ -9,6 +9,9 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// RigidBody is the base class for object affected by physics, and can also be used as a container for other physics objects.
+/// </summary>
 [Instantiable]
 public partial class RigidBody : Physical
 {
@@ -23,6 +26,9 @@ public partial class RigidBody : Physical
 	private float _angularDrag;
 	private float _bounciness;
 
+	/// <summary>
+	/// Determines the linear velocity of this object.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public override Vector3 Velocity
 	{
@@ -37,6 +43,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the angular velocity of this object.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public override Vector3 AngularVelocity
 	{
@@ -51,6 +60,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the entity is affected by gravity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool UseGravity
 	{
@@ -70,6 +82,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the mass of the entity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float Mass
 	{
@@ -89,6 +104,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the friction of the entity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0.6f)]
 	public float Friction
 	{
@@ -106,6 +124,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the drag (air resistance) of the entity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public float Drag
 	{
@@ -123,6 +144,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the angular drag of the entity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public float AngularDrag
 	{
@@ -140,6 +164,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// Determines the bounciness of the entity.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public float Bounciness
 	{

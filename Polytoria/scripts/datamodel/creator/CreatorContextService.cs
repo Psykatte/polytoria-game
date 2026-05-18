@@ -10,6 +10,9 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel.Creator;
 
+/// <summary>
+/// CreatorContextService is a service that manage per game specific tools, such as Selections and History. This class is only available in the creator.
+/// </summary>
 [Static("CreatorContext")]
 [ExplorerExclude]
 [SaveIgnore]

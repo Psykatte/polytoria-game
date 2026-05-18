@@ -8,12 +8,18 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIButton is a class that represents a clickable button UI element.
+/// </summary>
 [Instantiable]
 public partial class UIButton : UILabel
 {
 	private Color _pressedColor = new(0.6f, 0.6f, 0.6f, 1);
 	private Color _hoverColor = new(0.8f, 0.8f, 0.8f, 1);
 	private Color _normalColor = new(1f, 1f, 1f, 1);
+	/// <summary>
+	/// Fires when user click on this button
+	/// </summary>
 	[ScriptProperty] public PTSignal Clicked { get; private set; } = new();
 
 	public override void Init()

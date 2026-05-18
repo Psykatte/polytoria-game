@@ -7,11 +7,20 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// NewServerRequestData represents the request data for a new server instance, to be used with WorldsService.
+/// </summary>
 public partial class NewServerRequestData : IScriptObject
 {
 	[ScriptProperty] public string WorldPath { get; set; } = "";
+	/// <summary>
+	/// How much player slot should the new server allocates for.
+	/// </summary>
 	[ScriptProperty] public int MaxPlayers { get; set; } = 12;
 
+	/// <summary>
+	/// Creates a new <c>NewServerRequestData</c>
+	/// </summary>
 	[ScriptMethod]
 	public static NewServerRequestData New()
 	{

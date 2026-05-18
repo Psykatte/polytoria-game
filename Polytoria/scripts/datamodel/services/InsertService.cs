@@ -18,6 +18,9 @@ using Polytoria.Datamodel.Creator;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Insert is a class used for inserting user-generated models into your game via scripts.
+/// </summary>
 [Static("Insert"), ExplorerExclude, SaveIgnore]
 public sealed partial class InsertService : Instance
 {
@@ -36,6 +39,9 @@ public sealed partial class InsertService : Instance
 		});
 	}
 
+	/// <summary>
+	/// Inserts a Default NPC
+	/// </summary>
 	[ScriptMethod]
 	public NPC DefaultNPC()
 	{
@@ -44,6 +50,9 @@ public sealed partial class InsertService : Instance
 		return npc;
 	}
 
+	/// <summary>
+	/// Initialize default NPC with the DefaultCharacter and sounds
+	/// </summary>
 	[ScriptMethod]
 	public void InitializeDefaultNPC(NPC npc)
 	{
@@ -80,6 +89,9 @@ public sealed partial class InsertService : Instance
 		jumpSound.LocalSize = Vector3.One;
 	}
 
+	/// <summary>
+	/// Inserts a Default PolytorianModel
+	/// </summary>
 	[ScriptMethod]
 	public PolytorianModel DefaultCharacter()
 	{
@@ -93,6 +105,9 @@ public sealed partial class InsertService : Instance
 		return ptm;
 	}
 
+	/// <summary>
+	/// Inserts a model with the specified ID.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<Instance?> ModelAsync(int id)
 	{
@@ -123,6 +138,9 @@ public sealed partial class InsertService : Instance
 	}
 #endif
 
+	/// <summary>
+	/// Inserts an accessory with the specified ID.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<Accessory?> AccessoryAsync(int id)
 	{
@@ -169,6 +187,9 @@ public sealed partial class InsertService : Instance
 		return accessory;
 	}
 
+	/// <summary>
+	/// Inserts a new tool with the specified ID
+	/// </summary>
 	[ScriptMethod]
 	public async Task<Tool?> ToolAsync(int id)
 	{

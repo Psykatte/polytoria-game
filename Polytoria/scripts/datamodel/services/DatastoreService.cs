@@ -10,12 +10,18 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Datastore (not to be confused with the Datastore data type) is a service used for storing data between place sessions.
+/// </summary>
 [Static("Datastore"), ExplorerExclude]
 [SaveIgnore]
 public sealed partial class DatastoreService : Instance
 {
 	private readonly Dictionary<string, Datastore> datastores = [];
 
+	/// <summary>
+	/// Attempts to get a Datastore object from the Datastore service.
+	/// </summary>
 	[ScriptMethod]
 	public Datastore GetDatastore(string key)
 	{

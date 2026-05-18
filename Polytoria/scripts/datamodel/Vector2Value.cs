@@ -7,11 +7,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Vector2Value is an object that holds a Vector2 value.
+/// </summary>
 [Instantiable]
 public partial class Vector2Value : ValueBase
 {
 	private Vector2 _val = new(0, 0);
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 Value
 	{

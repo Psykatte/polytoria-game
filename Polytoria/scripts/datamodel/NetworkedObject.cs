@@ -25,6 +25,9 @@ using static Polytoria.Datamodel.Services.NetworkService;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// NetworkedObject is a base class for all object that's synchronized by the network.
+/// </summary>
 [Abstract]
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.NonPublicProperties | DynamicallyAccessedMemberTypes.NonPublicFields | DynamicallyAccessedMemberTypes.NonPublicMethods)]
 public partial class NetworkedObject : IScriptObject
@@ -152,6 +155,9 @@ public partial class NetworkedObject : IScriptObject
 	/// </summary>
 	internal Node SlotNode = null!;
 
+	/// <summary>
+	/// Name of this object
+	/// </summary>
 	[Editable, ScriptProperty, SaveIgnore]
 	public string Name
 	{
@@ -207,12 +213,18 @@ public partial class NetworkedObject : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Class name of this object
+	/// </summary>
 	[ScriptProperty]
 	public string ClassName => GetType().Name;
 
 	[ScriptLegacyProperty("ClassName")]
 	public string LegacyClassName => XmlFormat.ConvertClassName(ClassName);
 
+	/// <summary>
+	/// A shared table accessible by scripts.
+	/// </summary>
 	[ScriptProperty]
 	public ScriptSharedTable Shared { get; private set; } = new();
 
@@ -233,12 +245,21 @@ public partial class NetworkedObject : IScriptObject
 	public event Action? NetPropertiesReady;
 	public event Action? Deleted;
 
+	/// <summary>
+	/// Fires when a property of this object has changed
+	/// </summary>
 	[ScriptProperty] public PTSignal<string> PropertyChanged { get; private set; } = new();
+	/// <summary>
+	/// Fires when this object has been renamed
+	/// </summary>
 	[ScriptProperty] public PTSignal Renamed { get; private set; } = new();
 
 	private string _networkedObjectID = "";
 	private string _objectID = "";
 
+	/// <summary>
+	/// Returns networked ID of this object. Networked ID are always unique per network session.
+	/// </summary>
 	[ScriptProperty, CloneIgnore, SaveIgnore]
 	public string NetworkedObjectID
 	{
@@ -250,6 +271,9 @@ public partial class NetworkedObject : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns object ID of this object. Object ID originates from the .poly file.
+	/// </summary>
 	[ScriptProperty, CloneIgnore, SaveIgnore]
 	public string ObjectID
 	{
@@ -321,6 +345,9 @@ public partial class NetworkedObject : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns true if this object exists in network, false if this object is spawned by the local client.
+	/// </summary>
 	[Export, ScriptProperty]
 	public bool ExistInNetwork { get; internal set; } = false;
 
@@ -338,7 +365,13 @@ public partial class NetworkedObject : IScriptObject
 
 	internal Dictionary<string, NetworkedObject> UniqueNames = [];
 
+	/// <summary>
+	/// Fires when object enters the tree
+	/// </summary>
 	[ScriptProperty] public PTSignal TreeEntered { get; private set; } = new();
+	/// <summary>
+	/// Fires when object exit the tree (via reparent or delete)
+	/// </summary>
 	[ScriptProperty] public PTSignal TreeExited { get; private set; } = new();
 
 	public NetworkedObject()
@@ -1039,6 +1072,9 @@ public partial class NetworkedObject : IScriptObject
 		return [.. nodes];
 	}
 
+	/// <summary>
+	/// Returns whether or not the instance is the specified class, this also checks for inheritance.
+	/// </summary>
 	[ScriptMethod]
 	public bool IsA(string className)
 	{
@@ -1559,6 +1595,9 @@ public partial class NetworkedObject : IScriptObject
 		return netObj;
 	}
 
+	/// <summary>
+	/// Clones the instance
+	/// </summary>
 	[ScriptMethod]
 	public NetworkedObject Clone(NetworkedObject? parent = null)
 	{
@@ -1816,6 +1855,9 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 
+	/// <summary>
+	/// Destroys the instance (same as Delete method)
+	/// </summary>
 	[ScriptMethod]
 	public async void Destroy(float time = 0f)
 	{
@@ -1974,6 +2016,9 @@ public partial class NetworkedObject : IScriptObject
 		return SerializeUtils.Serialize(payload);
 	}
 
+	/// <summary>
+	/// Deletes the instance (same as Destroy method)
+	/// </summary>
 	[ScriptMethod]
 	public void Delete(float time = 0f) => Destroy(time);
 

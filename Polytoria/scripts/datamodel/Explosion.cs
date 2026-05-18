@@ -10,6 +10,9 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Explosion is a deadly explosion killing players and applying force to parts at the given position.
+/// </summary>
 [Instantiable]
 public partial class Explosion : Dynamic
 {
@@ -21,6 +24,9 @@ public partial class Explosion : Dynamic
 	private bool _affectAnchored = false;
 	private float _damage = 100000;
 
+	/// <summary>
+	/// Determines the radius of this explosion
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Radius
 	{
@@ -32,6 +38,9 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the force of this explosion that will be applied to affected hits
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Force
 	{
@@ -43,6 +52,9 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines if this explosion should affect anchored parts or not
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AffectAnchored
 	{
@@ -54,6 +66,9 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Damage that is applied to the player
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Damage
 	{
@@ -65,8 +80,14 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// A predicate function deciding whether this part should be accepted or not Example usage: ``<c>lua explosion.AffectPredicate = function(hit) -- always explode return true end </c>``
+	/// </summary>
 	[ScriptProperty] public PTFunction? AffectPredicate { get; set; }
 
+	/// <summary>
+	/// Fires when this explosion affects an instance
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Touched { get; private set; } = new();
 
 	public override Node CreateGDNode()

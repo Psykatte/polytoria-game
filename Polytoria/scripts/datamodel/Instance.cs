@@ -22,6 +22,9 @@ using System.Threading;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Instance is the base class of all classes. Every class derives from it and has all properties, events and functions Instance has.
+/// </summary>
 [Abstract]
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
 public partial class Instance : NetworkedObject
@@ -41,6 +44,9 @@ public partial class Instance : NetworkedObject
 	internal List<Instance> Children = [];
 	internal int Index = 0;
 
+	/// <summary>
+	/// Defines the parent of this instance in the hierarchy.
+	/// </summary>
 	[ScriptProperty, IgnoreCleanup]
 	public Instance? Parent
 	{
@@ -241,6 +247,9 @@ public partial class Instance : NetworkedObject
 
 	public Dictionary<string, Instance> ModelChilds = [];
 
+	/// <summary>
+	/// Determine if children is editable, this is to be used if this instance is a Linked model. Only used in creator.
+	/// </summary>
 	[Editable(IsHidden = true), DefaultValue(false)]
 	public bool EditableChildren
 	{
@@ -254,6 +263,9 @@ public partial class Instance : NetworkedObject
 		}
 	}
 
+	/// <summary>
+	/// Tags associated with this instance.
+	/// </summary>
 	[Editable(IsHidden = true), ScriptProperty]
 	public string[] Tags
 	{
@@ -270,6 +282,9 @@ public partial class Instance : NetworkedObject
 		}
 	}
 
+	/// <summary>
+	/// Determines if this instance should be saved during the saving process. Useful for addons that wants to create a temporary instance.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool Archivable
 	{
@@ -288,9 +303,21 @@ public partial class Instance : NetworkedObject
 
 	public bool IsInTemporary => IsDescendantOfClass<Temporary>();
 
+	/// <summary>
+	/// Fires when child has been added to this instance
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> ChildAdded { get; private set; } = new();
+	/// <summary>
+	/// Fires when child has been removed from this instance (either via reparent or delete)
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> ChildRemoved { get; private set; } = new();
+	/// <summary>
+	/// Fires when child is being deleted from this instance
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleting { get; private set; } = new();
+	/// <summary>
+	/// Fires when child has been deleted from this instance
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleted { get; private set; } = new();
 
 	internal void AddLegacyNameToParent()
@@ -325,6 +352,9 @@ public partial class Instance : NetworkedObject
 		}
 	}
 
+	/// <summary>
+	/// Gets all descendants of this instance.
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetDescendants()
 	{
@@ -341,6 +371,9 @@ public partial class Instance : NetworkedObject
 		return [.. instances];
 	}
 
+	/// <summary>
+	/// Finds a child of this instance by name.
+	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChild(string name)
 	{
@@ -371,6 +404,9 @@ public partial class Instance : NetworkedObject
 		return default;
 	}
 
+	/// <summary>
+	/// Wait for children to be added.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<Instance?> WaitChild(string name, float? timeoutSec = null)
 	{
@@ -456,6 +492,9 @@ public partial class Instance : NetworkedObject
 		return null;
 	}
 
+	/// <summary>
+	/// Finds a child of this instance by class name.
+	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChildByClass(string className)
 	{
@@ -470,6 +509,9 @@ public partial class Instance : NetworkedObject
 		return null;
 	}
 
+	/// <summary>
+	/// Find first child with the specified tag
+	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChildWithTag(string tag)
 	{
@@ -484,6 +526,9 @@ public partial class Instance : NetworkedObject
 		return null;
 	}
 
+	/// <summary>
+	/// Get children with the specified tag
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetChildrenWithTag(string tag)
 	{
@@ -499,6 +544,9 @@ public partial class Instance : NetworkedObject
 		return [.. childs];
 	}
 
+	/// <summary>
+	/// Get descendants with the specified tag
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetDescendantsWithTag(string tag)
 	{
@@ -514,6 +562,9 @@ public partial class Instance : NetworkedObject
 		return [.. des];
 	}
 
+	/// <summary>
+	/// Find ancestor by the specified class name
+	/// </summary>
 	[ScriptMethod]
 	public Instance? FindAncestorByClass(string className)
 	{
@@ -547,6 +598,9 @@ public partial class Instance : NetworkedObject
 		return null;
 	}
 
+	/// <summary>
+	/// Find child by its index (index for this function starts from 0)
+	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChildByIndex(int index)
 	{
@@ -554,6 +608,9 @@ public partial class Instance : NetworkedObject
 		return Children[index];
 	}
 
+	/// <summary>
+	/// Move children to specified index (index for this function starts from 0)
+	/// </summary>
 	[ScriptMethod]
 	public void MoveChild(Instance child, int index)
 	{
@@ -658,12 +715,18 @@ public partial class Instance : NetworkedObject
 	/// </summary>
 	public virtual void PostIndexMove() { }
 
+	/// <summary>
+	/// Gets all children of this instance.
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetChildren()
 	{
 		return [.. Children];
 	}
 
+	/// <summary>
+	/// Gets all children of this instance that are of the specified class.
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetChildrenOfClass(string className)
 	{
@@ -728,6 +791,9 @@ public partial class Instance : NetworkedObject
 		legacyChild.Remove(obj.LegacyName);
 	}
 
+	/// <summary>
+	/// Determines if this instance is an ancestor of the given instance.
+	/// </summary>
 	[ScriptMethod]
 	public bool IsAncestorOf(Instance instance)
 	{
@@ -741,6 +807,9 @@ public partial class Instance : NetworkedObject
 		return false;
 	}
 
+	/// <summary>
+	/// Determines if this instance is a descendant of the given instance.
+	/// </summary>
 	[ScriptMethod]
 	public bool IsDescendantOf(Instance instance)
 	{
@@ -754,6 +823,9 @@ public partial class Instance : NetworkedObject
 		return false;
 	}
 
+	/// <summary>
+	/// Determines if this instance is a descendant of the given class.
+	/// </summary>
 	[ScriptMethod]
 	public bool IsDescendantOfClass(string className)
 	{
@@ -786,6 +858,9 @@ public partial class Instance : NetworkedObject
 		return NewStatic(className, parent, caller.Root);
 	}
 
+	/// <summary>
+	/// Creates a new instance of the specified class.
+	/// </summary>
 	public Instance? New(string className, Instance? parent = null)
 	{
 		return NewStatic(className, parent, Root);
@@ -853,6 +928,9 @@ public partial class Instance : NetworkedObject
 		ModelChilds.Remove(i.ObjectID);
 	}
 
+	/// <summary>
+	/// Adds a tag to this instance.
+	/// </summary>
 	[ScriptMethod]
 	public void AddTag(string tag)
 	{
@@ -861,6 +939,9 @@ public partial class Instance : NetworkedObject
 		Tags = [.. tags];
 	}
 
+	/// <summary>
+	/// Removes a tag from this instance.
+	/// </summary>
 	[ScriptMethod]
 	public void RemoveTag(string tag)
 	{
@@ -869,6 +950,9 @@ public partial class Instance : NetworkedObject
 		Tags = [.. tags];
 	}
 
+	/// <summary>
+	/// Checks if this instance has the specified tag.
+	/// </summary>
 	[ScriptMethod]
 	public bool HasTag(string tag)
 	{
@@ -887,18 +971,27 @@ public partial class Instance : NetworkedObject
 		}).CallDeferred();
 	}
 
+	/// <summary>
+	/// Reparent this instance to another instance
+	/// </summary>
 	[ScriptMethod]
 	public void Reparent(Instance to)
 	{
 		Parent = to;
 	}
 
+	/// <summary>
+	/// Gets the parent of this instance.
+	/// </summary>
 	[ScriptMethod]
 	public new Instance? GetParent()
 	{
 		return Parent;
 	}
 
+	/// <summary>
+	/// Sets the parent of this instance.
+	/// </summary>
 	[ScriptMethod]
 	public void SetParent(Instance newParent)
 	{

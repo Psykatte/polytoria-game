@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Service for managing/loading assets
+/// </summary>
 [Static("Assets")]
 [ExplorerExclude]
 [SaveIgnore]
@@ -57,6 +60,9 @@ public sealed partial class AssetsService : Instance
 		return ptMesh;
 	}
 
+	/// <summary>
+	/// Retrieve <c>FileLinkAsset</c> with the specified path
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public FileLinkAsset GetFileLinkByPath(string path)
 	{
@@ -70,6 +76,9 @@ public sealed partial class AssetsService : Instance
 	}
 
 
+	/// <summary>
+	/// Retrieve <c>FileLinkAsset</c> with the specified ID
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public FileLinkAsset GetFileLinkByID(string id)
 	{

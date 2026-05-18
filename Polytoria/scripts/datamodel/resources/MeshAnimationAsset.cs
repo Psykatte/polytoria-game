@@ -6,11 +6,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// \!! WIP Class, Base class for animation loaded from meshes
+/// </summary>
 [Abstract]
 public partial class MeshAnimationAsset : ResourceAsset
 {
 	private MeshAnimationTypeEnum _animationType = MeshAnimationTypeEnum.Normal;
 
+	/// <summary>
+	/// Animation type of this mesh
+	/// </summary>
 	[Editable, ScriptProperty]
 	public MeshAnimationTypeEnum AnimationType
 	{

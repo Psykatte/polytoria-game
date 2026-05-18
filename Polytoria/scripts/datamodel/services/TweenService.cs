@@ -12,6 +12,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// TweenService is a service for managing tweens
+/// </summary>
 [Static("Tween"), ExplorerExclude, SaveIgnore]
 public sealed partial class TweenService : Instance
 {
@@ -36,6 +39,9 @@ public sealed partial class TweenService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Creates a new tween object Note: Tween will run automatically after one frame, you must use it's function right after creating it.
+	/// </summary>
 	[ScriptMethod]
 	public TweenObject NewTween()
 	{
@@ -355,6 +361,9 @@ public sealed partial class TweenService : Instance
 		}
 	}
 
+	/// <summary>
+	/// An object that represents tween
+	/// </summary>
 	public class TweenObject : IScriptObject
 	{
 		internal Tween tween = null!;
@@ -364,6 +373,9 @@ public sealed partial class TweenService : Instance
 		private TweenDirectionEnum _direction;
 		private TweenTransitionEnum _transition;
 
+		/// <summary>
+		/// Determines if this tween is looped
+		/// </summary>
 		[ScriptProperty]
 		public bool Looped
 		{
@@ -375,6 +387,9 @@ public sealed partial class TweenService : Instance
 			}
 		}
 
+		/// <summary>
+		/// Determines if this tween will run all the tweens in parallel
+		/// </summary>
 		[ScriptProperty]
 		public bool Parallel
 		{
@@ -387,6 +402,9 @@ public sealed partial class TweenService : Instance
 		}
 
 
+		/// <summary>
+		/// Determines the speed scale of this tween
+		/// </summary>
 		[ScriptProperty]
 		public float SpeedScale
 		{
@@ -398,6 +416,9 @@ public sealed partial class TweenService : Instance
 			}
 		}
 
+		/// <summary>
+		/// Determines the tween direction.
+		/// </summary>
 		[ScriptProperty]
 		public TweenDirectionEnum Direction
 		{
@@ -416,6 +437,9 @@ public sealed partial class TweenService : Instance
 			}
 		}
 
+		/// <summary>
+		/// Determines the tween transition.
+		/// </summary>
 		[ScriptProperty]
 		public TweenTransitionEnum Transition
 		{
@@ -443,8 +467,17 @@ public sealed partial class TweenService : Instance
 		}
 
 		[ScriptProperty] public bool IsRunning => tween.IsRunning();
+		/// <summary>
+		/// Returns the elapsed time of this tween
+		/// </summary>
 		[ScriptProperty] public double ElapsedTime => tween.GetTotalElapsedTime();
+		/// <summary>
+		/// Fires when this tween has finished
+		/// </summary>
 		[ScriptProperty] public PTSignal Finished { get; private set; } = new();
+		/// <summary>
+		/// Fires when this tween has been canceled
+		/// </summary>
 		[ScriptProperty] public PTSignal Canceled { get; private set; } = new();
 
 		public void Init()
@@ -454,6 +487,9 @@ public sealed partial class TweenService : Instance
 			tween.Finished += () => { Finished.Invoke(); };
 		}
 
+		/// <summary>
+		/// Set the direction of this tween. This function returns a <c>TweenObject</c> which means you can stack it with other functions.
+		/// </summary>
 		[ScriptMethod]
 		public TweenObject SetDirection(TweenDirectionEnum dir)
 		{
@@ -461,6 +497,9 @@ public sealed partial class TweenService : Instance
 			return this;
 		}
 
+		/// <summary>
+		/// Set the transition of this tween. This function returns a <c>TweenObject</c> which means you can stack it with other functions.
+		/// </summary>
 		[ScriptMethod]
 		public TweenObject SetTrans(TweenTransitionEnum trans)
 		{
@@ -468,6 +507,9 @@ public sealed partial class TweenService : Instance
 			return this;
 		}
 
+		/// <summary>
+		/// Tweens the position of a Dynamic.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenPosition(Dynamic target, Vector3 destination, float time)
 		{
@@ -477,6 +519,9 @@ public sealed partial class TweenService : Instance
 			}));
 		}
 
+		/// <summary>
+		/// Tweens the rotation of a Dynamic.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenRotation(Dynamic target, Vector3 destination, float time)
 		{
@@ -486,6 +531,9 @@ public sealed partial class TweenService : Instance
 			}));
 		}
 
+		/// <summary>
+		/// Tweens the size of a Dynamic.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenSize(Dynamic target, Vector3 destination, float time)
 		{
@@ -495,6 +543,9 @@ public sealed partial class TweenService : Instance
 			}));
 		}
 
+		/// <summary>
+		/// Tweens a color between two specified values.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenColor(Color from, Color to, float time, PTCallback callback)
 		{
@@ -504,6 +555,9 @@ public sealed partial class TweenService : Instance
 			}), from, to, time);
 		}
 
+		/// <summary>
+		/// Tweens a number between two specified values.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenNumber(float from, float to, float time, PTCallback callback)
 		{
@@ -513,6 +567,9 @@ public sealed partial class TweenService : Instance
 			}), from, to, time);
 		}
 
+		/// <summary>
+		/// Tweens a Vector2 between two specified values.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenVector2(Vector2 from, Vector2 to, float time, PTCallback callback)
 		{
@@ -522,6 +579,9 @@ public sealed partial class TweenService : Instance
 			}), from, to, time);
 		}
 
+		/// <summary>
+		/// Tweens a Vector3 between two specified values.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenVector3(Vector3 from, Vector3 to, float time, PTCallback callback)
 		{
@@ -531,6 +591,9 @@ public sealed partial class TweenService : Instance
 			}), from, to, time);
 		}
 
+		/// <summary>
+		/// Tweens a Quaternion between two specified values.
+		/// </summary>
 		[ScriptMethod]
 		public void TweenQuaternion(Quaternion from, Quaternion to, float time, PTCallback callback)
 		{
@@ -540,6 +603,9 @@ public sealed partial class TweenService : Instance
 			}), from, to, time);
 		}
 
+		/// <summary>
+		/// Play this tween
+		/// </summary>
 		[ScriptMethod]
 		public void Play()
 		{
@@ -547,24 +613,36 @@ public sealed partial class TweenService : Instance
 		}
 
 
+		/// <summary>
+		/// Pause this tween
+		/// </summary>
 		[ScriptMethod]
 		public void Pause()
 		{
 			tween.Pause();
 		}
 
+		/// <summary>
+		/// Stop this tween
+		/// </summary>
 		[ScriptMethod]
 		public void Stop()
 		{
 			tween.Stop();
 		}
 
+		/// <summary>
+		/// Creates a delay in the tween.
+		/// </summary>
 		[ScriptMethod]
 		public void Interval(float sec)
 		{
 			tween.TweenInterval(sec);
 		}
 
+		/// <summary>
+		/// Chain a tween if parallel is set to true
+		/// </summary>
 		[ScriptMethod]
 		public TweenObject Chain()
 		{
@@ -572,6 +650,9 @@ public sealed partial class TweenService : Instance
 			return this;
 		}
 
+		/// <summary>
+		/// Cancel this tween
+		/// </summary>
 		[ScriptMethod]
 		public void Cancel(bool callFinished = false)
 		{

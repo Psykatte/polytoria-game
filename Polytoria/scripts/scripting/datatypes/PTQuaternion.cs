@@ -9,14 +9,32 @@ using Polytoria.Utils;
 namespace Polytoria.Scripting.Datatypes;
 
 // NOTE: Quaternion exposed to developers is in degrees
+/// <summary>
+/// Represents a quaternion used for rotations.
+/// </summary>
 public class PTQuaternion : IScriptGDObject
 {
 	internal Quaternion quat;
 
+	/// <summary>
+	/// The X component of the quaternion.
+	/// </summary>
 	[ScriptProperty] public float X { get => quat.X; set => quat.X = value; }
+	/// <summary>
+	/// The Y component of the quaternion.
+	/// </summary>
 	[ScriptProperty] public float Y { get => quat.Y; set => quat.Y = value; }
+	/// <summary>
+	/// The Z component of the quaternion.
+	/// </summary>
 	[ScriptProperty] public float Z { get => quat.Z; set => quat.Z = value; }
+	/// <summary>
+	/// The W component of the quaternion.
+	/// </summary>
 	[ScriptProperty] public float W { get => quat.W; set => quat.W = value; }
+	/// <summary>
+	/// The identity rotation.
+	/// </summary>
 	[ScriptProperty] public static PTQuaternion Identity => new() { X = 0, Y = 0, Z = 0, W = 1 };
 
 	public static PTQuaternion FromGDClass(Quaternion qu)
@@ -32,6 +50,12 @@ public class PTQuaternion : IScriptGDObject
 		return quat;
 	}
 
+	/// <summary>
+	/// Creates a new Quaternion object with the specified components.
+	/// </summary>
+	/// <summary>
+	/// Creates a new Quaternion object with the specified components.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion New()
 	{
@@ -89,6 +113,9 @@ public class PTQuaternion : IScriptGDObject
 		return $"<Quaternion:({v.quat.X}, {v.quat.Y}, {v.quat.Z}, {v.quat.W}>";
 	}
 
+	/// <summary>
+	/// Calculates the angle between two quaternions.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static float Angle(PTQuaternion a, PTQuaternion b)
 	{
@@ -96,18 +123,30 @@ public class PTQuaternion : IScriptGDObject
 		return Mathf.RadToDeg(a.quat.AngleTo(b.quat));
 	}
 
+	/// <summary>
+	/// Creates a rotation which rotates angle degrees around axis.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion AngleAxis(float angle, Vector3 axis)
 	{
 		return FromGDClass(new Quaternion(axis, angle));
 	}
 
+	/// <summary>
+	/// Calculates the dot product of two quaternions.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static float Dot(PTQuaternion a, PTQuaternion b)
 	{
 		return a.quat.Dot(b.quat);
 	}
 
+	/// <summary>
+	/// Creates a quaternion from Euler angles specified by a Vector3.
+	/// </summary>
+	/// <summary>
+	/// Creates a quaternion from Euler angles specified by a Vector3.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion Euler(float x, float y, float z)
 	{
@@ -121,12 +160,18 @@ public class PTQuaternion : IScriptGDObject
 	}
 
 
+	/// <summary>
+	/// Converts a quaternion to Euler angles represented as a Vector3.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static Vector3 ToEuler(PTQuaternion euler)
 	{
 		return MathUtils.Vector3RadToDeg(euler.quat.GetEuler());
 	}
 
+	/// <summary>
+	/// Creates a rotation which rotates angle degrees around axis.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion FromToRotation(Vector3 fromDirection, Vector3 toDirection)
 	{
@@ -153,12 +198,18 @@ public class PTQuaternion : IScriptGDObject
 		return FromGDClass(new Quaternion(axis, angle));
 	}
 
+	/// <summary>
+	/// Calculates the inverse of a quaternion.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion Inverse(PTQuaternion rotation)
 	{
 		return FromGDClass(rotation.quat.Inverse());
 	}
 
+	/// <summary>
+	/// Linearly interpolates between two quaternions.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion Lerp(PTQuaternion a, PTQuaternion b, float t)
 	{
@@ -172,6 +223,9 @@ public class PTQuaternion : IScriptGDObject
 		return FromGDClass(q);
 	}
 
+	/// <summary>
+	/// Linearly interpolates between two quaternions without clamping the interpolant.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion LerpUnclamped(PTQuaternion a, PTQuaternion b, float t)
 	{
@@ -184,6 +238,12 @@ public class PTQuaternion : IScriptGDObject
 		return FromGDClass(q);
 	}
 
+	/// <summary>
+	/// Creates a rotation with the specified forward and upwards directions.
+	/// </summary>
+	/// <summary>
+	/// Creates a rotation with the specified forward and upwards directions.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion LookRotation(Vector3 forward)
 	{
@@ -200,12 +260,18 @@ public class PTQuaternion : IScriptGDObject
 		return FromGDClass(basis.GetRotationQuaternion());
 	}
 
+	/// <summary>
+	/// Normalizes the given quaternion.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion Normalize(PTQuaternion quaternion)
 	{
 		return FromGDClass(quaternion.quat.Normalized());
 	}
 
+	/// <summary>
+	/// Rotates a rotation from towards to by maxDegreesDelta.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion RotateTowards(PTQuaternion from, PTQuaternion to, float maxDegreesDelta)
 	{
@@ -225,12 +291,18 @@ public class PTQuaternion : IScriptGDObject
 		return FromGDClass(result);
 	}
 
+	/// <summary>
+	/// Spherically interpolates between two quaternions.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion Slerp(PTQuaternion a, PTQuaternion b, float t)
 	{
 		return FromGDClass(a.quat.Slerp(b.quat, t));
 	}
 
+	/// <summary>
+	/// Spherically interpolates between two quaternions without clamping the interpolant.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)]
 	public static PTQuaternion SlerpUnclamped(PTQuaternion a, PTQuaternion b, float t)
 	{

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Stat is an object that represents a player stat to which players can be assigned to have their own number or string values.
+/// </summary>
 [Instantiable]
 public partial class Stat : Instance
 {
@@ -19,6 +22,9 @@ public partial class Stat : Instance
 	internal Dictionary<Player, object?> PlayerToStat = [];
 	public PTSignal<Player, object?> PlayerStatChanged = new();
 
+	/// <summary>
+	/// The display name for this stat.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("")]
 	public string DisplayName
 	{
@@ -30,6 +36,9 @@ public partial class Stat : Instance
 		}
 	}
 
+	/// <summary>
+	/// Returns the display name of the stat. If DisplayName is specified, it returns DisplayName; otherwise, it returns Name.
+	/// </summary>
 	[ScriptMethod]
 	public string GetDisplayName()
 	{
@@ -92,6 +101,12 @@ public partial class Stat : Instance
 		PlayerToStat.Remove(plr);
 	}
 
+	/// <summary>
+	/// Set the value stat of player to string
+	/// </summary>
+	/// <summary>
+	/// Set the value stat of player to string
+	/// </summary>
 	[ScriptMethod]
 	public void Set(Player player, double val)
 	{
@@ -142,6 +157,9 @@ public partial class Stat : Instance
 		}
 	}
 
+	/// <summary>
+	/// Get the value stat of player
+	/// </summary>
 	[ScriptMethod]
 	public object? Get(Player player)
 	{
@@ -152,6 +170,9 @@ public partial class Stat : Instance
 		return null;
 	}
 
+	/// <summary>
+	/// Get the total value for team
+	/// </summary>
 	[ScriptMethod]
 	public double GetTotalForTeam(Team team)
 	{
@@ -170,6 +191,9 @@ public partial class Stat : Instance
 		return total;
 	}
 
+	/// <summary>
+	/// Gets the display value for a player. If the value is a number, it is automatically converted to K/M/S format (e.g., 1K+, 12.3K+).
+	/// </summary>
 	[ScriptMethod]
 	public string GetDisplayValue(Player plr)
 	{

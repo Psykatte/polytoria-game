@@ -5,4 +5,7 @@
 namespace Polytoria.Datamodel;
 
 // Class for invalid instances created by PolyFormat
+/// <summary>
+/// Default instance that's created when instance is invalid.
+/// </summary>
 public partial class MissingInstance : Instance { }

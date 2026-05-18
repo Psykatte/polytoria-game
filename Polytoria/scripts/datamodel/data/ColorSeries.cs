@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// Color series is a data type that represents a collection of color and points, also known as gradient.
+/// </summary>
 public readonly struct ColorSeries : IScriptObject, IData
 {
 	internal struct ColorPoint(float offset, Color color)
@@ -21,6 +24,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 
 	private readonly List<ColorPoint> points;
 
+	/// <summary>
+	/// Returns the point count of this color series.
+	/// </summary>
 	[ScriptProperty]
 	public readonly int PointCount => points?.Count ?? 0;
 
@@ -35,6 +41,12 @@ public readonly struct ColorSeries : IScriptObject, IData
 		];
 	}
 
+	/// <summary>
+	/// Creates a color series from a color range
+	/// </summary>
+	/// <summary>
+	/// Creates a color series from a color range
+	/// </summary>
 	[ScriptMethod]
 	public static ColorSeries New()
 	{
@@ -51,12 +63,18 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return r;
 	}
 
+	/// <summary>
+	/// Clear this ColorSeries
+	/// </summary>
 	[ScriptMethod]
 	public readonly void Clear()
 	{
 		points.Clear();
 	}
 
+	/// <summary>
+	/// Sets the color at the specified point in the color series.
+	/// </summary>
 	[ScriptMethod]
 	public readonly void SetColor(int point, Color color)
 	{
@@ -66,6 +84,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		points[point] = new ColorPoint(points[point].Offset, color);
 	}
 
+	/// <summary>
+	/// Removes the point at the specified index from the color series.
+	/// </summary>
 	[ScriptMethod]
 	public readonly void RemovePoint(int point)
 	{
@@ -75,6 +96,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		points.RemoveAt(point);
 	}
 
+	/// <summary>
+	/// Get all offsets
+	/// </summary>
 	[ScriptMethod]
 	public readonly float[] GetOffsets()
 	{
@@ -86,6 +110,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return [.. offsets];
 	}
 
+	/// <summary>
+	/// Get all colors
+	/// </summary>
 	[ScriptMethod]
 	public readonly Color[] GetColors()
 	{
@@ -97,6 +124,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return [.. clr];
 	}
 
+	/// <summary>
+	/// Sets the offset at the specified point in the color series.
+	/// </summary>
 	[ScriptMethod]
 	public readonly void SetOffset(int point, float offset)
 	{
@@ -123,6 +153,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		SortPoints();
 	}
 
+	/// <summary>
+	/// Gets the color at the specified point in the color series.
+	/// </summary>
 	[ScriptMethod]
 	public readonly Color GetColor(int point)
 	{
@@ -132,6 +165,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return points[point].Color;
 	}
 
+	/// <summary>
+	/// Gets the offset at the specified point in the color series.
+	/// </summary>
 	[ScriptMethod]
 	public readonly float GetOffset(int point)
 	{
@@ -141,6 +177,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return points[point].Offset;
 	}
 
+	/// <summary>
+	/// Add color point to the series with an offset.
+	/// </summary>
 	[ScriptMethod]
 	public readonly int AddPoint(float offset, Color color)
 	{
@@ -158,6 +197,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return points.Count - 1;
 	}
 
+	/// <summary>
+	/// Interpolates between colors in the series based on the parameter t.
+	/// </summary>
 	[ScriptMethod]
 	public readonly Color Lerp(float t)
 	{

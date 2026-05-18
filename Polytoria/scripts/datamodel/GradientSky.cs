@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// GradientSky is a class that is used to set a gradient skybox in the world.
+/// </summary>
 [Instantiable]
 public sealed partial class GradientSky : Sky
 {
@@ -28,6 +31,9 @@ public sealed partial class GradientSky : Sky
 	private Color _skyGradientBottom = new(0.764706f, 0.8156863f, 0.8509805f);
 	private float _skyGradientExponent = 2.5f;
 
+	/// <summary>
+	/// Determines the color emitting off the sun.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color SunDiscColor
 	{
@@ -40,6 +46,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the multiplier of the sun.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SunDiscMultiplier
 	{
@@ -52,6 +61,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the exponent of the sun.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SunDiscExponent
 	{
@@ -64,6 +76,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the color of the sun halo.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color SunHaloColor
 	{
@@ -76,6 +91,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the exponent of the sun halo.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SunHaloExponent
 	{
@@ -88,6 +106,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the contribution of the sun halo.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SunHaloContribution
 	{
@@ -100,6 +121,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the horizon line's color.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color HorizonLineColor
 	{
@@ -112,6 +136,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the horizon line's exponent.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float HorizonLineExponent
 	{
@@ -124,6 +151,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines how much the horizon line contributes.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float HorizonLineContribution
 	{
@@ -136,6 +166,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the top color of the gradient.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color SkyGradientTop
 	{
@@ -148,6 +181,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the bottom color of the gradient.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color SkyGradientBottom
 	{
@@ -160,6 +196,9 @@ public sealed partial class GradientSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Determines the gradient's exponent.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SkyGradientExponent
 	{

@@ -9,6 +9,9 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// GradientImageAsset is a class that provides gradient image that can be dynamically changed.
+/// </summary>
 [Instantiable]
 public partial class GradientImageAsset : ImageAsset
 {
@@ -23,6 +26,9 @@ public partial class GradientImageAsset : ImageAsset
 	private Vector2 _fillFrom;
 	private Vector2 _fillTo;
 
+	/// <summary>
+	/// The color series for this gradient
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ColorSeries Series
 	{
@@ -45,6 +51,9 @@ public partial class GradientImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Determines the width of this image
+	/// </summary>
 	[Editable, ScriptProperty]
 	public int Width
 	{
@@ -58,6 +67,9 @@ public partial class GradientImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Determines the height of this image
+	/// </summary>
 	[Editable, ScriptProperty]
 	public int Height
 	{
@@ -71,6 +83,9 @@ public partial class GradientImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Determines the fill mode of the gradient
+	/// </summary>
 	[Editable, ScriptProperty]
 	public GradientImageFillEnum Fill
 	{
@@ -90,6 +105,9 @@ public partial class GradientImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Determines the starting point of the gradient
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 FillFrom
 	{
@@ -103,6 +121,9 @@ public partial class GradientImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Determines the ending point of the gradient
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 FillTo
 	{

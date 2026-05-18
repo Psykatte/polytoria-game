@@ -6,11 +6,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// BoolValue is a ValueBase that stores a boolean.
+/// </summary>
 [Instantiable]
 public partial class BoolValue : ValueBase
 {
 	private bool _val = false;
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool Value
 	{

@@ -13,6 +13,9 @@ using Polytoria.Utils;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIField is the abstract base class of all UI classes.
+/// </summary>
 [Instantiable]
 public partial class UIField : Instance
 {
@@ -35,6 +38,9 @@ public partial class UIField : Instance
 	internal bool OverrideParentCheck = false;
 
 	private bool _visible = true;
+	/// <summary>
+	/// The offset of the UI element in pixels.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 PositionOffset
 	{
@@ -47,6 +53,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The position of the UI element relative to its parent.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 PositionRelative
 	{
@@ -59,6 +68,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The rotation of the UI element in degrees.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Rotation
 	{
@@ -71,6 +83,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The size offset of the UI element in pixels.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 SizeOffset
 	{
@@ -83,6 +98,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The size of the UI element relative to its parent.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 SizeRelative
 	{
@@ -95,6 +113,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the UI element clips its descendants.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool ClipDescendants
 	{
@@ -107,6 +128,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The pivot point of the UI element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 PivotPoint
 	{
@@ -119,6 +143,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The scale of the UI element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 Scale
 	{
@@ -131,6 +158,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the UI element is visible.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Visible
 	{
@@ -143,6 +173,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines the mask mode of the UI element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public MaskModeEnum MaskMode
 	{
@@ -161,6 +194,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines if the UI field should be ignored by mouse input
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool IgnoreMouse
 	{
@@ -173,6 +209,9 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines the ZIndex value of this UI field.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public int ZIndex
 	{
@@ -185,15 +224,39 @@ public partial class UIField : Instance
 		}
 	}
 
+	/// <summary>
+	/// The absolute position of the UI element in pixels.
+	/// </summary>
 	[ScriptProperty] public Vector2 AbsolutePosition => NodeControl.GlobalPosition;
+	/// <summary>
+	/// The absolute size of the UI element in pixels.
+	/// </summary>
 	[ScriptProperty] public Vector2 AbsoluteSize => OverrideAbsSize ? OverrideAbsSizeTo : NodeControl.Size;
 
+	/// <summary>
+	/// Fires when user's cursor hovers on this UI
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseEnter { get; private set; } = new();
+	/// <summary>
+	/// Fires when user's cursor leaves this UI
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseExit { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when user hold down mouse on this UI
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseDown { get; private set; } = new();
+	/// <summary>
+	/// Fires when user release mouse on this UI
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseUp { get; private set; } = new();
+	/// <summary>
+	/// Fires when this UI transform has been changed
+	/// </summary>
 	[ScriptProperty] public PTSignal TransformChanged { get; private set; } = new();
+	/// <summary>
+	/// Fires when this UI visibility has been changed
+	/// </summary>
 	[ScriptProperty] public PTSignal VisibilityChanged { get; private set; } = new();
 
 	[ScriptProperty] public bool IsVisibleInTree => NodeControl.IsVisibleInTree();

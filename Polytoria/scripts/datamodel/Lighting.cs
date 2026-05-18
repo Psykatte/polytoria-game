@@ -16,6 +16,9 @@ using ObsoleteAttribute = Polytoria.Attributes.ObsoleteAttribute;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Lighting is responsible for controlling the state of the lighting in the place. It provides many different options for creators to enhance and fine-tune the visuals of their worlds.
+/// </summary>
 [Static("Lighting")]
 public sealed partial class Lighting : Instance
 {
@@ -115,6 +118,9 @@ public sealed partial class Lighting : Instance
 		_sky.SkyMaterial = Globals.LoadSkybox(_skybox.ToString());
 	}
 
+	/// <summary>
+	/// Sets the skybox to one of the preset skyboxes.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public SkyboxEnum Skybox
 	{
@@ -133,6 +139,9 @@ public sealed partial class Lighting : Instance
 	private float _fogStartDistance;
 	private float _fogEndDistance;
 
+	/// <summary>
+	/// Determines the source of ambient lighting in the place.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public AmbientSourceEnum AmbientSource
 	{
@@ -147,6 +156,9 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
+	/// <summary>
+	/// Sets the ambient color of the lighting in the place.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color AmbientColor
 	{
@@ -159,6 +171,9 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
+	/// <summary>
+	/// Enables or disables fog in the place.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool FogEnabled
 	{
@@ -171,6 +186,9 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
+	/// <summary>
+	/// Sets the color of the fog in the place.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color FogColor
 	{
@@ -183,6 +201,9 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
+	/// <summary>
+	/// Sets the distance from the camera at which fog begins to appear.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float FogStartDistance
 	{
@@ -195,6 +216,9 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
+	/// <summary>
+	/// Sets the distance from the camera at which fog stops appearing.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float FogEndDistance
 	{

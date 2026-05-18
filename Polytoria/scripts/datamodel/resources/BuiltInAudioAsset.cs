@@ -9,11 +9,17 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Audio asset that's built-in with the client
+/// </summary>
 [Instantiable]
 public partial class BuiltInAudioAsset : AudioAsset
 {
 	private BuiltInAudioPresetEnum _audioPreset;
 
+	/// <summary>
+	/// The target audio to use
+	/// </summary>
 	[Editable, ScriptProperty]
 	public BuiltInAudioPresetEnum AudioPreset
 	{

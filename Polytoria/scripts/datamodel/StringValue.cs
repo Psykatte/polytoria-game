@@ -6,11 +6,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// StringValue is an object that holds a string value.
+/// </summary>
 [Instantiable]
 public partial class StringValue : ValueBase
 {
 	private string _val = "";
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string Value
 	{

@@ -6,5 +6,8 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// A temporary container. All class that were instantiated from <c>Instance.New</c> will have this class as their first parent.
+/// </summary>
 [Static, ExplorerExclude, SaveIgnore]
 public sealed partial class Temporary : ServerHidden { }

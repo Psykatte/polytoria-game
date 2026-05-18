@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Chat is a static class used for various actions regarding the chat.
+/// </summary>
 [Static("Chat"), ExplorerExclude, SaveIgnore]
 public sealed partial class ChatService : Instance
 {
@@ -184,6 +187,9 @@ public sealed partial class ChatService : Instance
 		MessageReceived.Invoke(msgContent);
 	}
 
+	/// <summary>
+	/// Sends a chat message to all players.
+	/// </summary>
 	[ScriptMethod]
 	public void BroadcastMessage(string msg)
 	{
@@ -192,6 +198,9 @@ public sealed partial class ChatService : Instance
 			Rpc(nameof(NetRecvBroadcastMessage), msg);
 	}
 
+	/// <summary>
+	/// Sends a chat message to a specific player.
+	/// </summary>
 	[ScriptMethod]
 	public void UnicastMessage(string msg, Player plr)
 	{

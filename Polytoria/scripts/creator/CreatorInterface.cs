@@ -26,6 +26,9 @@ using static Polytoria.Datamodel.Creator.CreatorAddons;
 
 namespace Polytoria.Creator;
 
+/// <summary>
+/// CreatorInterface represent the user interface of the creator. This class is only available in the creator.
+/// </summary>
 public partial class CreatorInterface : Control, IScriptObject
 {
 	public const string IntroRanFile = "user://creator/introran";
@@ -50,12 +53,27 @@ public partial class CreatorInterface : Control, IScriptObject
 	public StatusBar? StatusBar { get; internal set; }
 	public LoadOverlay? LoadOverlay { get; internal set; }
 
+	/// <summary>
+	/// Returns the target tool mode
+	/// </summary>
 	[ScriptProperty] public ToolModeEnum ToolMode { get; internal set; } = ToolModeEnum.Select;
+	/// <summary>
+	/// Returns the target part color
+	/// </summary>
 	[ScriptProperty] public Color TargetPartColor { get; internal set; } = new(1, 1, 1);
+	/// <summary>
+	/// Returns the target part material
+	/// </summary>
 	[ScriptProperty] public Part.PartMaterialEnum TargetPartMaterial { get; internal set; } = Part.PartMaterialEnum.SmoothPlastic;
 
+	/// <summary>
+	/// Returns the move snapping value
+	/// </summary>
 	[ScriptProperty] public bool MoveSnapEnabled { get; internal set; } = true;
 
+	/// <summary>
+	/// Returns whenever the move snapping is enabled by the user
+	/// </summary>
 	[ScriptProperty]
 	public float MoveSnapping
 	{
@@ -69,9 +87,18 @@ public partial class CreatorInterface : Control, IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns the move snapping value defined by the user
+	/// </summary>
 	[ScriptProperty] public float UserMoveSnapping { get; internal set; } = 1;
+	/// <summary>
+	/// Returns whenever the rotate snapping is enabled by the user
+	/// </summary>
 	[ScriptProperty] public bool RotateSnapEnabled { get; internal set; } = true;
 
+	/// <summary>
+	/// Returns the rotate snapping value
+	/// </summary>
 	[ScriptProperty]
 	public float RotateSnapping
 	{
@@ -85,6 +112,9 @@ public partial class CreatorInterface : Control, IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns the rotate snapping value defined by the user
+	/// </summary>
 	[ScriptProperty] public float UserRotateSnapping { get; internal set; } = 45;
 
 	public static bool TempDisableSnap => Input.IsKeyPressed(Key.Alt);

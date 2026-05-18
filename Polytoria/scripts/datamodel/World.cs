@@ -26,6 +26,9 @@ using System.Collections.Concurrent;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// World is the root object in the Polytoria instance tree. It is the object from which everything is descended.
+/// </summary>
 [Static("world")]
 public sealed partial class World : Instance
 {
@@ -58,15 +61,24 @@ public sealed partial class World : Instance
 
 	public PTSignal Loaded { get; private set; } = new();
 
+	/// <summary>
+	/// Fires every frame after the world has been rendered. The <c>delta</c> parameter is the time between the last frame and the current.
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal<double> Rendered { get; private set; } = new();
 
+	/// <summary>
+	/// Returns true if this current session is being tested locally
+	/// </summary>
 	[ScriptProperty]
 	public bool IsLocalTest => _worldID == 0;
 
 	public SessionTypeEnum SessionType { get; set; } = SessionTypeEnum.Client;
 
 	// TODO: Server Vitals/world properties doesn't work yet, make it work
+	/// <summary>
+	/// Returns true if this world is being ran from a 1.0 world file.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public bool IsLegacyWorld
 	{
@@ -168,6 +180,9 @@ public sealed partial class World : Instance
 	public readonly ConcurrentDictionary<string, NetworkedObject> NetworkObjects = [];
 	public readonly ConcurrentDictionary<string, NetworkedObject> Objects = [];
 
+	/// <summary>
+	/// The ID of the current Polytoria world.
+	/// </summary>
 	[ScriptProperty, ScriptLegacyProperty("GameID")]
 	public int WorldID
 	{
@@ -182,12 +197,21 @@ public sealed partial class World : Instance
 		}
 	}
 
+	/// <summary>
+	/// The server ID of the current instance.
+	/// </summary>
 	[ScriptProperty]
 	public int ServerID { get; internal set; }
 
+	/// <summary>
+	/// The uptime of this game in seconds.
+	/// </summary>
 	[ScriptProperty]
 	public decimal UpTime { get; private set; } = 0;
 
+	/// <summary>
+	/// A synchronized clock that represents the server's current time.
+	/// </summary>
 	[ScriptProperty]
 	public decimal ServerTime
 	{
@@ -210,6 +234,9 @@ public sealed partial class World : Instance
 	[ScriptProperty, Attributes.Obsolete("Use Players.PlayersCount instead")]
 	public int PlayersConnected => Players.PlayersCount;
 
+	/// <summary>
+	/// The total number of instances currently loaded.
+	/// </summary>
 	[ScriptProperty]
 	public int InstanceCount { get; private set; } = 0;
 

@@ -7,12 +7,18 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIHVLayout is an abstract class that provides horizontal and vertical layout functionality for UI elements.
+/// </summary>
 [Abstract]
 public partial class UIHVLayout : UIContainer
 {
 	private UILayoutAlignmentEnum _childAlignment;
 	private int _spacing;
 
+	/// <summary>
+	/// The spacing between child elements in the layout.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(8)]
 	public int Spacing
 	{
@@ -27,6 +33,9 @@ public partial class UIHVLayout : UIContainer
 		}
 	}
 
+	/// <summary>
+	/// Determines the alignment of child elements within the layout.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(UILayoutAlignmentEnum.Start)]
 	public UILayoutAlignmentEnum ChildAlignment
 	{

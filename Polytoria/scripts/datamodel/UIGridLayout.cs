@@ -7,12 +7,18 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIGridLayout is a class that arranges all of it's children in a grid layout
+/// </summary>
 [Instantiable]
 public partial class UIGridLayout : UIContainer
 {
 	private int _columns;
 	private int _spacing;
 
+	/// <summary>
+	/// The spacing between each item.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(8)]
 	public int Spacing
 	{
@@ -26,6 +32,9 @@ public partial class UIGridLayout : UIContainer
 		}
 	}
 
+	/// <summary>
+	/// The number of columns for this grid layout.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1)]
 	public int Columns
 	{

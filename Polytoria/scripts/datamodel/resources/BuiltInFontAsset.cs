@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Font asset that's built-in with the client
+/// </summary>
 [Instantiable]
 public partial class BuiltInFontAsset : FontAsset
 {
@@ -17,6 +20,9 @@ public partial class BuiltInFontAsset : FontAsset
 	private FontWeightEnum _fontWeight = FontWeightEnum.Regular;
 	private FontStyleEnum _fontStyle = FontStyleEnum.Normal;
 
+	/// <summary>
+	/// Target font to use
+	/// </summary>
 	[Editable, ScriptProperty]
 	public BuiltInTextFontPresetEnum FontPreset
 	{
@@ -29,6 +35,9 @@ public partial class BuiltInFontAsset : FontAsset
 		}
 	}
 
+	/// <summary>
+	/// Font weight for this font
+	/// </summary>
 	[Editable, ScriptProperty]
 	public FontWeightEnum FontWeight
 	{
@@ -41,6 +50,9 @@ public partial class BuiltInFontAsset : FontAsset
 		}
 	}
 
+	/// <summary>
+	/// Font style for this font
+	/// </summary>
 	[Editable, ScriptProperty]
 	public FontStyleEnum FontStyle
 	{

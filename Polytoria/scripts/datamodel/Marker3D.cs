@@ -6,6 +6,9 @@ using Godot;
 using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Marker3D is a object that allows marking a specific point in world. This will hint an axis gizmo in local test and creator.
+/// </summary>
 [Instantiable]
 public partial class Marker3D : Dynamic
 {
@@ -14,6 +17,9 @@ public partial class Marker3D : Dynamic
 	private bool _appearOnTop;
 	private bool _visibleInDev;
 
+	/// <summary>
+	/// Length of this Marker
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1)]
 	public float Length
 	{
@@ -25,6 +31,9 @@ public partial class Marker3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines if this marker should appear on top of everything else in 3D.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool AppearOnTop
 	{
@@ -36,6 +45,9 @@ public partial class Marker3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines if this marker should be visible in development.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool VisibleInDev
 	{

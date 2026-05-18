@@ -15,6 +15,9 @@ public partial class FileLinkAsset : BaseAsset
 {
 	private string _fileID = "";
 
+	/// <summary>
+	/// The ID of the file
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string LinkedID
 	{

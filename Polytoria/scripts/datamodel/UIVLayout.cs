@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIVLayout is a class that aligns all of its children vertically.
+/// </summary>
 [Instantiable]
 public partial class UIVLayout : UIHVLayout
 {

@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Creator;
 
+/// <summary>
+/// Service for managing addons
+/// </summary>
 [Static("Addons")]
 public sealed partial class CreatorAddons : Instance
 {
@@ -21,6 +24,9 @@ public sealed partial class CreatorAddons : Instance
 	private readonly Dictionary<string, AddonObject> _identifierToAddon = [];
 	private readonly Dictionary<Script, AddonObject> _scriptToAddon = [];
 
+	/// <summary>
+	/// Register an addon
+	/// </summary>
 	[ScriptMethod(Permissions = ScriptPermissionFlags.ContextAccess)]
 	public AddonObject Register([ScriptingCaller] Script caller, string identifier)
 	{
@@ -59,6 +65,9 @@ public sealed partial class CreatorAddons : Instance
 		obj.ScriptSource.ForceDelete();
 	}
 
+	/// <summary>
+	/// AddonObject represents an addon in the creator. This object serves as the main interface for addon developers to interact with the addon system.
+	/// </summary>
 	public class AddonObject : IScriptObject
 	{
 		private string _addonName = "No name";
@@ -67,9 +76,18 @@ public sealed partial class CreatorAddons : Instance
 		public World Root = null!;
 		public Script ScriptSource = null!;
 
+		/// <summary>
+		/// The identifier for this addon.
+		/// </summary>
 		[ScriptProperty] public string Identifier { get; internal set; } = "";
+		/// <summary>
+		/// Fires when cleanup has been requested by the creator, this is usually fired when updating the addon.
+		/// </summary>
 		[ScriptProperty] public PTSignal CleanupReceived { get; private set; } = new();
 
+		/// <summary>
+		/// The display name of the addon. This name will appear in the tools menu.
+		/// </summary>
 		[ScriptProperty]
 		public string AddonName
 		{
@@ -81,6 +99,9 @@ public sealed partial class CreatorAddons : Instance
 			}
 		}
 
+		/// <summary>
+		/// Determines the addon icon.
+		/// </summary>
 		[ScriptProperty]
 		public PTImageAsset? AddonIcon
 		{
@@ -94,6 +115,9 @@ public sealed partial class CreatorAddons : Instance
 
 		public readonly List<AddonToolItem> ToolItems = [];
 
+		/// <summary>
+		/// Prompt the user to request for permissions
+		/// </summary>
 		[ScriptMethod]
 		public static async Task RequestPermissions([ScriptingCaller] Script caller, AddonPermissionEnum[] perms)
 		{
@@ -115,6 +139,9 @@ public sealed partial class CreatorAddons : Instance
 			}
 		}
 
+		/// <summary>
+		/// Create a new tool item with text.
+		/// </summary>
 		[ScriptMethod]
 		public AddonToolItem CreateToolItem(string txt)
 		{
@@ -125,10 +152,16 @@ public sealed partial class CreatorAddons : Instance
 		}
 	}
 
+	/// <summary>
+	/// AddonToolItem represents a tool item in the tools menu of the addon.
+	/// </summary>
 	public class AddonToolItem(string txt) : IScriptObject
 	{
 		public string Text = txt;
 
+		/// <summary>
+		/// Fires when this tool item has been pressed
+		/// </summary>
 		[ScriptProperty] public PTSignal Pressed { get; private set; } = new();
 	}
 

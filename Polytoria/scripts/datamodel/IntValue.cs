@@ -6,11 +6,17 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// IntValue is an object that holds an integer value.
+/// </summary>
 [Instantiable]
 public partial class IntValue : ValueBase
 {
 	private int _val = 0;
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public int Value
 	{
