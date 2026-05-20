@@ -46,6 +46,70 @@ cleanDir(mdEnumPath)
 fs.mkdirSync(mdAPIPath, { recursive: true })
 fs.mkdirSync(mdEnumPath, { recursive: true })
 
+// ─── Link & heading rendering ────────────────────────────────────────────────
+
+// Friendly-name tables mirror the legacy main.py macros so output stays identical.
+const TYPE_FRIENDLY = { "bool": "boolean", "array": "[]" }
+const PARAM_TYPE_FRIENDLY = { "bool": "boolean" }
+
+// classIndex maps a type name (and enum InternalName) to its rendered URL path under /api/.
+const classIndex = {}
+for (const c of data.Classes) {
+    classIndex[c.Name] = c.Category ? `types/${c.Category}/${c.Name}` : `types/${c.Name}`
+}
+for (const e of data.Enums) {
+    classIndex[e.Name] = `enums/${e.Name}`
+    if (e.InternalName && e.InternalName !== e.Name) {
+        classIndex[e.InternalName] = `enums/${e.Name}`
+    }
+}
+
+// Returns a markdown link to the type's doc page, or null if the type is unknown.
+function getClassLink(typeName) {
+    const url = classIndex[typeName]
+    if (!url) return null
+    // Display name strips the "Enum" suffix that some C# types carry internally.
+    const display = typeName.endsWith("Enum") && classIndex[typeName.slice(0, -4)]
+        ? typeName.slice(0, -4)
+        : typeName
+    return `[${display}](/api/${url}/)`
+}
+
+// Render a type as a link if known, otherwise as inline code. Applies the friendly-name table first.
+function renderType(typeName, friendlyTable) {
+    const friendly = friendlyTable[typeName] !== undefined ? friendlyTable[typeName] : typeName
+    return getClassLink(friendly) || `\`${friendly}\``
+}
+
+// Renders the parameters block that follows a method/event heading.
+function renderParameters(params) {
+    if (!params || params.length === 0) return ""
+    const items = params.map(p => {
+        const typeText = renderType(p.Type, PARAM_TYPE_FRIENDLY)
+        const optMsg = p.IsOptional ? " - this parameter is optional" : ""
+        return p.Name ? `${p.Name} [ ${typeText} ]${optMsg}` : typeText
+    })
+    if (items.length > 1) {
+        return "\n??? quote \"Parameters\"\n" + items.map(s => "    " + s).join("\n\n")
+    }
+    return `\n!!! quote "**Parameters:** <span style="font-weight: normal;">${items[0]}</span>"`
+}
+
+function renderPropertyHeading(prop) {
+    const typeText = renderType(prop.Type, TYPE_FRIENDLY)
+    return `### :polytoria-Property: ${prop.Name} : ${typeText} { #${prop.Name} data-toc-label="${prop.Name}" }`
+}
+
+function renderMethodHeading(m) {
+    const ret = m.ReturnType || "void"
+    const returnText = "→ " + renderType(ret, TYPE_FRIENDLY)
+    return `### :polytoria-Method: ${m.Name} ${returnText} { #${m.Name} data-toc-label="${m.Name}" }` + renderParameters(m.Parameters)
+}
+
+function renderEventHeading(e) {
+    return `### <a href="/objects/types/Event/">:polytoria-Event:</a> ${e.Name} { #${e.Name} data-toc-label="${e.Name}" }` + renderParameters(e.Parameters)
+}
+
 // ─── Process API Classes ─────────────────────────────────────────────────────
 
 // First pass: build inherited-by index
@@ -84,13 +148,15 @@ for (const c of data.Classes) {
 
     if (c.BaseType) {
         appendLine("")
-        appendLine(`{{ inherits("${c.BaseType}") }}`)
+        appendLine(`Inherits ${getClassLink(c.BaseType) || c.BaseType}`)
+        appendLine("{ data-search-exclude }")
     }
 
     const children = inheritedBy[c.Name]
     if (children && children.length > 0) {
         appendLine("")
-        appendLine(`{{ inherited_by([${children.map(n => `"${n}"`).join(", ")}]) }}`)
+        appendLine("Inherited by " + children.map(n => getClassLink(n) || n).join(", "))
+        appendLine("{ data-search-exclude }")
     }
 
     appendLine("")
@@ -141,7 +207,7 @@ for (const c of data.Classes) {
     }
     for (const prop of properties) {
         if (prop.IsObsolete) continue
-        appendLine(`### ${prop.Name}:${prop.Type} { property }`)
+        appendLine(renderPropertyHeading(prop))
         appendLine(``)
         appendLine(prop.Description || "Missing documentation!")
         appendLine(``)
@@ -164,10 +230,7 @@ for (const c of data.Classes) {
         appendLine("")
     }
     for (const m of methods) {
-        const params = (m.Parameters ?? []).map(p =>
-            `${p.Name};${p.Type}${p.IsOptional ? "?" : ""}`
-        )
-        appendLine(`### ${m.Name}(${params.join(",")}):${m.ReturnType || "void"} { method }`)
+        appendLine(renderMethodHeading(m))
         appendLine(``)
         appendLine(m.Description || "Missing documentation!")
         appendLine(``)
@@ -201,8 +264,7 @@ for (const c of data.Classes) {
         appendLine("")
     }
     for (const e of events) {
-        const args = (e.Parameters ?? []).map(p => `${p.Name};${p.Type}`)
-        appendLine(`### ${e.Name}(${args.join(",")}) { event }`)
+        appendLine(renderEventHeading(e))
         appendLine(``)
         appendLine(e.Description || "")
         appendLine(``)
