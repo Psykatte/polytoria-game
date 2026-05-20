@@ -1,12 +1,25 @@
+// Print help and exit.
+if (process.argv.includes("--help") || process.argv.includes("-h")) {
+    console.log(`\
+Usage: node mdgen.js [options]
+Generate Markdown formatted documentation from C# documentation comments.
+
+Options:
+  --strict, -s   fail if any scriptable members are undocumented
+  --help, -h     display this help and exit`)
+    process.exit(0)
+}
+
 const fs = require("fs")
 const path = require("path")
 
-const STRICT = process.argv.includes("--strict")
+// When set fail if any scriptable members are undocumented.
+const STRICT = process.argv.includes("--strict") || process.argv.includes("-s")
 
 const defJsonPath  = path.join(__dirname, "../", "../", "Polytoria", "def.json")
 const mdAPIPath    = path.join(__dirname, "../", "docs/api", "types")
-const iconDataPath = path.join(__dirname, "../", "docs/theme/.icons", "polytoria")
 const mdEnumPath   = path.join(__dirname, "../", "docs/api", "enums")
+const iconDataPath = path.join(__dirname, "../", "docs/theme/.icons", "polytoria")
 
 const data = JSON.parse(fs.readFileSync(defJsonPath, "utf-8"))
 
@@ -27,12 +40,13 @@ function cleanDir(dir) {
         fs.rmSync(path.join(dir, file), { recursive: true, force: true })
     }
 }
+console.log(`Cleaning old markdown directories...`)
 cleanDir(mdAPIPath)
 cleanDir(mdEnumPath)
 fs.mkdirSync(mdAPIPath, { recursive: true })
 fs.mkdirSync(mdEnumPath, { recursive: true })
 
-// ─── Process API Classes ──────────────────────────────────────────────────────
+// ─── Process API Classes ─────────────────────────────────────────────────────
 
 // First pass: build inherited-by index
 const inheritedBy = {}
@@ -197,7 +211,7 @@ for (const c of data.Classes) {
 
     fs.writeFileSync(mdPath, mk)
 }
-console.log(`Converted ${data.Classes.length} classes to Markdown`)
+console.log(`Converted ${data.Classes.length} classes to Markdown.`)
 
 // ─── Process Enums ────────────────────────────────────────────────────────────
 
@@ -237,7 +251,7 @@ for (const e of data.Enums) {
 
     fs.writeFileSync(mdPath, mk)
 }
-console.log(`Converted ${data.Enums.length} enums to Markdown`)
+console.log(`Converted ${data.Enums.length} enums to Markdown.`)
 
 // ─── Undocumented-member report ───────────────────────────────────────────────
 

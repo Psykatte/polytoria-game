@@ -7,10 +7,10 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "node autogen/mdgen.js && mkdocs serve",
+    "gen": "node autogen/mdgen.js",
+    "dev": "node run gen && mkdocs serve",
     "build": "npm run gen && mkdocs build",
-    "build-ci": "npm i && node autogen/mdgen.js --strict && mkdocs build",
-    "gen": "node autogen/mdgen.js"
+    "build-ci": "npm run gen --strict && mkdocs build"
   },
   "keywords": [],
   "author": "Polytoria Contributors",

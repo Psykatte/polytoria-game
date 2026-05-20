@@ -767,6 +767,27 @@ internal sealed class XmlDocReader
 		);
 	}
 
+	// Helper function for removing extra indentation between XML tags.
+	private static string RemoveCommonIndentation(string codeText)
+	{
+		// Split into lines and find minimum indentation
+		var lines = codeText.Split('\n');
+		var minIndent = lines
+			.Where(line => !string.IsNullOrWhiteSpace(line))
+			.Select(line => line.Length - line.TrimStart().Length)
+			.DefaultIfEmpty(0)
+			.Min();
+		
+		// Remove common indentation and trim
+		return string.Join("\n",
+			lines.Select((line, i) => 
+				i == 0 || i == lines.Length - 1 
+					? line.Trim()
+					: (line.Length > minIndent ? line.Substring(minIndent) : line.Trim())
+			)
+		).Trim();
+	}
+
 	private static string RenderInline(XElement el)
 	{
 		var sb = new System.Text.StringBuilder();
@@ -782,7 +803,7 @@ internal sealed class XmlDocReader
 				switch (child.Name.LocalName)
 				{
 					case "c": sb.Append(" `").Append(child.Value.Trim()).Append('`'); break;
-					case "code": sb.Append("\n```lua\n").Append(child.Value.Trim()).Append("\n```"); break;
+					case "code": sb.Append("\n```luau\n").Append(RemoveCommonIndentation(child.Value)).Append("\n```"); break;
 					case "para": sb.Append("\n\n").Append(RenderInline(child).TrimStart()); break;
 					case "see": sb.Append(' ').Append(((string?)child.Attribute("cref") ?? "").Split('.').Last()); break;
 					default: sb.Append(RenderInline(child)); break;
