@@ -805,7 +805,45 @@ internal sealed class XmlDocReader
 					case "c": sb.Append(" `").Append(child.Value.Trim()).Append('`'); break;
 					case "code": sb.Append("\n```luau\n").Append(RemoveCommonIndentation(child.Value)).Append("\n```"); break;
 					case "para": sb.Append("\n\n").Append(RenderInline(child).TrimStart()); break;
-					case "see": sb.Append(' ').Append(((string?)child.Attribute("cref") ?? "").Split('.').Last()); break;
+					case "see": 
+					{
+						var crefValue = (string?)child.Attribute("cref");
+						
+						Type? targetType = null;
+						if (!string.IsNullOrEmpty(crefValue)) {
+							targetType = Type.GetType(crefValue[2..]);
+						}
+
+						if (targetType == null) {
+							sb.Append(child.Value); 
+							break;
+						}
+
+						bool isClass = targetType.IsClass;
+						string typePath = isClass ? "types/" : "enums/";
+
+						sb.Append(" [")
+						.Append(child.Value)
+						.Append("](/api/")
+						.Append(typePath);
+
+						var categoryAttr = targetType.GetCustomAttribute<DocCategoryAttribute>()?.Category;
+						if (categoryAttr != null) {
+							sb.Append(categoryAttr.ToString())
+							.Append("/");
+						}
+
+						string targetName = targetType.Name;
+						if (targetName.StartsWith("PT"))
+						{
+							targetName = targetName[2..];
+						}
+
+						sb.Append(targetName)
+						.Append("/)");
+						
+						break;
+					}
 					default: sb.Append(RenderInline(child)); break;
 				}
 			}

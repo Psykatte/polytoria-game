@@ -933,12 +933,12 @@ public sealed partial class Camera : Dynamic
 	/// <summary>
 	/// Checks whether a world-space <see cref="Polytoria.Scripting.Datatypes.PTVector3">position</see> is visible within the camera's view frustum.
 	/// </summary>
-	/// <param name="pos">The world-space position to test.</param>
+	/// <param name="pos">The world-space Vector3 to test.</param>
 	/// <returns>
 	/// <c>true</c> if <c>pos</c> lies within the camera frustum, <c>false</c> otherwise.
 	/// </returns>
 	/// <example>
-	/// See if the <see cref="Polytoria.Datamodel.Dynamic.Position">position</see> of <c>part</c> is on screen:
+	/// See if the <see cref="Polytoria.Datamodel.Dynamic.Position">Position</see> of <see cref="Polytoria.Datamodel.Part">Part</see> <c>part</c> is on screen:
 	/// <code>
 	/// if Camera.IsPositionInView(part.Position) then
 	///     print("Part is on screen")
