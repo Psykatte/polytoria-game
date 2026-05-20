@@ -86,8 +86,12 @@ function renderParameters(params) {
     if (!params || params.length === 0) return ""
     const items = params.map(p => {
         const typeText = renderType(p.Type, PARAM_TYPE_FRIENDLY)
-        const optMsg = p.IsOptional ? " - this parameter is optional" : ""
-        return p.Name ? `${p.Name} [ ${typeText} ]${optMsg}` : typeText
+        const optMsg = p.IsOptional ? " - Optional" : ""
+        if (!p.Name) return typeText
+        const paramName = p.Description && p.Description.trim() !== ""
+            ? `<abbr title="${p.Description}">${p.Name}</abbr>`
+            : p.Name
+        return `${paramName} [ ${typeText} ]${optMsg}`
     })
     if (items.length > 1) {
         return "\n??? quote \"Parameters\"\n" + items.map(s => "    " + s).join("\n\n")
