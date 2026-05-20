@@ -308,7 +308,7 @@ public class APIReferenceGenerator
 			{
 				Name = key,
 				InternalName = enumType.Name,
-				Description = xmlDocs?.GetMemberSummary("T:" + enumType.FullName),
+				Description = xmlDocs?.GetMemberSummary("E:" + enumType.FullName),
 				Options = options,
 			});
 		}
@@ -788,6 +788,12 @@ internal sealed class XmlDocReader
 		).Trim();
 	}
 
+	static string GetCategory(Type type) =>
+    type.GetCustomAttribute<DocCategoryAttribute>()?.Category + "/" ?? "";
+
+	static string StripPTPrefix(string name) =>
+		name.StartsWith("PT") ? name[2..] : name;
+
 	private static string RenderInline(XElement el)
 	{
 		var sb = new System.Text.StringBuilder();
@@ -805,43 +811,53 @@ internal sealed class XmlDocReader
 					case "c": sb.Append(" `").Append(child.Value.Trim()).Append('`'); break;
 					case "code": sb.Append("\n```luau\n").Append(RemoveCommonIndentation(child.Value)).Append("\n```"); break;
 					case "para": sb.Append("\n\n").Append(RenderInline(child).TrimStart()); break;
-					case "see": 
+					case "see":
 					{
 						var crefValue = (string?)child.Attribute("cref");
-						
-						Type? targetType = null;
-						if (!string.IsNullOrEmpty(crefValue)) {
-							targetType = Type.GetType(crefValue[2..]);
-						}
-
-						if (targetType == null) {
-							sb.Append(child.Value); 
+						if (string.IsNullOrEmpty(crefValue))
+						{
+							sb.Append(child.Value);
 							break;
 						}
 
-						bool isClass = targetType.IsClass;
-						string typePath = isClass ? "types/" : "enums/";
-
-						sb.Append(" [")
-						.Append(child.Value)
-						.Append("](/api/")
-						.Append(typePath);
-
-						var categoryAttr = targetType.GetCustomAttribute<DocCategoryAttribute>()?.Category;
-						if (categoryAttr != null) {
-							sb.Append(categoryAttr.ToString())
-							.Append("/");
-						}
-
-						string targetName = targetType.Name;
-						if (targetName.StartsWith("PT"))
+						string targetClass;
+						char targetKey = crefValue[0];
+						Type? targetType;
+						string[] targetParts = crefValue.Split('.');
+						if (targetKey is 'M' or 'P')
 						{
-							targetName = targetName[2..];
+							targetClass = StripPTPrefix(targetParts[^2]);
+							targetType = Type.GetType(crefValue[2..^(targetParts[^1].Length + 1)]);
+						}
+						else
+						{
+							targetClass = targetParts[^1];
+							targetType = Type.GetType(crefValue[2..]);
 						}
 
-						sb.Append(targetName)
-						.Append("/)");
-						
+						if (targetClass == null || targetType == null)
+						{
+							sb.Append(" `")
+							.Append(child.Value)
+							.Append('`');
+							break;
+						}
+
+						// Build the link path.
+						string path = targetKey switch
+						{
+							'E' => $"enums/{(targetClass.EndsWith("Enum") ? targetClass[..^4] : targetClass)}/",
+							'M' or 'P' or 'T' => $"types/{GetCategory(targetType)}{StripPTPrefix(targetClass)}/",
+							_ => targetClass
+						};
+
+						// Add member anchor for methods/properties.
+						if (targetKey is 'M' or 'P')
+						{
+							path += $"#{targetParts[^1]}";
+						}
+
+						sb.Append($" [{child.Value}](/api/{path})");
 						break;
 					}
 					default: sb.Append(RenderInline(child)); break;
