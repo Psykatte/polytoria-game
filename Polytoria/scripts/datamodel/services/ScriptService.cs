@@ -41,6 +41,7 @@ public sealed partial class ScriptService : Instance
 		{ typeof(Color), typeof(PTColor) },
 		{ typeof(Quaternion), typeof(PTQuaternion) },
 		{ typeof(Aabb), typeof(PTBounds) },
+		{ typeof(StringName), typeof(PTStringName) },
 	};
 
 	// Dictionary of all data type exposed to scripting
@@ -50,6 +51,7 @@ public sealed partial class ScriptService : Instance
 		{ "Vector2", typeof(PTVector2) },
 		{ "Quaternion", typeof(PTQuaternion) },
 		{ "Color", typeof(PTColor) },
+		{ "StringName", typeof(PTStringName) },
 		{ "NetMessage", typeof(NetMessage) },
 		{ "HttpRequestData", typeof(HttpRequestData) },
 		{ "HttpResponseData", typeof(HttpResponseData) },

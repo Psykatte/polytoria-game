@@ -15,6 +15,7 @@ public enum ScriptObjectMetamethod
 	Unm,
 	Len,
 	Eq,
+	Neq,
 	Lt,
 	Le,
 	Call,
