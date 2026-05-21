@@ -31,7 +31,6 @@ public class PTStringName : IScriptGDObject
 		};
 	}
 
-
 	/// <summary>
 	/// Constructs a <strong>StringName</strong> as a copy of the given <strong>StringName</strong>.
 	/// </summary>

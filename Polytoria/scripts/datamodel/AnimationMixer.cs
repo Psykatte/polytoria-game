@@ -269,18 +269,20 @@ public partial class AnimationMixer : Instance
     [ScriptMethod]
     public StringName FindAnimationLibrary(Animation animation) => GDAnimMixer.FindAnimationLibrary(animation);
 
+    // Needs re-written Poly side so that the Animation Instances can be tracked, it's presently 1-way.
     /// <summary>
     /// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
     /// </summary>
-    [ScriptMethod]
-    public Animation? GetAnimation(StringName name) => GDAnimMixer.GetAnimation(name);
+/*     [ScriptMethod]
+    public Animation? GetAnimation(StringName name) => GDAnimMixer.GetAnimation(name); */
 
+    // Needs re-written Poly side so that the AnimationLibrary Instances can be tracked, it's presently 1-way.
     /// <summary>
     /// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
     /// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
     /// </summary>
-    [ScriptMethod]
-    public AnimationLibrary? GetAnimationLibrary(StringName name) => GDAnimMixer.GetAnimationLibrary(name);
+/*     [ScriptMethod]
+    public AnimationLibrary? GetAnimationLibrary(StringName name) => GDAnimMixer.GetAnimationLibrary(name); */
 
     /// <summary>
     /// Returns the list of stored library keys.
