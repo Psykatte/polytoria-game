@@ -43,6 +43,12 @@ public class PTStringName : IScriptGDObject
 		};
 	}
 
+    // Implicit conversion from ACL type to Godot type.
+    public static implicit operator StringName?(PTStringName acl) => acl?.stringName;
+
+    // Implicit conversion from Godot type to ACL type.
+    public static implicit operator PTStringName?(StringName gd) => new StringName(gd);
+
 	/// <summary>
 	/// Creates a new <strong>StringName</strong> from the given <c>String</c>.
 	/// </summary>
