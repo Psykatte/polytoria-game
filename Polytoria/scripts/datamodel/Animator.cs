@@ -275,7 +275,7 @@ public partial class Animator : Instance
 	internal void InternalImportMeshAnimation(string key, MeshAnimationAsset asset)
 	{
 		_customAnimCounter++;
-		AnimationLibrary? prevLib = null;
+		Godot.AnimationLibrary? prevLib = null;
 		string internalKey = "custom_" + _customAnimCounter;
 		AnimationAssetList.Add(key, asset);
 		asset.LinkTo(this);
@@ -283,7 +283,7 @@ public partial class Animator : Instance
 		// TODO: Untangle this so it allows for delete animation
 		asset.ResourceLoaded += (res) =>
 		{
-			if (res is AnimationLibrary animLib)
+			if (res is Godot.AnimationLibrary animLib)
 			{
 				if (prevLib == animLib) return;
 
@@ -295,7 +295,7 @@ public partial class Animator : Instance
 				List<string> importedAnim = [];
 				foreach (var item in animList)
 				{
-					Animation anim = animLib.GetAnimation(item);
+					Godot.Animation anim = animLib.GetAnimation(item);
 					PreprocessAnimation(anim);
 					string k = key + "/" + item;
 					string ik = internalKey + "/" + item;
@@ -310,18 +310,18 @@ public partial class Animator : Instance
 					}
 					else if (asset.AnimationType == MeshAnimationAsset.MeshAnimationTypeEnum.Looped)
 					{
-						anim.LoopMode = Animation.LoopModeEnum.Linear;
-						ImportAnimationRaw(k, ik, Animation.LoopModeEnum.Linear);
+						anim.LoopMode = Godot.Animation.LoopModeEnum.Linear;
+						ImportAnimationRaw(k, ik, Godot.Animation.LoopModeEnum.Linear);
 					}
 					else if (asset.AnimationType == MeshAnimationAsset.MeshAnimationTypeEnum.PingPong)
 					{
-						anim.LoopMode = Animation.LoopModeEnum.Pingpong;
-						ImportAnimationRaw(k, ik, Animation.LoopModeEnum.Pingpong);
+						anim.LoopMode = Godot.Animation.LoopModeEnum.Pingpong;
+						ImportAnimationRaw(k, ik, Godot.Animation.LoopModeEnum.Pingpong);
 					}
 					else
 					{
-						anim.LoopMode = Animation.LoopModeEnum.None;
-						ImportAnimationRaw(k, ik, Animation.LoopModeEnum.None);
+						anim.LoopMode = Godot.Animation.LoopModeEnum.None;
+						ImportAnimationRaw(k, ik, Godot.Animation.LoopModeEnum.None);
 					}
 				}
 
@@ -433,17 +433,17 @@ public partial class Animator : Instance
 		}
 	}
 
-	private static void PreprocessAnimation(Animation anim)
+	private static void PreprocessAnimation(Godot.Animation anim)
 	{
 		// Get all track paths in the animation
 		for (int i = anim.GetTrackCount() - 1; i >= 0; i--)
 		{
 			string trackPath = anim.TrackGetPath(i);
-			Animation.TrackType trackType = anim.TrackGetType(i);
+			Godot.Animation.TrackType trackType = anim.TrackGetType(i);
 
-			if (trackType != Animation.TrackType.Position3D &&
-				trackType != Animation.TrackType.Rotation3D &&
-				trackType != Animation.TrackType.Scale3D)
+			if (trackType != Godot.Animation.TrackType.Position3D &&
+				trackType != Godot.Animation.TrackType.Rotation3D &&
+				trackType != Godot.Animation.TrackType.Scale3D)
 			{
 				// Remove non-transform tracks
 				anim.RemoveTrack(i);

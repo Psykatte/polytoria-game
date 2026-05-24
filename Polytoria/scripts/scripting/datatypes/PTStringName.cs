@@ -5,6 +5,7 @@
 using Godot;
 using Polytoria.Attributes;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Polytoria.Scripting.Datatypes;
 
@@ -17,7 +18,8 @@ namespace Polytoria.Scripting.Datatypes;
 /// </summary>
 public class PTStringName : IScriptGDObject
 {
-	internal StringName stringName = null!;
+    private static readonly ConditionalWeakTable<StringName, PTStringName> GDStringNames = [];
+	private StringName GDStringName = null!;
 
 	/// <summary>
 	/// Constructs an empty <strong>StringName</strong>.
@@ -27,7 +29,7 @@ public class PTStringName : IScriptGDObject
 	{
 		return new()
 		{
-			stringName = new StringName()
+			GDStringName = new StringName()
 		};
 	}
 
@@ -39,15 +41,27 @@ public class PTStringName : IScriptGDObject
 	{
 		return new()
 		{
-			stringName = new StringName(str)
+			GDStringName = new StringName(str)
 		};
 	}
 
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator StringName?(PTStringName acl) => acl?.stringName;
+    public static implicit operator StringName(PTStringName acl) => acl.GDStringName;
 
     // Implicit conversion from Godot type to ACL type.
-    public static implicit operator PTStringName?(StringName gd) => new StringName(gd);
+    public static implicit operator PTStringName(StringName gd)
+	{
+		if (GDStringNames.TryGetValue(gd, out PTStringName? acl))
+		{
+			return acl;
+		}
+		else
+		{
+			acl = new StringName(gd);
+        	GDStringNames.Add(gd, acl);
+			return acl;
+		}
+	}
 
 	/// <summary>
 	/// Creates a new <strong>StringName</strong> from the given <c>String</c>.
@@ -57,7 +71,7 @@ public class PTStringName : IScriptGDObject
 	{
 		return new()
 		{
-			stringName = (StringName)str
+			GDStringName = (StringName)str
 		};
 	}
 
@@ -65,55 +79,55 @@ public class PTStringName : IScriptGDObject
 	{
 		return new PTStringName()
 		{
-			stringName = (StringName)str
+			GDStringName = (StringName)str
 		};
 	}
 
 	public object ToGDClass()
 	{
-		return stringName;
+		return GDStringName;
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTStringName a, PTStringName b)
 	{
-		return (a.stringName == b.stringName);
+		return (a.GDStringName == b.GDStringName);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(String a, PTStringName b)
 	{
-		return (a == b.stringName);
+		return (a == b.GDStringName);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTStringName a, String b)
 	{
-		return (a.stringName == b);
+		return (a.GDStringName == b);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Neq)]
 	public static bool Neq(PTStringName a, PTStringName b)
 	{
-		return (a.stringName != b.stringName);
+		return (a.GDStringName != b.GDStringName);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Neq)]
 	public static bool Neq(String a, PTStringName b)
 	{
-		return (a != b.stringName);
+		return (a != b.GDStringName);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.Neq)]
 	public static bool Neq(PTStringName a, String b)
 	{
-		return (a.stringName != b);
+		return (a.GDStringName != b);
 	}
 
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTStringName? str)
 	{
 		if (str == null) return "<StringName>";
-		return $"<StringName:{str.stringName}>";
+		return $"<StringName:{str.GDStringName}>";
 	}
 }

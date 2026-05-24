@@ -3,10 +3,10 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using Godot;
-using Godot.Collections;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
+using Polytoria.Scripting.Datatypes;
 
 namespace Polytoria.Datamodel;
 
@@ -17,10 +17,9 @@ namespace Polytoria.Datamodel;
 /// <para>After instantiating the playback information data within the extended class, the blending is processed by the <c>AnimationMixer</c>.</para>
 /// </summary>
 [Abstract]
-public partial class AnimationMixer : Instance
+public abstract partial class AnimationMixer : Instance
 {
-    internal Godot.AnimationMixer GDAnimMixer = null!;
-
+    protected abstract Godot.AnimationMixer GDAnimationMixer { get; }
     private bool _active = true;
     private int _audioMaxPolyphony = 32;
     private AnimationCallbackModeDiscreteEnum _callbackModeDiscrete = AnimationCallbackModeDiscreteEnum.Recessive;
@@ -32,6 +31,9 @@ public partial class AnimationMixer : Instance
     private NodePath _rootMotionTrack = new("");
     private NodePath _rootNode = new("..");
 
+	[SyncVar]
+	public bool AutoInit { get; set; } = true;
+
     /// <summary>
     /// If <c>true</c>, the <strong>AnimationMixer</strong> will be processing.
     /// </summary>
@@ -40,7 +42,7 @@ public partial class AnimationMixer : Instance
         get => _active;
         set {
             _active = value;
-            GDAnimMixer.Active = value;
+            GDAnimationMixer.Active = value;
             OnPropertyChanged();
         }
     }
@@ -54,7 +56,7 @@ public partial class AnimationMixer : Instance
         get => _audioMaxPolyphony;
         set {
             _audioMaxPolyphony = value;
-            GDAnimMixer.AudioMaxPolyphony = value;
+            GDAnimationMixer.AudioMaxPolyphony = value;
             OnPropertyChanged();
         }
     }
@@ -69,7 +71,7 @@ public partial class AnimationMixer : Instance
         get => _callbackModeDiscrete;
         set {
             _callbackModeDiscrete = value;
-            GDAnimMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
+            GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
             OnPropertyChanged();
         }
     }
@@ -82,7 +84,7 @@ public partial class AnimationMixer : Instance
         get => _callbackModeMethod;
         set {
             _callbackModeMethod = value;
-            GDAnimMixer.CallbackModeMethod = (Godot.AnimationMixer.AnimationCallbackModeMethod)(int)value;
+            GDAnimationMixer.CallbackModeMethod = (Godot.AnimationMixer.AnimationCallbackModeMethod)(int)value;
             OnPropertyChanged();
         }
     }
@@ -95,7 +97,7 @@ public partial class AnimationMixer : Instance
         get => _callbackModeProcess;
         set {
             _callbackModeProcess = value;
-            GDAnimMixer.CallbackModeProcess = (Godot.AnimationMixer.AnimationCallbackModeProcess)(int)value;
+            GDAnimationMixer.CallbackModeProcess = (Godot.AnimationMixer.AnimationCallbackModeProcess)(int)value;
             OnPropertyChanged();
         }
     }
@@ -109,7 +111,7 @@ public partial class AnimationMixer : Instance
         get => _deterministic;
         set {
             _deterministic = value;
-            GDAnimMixer.Deterministic = value;
+            GDAnimationMixer.Deterministic = value;
             OnPropertyChanged();
         }
     }
@@ -122,7 +124,7 @@ public partial class AnimationMixer : Instance
         get => _resetOnSave;
         set {
             _resetOnSave = value;
-            GDAnimMixer.ResetOnSave = value;
+            GDAnimationMixer.ResetOnSave = value;
             OnPropertyChanged();
         }
     }
@@ -135,7 +137,7 @@ public partial class AnimationMixer : Instance
         get => _rootMotionLocal;
         set {
             _rootMotionLocal = value;
-            GDAnimMixer.RootMotionLocal = value;
+            GDAnimationMixer.RootMotionLocal = value;
             OnPropertyChanged();
         }
     }
@@ -148,7 +150,7 @@ public partial class AnimationMixer : Instance
         get => _rootMotionTrack;
         set {
             _rootMotionTrack = value;
-            GDAnimMixer.RootMotionTrack = value;
+            GDAnimationMixer.RootMotionTrack = value;
             OnPropertyChanged();
         }
     }
@@ -161,7 +163,7 @@ public partial class AnimationMixer : Instance
         get => _rootNode;
         set {
             _rootNode = value;
-            GDAnimMixer.RootNode = value;
+            GDAnimationMixer.RootNode = value;
             OnPropertyChanged();
         }
     }
@@ -171,7 +173,7 @@ public partial class AnimationMixer : Instance
     /// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
     /// </summary>
     [ScriptProperty]
-    public PTSignal<string> AnimationFinished { get; private set; } = new();
+    public PTSignal<PTStringName> AnimationFinished { get; private set; } = new();
 
     /// <summary>
     /// Notifies when the animation libraries have changed.
@@ -190,7 +192,7 @@ public partial class AnimationMixer : Instance
     /// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
     /// </summary>
     [ScriptProperty]
-    public PTSignal<string> AnimationStarted { get; private set; } = new();
+    public PTSignal<PTStringName> AnimationStarted { get; private set; } = new();
 
     /// <summary>
     /// Notifies when the caches have been cleared, either automatically, or manually via <see cref="ClearCaches"/>.
@@ -210,17 +212,64 @@ public partial class AnimationMixer : Instance
     [ScriptProperty]
     public PTSignal MixerUpdated { get; private set; } = new();
 
+    private void OnAnimationFinished(StringName name)
+    {
+        AnimationFinished.Invoke(name);
+    }
+
+    private void OnAnimationStarted(StringName name)
+    {
+        AnimationStarted.Invoke(name);
+    }
+
+    private void OnAnimationListChanged()
+    {
+        AnimationListChanged.Invoke();
+    }
+
+    private void OnAnimationLibrariesUpdated()
+    {
+        AnimationLibrariesUpdated.Invoke();
+    }
+
+    private void OnCachesCleared()
+    {
+        CachesCleared.Invoke();
+    }
+
+    private void OnMixerApplied()
+    {
+        MixerApplied.Invoke();
+    }
+
+    private void OnMixerUpdated()
+    {
+        MixerUpdated.Invoke();
+    }
+
     public override void Init()
     {
-        GDAnimMixer.AnimationFinished += (name) => AnimationFinished.Invoke((string)name);
-        GDAnimMixer.AnimationStarted += (name) => AnimationStarted.Invoke((string)name);
-        GDAnimMixer.AnimationListChanged += () => AnimationListChanged.Invoke();
-        GDAnimMixer.AnimationLibrariesUpdated += () => AnimationLibrariesUpdated.Invoke();
-        GDAnimMixer.CachesCleared += () => CachesCleared.Invoke();
-        GDAnimMixer.MixerApplied += () => MixerApplied.Invoke();
-        GDAnimMixer.MixerUpdated += () => MixerUpdated.Invoke();
+        GDAnimationMixer.AnimationFinished += OnAnimationFinished;
+        GDAnimationMixer.AnimationStarted += OnAnimationStarted;
+        GDAnimationMixer.AnimationListChanged += OnAnimationListChanged;
+        GDAnimationMixer.AnimationLibrariesUpdated += OnAnimationLibrariesUpdated;
+        GDAnimationMixer.CachesCleared += OnCachesCleared;
+        GDAnimationMixer.MixerApplied += OnMixerApplied;
+        GDAnimationMixer.MixerUpdated += OnMixerUpdated;
         base.Init();
     }
+
+	public override void PreDelete()
+	{
+        GDAnimationMixer.AnimationFinished -= OnAnimationFinished;
+        GDAnimationMixer.AnimationStarted -= OnAnimationStarted;
+        GDAnimationMixer.AnimationListChanged -= OnAnimationListChanged;
+        GDAnimationMixer.AnimationLibrariesUpdated -= OnAnimationLibrariesUpdated;
+        GDAnimationMixer.CachesCleared -= OnCachesCleared;
+        GDAnimationMixer.MixerApplied -= OnMixerApplied;
+        GDAnimationMixer.MixerUpdated -= OnMixerUpdated;
+		base.PreDelete();
+	}
 
     /// <summary>
     /// A virtual function for processing after getting a key during playback.
@@ -234,130 +283,137 @@ public partial class AnimationMixer : Instance
     /// AnimationMixer has a global library by default with an empty string as key.
     /// </summary>
     [ScriptMethod]
-    public Error AddAnimationLibrary(StringName name, AnimationLibrary library)
-        => GDAnimMixer.AddAnimationLibrary(name, library);
+    public ErrorEnum AddAnimationLibrary(PTStringName name, AnimationLibrary library)
+        => (ErrorEnum)GDAnimationMixer.AddAnimationLibrary(name, library);
 
     /// <summary>
     /// Manually advance the animations by the specified time (in seconds).
     /// </summary>
     [ScriptMethod]
-    public void Advance(float delta) => GDAnimMixer.Advance(delta);
+    public void Advance(float delta) => GDAnimationMixer.Advance(delta);
 
     /// <summary>
     /// If the animation track specified by <paramref name="name"/> has an option <c>Animation.UPDATE_CAPTURE</c>, stores current values of the objects indicated by the track path as a cache.
     /// After this it will interpolate with current animation blending result during the playback process for the time specified by <paramref name="duration"/>.
     /// </summary>
     [ScriptMethod]
-    public void Capture(StringName name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
-        => GDAnimMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
+    public void Capture(PTStringName name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
+        => GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
 
     /// <summary>
     /// <strong>AnimationMixer</strong> caches animated nodes. It may not notice if a node disappears; <see cref="ClearCaches"/> forces it to update the cache again.
     /// </summary>
     [ScriptMethod]
-    public void ClearCaches() => GDAnimMixer.ClearCaches();
+    public void ClearCaches() => GDAnimationMixer.ClearCaches();
 
     /// <summary>
     /// Returns the key of <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public StringName FindAnimation(Animation animation) => GDAnimMixer.FindAnimation(animation);
+    public PTStringName FindAnimation(Animation animation) => GDAnimationMixer.FindAnimation(animation);
 
     /// <summary>
     /// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public StringName FindAnimationLibrary(Animation animation) => GDAnimMixer.FindAnimationLibrary(animation);
+    public PTStringName FindAnimationLibrary(Animation animation) => GDAnimationMixer.FindAnimationLibrary(animation);
 
-    // Needs re-written Poly side so that the Animation Instances can be tracked, it's presently 1-way.
     /// <summary>
     /// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
     /// </summary>
-/*     [ScriptMethod]
-    public Animation? GetAnimation(StringName name) => GDAnimMixer.GetAnimation(name); */
+    [ScriptMethod]
+    public Animation? GetAnimation(PTStringName name) => GDAnimationMixer.GetAnimation(name);
 
-    // Needs re-written Poly side so that the AnimationLibrary Instances can be tracked, it's presently 1-way.
     /// <summary>
     /// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
     /// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
     /// </summary>
-/*     [ScriptMethod]
-    public AnimationLibrary? GetAnimationLibrary(StringName name) => GDAnimMixer.GetAnimationLibrary(name); */
+    [ScriptMethod]
+    public AnimationLibrary? GetAnimationLibrary(PTStringName name) => GDAnimationMixer.GetAnimationLibrary(name);
 
     /// <summary>
     /// Returns the list of stored library keys.
     /// </summary>
     [ScriptMethod]
-    public Array<StringName> GetAnimationLibraryList() => GDAnimMixer.GetAnimationLibraryList();
+    public PTStringName[] GetAnimationLibraryList()
+     {
+        var array = GDAnimationMixer.GetAnimationLibraryList();
+        var result = new PTStringName[array.Count];
+        for (int i = 0; i < array.Count; i++)
+        {
+            result[i] = (PTStringName)array[i];
+        }
+        return result;
+    }
 
     /// <summary>
     /// Returns the list of stored animation keys.
     /// </summary>
     [ScriptMethod]
-    public string[] GetAnimationList() => GDAnimMixer.GetAnimationList();
+    public string[] GetAnimationList() => GDAnimationMixer.GetAnimationList();
 
     /// <summary>
     /// Retrieve the motion delta of position with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
     /// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_POSITION_3D</c>, returns <c>Vector3(0, 0, 0)</c>.
     /// </summary>
     [ScriptMethod]
-    public Vector3 GetRootMotionPosition() => GDAnimMixer.GetRootMotionPosition();
+    public Vector3 GetRootMotionPosition() => GDAnimationMixer.GetRootMotionPosition();
 
     /// <summary>
     /// Retrieve the blended value of the position tracks with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
     /// This is useful in cases where you want to respect the initial key values of the animation.
     /// </summary>
     [ScriptMethod]
-    public Vector3 GetRootMotionPositionAccumulator() => GDAnimMixer.GetRootMotionPositionAccumulator();
+    public Vector3 GetRootMotionPositionAccumulator() => GDAnimationMixer.GetRootMotionPositionAccumulator();
 
     /// <summary>
     /// Retrieve the motion delta of rotation with the <see cref="RootMotionTrack"/> as a <c>Quaternion</c> that can be used elsewhere.
     /// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_ROTATION_3D</c>, returns <c>Quaternion(0, 0, 0, 1)</c>.
     /// </summary>
     [ScriptMethod]
-    public Quaternion GetRootMotionRotation() => GDAnimMixer.GetRootMotionRotation();
+    public Quaternion GetRootMotionRotation() => GDAnimationMixer.GetRootMotionRotation();
 
     /// <summary>
     /// Retrieve the blended value of the rotation tracks with the <see cref="RootMotionTrack"/> as a <c>Quaternion</c> that can be used elsewhere.
     /// This is necessary to apply the root motion position correctly, taking rotation into account.
     /// </summary>
     [ScriptMethod]
-    public Quaternion GetRootMotionRotationAccumulator() => GDAnimMixer.GetRootMotionRotationAccumulator();
+    public Quaternion GetRootMotionRotationAccumulator() => GDAnimationMixer.GetRootMotionRotationAccumulator();
 
     /// <summary>
     /// Retrieve the motion delta of scale with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
     /// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_SCALE_3D</c>, returns <c>Vector3(0, 0, 0)</c>.
     /// </summary>
     [ScriptMethod]
-    public Vector3 GetRootMotionScale() => GDAnimMixer.GetRootMotionScale();
+    public Vector3 GetRootMotionScale() => GDAnimationMixer.GetRootMotionScale();
 
     /// <summary>
     /// Retrieve the blended value of the scale tracks with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
     /// </summary>
     [ScriptMethod]
-    public Vector3 GetRootMotionScaleAccumulator() => GDAnimMixer.GetRootMotionScaleAccumulator();
+    public Vector3 GetRootMotionScaleAccumulator() => GDAnimationMixer.GetRootMotionScaleAccumulator();
 
     /// <summary>
     /// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>Animation</c> with key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public bool HasAnimation(StringName name) => GDAnimMixer.HasAnimation(name);
+    public bool HasAnimation(PTStringName name) => GDAnimationMixer.HasAnimation(name);
 
     /// <summary>
     /// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>AnimationLibrary</c> with key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public bool HasAnimationLibrary(StringName name) => GDAnimMixer.HasAnimationLibrary(name);
+    public bool HasAnimationLibrary(PTStringName name) => GDAnimationMixer.HasAnimationLibrary(name);
 
     /// <summary>
     /// Removes the <c>AnimationLibrary</c> associated with the key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public void RemoveAnimationLibrary(StringName name) => GDAnimMixer.RemoveAnimationLibrary(name);
+    public void RemoveAnimationLibrary(PTStringName name) => GDAnimationMixer.RemoveAnimationLibrary(name);
 
     /// <summary>
     /// Moves the <c>AnimationLibrary</c> associated with the key <paramref name="name"/> to the key <paramref name="newname"/>.
     /// </summary>
     [ScriptMethod]
-    public void RenameAnimationLibrary(StringName name, StringName newname) => GDAnimMixer.RenameAnimationLibrary(name, newname);
+    public void RenameAnimationLibrary(PTStringName name, PTStringName newname) => GDAnimationMixer.RenameAnimationLibrary(name, newname);
 }

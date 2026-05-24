@@ -43,15 +43,15 @@ public partial class PTMeshAnimationAsset : MeshAnimationAsset
 		if (res is PackedScene scene)
 		{
 			Node obj = scene.Instantiate<Node>();
-			AnimationPlayer? animPlay = obj.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+			Godot.AnimationPlayer? animPlay = obj.GetNodeOrNull<Godot.AnimationPlayer>("AnimationPlayer");
 
 			if (animPlay != null)
 			{
 				var libList = animPlay.GetAnimationLibraryList();
 				if (libList.Count != 0)
 				{
-					AnimationLibrary lib = animPlay.GetAnimationLibrary(libList[0]);
-					AnimationLibrary flib = (AnimationLibrary)lib.DuplicateDeep();
+					Godot.AnimationLibrary lib = animPlay.GetAnimationLibrary(libList[0]);
+					Godot.AnimationLibrary flib = (Godot.AnimationLibrary)lib.DuplicateDeep();
 					InvokeResourceLoaded(flib);
 				}
 			}

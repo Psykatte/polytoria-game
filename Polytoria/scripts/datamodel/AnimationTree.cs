@@ -5,6 +5,7 @@
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Scripting;
+using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
@@ -17,31 +18,26 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationTree : AnimationMixer
 {
-    private Godot.AnimationTree _gdAnimTree = null!;
+    private Godot.AnimationTree GDAnimationTree = null!;
+    protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationTree;
 
-    private NodePath _advanceExpressionBaseNode = new(".");
-    private NodePath _animPlayer = new("");
-    private AnimationRootNode? _treeRoot = null;
-
-    /// <summary>
-    /// Emitted when the <see cref="AnimPlayer"/> is changed.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal AnimationPlayerChanged { get; private set; } = new();
+    // private NodePath _advanceExpressionBaseNode = new(".");
+    private AnimationPlayer? _animPlayer = null;
+    // private AnimationRootNode? _treeRoot = null;
 
     /// <summary>
     /// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
     /// if one is not explicitly specified internally.
     /// </summary>
-    [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty]
     public NodePath AdvanceExpressionBaseNode {
         get => _advanceExpressionBaseNode;
         set {
             _advanceExpressionBaseNode = value;
-            _gdAnimTree.AdvanceExpressionBaseNode = value;
+            GDAnimationTree.AdvanceExpressionBaseNode = value;
             OnPropertyChanged();
         }
-    }
+    } */
 
     /// <summary>
     /// The path to the <see cref="AnimationPlayer"/> used for animating.
@@ -51,11 +47,11 @@ public partial class AnimationTree : AnimationMixer
     /// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
     /// </summary>
     [Editable, ScriptProperty]
-    public NodePath AnimPlayer {
+    public AnimationPlayer? AnimPlayer {
         get => _animPlayer;
         set {
             _animPlayer = value;
-            _gdAnimTree.AnimPlayer = value;
+            GDAnimationTree.AnimPlayer = value?.GDAnimationPlayer.GetPath();
             OnPropertyChanged();
         }
     }
@@ -63,33 +59,39 @@ public partial class AnimationTree : AnimationMixer
     /// <summary>
     /// The root animation node of this <c>AnimationTree</c>. See <see cref="AnimationRootNode"/>.
     /// </summary>
-    [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty]
     public AnimationRootNode? TreeRoot {
         get => _treeRoot;
         set {
             _treeRoot = value;
-            _gdAnimTree.TreeRoot = value;
+            GDAnimationTree.TreeRoot = value;
             OnPropertyChanged();
         }
-    }
+    } */
 
-    public override Node CreateGDNode()
-    {
-        if (GDNode != null) return GDNode;
-        _gdAnimTree = new Godot.AnimationTree();
-        return _gdAnimTree;
-    }
+    /// <summary>
+    /// Emitted when the <see cref="AnimPlayer"/> is changed.
+    /// </summary>
+    [ScriptProperty]
+    public PTSignal AnimationPlayerChanged { get; private set; } = new();
 
-    public override void InitGDNode()
+	private void OnAnimationPlayerChanged()
     {
-        _gdAnimTree = (Godot.AnimationTree)GDNode;
-        GDAnimMixer = _gdAnimTree;
-        base.InitGDNode();
+        AnimationPlayerChanged.Invoke();
     }
+    
+    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
 
     public override void Init()
     {
-        _gdAnimTree.AnimationPlayerChanged += () => AnimationPlayerChanged.Invoke();
+        GDAnimationTree = (Godot.AnimationTree)GDNode;
+        GDAnimationTree.AnimationPlayerChanged += OnAnimationPlayerChanged;
         base.Init();
     }
+
+	public override void PreDelete()
+	{
+        GDAnimationTree.AnimationPlayerChanged -= OnAnimationPlayerChanged;
+		base.PreDelete();
+	}
 }

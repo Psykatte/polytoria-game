@@ -3,10 +3,11 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using Godot;
-using Godot.Collections;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
+using Polytoria.Scripting.Datatypes;
+using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
@@ -21,11 +22,12 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationPlayer : AnimationMixer
 {
-    private Godot.AnimationPlayer _gdAnimPlayer = null!;
+    internal Godot.AnimationPlayer GDAnimationPlayer = null!;
+    protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationPlayer;
 
-    private StringName? _assignedAnimation = null;
-    private StringName _autoplay = new();
-    private StringName _currentAnimation = new();
+    private PTStringName? _assignedAnimation = null;
+    private PTStringName _autoplay = new();
+    private PTStringName _currentAnimation = new();
     private bool _movieQuitOnFinish = false;
     private bool _playbackAutoCapture = true;
     private float _playbackAutoCaptureDuration = -1.0f;
@@ -39,13 +41,40 @@ public partial class AnimationPlayer : AnimationMixer
     /// <para><strong>Note:</strong> The signal is not emitted when the animation is changed via <see cref="Play"/> or by an <c>AnimationTree</c>.</para>
     /// </summary>
     [ScriptProperty]
-    public PTSignal<string, string> AnimationChanged { get; private set; } = new();
+    public PTSignal<PTStringName, PTStringName> AnimationChanged { get; private set; } = new();
 
     /// <summary>
     /// Emitted when <see cref="CurrentAnimation"/> changes.
     /// </summary>
     [ScriptProperty]
-    public PTSignal<string> CurrentAnimationChanged { get; private set; } = new();
+    public PTSignal<PTStringName> CurrentAnimationChanged { get; private set; } = new();
+
+    private void OnAnimationChanged(StringName oldName, StringName newName)
+    {
+        AnimationChanged.Invoke(oldName, newName);
+    }
+
+    private void OnCurrentAnimationChanged(StringName name)
+    {
+        CurrentAnimationChanged.Invoke(name);
+    }
+    
+    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
+
+    public override void Init()
+    {
+        GDAnimationPlayer = (Godot.AnimationPlayer)GDNode;
+        GDAnimationPlayer.AnimationChanged += OnAnimationChanged;
+        GDAnimationPlayer.CurrentAnimationChanged += OnCurrentAnimationChanged;
+        base.Init();
+    }
+
+	public override void PreDelete()
+	{
+        GDAnimationPlayer.AnimationChanged -= OnAnimationChanged;
+        GDAnimationPlayer.CurrentAnimationChanged -= OnCurrentAnimationChanged;
+		base.PreDelete();
+	}
 
     /// <summary>
     /// If playing, the current animation's key, otherwise, the animation last played.
@@ -53,11 +82,11 @@ public partial class AnimationPlayer : AnimationMixer
     /// See also <see cref="CurrentAnimation"/>.
     /// </summary>
     [Editable, ScriptProperty]
-    public StringName? AssignedAnimation {
+    public PTStringName? AssignedAnimation {
         get => _assignedAnimation;
         set {
             _assignedAnimation = value;
-            if (value != null) _gdAnimPlayer.AssignedAnimation = value;
+            if (value != null) GDAnimationPlayer.AssignedAnimation = value;
             OnPropertyChanged();
         }
     }
@@ -66,11 +95,11 @@ public partial class AnimationPlayer : AnimationMixer
     /// The key of the animation to play when the scene loads.
     /// </summary>
     [Editable, ScriptProperty]
-    public StringName Autoplay {
+    public PTStringName Autoplay {
         get => _autoplay;
         set {
             _autoplay = value;
-            _gdAnimPlayer.Autoplay = value;
+            GDAnimationPlayer.Autoplay = value;
             OnPropertyChanged();
         }
     }
@@ -81,14 +110,9 @@ public partial class AnimationPlayer : AnimationMixer
     /// <para><strong>Note:</strong> While this property appears in the Inspector, it's not meant to be edited, and it's not saved in the scene.
     /// This property is mainly used to get the currently playing animation, and internally for animation playback tracks.</para>
     /// </summary>
-    [Editable, ScriptProperty]
-    public StringName CurrentAnimation {
+    [ScriptProperty]
+    public PTStringName CurrentAnimation {
         get => _currentAnimation;
-        set {
-            _currentAnimation = value;
-            _gdAnimPlayer.CurrentAnimation = value;
-            OnPropertyChanged();
-        }
     }
 
     /// <summary>
@@ -97,7 +121,7 @@ public partial class AnimationPlayer : AnimationMixer
     [ScriptProperty]
     public float? CurrentAnimationLength {
         get {
-            var val = _gdAnimPlayer?.CurrentAnimationLength;
+            var val = GDAnimationPlayer?.CurrentAnimationLength;
             return val.HasValue ? (float)val.Value : null;
         }
     }
@@ -108,7 +132,7 @@ public partial class AnimationPlayer : AnimationMixer
     [ScriptProperty]
     public float? CurrentAnimationPosition {
         get {
-            var val = _gdAnimPlayer?.CurrentAnimationPosition;
+            var val = GDAnimationPlayer?.CurrentAnimationPosition;
             return val.HasValue ? (float)val.Value : null;
         }
     }
@@ -123,7 +147,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _movieQuitOnFinish;
         set {
             _movieQuitOnFinish = value;
-            _gdAnimPlayer.MovieQuitOnFinish = value;
+            GDAnimationPlayer.MovieQuitOnFinish = value;
             OnPropertyChanged();
         }
     }
@@ -138,7 +162,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _playbackAutoCapture;
         set {
             _playbackAutoCapture = value;
-            _gdAnimPlayer.PlaybackAutoCapture = value;
+            GDAnimationPlayer.PlaybackAutoCapture = value;
             OnPropertyChanged();
         }
     }
@@ -152,7 +176,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _playbackAutoCaptureDuration;
         set {
             _playbackAutoCaptureDuration = value;
-            _gdAnimPlayer.PlaybackAutoCaptureDuration = value;
+            GDAnimationPlayer.PlaybackAutoCaptureDuration = value;
             OnPropertyChanged();
         }
     }
@@ -165,7 +189,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _playbackAutoCaptureTransitionType;
         set {
             _playbackAutoCaptureTransitionType = value;
-            _gdAnimPlayer.PlaybackAutoCaptureTransitionType = (Godot.Tween.TransitionType)(int)value;
+            GDAnimationPlayer.PlaybackAutoCaptureTransitionType = (Godot.Tween.TransitionType)(int)value;
             OnPropertyChanged();
         }
     }
@@ -178,7 +202,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _playbackAutoCaptureEaseType;
         set {
             _playbackAutoCaptureEaseType = value;
-            _gdAnimPlayer.PlaybackAutoCaptureEaseType = (Godot.Tween.EaseType)(int)value;
+            GDAnimationPlayer.PlaybackAutoCaptureEaseType = (Godot.Tween.EaseType)(int)value;
             OnPropertyChanged();
         }
     }
@@ -191,7 +215,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _playbackDefaultBlendTime;
         set {
             _playbackDefaultBlendTime = value;
-            _gdAnimPlayer.PlaybackDefaultBlendTime = value;
+            GDAnimationPlayer.PlaybackDefaultBlendTime = value;
             OnPropertyChanged();
         }
     }
@@ -206,55 +230,34 @@ public partial class AnimationPlayer : AnimationMixer
         get => _speedScale;
         set {
             _speedScale = value;
-            _gdAnimPlayer.SpeedScale = value;
+            GDAnimationPlayer.SpeedScale = value;
             OnPropertyChanged();
         }
-    }
-
-    public override Node CreateGDNode()
-    {
-        if (GDNode != null) return GDNode;
-        _gdAnimPlayer = new Godot.AnimationPlayer();
-        return _gdAnimPlayer;
-    }
-
-    public override void InitGDNode()
-    {
-        _gdAnimPlayer = (Godot.AnimationPlayer)GDNode;
-        GDAnimMixer = _gdAnimPlayer;
-        base.InitGDNode();
-    }
-
-    public override void Init()
-    {
-        _gdAnimPlayer.AnimationChanged += (old, cur) => AnimationChanged.Invoke((string)old, (string)cur);
-        _gdAnimPlayer.CurrentAnimationChanged += (name) => CurrentAnimationChanged.Invoke((string)name);
-        base.Init();
     }
 
     /// <summary>
     /// Returns the key of the animation which is queued to play after the <paramref name="animationFrom"/> animation.
     /// </summary>
     [ScriptMethod]
-    public StringName AnimationGetNext(StringName animationFrom) => _gdAnimPlayer.AnimationGetNext(animationFrom);
+    public PTStringName AnimationGetNext(PTStringName animationFrom) => GDAnimationPlayer.AnimationGetNext(animationFrom);
 
     /// <summary>
     /// Triggers the <paramref name="animationTo"/> animation when the <paramref name="animationFrom"/> animation completes.
     /// </summary>
     [ScriptMethod]
-    public void AnimationSetNext(StringName animationFrom, StringName animationTo) => _gdAnimPlayer.AnimationSetNext(animationFrom, animationTo);
+    public void AnimationSetNext(PTStringName animationFrom, PTStringName animationTo) => GDAnimationPlayer.AnimationSetNext(animationFrom, animationTo);
 
     /// <summary>
     /// Clears all queued, unplayed animations.
     /// </summary>
     [ScriptMethod]
-    public void ClearQueue() => _gdAnimPlayer.ClearQueue();
+    public void ClearQueue() => GDAnimationPlayer.ClearQueue();
 
     /// <summary>
     /// Returns the blend time (in seconds) between two animations, referenced by their keys.
     /// </summary>
     [ScriptMethod]
-    public double GetBlendTime(StringName animationFrom, StringName animationTo) => _gdAnimPlayer.GetBlendTime(animationFrom, animationTo);
+    public double GetBlendTime(PTStringName animationFrom, PTStringName animationTo) => GDAnimationPlayer.GetBlendTime(animationFrom, animationTo);
 
     /// <summary>
     /// Returns the actual playing speed of current animation or <c>0</c> if not playing.
@@ -262,31 +265,40 @@ public partial class AnimationPlayer : AnimationMixer
     /// Returns a negative value if the current animation is playing backwards.
     /// </summary>
     [ScriptMethod]
-    public float GetPlayingSpeed() => _gdAnimPlayer.GetPlayingSpeed();
+    public float GetPlayingSpeed() => GDAnimationPlayer.GetPlayingSpeed();
 
     /// <summary>
     /// Returns a list of the animation keys that are currently queued to play.
     /// </summary>
     [ScriptMethod]
-    public Array<StringName> GetQueue() => _gdAnimPlayer.GetQueue();
+    public PTStringName[] GetQueue()
+    {
+        var array = GDAnimationPlayer.GetQueue();
+        var result = new PTStringName[array.Count];
+        for (int i = 0; i < array.Count; i++)
+        {
+            result[i] = (PTStringName)array[i];
+        }
+        return result;
+    }
 
     /// <summary>
     /// Returns the end time of the section currently being played.
     /// </summary>
     [ScriptMethod]
-    public double GetSectionEndTime() => _gdAnimPlayer.GetSectionEndTime();
+    public double GetSectionEndTime() => GDAnimationPlayer.GetSectionEndTime();
 
     /// <summary>
     /// Returns the start time of the section currently being played.
     /// </summary>
     [ScriptMethod]
-    public double GetSectionStartTime() => _gdAnimPlayer.GetSectionStartTime();
+    public double GetSectionStartTime() => GDAnimationPlayer.GetSectionStartTime();
 
     /// <summary>
     /// Returns <c>true</c> if an animation is currently playing with a section.
     /// </summary>
     [ScriptMethod]
-    public bool HasSection() => _gdAnimPlayer.HasSection();
+    public bool HasSection() => GDAnimationPlayer.HasSection();
 
     /// <summary>
     /// Returns <c>true</c> if the an animation is currently active. An animation is active if it was played by calling <see cref="Play"/>
@@ -294,13 +306,13 @@ public partial class AnimationPlayer : AnimationMixer
     /// This can be used to check whether an animation is currently paused or stopped.
     /// </summary>
     [ScriptMethod]
-    public bool IsAnimationActive() => _gdAnimPlayer.IsAnimationActive();
+    public bool IsAnimationActive() => GDAnimationPlayer.IsAnimationActive();
 
     /// <summary>
     /// Returns <c>true</c> if an animation is currently playing (even if <see cref="SpeedScale"/> and/or <c>customSpeed</c> are <c>0</c>).
     /// </summary>
     [ScriptMethod]
-    public bool IsPlaying() => _gdAnimPlayer.IsPlaying();
+    public bool IsPlaying() => GDAnimationPlayer.IsPlaying();
 
     /// <summary>
     /// Pauses the currently playing animation. The <see cref="CurrentAnimationPosition"/> will be kept and calling <see cref="Play"/>
@@ -308,7 +320,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// See also <see cref="Stop"/>.
     /// </summary>
     [ScriptMethod]
-    public void Pause() => _gdAnimPlayer.Pause();
+    public void Pause() => GDAnimationPlayer.Pause();
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/>. Custom blend times and speed can be set.
@@ -322,16 +334,16 @@ public partial class AnimationPlayer : AnimationMixer
     /// If other variables are updated at the same time this is called, they may be updated too early. To perform the update immediately, call <c>Advance(0)</c>.</para>
     /// </summary>
     [ScriptMethod]
-    public void Play(StringName? name = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
-        => _gdAnimPlayer.Play(name, customBlend, customSpeed, fromEnd);
+    public void Play(PTStringName? name = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
+        => GDAnimationPlayer.Play(name, customBlend, customSpeed, fromEnd);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> in reverse.
     /// This method is a shorthand for <see cref="Play"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
     /// </summary>
     [ScriptMethod]
-    public void PlayBackwards(StringName? name = null, double customBlend = -1)
-        => _gdAnimPlayer.PlayBackwards(name, customBlend);
+    public void PlayBackwards(PTStringName? name = null, double customBlend = -1)
+        => GDAnimationPlayer.PlayBackwards(name, customBlend);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/>.
@@ -340,16 +352,16 @@ public partial class AnimationPlayer : AnimationMixer
     /// <paramref name="startTime"/> cannot be equal to <paramref name="endTime"/>.
     /// </summary>
     [ScriptMethod]
-    public void PlaySection(StringName? name = null, double startTime = -1, double endTime = -1, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
-        => _gdAnimPlayer.PlaySection(name, startTime, endTime, customBlend, customSpeed, fromEnd);
+    public void PlaySection(PTStringName? name = null, double startTime = -1, double endTime = -1, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
+        => GDAnimationPlayer.PlaySection(name, startTime, endTime, customBlend, customSpeed, fromEnd);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/> in reverse.
     /// This method is a shorthand for <see cref="PlaySection"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionBackwards(StringName? name = null, double startTime = -1, double endTime = -1, double customBlend = -1)
-        => _gdAnimPlayer.PlaySectionBackwards(name, startTime, endTime, customBlend);
+    public void PlaySectionBackwards(PTStringName? name = null, double startTime = -1, double endTime = -1, double customBlend = -1)
+        => GDAnimationPlayer.PlaySectionBackwards(name, startTime, endTime, customBlend);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/>.
@@ -357,16 +369,16 @@ public partial class AnimationPlayer : AnimationMixer
     /// If the end marker is empty, the section ends on the end of the animation.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkers(StringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
-        => _gdAnimPlayer.PlaySectionWithMarkers(name, startMarker, endMarker, customBlend, customSpeed, fromEnd);
+    public void PlaySectionWithMarkers(PTStringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
+        => GDAnimationPlayer.PlaySectionWithMarkers(name, startMarker, endMarker, customBlend, customSpeed, fromEnd);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
     /// This method is a shorthand for <see cref="PlaySectionWithMarkers"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkersBackwards(StringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1)
-        => _gdAnimPlayer.PlaySectionWithMarkersBackwards(name, startMarker, endMarker, customBlend);
+    public void PlaySectionWithMarkersBackwards(PTStringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1)
+        => GDAnimationPlayer.PlaySectionWithMarkersBackwards(name, startMarker, endMarker, customBlend);
 
     /// <summary>
     /// You can use this method to use more detailed options for capture than those performed by <see cref="PlaybackAutoCapture"/>.
@@ -377,21 +389,21 @@ public partial class AnimationPlayer : AnimationMixer
     /// <para><strong>Note:</strong> The <paramref name="duration"/> takes <see cref="SpeedScale"/> into account, but <paramref name="customSpeed"/> does not.</para>
     /// </summary>
     [ScriptMethod]
-    public void PlayWithCapture(StringName? name = null, double duration = -1, double customBlend = -1, float customSpeed = 1, bool fromEnd = false, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
-        => _gdAnimPlayer.PlayWithCapture(name, duration, customBlend, customSpeed, fromEnd, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
+    public void PlayWithCapture(PTStringName? name = null, double duration = -1, double customBlend = -1, float customSpeed = 1, bool fromEnd = false, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
+        => GDAnimationPlayer.PlayWithCapture(name, duration, customBlend, customSpeed, fromEnd, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
 
     /// <summary>
     /// Queues an animation for playback once the current animation and all previously queued animations are done.
     /// <para><strong>Note:</strong> If a looped animation is currently playing, the queued animation will never play unless the looped animation is stopped somehow.</para>
     /// </summary>
     [ScriptMethod]
-    public void Queue(StringName name) => _gdAnimPlayer.Queue(name);
+    public void Queue(PTStringName name) => GDAnimationPlayer.Queue(name);
 
     /// <summary>
     /// Resets the current section. Does nothing if a section has not been set.
     /// </summary>
     [ScriptMethod]
-    public void ResetSection() => _gdAnimPlayer.ResetSection();
+    public void ResetSection() => GDAnimationPlayer.ResetSection();
 
     /// <summary>
     /// Seeks the animation to the <paramref name="seconds"/> point in time (in seconds).
@@ -403,14 +415,14 @@ public partial class AnimationPlayer : AnimationMixer
     /// </summary>
     [ScriptMethod]
     public void Seek(double seconds, bool update = false, bool updateOnly = false)
-        => _gdAnimPlayer.Seek(seconds, update, updateOnly);
+        => GDAnimationPlayer.Seek(seconds, update, updateOnly);
 
     /// <summary>
     /// Specifies a blend time (in seconds) between two animations, referenced by their keys.
     /// </summary>
     [ScriptMethod]
     public void SetBlendTime(StringName animationFrom, StringName animationTo, double sec)
-        => _gdAnimPlayer.SetBlendTime(animationFrom, animationTo, sec);
+        => GDAnimationPlayer.SetBlendTime(animationFrom, animationTo, sec);
 
     /// <summary>
     /// Changes the start and end times of the section being played. The current playback position will be clamped within the new section.
@@ -418,7 +430,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// </summary>
     [ScriptMethod]
     public void SetSection(double startTime = -1, double endTime = -1)
-        => _gdAnimPlayer.SetSection(startTime, endTime);
+        => GDAnimationPlayer.SetSection(startTime, endTime);
 
     /// <summary>
     /// Changes the start and end markers of the section being played. The current playback position will be clamped within the new section.
@@ -427,7 +439,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// </summary>
     [ScriptMethod]
     public void SetSectionWithMarkers(StringName? startMarker = null, StringName? endMarker = null)
-        => _gdAnimPlayer.SetSectionWithMarkers(startMarker, endMarker);
+        => GDAnimationPlayer.SetSectionWithMarkers(startMarker, endMarker);
 
     /// <summary>
     /// Stops the currently playing animation. The animation position is reset to <c>0</c> and the <c>customSpeed</c> is reset to <c>1.0</c>.
@@ -436,5 +448,5 @@ public partial class AnimationPlayer : AnimationMixer
     /// <para><strong>Note:</strong> The method / audio / animation playback tracks will not be processed by this method.</para>
     /// </summary>
     [ScriptMethod]
-    public void Stop(bool keepState = false) => _gdAnimPlayer.Stop(keepState);
+    public void Stop(bool keepState = false) => GDAnimationPlayer.Stop(keepState);
 }

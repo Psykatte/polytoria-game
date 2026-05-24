@@ -3,10 +3,11 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using System;
+using System.Runtime.CompilerServices;
 using Godot;
-using Godot.Collections;
 using Polytoria.Attributes;
 using Polytoria.Enums;
+using Polytoria.Scripting.Datatypes;
 
 namespace Polytoria.Datamodel;
 
@@ -16,16 +17,22 @@ namespace Polytoria.Datamodel;
 /// Base class for <see cref="AnimationPlayer"/> and <see cref="AnimationTree"/> to manage animation lists. It also has general properties and methods for playback and blending.
 /// <para>After instantiating the playback information data within the extended class, the blending is processed by the <c>AnimationMixer</c>.</para>
 /// </summary>
-[Abstract]
+[Instantiable]
 public partial class Animation : Instance
 {
-    internal Godot.Animation GDAnimation = null!;
+    private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
+    private Node GDHostNode = null!;
+    private Godot.Animation GDAnimation = null!;
+    private readonly bool _captureIncluded = false;
+    private float _length = 1.0f;
+    private LoopModeEnum _loopMode = LoopModeEnum.None;
+    private float _step = 1/60;
 
     /// <summary>
     /// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
     /// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
-    public bool CaptureIncluded { get => GDAnimation.CaptureIncluded; }
+    public bool CaptureIncluded { get => _captureIncluded; }
 
     /// <summary>
     /// The total length of the animation (in seconds).
@@ -33,9 +40,10 @@ public partial class Animation : Instance
     /// </summary>
 	[Editable, ScriptProperty, DefaultValue(1)]
     public float Length {
-        get => GDAnimation.Length;
+        get => _length;
         set
         {
+            _length = value;
             GDAnimation.Length = value;
             OnPropertyChanged();
         }
@@ -46,9 +54,10 @@ public partial class Animation : Instance
     /// </summary>
 	[Editable, ScriptProperty, DefaultValue(LoopModeEnum.None)]
     public LoopModeEnum LoopMode {
-        get => (LoopModeEnum)GDAnimation.LoopMode;
+        get => _loopMode;
         set
         {
+            _loopMode = value;
             GDAnimation.LoopMode = (Godot.Animation.LoopModeEnum)value;
             OnPropertyChanged();
         }
@@ -57,27 +66,40 @@ public partial class Animation : Instance
     /// <summary>
     /// The animation step value.
     /// </summary>
-	[Editable, ScriptProperty, DefaultValue(1/60)]
+	[Editable, ScriptProperty, DefaultValue(1f/60f)]
     public float Step {
-        get => GDAnimation.Step;
+        get => _step;
         set
         {
-            GDAnimation.Step = Math.Max(1/120, value);
+            float val = Math.Max(1f/120f, value);
+            _step = val;
+            GDAnimation.Step = val;
             OnPropertyChanged();
         }
     }
 
     // Implicit conversion from ACL type to Godot type.
-    // Can't be done in reverse until Animation Instances are tracked.
     public static implicit operator Godot.Animation?(Animation acl) => acl?.GDAnimation;
 
-    /// <summary>
-    /// Adds a marker to this Animation.
-    /// </summary>
-    /// <param name="name">The name of the marker.</param>
-    /// <param name="time">The time (in seconds) where the marker is placed.</param>
-    [ScriptMethod]
-    public void AddMarker(StringName name, float time)
+	// Implicit conversion from Godot type to ACL type.
+    public static implicit operator Animation?(Godot.Animation gd) {
+		if (GDAnimations.TryGetValue(gd, out Animation? value))
+		{
+			return GDAnimations.GetOrAdd(gd, value);
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	/// <summary>
+	/// Adds a marker to this Animation.
+	/// </summary>
+	/// <param name="name">The name of the marker.</param>
+	/// <param name="time">The time (in seconds) where the marker is placed.</param>
+	[ScriptMethod]
+    public void AddMarker(PTStringName name, float time)
     {
         GDAnimation.AddMarker(name, time);
     }
@@ -101,7 +123,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key within the track.</param>
     /// <returns>The animation name (StringName) at the specified key.</returns>
     [ScriptMethod]
-    public StringName AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
+    public PTStringName AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
     {
         return GDAnimation.AnimationTrackGetKeyAnimation(trackIdx, keyIdx);
     }
@@ -114,7 +136,7 @@ public partial class Animation : Instance
     /// <param name="animation">The animation name to set for this key.</param>
     /// <returns>The index of the newly inserted key.</returns>
     [ScriptMethod]
-    public int AnimationTrackInsertKey(int trackIdx, float time, StringName animation)
+    public int AnimationTrackInsertKey(int trackIdx, float time, PTStringName animation)
     {
         return GDAnimation.AnimationTrackInsertKey(trackIdx, time, animation);
     }
@@ -126,7 +148,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key to set.</param>
     /// <param name="animation">The animation name to assign to the key.</param>
     [ScriptMethod]
-    public void AnimationTrackSetKeyAnimation(int trackIdx, int keyIdx, StringName animation)
+    public void AnimationTrackSetKeyAnimation(int trackIdx, int keyIdx, PTStringName animation)
     {
         GDAnimation.AnimationTrackSetKeyAnimation(trackIdx, keyIdx, animation);
     }
@@ -151,11 +173,11 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the Audio Track.</param>
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The start offset in seconds.</returns>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public float AudioTrackGetKeyStartOffset(int trackIdx, int keyIdx)
     {
         return GDAnimation.AudioTrackGetKeyStartOffset(trackIdx, keyIdx);
-    }
+    } */
 
     /// <summary>
     /// Returns the audio stream of the key identified by <paramref name="keyIdx"/>. The <paramref name="trackIdx"/> must be the index of an Audio Track.
@@ -163,11 +185,11 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the Audio Track.</param>
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The AudioStream resource assigned to the key.</returns>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public Resource AudioTrackGetKeyStream(int trackIdx, int keyIdx)
     {
         return GDAnimation.AudioTrackGetKeyStream(trackIdx, keyIdx);
-    }
+    } */
 
     /// <summary>
     /// Inserts an Audio Track key at the given <paramref name="time"/> in seconds. The <paramref name="trackIdx"/> must be the index of an Audio Track.
@@ -179,11 +201,11 @@ public partial class Animation : Instance
     /// <param name="startOffset">The number of seconds to skip at the start of the audio stream.</param>
     /// <param name="endOffset">The number of seconds to cut from the end of the audio stream.</param>
     /// <returns>The index of the newly inserted key.</returns>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public int AudioTrackInsertKey(int trackIdx, float time, Resource stream, float startOffset = 0f, float endOffset = 0f)
     {
         return GDAnimation.AudioTrackInsertKey(trackIdx, time, stream, startOffset, endOffset);
-    }
+    } */
 
     /// <summary>
     /// Returns <c>true</c> if the track at <paramref name="trackIdx"/> will be blended with other animations.
@@ -237,11 +259,11 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="trackIdx">The index of the track to modify.</param>
     /// <param name="enable">Whether to enable blending for this track.</param>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public void AudioTrackSetUseBlend(int trackIdx, bool enable)
     {
         GDAnimation.AudioTrackSetUseBlend(trackIdx, enable);
-    }
+    } */
 
     /// <summary>
     /// Returns the in handle of the key identified by <paramref name="keyIdx"/>. The <paramref name="trackIdx"/> must be the index of a Bezier Track.
@@ -422,7 +444,7 @@ public partial class Animation : Instance
     /// <param name="time">The time (in seconds) to check for a marker.</param>
     /// <returns>The name of the marker, or an empty StringName if none exists.</returns>
     [ScriptMethod]
-    public StringName GetMarkerAtTime(float time)
+    public PTStringName GetMarkerAtTime(float time)
     {
         return GDAnimation.GetMarkerAtTime(time);
     }
@@ -433,7 +455,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <returns>The Color of the marker.</returns>
     [ScriptMethod]
-    public Color GetMarkerColor(StringName name)
+    public Color GetMarkerColor(PTStringName name)
     {
         return GDAnimation.GetMarkerColor(name);
     }
@@ -454,7 +476,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <returns>The time (in seconds) of the marker.</returns>
     [ScriptMethod]
-    public double GetMarkerTime(StringName name)
+    public double GetMarkerTime(PTStringName name)
     {
         return GDAnimation.GetMarkerTime(name);
     }
@@ -465,7 +487,7 @@ public partial class Animation : Instance
     /// <param name="time">The reference time (in seconds).</param>
     /// <returns>The name of the next marker, or an empty StringName.</returns>
     [ScriptMethod]
-    public StringName GetNextMarker(float time)
+    public PTStringName GetNextMarker(float time)
     {
         return GDAnimation.GetNextMarker(time);
     }
@@ -476,7 +498,7 @@ public partial class Animation : Instance
     /// <param name="time">The reference time (in seconds).</param>
     /// <returns>The name of the previous marker, or an empty StringName.</returns>
     [ScriptMethod]
-    public StringName GetPrevMarker(float time)
+    public PTStringName GetPrevMarker(float time)
     {
         return GDAnimation.GetPrevMarker(time);
     }
@@ -497,7 +519,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker to check.</param>
     /// <returns><c>true</c> if the marker exists; otherwise, <c>false</c>.</returns>
     [ScriptMethod]
-    public bool HasMarker(StringName name)
+    public bool HasMarker(PTStringName name)
     {
         return GDAnimation.HasMarker(name);
     }
@@ -510,7 +532,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The name of the method to call.</returns>
 /*     [ScriptMethod]
-    public StringName MethodTrackGetName(int trackIdx, int keyIdx)
+    public PTStringName MethodTrackGetName(int trackIdx, int keyIdx)
     {
         return GDAnimation.MethodTrackGetName(trackIdx, keyIdx);
     } */
@@ -571,7 +593,7 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="name">The name of the marker to remove.</param>
     [ScriptMethod]
-    public void RemoveMarker(StringName name)
+    public void RemoveMarker(PTStringName name)
     {
         GDAnimation.RemoveMarker(name);
     }
@@ -644,7 +666,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <param name="color">The new color for the marker.</param>
     [ScriptMethod]
-    public void SetMarkerColor(StringName name, Color color)
+    public void SetMarkerColor(PTStringName name, Color color)
     {
         GDAnimation.SetMarkerColor(name, color);
     }
@@ -994,5 +1016,19 @@ public partial class Animation : Instance
     public void ValueTrackSetUpdateMode(int trackIdx, UpdateModeEnum mode)
     {
         GDAnimation.ValueTrackSetUpdateMode(trackIdx, (Godot.Animation.UpdateMode)mode);
+    }
+
+    public override void Init()
+    {
+        GDHostNode = (Godot.Node)GDNode;
+        GDAnimation = new Godot.Animation();
+        GDAnimations.Add(GDAnimation, this);
+        base.Init();
+    }
+
+    public override void PreDelete()
+    {
+        GDAnimations.Remove(GDAnimation);
+        base.Init();
     }
 }

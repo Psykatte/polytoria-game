@@ -28,7 +28,7 @@ public sealed partial class Mesh : Entity
 	private bool _usePartColor;
 	private Color _color = new(1, 1, 1);
 	private bool _castShadows;
-	private AnimationPlayer? _animPlay;
+	private Godot.AnimationPlayer? _animPlay;
 	private readonly List<MeshInstance3D> _meshInstances = [];
 	private readonly List<Material> _materials = [];
 	private Resource? _prevResource;
@@ -249,7 +249,7 @@ public sealed partial class Mesh : Entity
 			Node3D obj = scene.Instantiate<Node3D>();
 			_meshNode = obj;
 			_meshNode.Visible = false;
-			_animPlay = _meshNode.GetNodeOrNull<AnimationPlayer>("AnimationPlayer");
+			_animPlay = _meshNode.GetNodeOrNull<Godot.AnimationPlayer>("AnimationPlayer");
 
 			_meshInstances.Clear();
 			_materials.Clear();
