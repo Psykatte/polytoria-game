@@ -23,20 +23,17 @@ public partial class AnimationLibrary : Instance
     private Node GDHostNode = null!;
     private Godot.AnimationLibrary GDAnimationLibrary = null!;
 
+    // Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
+    private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
+    {
+        return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib => lib.GDAnimationLibrary = gdAnimationLibrary);
+    }
+
     // Implicit conversion from ACL type to Godot type.
     public static implicit operator Godot.AnimationLibrary?(AnimationLibrary acl) => acl?.GDAnimationLibrary;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator AnimationLibrary?(Godot.AnimationLibrary gd) {
-		if (GDAnimationLibraries.TryGetValue(gd, out AnimationLibrary? value))
-		{
-			return GDAnimationLibraries.GetOrAdd(gd, value);
-		}
-		else
-		{
-			return null;
-		}
-	}
+    public static implicit operator AnimationLibrary?(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> is added to the library.
@@ -85,14 +82,12 @@ public partial class AnimationLibrary : Instance
     public override void Init()
     {
         GDHostNode = (Godot.Node)GDNode;
-        GDAnimationLibrary = new Godot.AnimationLibrary();
+        GDAnimationLibrary ??= new Godot.AnimationLibrary();
         GDAnimationLibraries.Add(GDAnimationLibrary, this);
         GDAnimationLibrary.AnimationAdded += OnAnimationAdded;
         GDAnimationLibrary.AnimationChanged += OnAnimationChanged;
         GDAnimationLibrary.AnimationRemoved += OnAnimationRemoved;
         GDAnimationLibrary.AnimationRenamed += OnAnimationRenamed;
-        GDHostNode = (Godot.Node)GDNode;
-        GDAnimationLibrary = new Godot.AnimationLibrary();
         base.Init();
     }
 

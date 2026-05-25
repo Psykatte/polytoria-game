@@ -78,20 +78,17 @@ public partial class Animation : Instance
         }
     }
 
+    // Intialize an Animation from a Godot type, this is done to mitigate possible memory leaks.
+    private static Animation FromGDObject(Godot.Animation gdAnimation)
+    {
+        return Polytoria.Shared.Globals.LoadInstance<Animation>(World.Current, anim => anim.GDAnimation = gdAnimation);
+    }
+
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator Godot.Animation?(Animation acl) => acl?.GDAnimation;
+    public static implicit operator Godot.Animation(Animation acl) => acl.GDAnimation;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator Animation?(Godot.Animation gd) {
-		if (GDAnimations.TryGetValue(gd, out Animation? value))
-		{
-			return GDAnimations.GetOrAdd(gd, value);
-		}
-		else
-		{
-			return null;
-		}
-	}
+    public static implicit operator Animation(Godot.Animation gd) => GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
 
 	/// <summary>
 	/// Adds a marker to this Animation.
@@ -1021,7 +1018,7 @@ public partial class Animation : Instance
     public override void Init()
     {
         GDHostNode = (Godot.Node)GDNode;
-        GDAnimation = new Godot.Animation();
+        GDAnimation ??= new Godot.Animation();
         GDAnimations.Add(GDAnimation, this);
         base.Init();
     }
