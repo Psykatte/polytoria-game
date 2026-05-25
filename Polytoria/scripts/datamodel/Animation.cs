@@ -26,7 +26,7 @@ public partial class Animation : Instance
     private readonly bool _captureIncluded = false;
     private float _length = 1.0f;
     private LoopModeEnum _loopMode = LoopModeEnum.None;
-    private float _step = 1/60;
+    private float _step = 1f/60f;
 
     /// <summary>
     /// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
@@ -1029,6 +1029,6 @@ public partial class Animation : Instance
     public override void PreDelete()
     {
         GDAnimations.Remove(GDAnimation);
-        base.Init();
+        base.PreDelete();
     }
 }

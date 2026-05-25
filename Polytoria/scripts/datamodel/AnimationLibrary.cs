@@ -84,6 +84,9 @@ public partial class AnimationLibrary : Instance
 
     public override void Init()
     {
+        GDHostNode = (Godot.Node)GDNode;
+        GDAnimationLibrary = new Godot.AnimationLibrary();
+        GDAnimationLibraries.Add(GDAnimationLibrary, this);
         GDAnimationLibrary.AnimationAdded += OnAnimationAdded;
         GDAnimationLibrary.AnimationChanged += OnAnimationChanged;
         GDAnimationLibrary.AnimationRemoved += OnAnimationRemoved;
@@ -99,6 +102,7 @@ public partial class AnimationLibrary : Instance
         GDAnimationLibrary.AnimationChanged -= OnAnimationChanged;
         GDAnimationLibrary.AnimationRemoved -= OnAnimationRemoved;
         GDAnimationLibrary.AnimationRenamed -= OnAnimationRenamed;
+        GDAnimationLibrary.Dispose();
 		base.PreDelete();
 	}
 
