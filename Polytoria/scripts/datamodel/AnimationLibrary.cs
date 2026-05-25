@@ -33,7 +33,7 @@ public partial class AnimationLibrary : Instance
     public static implicit operator Godot.AnimationLibrary?(AnimationLibrary acl) => acl?.GDAnimationLibrary;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator AnimationLibrary?(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
+    public static implicit operator AnimationLibrary(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> is added to the library.
