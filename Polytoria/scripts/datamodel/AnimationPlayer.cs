@@ -37,46 +37,6 @@ public partial class AnimationPlayer : AnimationMixer
     private float _speedScale = 1.0f;
 
     /// <summary>
-    /// Emitted when a queued animation plays after the previous animation finished. See also <see cref="Queue"/>.
-    /// <para><strong>Note:</strong> The signal is not emitted when the animation is changed via <see cref="Play"/> or by an <c>AnimationTree</c>.</para>
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<PTStringName, PTStringName> AnimationChanged { get; private set; } = new();
-
-    /// <summary>
-    /// Emitted when <see cref="CurrentAnimation"/> changes.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<PTStringName> CurrentAnimationChanged { get; private set; } = new();
-
-    private void OnAnimationChanged(StringName oldName, StringName newName)
-    {
-        AnimationChanged.Invoke(oldName, newName);
-    }
-
-    private void OnCurrentAnimationChanged(StringName name)
-    {
-        CurrentAnimationChanged.Invoke(name);
-    }
-    
-    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
-
-    public override void Init()
-    {
-        GDAnimationPlayer = (Godot.AnimationPlayer)GDNode;
-        GDAnimationPlayer.AnimationChanged += OnAnimationChanged;
-        GDAnimationPlayer.CurrentAnimationChanged += OnCurrentAnimationChanged;
-        base.Init();
-    }
-
-	public override void PreDelete()
-	{
-        GDAnimationPlayer.AnimationChanged -= OnAnimationChanged;
-        GDAnimationPlayer.CurrentAnimationChanged -= OnCurrentAnimationChanged;
-		base.PreDelete();
-	}
-
-    /// <summary>
     /// If playing, the current animation's key, otherwise, the animation last played.
     /// When set, this changes the animation, but will not play it unless already playing.
     /// See also <see cref="CurrentAnimation"/>.
@@ -86,7 +46,7 @@ public partial class AnimationPlayer : AnimationMixer
         get => _assignedAnimation;
         set {
             _assignedAnimation = value;
-            if (value != null) GDAnimationPlayer.AssignedAnimation = value;
+            GDAnimationPlayer.AssignedAnimation = value;
             OnPropertyChanged();
         }
     }
@@ -236,6 +196,48 @@ public partial class AnimationPlayer : AnimationMixer
     }
 
     /// <summary>
+    /// Emitted when a queued animation plays after the previous animation finished. See also <see cref="Queue"/>.
+    /// <para><strong>Note:</strong> The signal is not emitted when the animation is changed via <see cref="Play"/> or by an <c>AnimationTree</c>.</para>
+    /// </summary>
+    [ScriptProperty]
+    public PTSignal<PTStringName, PTStringName> AnimationChanged { get; private set; } = new();
+
+    /// <summary>
+    /// Emitted when <see cref="CurrentAnimation"/> changes.
+    /// </summary>
+    [ScriptProperty]
+    public PTSignal<PTStringName> CurrentAnimationChanged { get; private set; } = new();
+
+    private void OnAnimationChanged(StringName oldName, StringName newName)
+    {
+        AnimationChanged.Invoke(oldName, newName);
+        _currentAnimation = newName;
+    }
+
+    private void OnCurrentAnimationChanged(StringName name)
+    {
+        CurrentAnimationChanged.Invoke(name);
+        _currentAnimation = name;
+    }
+    
+    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
+
+    public override void Init()
+    {
+        GDAnimationPlayer = (Godot.AnimationPlayer)GDNode;
+        GDAnimationPlayer.AnimationChanged += OnAnimationChanged;
+        GDAnimationPlayer.CurrentAnimationChanged += OnCurrentAnimationChanged;
+        base.Init();
+    }
+
+	public override void PreDelete()
+	{
+        GDAnimationPlayer.AnimationChanged -= OnAnimationChanged;
+        GDAnimationPlayer.CurrentAnimationChanged -= OnCurrentAnimationChanged;
+		base.PreDelete();
+	}
+
+    /// <summary>
     /// Returns the key of the animation which is queued to play after the <paramref name="animationFrom"/> animation.
     /// </summary>
     [ScriptMethod]
@@ -369,7 +371,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// If the end marker is empty, the section ends on the end of the animation.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkers(PTStringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
+    public void PlaySectionWithMarkers(PTStringName? name = null, PTStringName? startMarker = null, PTStringName? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
         => GDAnimationPlayer.PlaySectionWithMarkers(name, startMarker, endMarker, customBlend, customSpeed, fromEnd);
 
     /// <summary>
@@ -377,7 +379,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// This method is a shorthand for <see cref="PlaySectionWithMarkers"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkersBackwards(PTStringName? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1)
+    public void PlaySectionWithMarkersBackwards(PTStringName? name = null, PTStringName? startMarker = null, PTStringName? endMarker = null, double customBlend = -1)
         => GDAnimationPlayer.PlaySectionWithMarkersBackwards(name, startMarker, endMarker, customBlend);
 
     /// <summary>
@@ -421,7 +423,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// Specifies a blend time (in seconds) between two animations, referenced by their keys.
     /// </summary>
     [ScriptMethod]
-    public void SetBlendTime(StringName animationFrom, StringName animationTo, double sec)
+    public void SetBlendTime(PTStringName animationFrom, PTStringName animationTo, double sec)
         => GDAnimationPlayer.SetBlendTime(animationFrom, animationTo, sec);
 
     /// <summary>
@@ -438,7 +440,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// If the argument is empty, the section uses the beginning or end of the animation. If both are empty, it means that the section is not set.
     /// </summary>
     [ScriptMethod]
-    public void SetSectionWithMarkers(StringName? startMarker = null, StringName? endMarker = null)
+    public void SetSectionWithMarkers(PTStringName? startMarker = null, PTStringName? endMarker = null)
         => GDAnimationPlayer.SetSectionWithMarkers(startMarker, endMarker);
 
     /// <summary>

@@ -139,6 +139,8 @@ public sealed partial class Globals : Node
 		FileLinkAsset.RegisterAsset();
 		GradientImageAsset.RegisterAsset();
 		PTMeshAnimationAsset.RegisterAsset();
+		PTAnimationAsset.RegisterAsset();
+		PTAnimationLibraryAsset.RegisterAsset();
 	}
 
 	public override void _EnterTree()

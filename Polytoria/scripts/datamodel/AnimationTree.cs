@@ -3,7 +3,9 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 using Godot;
+using Godot.NativeInterop;
 using Polytoria.Attributes;
+using Polytoria.Enums;
 using Polytoria.Scripting;
 using Polytoria.Shared;
 
@@ -21,15 +23,17 @@ public partial class AnimationTree : AnimationMixer
     private Godot.AnimationTree GDAnimationTree = null!;
     protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationTree;
 
-    // private NodePath _advanceExpressionBaseNode = new(".");
+    private NodePath _advanceExpressionBaseNode = new(".");
     private AnimationPlayer? _animPlayer = null;
-    // private AnimationRootNode? _treeRoot = null;
+    private AnimationCallbackModeDiscreteEnum _callbackModeDiscrete = AnimationCallbackModeDiscreteEnum.ForceContinuous;
+    private bool _deterministic = true;
+    private AnimationRootNode? _treeRoot = null;
 
     /// <summary>
     /// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
     /// if one is not explicitly specified internally.
     /// </summary>
-/*     [Editable, ScriptProperty]
+    [Editable, ScriptProperty]
     public NodePath AdvanceExpressionBaseNode {
         get => _advanceExpressionBaseNode;
         set {
@@ -37,7 +41,7 @@ public partial class AnimationTree : AnimationMixer
             GDAnimationTree.AdvanceExpressionBaseNode = value;
             OnPropertyChanged();
         }
-    } */
+    }
 
     /// <summary>
     /// The path to the <see cref="AnimationPlayer"/> used for animating.
@@ -64,7 +68,7 @@ public partial class AnimationTree : AnimationMixer
     /// <summary>
     /// The root animation node of this <c>AnimationTree</c>. See <see cref="AnimationRootNode"/>.
     /// </summary>
-/*     [Editable, ScriptProperty]
+    [Editable, ScriptProperty]
     public AnimationRootNode? TreeRoot {
         get => _treeRoot;
         set {
@@ -72,20 +76,7 @@ public partial class AnimationTree : AnimationMixer
             GDAnimationTree.TreeRoot = value;
             OnPropertyChanged();
         }
-    } */
-
-    /// <summary>
-    /// Emitted when the <see cref="AnimPlayer"/> is changed.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal AnimationPlayerChanged { get; private set; } = new();
-
-	private void OnAnimationPlayerChanged()
-    {
-        AnimationPlayerChanged.Invoke();
     }
-    
-    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
 
     public override void Init()
     {
@@ -99,4 +90,17 @@ public partial class AnimationTree : AnimationMixer
         GDAnimationTree.AnimationPlayerChanged -= OnAnimationPlayerChanged;
 		base.PreDelete();
 	}
+
+    /// <summary>
+    /// Emitted when the <see cref="AnimPlayer"/> is changed.
+    /// </summary>
+    [ScriptProperty]
+    public PTSignal AnimationPlayerChanged { get; private set; } = new();
+
+	private void OnAnimationPlayerChanged()
+    {
+        AnimationPlayerChanged.Invoke();
+    }
+    
+    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
 }

@@ -46,7 +46,11 @@ public class PTStringName : IScriptGDObject
 	}
 
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator StringName(PTStringName acl) => acl.GDStringName;
+    public static implicit operator StringName?(PTStringName? acl)
+	{
+		if (acl == null) return null;
+		return acl.GDStringName;
+	}
 
     // Implicit conversion from Godot type to ACL type.
     public static implicit operator PTStringName(StringName gd)
@@ -57,7 +61,7 @@ public class PTStringName : IScriptGDObject
 		}
 		else
 		{
-			acl = new StringName(gd);
+			acl = PTStringName.New(gd);
         	GDStringNames.Add(gd, acl);
 			return acl;
 		}

@@ -49,8 +49,6 @@ public partial class InsertMenuPopup : PopupPanel
 		},
 		[new() { Title = "Animation"}] = new()
 		{
-			"Animation",
-			"AnimationLibrary",
 			"AnimationPlayer",
 			"AnimationTree",
 		},

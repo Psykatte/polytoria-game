@@ -8,31 +8,41 @@ using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
 using Polytoria.Scripting.Datatypes;
+using Polytoria.Shared;
 
-namespace Polytoria.Datamodel;
+namespace Polytoria.Datamodel.Resources;
 
-// Polytoria.Datamodel.AnimationMixer is an anti-corruption layer for interfacing with Godot.AnimationMixer.
+// Polytoria.Datamodel.Resources.AnimationLibrary is an anti-corruption layer for interfacing with Godot.AnimationLibrary.
 
 /// <summary>
 /// An animation library stores a set of animations accessible through <see cref="StringName"> keys, for use with <see cref="AnimationPlayer"> nodes.
 /// </summary>
 [Instantiable]
-public partial class AnimationLibrary : Instance
+public partial class PTAnimationLibraryAsset : AnimationLibraryAsset
 {
-    private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
-    private Godot.AnimationLibrary GDAnimationLibrary = null!;
+    private static readonly ConditionalWeakTable<Godot.AnimationLibrary, PTAnimationLibraryAsset> GDAnimationLibraries = [];
+
+    internal Godot.AnimationLibrary GDAnimationLibrary => (Godot.AnimationLibrary)Resource!;
+
+    public static void RegisterAsset() => RegisterType<PTAnimationLibraryAsset>();
 
     // Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
-    private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
+    private static PTAnimationLibraryAsset FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
     {
-        return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib => lib.GDAnimationLibrary = gdAnimationLibrary);
+        return (PTAnimationLibraryAsset)Globals.LoadNetworkedObject(nameof(PTAnimationLibraryAsset), World.Current, netObj =>
+        {
+            var lib = (PTAnimationLibraryAsset)netObj;
+            GDAnimationLibraries.Add(gdAnimationLibrary, lib);
+            lib.InvokeResourceLoaded(gdAnimationLibrary);
+            lib.WireSignals(gdAnimationLibrary);
+        })!;
     }
 
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator Godot.AnimationLibrary?(AnimationLibrary acl) => acl?.GDAnimationLibrary;
+    public static implicit operator Godot.AnimationLibrary?(PTAnimationLibraryAsset acl) => acl?.GDAnimationLibrary;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator AnimationLibrary(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
+    public static implicit operator PTAnimationLibraryAsset(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> is added to the library.
@@ -78,24 +88,39 @@ public partial class AnimationLibrary : Instance
         AnimationRenamed.Invoke(name, toName);
     }
 
-    public override void Init()
+    private void WireSignals(Godot.AnimationLibrary lib)
     {
-        GDAnimationLibrary ??= new Godot.AnimationLibrary();
-        GDAnimationLibraries.Add(GDAnimationLibrary, this);
-        GDAnimationLibrary.AnimationAdded += OnAnimationAdded;
-        GDAnimationLibrary.AnimationChanged += OnAnimationChanged;
-        GDAnimationLibrary.AnimationRemoved += OnAnimationRemoved;
-        GDAnimationLibrary.AnimationRenamed += OnAnimationRenamed;
-        base.Init();
+        lib.AnimationAdded += OnAnimationAdded;
+        lib.AnimationChanged += OnAnimationChanged;
+        lib.AnimationRemoved += OnAnimationRemoved;
+        lib.AnimationRenamed += OnAnimationRenamed;
+    }
+
+    private void UnwireSignals(Godot.AnimationLibrary lib)
+    {
+        lib.AnimationAdded -= OnAnimationAdded;
+        lib.AnimationChanged -= OnAnimationChanged;
+        lib.AnimationRemoved -= OnAnimationRemoved;
+        lib.AnimationRenamed -= OnAnimationRenamed;
+    }
+
+    public override void LoadResource()
+    {
+        if (IsResourceLoaded) return;
+        var lib = new Godot.AnimationLibrary();
+        GDAnimationLibraries.Add(lib, this);
+        InvokeResourceLoaded(lib);
+        WireSignals(lib);
     }
 
 	public override void PreDelete()
 	{
-        GDAnimationLibrary.AnimationAdded -= OnAnimationAdded;
-        GDAnimationLibrary.AnimationChanged -= OnAnimationChanged;
-        GDAnimationLibrary.AnimationRemoved -= OnAnimationRemoved;
-        GDAnimationLibrary.AnimationRenamed -= OnAnimationRenamed;
-        GDAnimationLibrary.Dispose();
+        if (IsResourceLoaded && GodotObject.IsInstanceValid(GDAnimationLibrary))
+        {
+            UnwireSignals(GDAnimationLibrary);
+            GDAnimationLibraries.Remove(GDAnimationLibrary);
+            GDAnimationLibrary.Dispose();
+        }
 		base.PreDelete();
 	}
 

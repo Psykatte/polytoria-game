@@ -4,6 +4,7 @@
 
 using Godot;
 using Polytoria.Attributes;
+using Polytoria.Datamodel.Resources;
 using Polytoria.Enums;
 using Polytoria.Scripting;
 using Polytoria.Scripting.Datatypes;
@@ -67,7 +68,7 @@ public abstract partial class AnimationMixer : Instance
     /// To make the blended results look good, it is recommended to set this to <c>ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS</c> to update every frame during blending.
     /// </summary>
     [Editable, ScriptProperty]
-    public AnimationCallbackModeDiscreteEnum CallbackModeDiscrete {
+    public virtual AnimationCallbackModeDiscreteEnum CallbackModeDiscrete {
         get => _callbackModeDiscrete;
         set {
             _callbackModeDiscrete = value;
@@ -275,8 +276,8 @@ public abstract partial class AnimationMixer : Instance
     /// A virtual function for processing after getting a key during playback.
     /// </summary>
     [ScriptMethod]
-    public virtual Variant PostProcessKeyValue(Animation animation, int track, Variant value, int objectId, int objectSubIdx)
-        => new();
+    public virtual Variant PostProcessKeyValue(PTAnimationAsset animation, int track, Variant value, ulong objectId, int objectSubIdx)
+        => GDAnimationMixer._PostProcessKeyValue(animation.GDAnimation, track, value, objectId, objectSubIdx);
 
     /// <summary>
     /// Adds <paramref name="library"/> to the animation player, under the key <paramref name="name"/>.
@@ -310,26 +311,26 @@ public abstract partial class AnimationMixer : Instance
     /// Returns the key of <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public PTStringName FindAnimation(Animation animation) => GDAnimationMixer.FindAnimation(animation);
+    public PTStringName FindAnimation(PTAnimationAsset animation) => GDAnimationMixer.FindAnimation(animation);
 
     /// <summary>
     /// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public PTStringName FindAnimationLibrary(Animation animation) => GDAnimationMixer.FindAnimationLibrary(animation);
+    public PTStringName FindAnimationLibrary(PTAnimationAsset animation) => GDAnimationMixer.FindAnimationLibrary(animation);
 
     /// <summary>
     /// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
     /// </summary>
     [ScriptMethod]
-    public Animation? GetAnimation(PTStringName name) => GDAnimationMixer.GetAnimation(name);
+    public PTAnimationAsset? GetAnimation(PTStringName name) => GDAnimationMixer.GetAnimation(name);
 
     /// <summary>
     /// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
     /// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
     /// </summary>
     [ScriptMethod]
-    public AnimationLibrary? GetAnimationLibrary(PTStringName name) => GDAnimationMixer.GetAnimationLibrary(name);
+    public PTAnimationLibraryAsset? GetAnimationLibrary(PTStringName name) => GDAnimationMixer.GetAnimationLibrary(name);
 
     /// <summary>
     /// Returns the list of stored library keys.
@@ -409,7 +410,12 @@ public abstract partial class AnimationMixer : Instance
     /// Removes the <c>AnimationLibrary</c> associated with the key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public void RemoveAnimationLibrary(PTStringName name) => GDAnimationMixer.RemoveAnimationLibrary(name);
+    public void RemoveAnimationLibrary(PTStringName name)
+    {
+        PTAnimationLibraryAsset? lib = GetAnimationLibrary(name);
+        GDAnimationMixer.RemoveAnimationLibrary(name);
+        lib?.UnlinkFrom(this);
+    }
 
     /// <summary>
     /// Moves the <c>AnimationLibrary</c> associated with the key <paramref name="name"/> to the key <paramref name="newname"/>.

@@ -8,24 +8,28 @@ using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting.Datatypes;
+using Polytoria.Shared;
 
-namespace Polytoria.Datamodel;
+namespace Polytoria.Datamodel.Resources;
 
-// Polytoria.Datamodel.AnimationMixer is an anti-corruption layer for interfacing with Godot.AnimationMixer.
+// Polytoria.Datamodel.Resources.Animation is an anti-corruption layer for interfacing with Godot.Animation.
 
 /// <summary>
 /// Base class for <see cref="AnimationPlayer"/> and <see cref="AnimationTree"/> to manage animation lists. It also has general properties and methods for playback and blending.
 /// <para>After instantiating the playback information data within the extended class, the blending is processed by the <c>AnimationMixer</c>.</para>
 /// </summary>
 [Instantiable]
-public partial class Animation : Instance
+public partial class PTAnimationAsset : AnimationAsset
 {
-    private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
-    private Godot.Animation GDAnimation = null!;
+    private static readonly ConditionalWeakTable<Godot.Animation, PTAnimationAsset> GDAnimations = [];
     private readonly bool _captureIncluded = false;
     private float _length = 1.0f;
     private LoopModeEnum _loopMode = LoopModeEnum.None;
     private float _step = 1f/60f;
+
+    internal Godot.Animation GDAnimation => (Godot.Animation)Resource!;
+
+    public static void RegisterAsset() => RegisterType<PTAnimationAsset>();
 
     /// <summary>
     /// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
@@ -43,7 +47,7 @@ public partial class Animation : Instance
         set
         {
             _length = value;
-            GDAnimation.Length = value;
+            if (IsResourceLoaded) GDAnimation.Length = value;
             OnPropertyChanged();
         }
     }
@@ -57,7 +61,7 @@ public partial class Animation : Instance
         set
         {
             _loopMode = value;
-            GDAnimation.LoopMode = (Godot.Animation.LoopModeEnum)value;
+            if (IsResourceLoaded) GDAnimation.LoopMode = (Godot.Animation.LoopModeEnum)value;
             OnPropertyChanged();
         }
     }
@@ -72,22 +76,52 @@ public partial class Animation : Instance
         {
             float val = Math.Max(1f/120f, value);
             _step = val;
-            GDAnimation.Step = val;
+            if (IsResourceLoaded) GDAnimation.Step = val;
             OnPropertyChanged();
         }
     }
 
     // Intialize an Animation from a Godot type, this is done to mitigate possible memory leaks.
-    private static Animation FromGDObject(Godot.Animation gdAnimation)
+    private static PTAnimationAsset FromGDObject(Godot.Animation gdAnimation)
     {
-        return Polytoria.Shared.Globals.LoadInstance<Animation>(World.Current, anim => anim.GDAnimation = gdAnimation);
+        return (PTAnimationAsset)Globals.LoadNetworkedObject(nameof(PTAnimationAsset), World.Current, netObj =>
+        {
+            var anim = (PTAnimationAsset)netObj;
+            anim._length = gdAnimation.Length;
+            anim._loopMode = (LoopModeEnum)gdAnimation.LoopMode;
+            anim._step = gdAnimation.Step;
+            GDAnimations.Add(gdAnimation, anim);
+            anim.InvokeResourceLoaded(gdAnimation);
+        })!;
     }
 
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator Godot.Animation(Animation acl) => acl.GDAnimation;
+    public static implicit operator Godot.Animation(PTAnimationAsset acl) => acl.GDAnimation;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator Animation(Godot.Animation gd) => GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
+    public static implicit operator PTAnimationAsset(Godot.Animation gd) => GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
+
+    public override void LoadResource()
+    {
+        if (IsResourceLoaded) return;
+        var anim = new Godot.Animation
+        {
+            Length = _length,
+            LoopMode = (Godot.Animation.LoopModeEnum)_loopMode,
+            Step = _step,
+        };
+        GDAnimations.Add(anim, this);
+        InvokeResourceLoaded(anim);
+    }
+
+    public override void PreDelete()
+    {
+        if (IsResourceLoaded && GodotObject.IsInstanceValid(GDAnimation))
+        {
+            GDAnimations.Remove(GDAnimation);
+        }
+        base.PreDelete();
+    }
 
 	/// <summary>
 	/// Adds a marker to this Animation.
@@ -417,7 +451,7 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the track to copy from this animation.</param>
     /// <param name="toAnimation">The target animation to copy the track into.</param>
     [ScriptMethod]
-    public void CopyTrack(int trackIdx, Animation toAnimation)
+    public void CopyTrack(int trackIdx, PTAnimationAsset toAnimation)
     {
         GDAnimation.CopyTrack(trackIdx, toAnimation.GDAnimation);
     }
@@ -1012,18 +1046,5 @@ public partial class Animation : Instance
     public void ValueTrackSetUpdateMode(int trackIdx, UpdateModeEnum mode)
     {
         GDAnimation.ValueTrackSetUpdateMode(trackIdx, (Godot.Animation.UpdateMode)mode);
-    }
-
-    public override void Init()
-    {
-        GDAnimation ??= new Godot.Animation();
-        GDAnimations.Add(GDAnimation, this);
-        base.Init();
-    }
-
-    public override void PreDelete()
-    {
-        GDAnimations.Remove(GDAnimation);
-        base.PreDelete();
     }
 }
