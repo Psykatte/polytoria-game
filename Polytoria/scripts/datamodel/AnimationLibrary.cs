@@ -20,7 +20,6 @@ namespace Polytoria.Datamodel;
 public partial class AnimationLibrary : Instance
 {
     private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
-    private Node GDHostNode = null!;
     private Godot.AnimationLibrary GDAnimationLibrary = null!;
 
     // Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
@@ -81,7 +80,6 @@ public partial class AnimationLibrary : Instance
 
     public override void Init()
     {
-        GDHostNode = (Godot.Node)GDNode;
         GDAnimationLibrary ??= new Godot.AnimationLibrary();
         GDAnimationLibraries.Add(GDAnimationLibrary, this);
         GDAnimationLibrary.AnimationAdded += OnAnimationAdded;

@@ -21,7 +21,6 @@ namespace Polytoria.Datamodel;
 public partial class Animation : Instance
 {
     private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
-    private Node GDHostNode = null!;
     private Godot.Animation GDAnimation = null!;
     private readonly bool _captureIncluded = false;
     private float _length = 1.0f;
@@ -1017,7 +1016,6 @@ public partial class Animation : Instance
 
     public override void Init()
     {
-        GDHostNode = (Godot.Node)GDNode;
         GDAnimation ??= new Godot.Animation();
         GDAnimations.Add(GDAnimation, this);
         base.Init();
