@@ -51,7 +51,12 @@ public partial class AnimationTree : AnimationMixer
         get => _animPlayer;
         set {
             _animPlayer = value;
-            GDAnimationTree.AnimPlayer = value?.GDAnimationPlayer.GetPath();
+            if (value != null)
+            {
+                value.GDAnimationPlayer.Reparent(GDAnimationTree); // TODO: Will break node paths!
+                GDAnimationTree.AnimPlayer = value.GDAnimationPlayer.GetPath();
+            }
+            else GDAnimationTree.AnimPlayer = "";
             OnPropertyChanged();
         }
     }
