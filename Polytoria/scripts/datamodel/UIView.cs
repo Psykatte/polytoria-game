@@ -7,7 +7,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIView is a class that displays a rectangle in your place's UI.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIView : UIField
 {
 	private Color _borderColor;
@@ -16,6 +20,12 @@ public partial class UIView : UIField
 	private float _cornerRadius;
 
 
+	/// <summary>
+	/// Determines the color of the UI.
+	/// </summary>
+	/// <summary>
+	/// Determines the border color of the UI.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color BorderColor
 	{
@@ -43,6 +53,9 @@ public partial class UIView : UIField
 		}
 	}
 
+	/// <summary>
+	/// Determines the width of the border of the UI.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float BorderWidth
 	{
@@ -69,6 +82,9 @@ public partial class UIView : UIField
 		}
 	}
 
+	/// <summary>
+	/// Determines the corner radius of the UI.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float CornerRadius
 	{

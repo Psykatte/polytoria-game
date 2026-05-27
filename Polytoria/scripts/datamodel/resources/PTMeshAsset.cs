@@ -7,11 +7,18 @@ using Polytoria.Shared.AssetLoaders;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// A mesh asset that's loaded from Polytoria.
+/// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTMeshAsset : MeshAsset
 {
 	private uint _assetID;
 
+	/// <summary>
+	/// Asset ID of this mesh
+	/// </summary>
 	[Editable, ScriptProperty]
 	public uint AssetID
 	{

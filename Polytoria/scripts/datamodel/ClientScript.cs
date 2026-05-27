@@ -6,7 +6,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ClientScript is a script that runs locally for each player. It can only see what the player can see.
+/// </summary>
 [Instantiable]
+[DocCategory("scripting")]
 public sealed partial class ClientScript : Script
 {
 	private bool _listeningReady = false;

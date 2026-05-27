@@ -18,9 +18,13 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// WIP Class
+/// </summary>
 [Static("Social")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class SocialService : Instance
 {
 	private readonly PTHttpClient _client = new();

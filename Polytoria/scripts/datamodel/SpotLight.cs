@@ -10,7 +10,11 @@ using Polytoria.Creator.Spatial;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// SpotLight is a source of light emitting in a specific direction and angle that can be placed in the world.
+/// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class SpotLight : Light
 {
 	internal SpotLight3D GDSpotLight = null!;
@@ -47,6 +51,9 @@ public sealed partial class SpotLight : Light
 		base.InitOverrides();
 	}
 
+	/// <summary>
+	/// The maximum distance the light can reach.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Range
 	{
@@ -62,6 +69,9 @@ public sealed partial class SpotLight : Light
 		}
 	}
 
+	/// <summary>
+	/// The angle of the spotlight's cone.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Angle
 	{

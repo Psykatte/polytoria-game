@@ -6,5 +6,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Base class for lighting modifiers
+/// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class LightingModifier : Instance { }

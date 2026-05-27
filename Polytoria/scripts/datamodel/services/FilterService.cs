@@ -12,8 +12,12 @@ using System.Text.RegularExpressions;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// FilterService is a service which processes and filter user inputs
+/// </summary>
 [Static("Filter"), ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class FilterService : Instance
 {
 	private static List<string> _profanityList = [];
@@ -42,6 +46,9 @@ public sealed partial class FilterService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Filter a string
+	/// </summary>
 	[ScriptMethod]
 	public static string Filter(string input)
 	{

@@ -7,7 +7,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Entity represents a physics object that's related to building blocks (inherited by Part and Mesh)
+/// </summary>
 [Abstract]
+[DocCategory("physics")]
 public abstract partial class Entity : RigidBody
 {
 	internal const uint CameraClipCollisionLayerMask = 1u << 5;
@@ -17,6 +21,9 @@ public abstract partial class Entity : RigidBody
 	private Color _color = new(1, 1, 1);
 	private bool _castShadows = true;
 
+	/// <summary>
+	/// The color of the entity.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public virtual Color Color
 	{
@@ -33,6 +40,9 @@ public abstract partial class Entity : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the entity casts shadows.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public virtual bool CastShadows
 	{
@@ -49,6 +59,9 @@ public abstract partial class Entity : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the part can be used as a spawn location or not.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool IsSpawn
 	{

@@ -6,7 +6,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Base class for image assets
+/// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class ImageAsset : ResourceAsset
 {
 }

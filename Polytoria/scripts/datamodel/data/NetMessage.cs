@@ -14,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// Represents a network message used for communication between clients and servers.
+/// </summary>
+[DocCategory("networking")]
 public partial class NetMessage : IScriptObject
 {
 	public Dictionary<string, string> Strings = [];
@@ -26,87 +30,144 @@ public partial class NetMessage : IScriptObject
 	public Dictionary<string, Instance> Instances = [];
 	public Dictionary<string, byte[]> Buffers = [];
 
+	/// <summary>
+	/// Adds a string value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddString(string key, string value)
 	{
 		Strings.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds an integer value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddInt(string key, int value)
 	{
 		Ints.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds a boolean value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddBool(string key, bool value)
 	{
 		Bools.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds a number value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddNumber(string key, float value)
 	{
 		Numbers.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds a Vector2 value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddVector2(string key, Vector2 value)
 	{
 		Vec2s.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds a Vector3 value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddVector3(string key, Vector3 value)
 	{
 		Vec3s.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds a Color value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddColor(string key, Color value)
 	{
 		Colors.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds an Instance value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddInstance(string key, Instance value)
 	{
 		Instances.Add(key, value);
 	}
 
+	/// <summary>
+	/// Adds an Buffer value to the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public void AddBuffer(string key, byte[] buffer)
 	{
 		Buffers.Add(key, buffer);
 	}
 
+	/// <summary>
+	/// Gets a string value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public string? GetString(string key) => Strings.TryGetValue(key, out var value) ? value : null;
 
+	/// <summary>
+	/// Gets an integer value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public int? GetInt(string key) => Ints.TryGetValue(key, out var value) ? value : (int?)null;
 
+	/// <summary>
+	/// Gets a number value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public float? GetNumber(string key) => Numbers.TryGetValue(key, out var value) ? value : (float?)null;
 
+	/// <summary>
+	/// Gets a boolean value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public bool? GetBool(string key) => Bools.TryGetValue(key, out var value) ? value : (bool?)null;
 
+	/// <summary>
+	/// Gets a Vector2 value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public Vector2? GetVector2(string key) => Vec2s.TryGetValue(key, out var value) ? value : (Vector2?)null;
 
+	/// <summary>
+	/// Gets a Vector3 value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public Vector3? GetVector3(string key) => Vec3s.TryGetValue(key, out var value) ? value : (Vector3?)null;
 
+	/// <summary>
+	/// Gets a Color value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public Color? GetColor(string key) => Colors.TryGetValue(key, out var value) ? value : (Color?)null;
 
+	/// <summary>
+	/// Gets an Instance value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public Instance? GetInstance(string key) => Instances.TryGetValue(key, out var value) ? value : null;
 
+	/// <summary>
+	/// Gets an Buffer value from the message with the specified key.
+	/// </summary>
 	[ScriptMethod]
 	public byte[]? GetBuffer(string key) => Buffers.TryGetValue(key, out var value) ? value : null;
 
+	/// <summary>
+	/// Creates a new NetMessage instance.
+	/// </summary>
 	[ScriptMethod]
 	public static NetMessage New()
 	{

@@ -9,7 +9,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// CoreUI is a static class that allows for the toggling of certain core GUI.
+/// </summary>
 [Static("CoreUI")]
+[DocCategory("services")]
 public sealed partial class CoreUIService : Instance
 {
 	private const string CoreUIPath = "res://scenes/client/ui/core_ui.tscn";
@@ -26,6 +30,9 @@ public sealed partial class CoreUIService : Instance
 
 	public CoreUIRoot CoreUI = null!;
 
+	/// <summary>
+	/// Determines whether or not the user card (in the upper right hand corner above the leaderboard) is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("UserCardEnabled")]
 	public bool UseUserCard
 	{
@@ -33,6 +40,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useUserCard = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the chat box is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("ChatEnabled")]
 	public bool UseChat
 	{
@@ -40,6 +50,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useChat = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the player's health bar is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("HealthBarEnabled")]
 	public bool UseHealthBar
 	{
@@ -47,6 +60,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useHealthBar = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the player list/leaderboard is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("LeaderboardEnabled")]
 	public bool UseLeaderboard
 	{
@@ -54,6 +70,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useLeaderboard = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the hot bar is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("HotbarEnabled")]
 	public bool UseHotbar
 	{
@@ -61,6 +80,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useHotBar = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the backpack is togglable.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseBackpack
 	{
@@ -68,6 +90,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useBackpack = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the menu button is visible.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("MenuButtonEnabled")]
 	public bool UseMenuButton
 	{
@@ -75,6 +100,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useMenuButton = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the emote wheel is visible.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseEmoteWheel
 	{
@@ -82,6 +110,9 @@ public sealed partial class CoreUIService : Instance
 		set { _useEmoteWheel = value; RefreshCoreUIsVisibility(); OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines whether or not the player can respawn.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool CanRespawn
 	{

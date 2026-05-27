@@ -12,6 +12,10 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Scripting;
 
+/// <summary>
+/// A function that doesn't expect a return value. This will sometimes be referred as <c>function</c>
+/// </summary>
+[DocCategory("scripting")]
 public class PTCallback(Action<object?[]> target) : IDisposable, IScriptObject
 {
 	public Delegate? OriginalDelegate = null!;

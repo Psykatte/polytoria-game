@@ -10,13 +10,20 @@ using Polytoria.Datamodel.Creator;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// GUI is a class that is used to create a GUI.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class GUI : Instance
 {
 	private Control _control = null!;
 	private bool _visible = true;
 	private int _zIndex = 0;
 
+	/// <summary>
+	/// Determines whether the GUI is visible or not.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Visible
 	{
@@ -30,6 +37,9 @@ public partial class GUI : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines the ZIndex (layer) of the GUI.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public int ZIndex
 	{

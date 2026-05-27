@@ -8,7 +8,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Stats is a collection of Stat objects used to manage player stats.
+/// </summary>
 [Static("Stats")]
+[DocCategory("game")]
 public sealed partial class Stats : Instance
 {
 	public PTSignal<Stat> StatAdded { get; private set; } = new();
@@ -21,6 +25,9 @@ public sealed partial class Stats : Instance
 		base.Init();
 	}
 
+	/// <summary>
+	/// Get all Stat objects
+	/// </summary>
 	[ScriptMethod]
 	public Stat[] GetStats()
 	{

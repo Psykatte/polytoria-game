@@ -7,7 +7,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ColorAdjustModifier is a LightingModifier that allows the adjustment of lighting
+/// </summary>
 [Instantiable]
+[DocCategory("elements")]
 public partial class ColorAdjustModifier : LightingModifier
 {
 	private float _brightness;
@@ -16,6 +20,9 @@ public partial class ColorAdjustModifier : LightingModifier
 	private Color _tintColor = new(1, 1, 1);
 	private GradientTexture1D _tintColorGradient = null!;
 
+	/// <summary>
+	/// Determines the brightness adjustment.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float Brightness
 	{
@@ -28,6 +35,9 @@ public partial class ColorAdjustModifier : LightingModifier
 		}
 	}
 
+	/// <summary>
+	/// Determines the contrast adjustment.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float Contrast
 	{
@@ -40,6 +50,9 @@ public partial class ColorAdjustModifier : LightingModifier
 		}
 	}
 
+	/// <summary>
+	/// Determines the saturation adjustment.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float Saturation
 	{
@@ -52,6 +65,9 @@ public partial class ColorAdjustModifier : LightingModifier
 		}
 	}
 
+	/// <summary>
+	/// Determines the tint color.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color TintColor
 	{

@@ -23,23 +23,42 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Creator;
 
+/// <summary>
+/// CreatorService is the class that manages the creator. This class is only available in the creator.
+/// </summary>
 [Static("Creator"), ExplorerExclude]
+[DocCategory("services")]
 public sealed partial class CreatorService : Node, IScriptObject
 {
 	public const string PolytoriaFolderName = "Polytoria/";
 
 	private long _localTestIDCounter = 0;
 
+	/// <summary>
+	/// The interface
+	/// </summary>
 	[ScriptProperty] public static CreatorInterface Interface { get; private set; } = null!;
 	public static CreatorClipboard Clipboard { get; private set; } = null!;
 
+	/// <summary>
+	/// Current active game
+	/// </summary>
 	[ScriptProperty] public static World? CurrentGame => World.Current;
 
 	public static CreatorService Singleton { get; set; } = null!;
 	public static CreatorSession? CurrentSession { get; internal set; }
 
+	/// <summary>
+	/// Fires when local testing starts
+	/// </summary>
 	[ScriptProperty] public PTSignal LocalTestStarted { get; private set; } = new();
+	/// <summary>
+	/// Fires when local testing ends
+	/// </summary>
 	[ScriptProperty] public PTSignal LocalTestStopped { get; private set; } = new();
+	/// <summary>
+	/// Returns true if local test is active
+	/// </summary>
 	[ScriptProperty] public bool LocalTestActive => LocalTestProcesses.Count != 0;
 	public List<int> LocalTestProcesses { get; private set; } = [];
 	public List<string> LocalTestWorlds { get; private set; } = [];

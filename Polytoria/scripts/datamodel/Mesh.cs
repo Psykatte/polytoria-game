@@ -12,7 +12,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Represents a part that can have custom mesh applied to it, the mesh may be from the Polytoria Store (Hats, Tools and Heads) or user-uploaded meshes.
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Mesh : Entity
 {
 	private MeshAsset? _asset;
@@ -33,6 +37,9 @@ public sealed partial class Mesh : Entity
 	private readonly List<Material> _materials = [];
 	private Resource? _prevResource;
 
+	/// <summary>
+	/// The mesh asset used by this Mesh.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public MeshAsset? Asset
 	{
@@ -93,6 +100,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Whether to keep the offset of the mesh or recenter it.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool IncludeOffset
 	{
@@ -104,6 +114,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// The type of collision shape to apply to the mesh.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public CollisionTypeEnum CollisionType
 	{
@@ -116,6 +129,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Whether to play the mesh's animation automatically when the mesh is loaded.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool PlayAnimationOnStart
 	{
@@ -127,6 +143,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Whether to use the color of the part this mesh is attached to.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool UsePartColor
 	{
@@ -139,6 +158,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// The color of the mesh.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public override Color Color
 	{
@@ -151,6 +173,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Whether the mesh casts shadows.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public override bool CastShadows
 	{
@@ -163,6 +188,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Indicates the name of the current animation playing on the mesh.
+	/// </summary>
 	[ScriptProperty]
 	public string? CurrentAnimation
 	{
@@ -176,6 +204,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether an animation is currently playing on the mesh.
+	/// </summary>
 	[ScriptProperty]
 	public bool IsAnimationPlaying
 	{
@@ -189,8 +220,14 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether this mesh is currently being loaded.
+	/// </summary>
 	[ScriptProperty] public bool Loading { get; private set; } = false;
 
+	/// <summary>
+	/// Fires when this mesh has been loaded.
+	/// </summary>
 	[ScriptProperty] public PTSignal Loaded { get; private set; } = new();
 
 	[ScriptEnum("MeshCollisionType")]
@@ -307,6 +344,9 @@ public sealed partial class Mesh : Entity
 		base.HiddenChanged(to);
 	}
 
+	/// <summary>
+	/// Plays the specified animation on the mesh.
+	/// </summary>
 	[ScriptMethod]
 	public void PlayAnimation(string animationName, float speed = 1.0f, bool loop = true)
 	{
@@ -325,6 +365,9 @@ public sealed partial class Mesh : Entity
 		PlayAnimation(animationName, speed, loop);
 	}
 
+	/// <summary>
+	/// Stops the specified animation on the mesh.
+	/// </summary>
 	[ScriptMethod]
 	public void StopAnimation(string? animationName = null)
 	{
@@ -342,6 +385,9 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Gets a list of all animations available on the mesh.
+	/// </summary>
 	[ScriptMethod]
 	public string[] GetAnimations()
 	{
@@ -349,6 +395,9 @@ public sealed partial class Mesh : Entity
 		return _animPlay.GetAnimationList();
 	}
 
+	/// <summary>
+	/// Gets the animation info.
+	/// </summary>
 	[ScriptMethod]
 	public MeshAnimationInfo[] GetAnimationInfo()
 	{
@@ -551,10 +600,23 @@ public sealed partial class Mesh : Entity
 		_meshContainer.Scale = newSize;
 	}
 
+	/// <summary>
+	/// MeshAnimationInfo contains the animation information for meshes.
+	/// </summary>
+	[DocCategory("misc")]
 	public struct MeshAnimationInfo : IScriptObject
 	{
+		/// <summary>
+		/// The name of this animation
+		/// </summary>
 		[ScriptProperty] public string Name { get; set; }
+		/// <summary>
+		/// The length of this animation
+		/// </summary>
 		[ScriptProperty] public float Length { get; set; }
+		/// <summary>
+		/// Indicates the playing state of this animation.
+		/// </summary>
 		[ScriptProperty] public bool IsPlaying { get; set; }
 
 		public override readonly int GetHashCode()

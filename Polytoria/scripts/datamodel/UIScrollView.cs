@@ -7,13 +7,20 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIScrollView is a class that allows the user to scroll content within a view.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIScrollView : UIContainer
 {
 	private ScrollContainer _scrollContainer = null!;
 	private ScrollModeEnum _horizontalScrollMode = ScrollModeEnum.Auto;
 	private ScrollModeEnum _verticalScrollMode = ScrollModeEnum.Auto;
 
+	/// <summary>
+	/// Determines the horizontal scroll mode of the scroll view.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(ScrollModeEnum.Auto)]
 	public ScrollModeEnum HorizontalScrollMode
 	{
@@ -35,6 +42,9 @@ public partial class UIScrollView : UIContainer
 		}
 	}
 
+	/// <summary>
+	/// Determines the vertical scroll mode of the scroll view.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(ScrollModeEnum.Auto)]
 	public ScrollModeEnum VerticalScrollMode
 	{

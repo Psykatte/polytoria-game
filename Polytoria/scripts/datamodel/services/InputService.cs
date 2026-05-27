@@ -16,7 +16,11 @@ using static Polytoria.Datamodel.Environment;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// InputService is a class used for retrieving user input data, such as the mouse and keyboard.
+/// </summary>
 [Static("Input"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class InputService : Instance
 {
 	private bool _cursorLocked = false;
@@ -41,13 +45,34 @@ public sealed partial class InputService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether the game window is currently focused.
+	/// </summary>
 	[ScriptProperty] public bool IsWindowFocused { get; private set; } = true;
+	/// <summary>
+	/// Indicates whether the input device is a touchscreen.
+	/// </summary>
 	[ScriptProperty] public bool IsTouchscreen { get; private set; } = false;
+	/// <summary>
+	/// Indicates whether the game is currently focused.
+	/// </summary>
 	[ScriptProperty] public bool IsGameFocused { get; internal set; } = false;
+	/// <summary>
+	/// Indicates whether an input is currently focused.
+	/// </summary>
 	[ScriptProperty] public bool IsInputFocused => !IsGameFocused;
+	/// <summary>
+	/// Indicates whether a gamepad is currently connected.
+	/// </summary>
 	[ScriptProperty] public bool IsGamepadConnected { get; private set; } = false;
+	/// <summary>
+	/// Indicates whether the game menu is currently opened.
+	/// </summary>
 	[ScriptProperty] public bool IsMenuOpened { get; internal set; } = false;
 
+	/// <summary>
+	/// Determines whether the cursor is currently locked.
+	/// </summary>
 	[ScriptProperty]
 	public bool CursorLocked
 	{
@@ -58,6 +83,9 @@ public sealed partial class InputService : Instance
 			RecomputeMouseMode();
 		}
 	}
+	/// <summary>
+	/// Determines whether the cursor is currently visible.
+	/// </summary>
 	[ScriptProperty]
 	public bool CursorVisible
 	{
@@ -68,9 +96,19 @@ public sealed partial class InputService : Instance
 			RecomputeMouseMode();
 		}
 	}
+
 	[ScriptProperty] public Vector2 MouseDelta { get; private set; } = Vector2.Zero;
+	/// <summary>
+	/// Indicates the current position of the mouse cursor.
+	/// </summary>
 	[ScriptProperty] public Vector2 MousePosition => OverrideMousePos ? OverrideMousePosTo : GDNode.GetViewport().GetMousePosition();
+	/// <summary>
+	/// Indicates the height of the screen.
+	/// </summary>
 	[ScriptLegacyProperty("MousePosition")] public Vector3 LegacyMousePosition => new(MousePosition.X, ScreenHeight - MousePosition.Y, 0);
+	/// <summary>
+	/// Indicates the width of the screen.
+	/// </summary>
 	[ScriptProperty] public int ScreenWidth => (int)GDNode.GetViewport().GetVisibleRect().Size.X;
 	[ScriptProperty] public int ScreenHeight => (int)GDNode.GetViewport().GetVisibleRect().Size.Y;
 
@@ -79,13 +117,40 @@ public sealed partial class InputService : Instance
 
 	[ScriptProperty] public PTSignal<Vector2> MouseMoved { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when the game has been focused
+	/// </summary>
 	[ScriptProperty] public PTSignal GameFocused { get; private set; } = new();
+	/// <summary>
+	/// Fires when the game has been unfocused
+	/// </summary>
 	[ScriptProperty] public PTSignal GameUnfocused { get; private set; } = new();
+	/// <summary>
+	/// Fires when gamepad is connected
+	/// </summary>
 	[ScriptProperty] public PTSignal GamepadConnected { get; private set; } = new();
+	/// <summary>
+	/// Fires when gamepad has been disconnected
+	/// </summary>
 	[ScriptProperty] public PTSignal GamepadDisconnected { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when key has been pressed
+	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyDown { get; private set; } = new();
+	/// <summary>
+	/// Fires when key has been released
+	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyUp { get; private set; } = new();
+	/// <summary>
+	/// Fires when analog input has been changed
+	/// </summary>
+	/// <param name="keycode" type="KeyCodeEnum"></param>
+	/// <param name="value" type="number"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, float> AxisValueChanged { get; private set; } = new();
 	[ScriptLegacyProperty("KeyDown")] public PTSignal LegacyKeyDown { get; private set; } = new();
 	[ScriptLegacyProperty("KeyUp")] public PTSignal LegacyKeyUp { get; private set; } = new();
@@ -586,6 +651,9 @@ public sealed partial class InputService : Instance
 		return null;
 	}
 
+	/// <summary>
+	/// Returns the 3D world-space position corresponding to the current mouse cursor location.
+	/// </summary>
 	[ScriptMethod]
 	public void StartGamepadVibration(float weakMagnitude, float strongMagnitude, float duration)
 	{
@@ -614,6 +682,9 @@ public sealed partial class InputService : Instance
 		return hit != null ? hit.Value.Position : rayOrigin + rayDir * 1000f;
 	}
 
+	/// <summary>
+	/// Returns the current Vector2 value of the action.
+	/// </summary>
 	[ScriptMethod]
 	public InputActionVector2 GetVector2(string actionName)
 	{
@@ -629,6 +700,9 @@ public sealed partial class InputService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Returns true if the specified button is being held down.
+	/// </summary>
 	[ScriptMethod]
 	public InputActionButton GetButton(string actionName)
 	{
@@ -644,6 +718,9 @@ public sealed partial class InputService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Returns the value of the specified axis.
+	/// </summary>
 	[ScriptMethod]
 	public InputActionAxis GetAxis(string actionName)
 	{
@@ -659,18 +736,27 @@ public sealed partial class InputService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Bind a new Button Input Action
+	/// </summary>
 	[ScriptMethod]
 	public InputActionButton BindButton(string name)
 	{
 		return MapData.BindButton(name);
 	}
 
+	/// <summary>
+	/// Bind new Axis Input Action
+	/// </summary>
 	[ScriptMethod]
 	public InputActionAxis BindAxis(string name)
 	{
 		return MapData.BindAxis(name);
 	}
 
+	/// <summary>
+	/// Bind new Vector2 Input Action
+	/// </summary>
 	[ScriptMethod]
 	public InputActionVector2 BindVector2(string name)
 	{

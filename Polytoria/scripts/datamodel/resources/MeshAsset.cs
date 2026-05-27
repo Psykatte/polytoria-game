@@ -6,7 +6,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Base class for mesh assets
+/// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class MeshAsset : ResourceAsset
 {
 }

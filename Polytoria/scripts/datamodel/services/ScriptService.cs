@@ -23,7 +23,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// ScriptService is a service used for storing scripts and local scripts. It is also responsible for managing their execution within the game.
+/// </summary>
 [Static("ScriptService")]
+[DocCategory("services")]
 public sealed partial class ScriptService : Instance
 {
 	private const DynamicallyAccessedMemberTypes DynamicallyAccessedTypes = DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicMethods;

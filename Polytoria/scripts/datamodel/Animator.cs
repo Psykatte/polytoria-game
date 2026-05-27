@@ -13,7 +13,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// WIP class
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Animator : Instance
 {
 	public AnimationTree AnimationTree = null!;
@@ -47,6 +51,9 @@ public partial class Animator : Instance
 	[SyncVar]
 	public bool AutoInit { get; set; } = true;
 
+	/// <summary>
+	/// Determines the currently playing animation name
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string CurrentAnimation
 	{
@@ -475,6 +482,9 @@ public partial class Animator : Instance
 		}
 	}
 
+	/// <summary>
+	/// Play animation
+	/// </summary>
 	[ScriptMethod]
 	public void PlayAnimation(string animationKey)
 	{
@@ -513,6 +523,9 @@ public partial class Animator : Instance
 		}).CallDeferred();
 	}
 
+	/// <summary>
+	/// Play one-shot animation
+	/// </summary>
 	[ScriptMethod]
 	public void PlayOneShotAnimation(string animationKey)
 	{
@@ -541,6 +554,9 @@ public partial class Animator : Instance
 		_pendingOneShot = oneshotPath;
 	}
 
+	/// <summary>
+	/// Stop current animation
+	/// </summary>
 	[ScriptMethod]
 	public void StopAnimation()
 	{
@@ -554,6 +570,9 @@ public partial class Animator : Instance
 		}
 	}
 
+	/// <summary>
+	/// Stop one-shot animation
+	/// </summary>
 	[ScriptMethod]
 	public void StopOneShotAnimation()
 	{

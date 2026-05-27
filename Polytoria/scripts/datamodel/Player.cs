@@ -21,7 +21,11 @@ using Polytoria.Providers.PlayerMovement;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Player represents a user playing the game.
+/// </summary>
 [ExplorerExclude]
+[DocCategory("game")]
 public sealed partial class Player : NPC
 {
 	private const double MaxAFKTime = 60 * 15;
@@ -87,18 +91,37 @@ public sealed partial class Player : NPC
 
 	internal APIUserInfo? UserInfo { get; private set; }
 
+	/// <summary>
+	/// Fires when this player chats
+	/// </summary>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> Chatted { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when stat value has changed
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal<Stat, object?> StatChanged { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when player has been assigned a team
+	/// </summary>
+	/// <summary>
+	/// Player's assigned team
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal<Team?> TeamChanged { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when this player has respawned
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Respawned { get; private set; } = new();
 
+	/// <summary>
+	/// The unique ID of the player.
+	/// </summary>
 	[SyncVar, ScriptProperty]
 	public int UserID
 	{
@@ -113,6 +136,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player can move.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool CanMove
 	{
@@ -124,6 +150,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the sprinting speed of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SprintSpeed
 	{
@@ -135,6 +164,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the current stamina of the player.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public float Stamina
 	{
@@ -146,6 +178,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the maximum stamina of the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float MaxStamina
 	{
@@ -157,6 +192,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player uses stamina.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("StaminaEnabled")]
 	public bool UseStamina
 	{
@@ -168,6 +206,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the rate at which the player's stamina regenerates.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float StaminaRegen
 	{
@@ -179,6 +220,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the rate at which the player's stamina depletes while sprinting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float StaminaBurn
 	{
@@ -190,6 +234,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the time the player has to wait before respawning.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float RespawnTime
 	{
@@ -201,6 +248,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player uses head turning.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseHeadTurning
 	{
@@ -212,6 +262,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player uses bubble chat.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseBubbleChat
 	{
@@ -224,6 +277,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the player's appearance is automatically loaded.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AutoLoadAppearance
 	{
@@ -235,6 +291,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// If true, animation will not stop when player starts moving
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AllowAnimationWhileMoving
 	{
@@ -270,6 +329,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determine the movement mode for the player.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public PlayerMovementModeEnum MovementMode
 	{
@@ -288,15 +350,27 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// The amount of network latency (ping) the player is experiencing.
+	/// </summary>
 	[ScriptProperty]
 	public int NetworkPing { get; private set; }
 
+	/// <summary>
+	/// Determines whether the player is an administrator.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public bool IsAdmin { get; internal set; }
 
+	/// <summary>
+	/// Determines whether the player is the creator of the game.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public bool IsCreator { get; internal set; }
 
+	/// <summary>
+	/// Determines the chat color of the player.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string UserRoleClass { get; internal set; } = "";
 
@@ -358,12 +432,21 @@ public sealed partial class Player : NPC
 	[ScriptProperty, Attributes.Obsolete("Use Input.IsInputFocused instead")]
 	public bool IsInputFocused => Root.Input.IsInputFocused;
 
+	/// <summary>
+	/// Determines whether the player is the local player.
+	/// </summary>
 	[ScriptProperty]
 	public bool IsLocal { get; private set; }
 
+	/// <summary>
+	/// Determines whether the player is currently climbing.
+	/// </summary>
 	[SyncVar(AllowAuthorWrite = true), ScriptProperty]
 	public bool IsClimbing { get; internal set; }
 
+	/// <summary>
+	/// Determines the truss the player is currently climbing.
+	/// </summary>
 	[SyncVar(AllowAuthorWrite = true), ScriptProperty]
 	public Truss? ClimbingTruss { get; internal set; }
 
@@ -385,9 +468,15 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Determines the platform the player is using.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public NetworkService.ClientPlatformEnum UserPlatform { get; internal set; }
 
+	/// <summary>
+	/// The inventory of the player.
+	/// </summary>
 	[ScriptProperty]
 	public Inventory Inventory => FindChild<Inventory>("Inventory")!;
 
@@ -888,6 +977,9 @@ public sealed partial class Player : NPC
 		Chatted.Invoke(msg);
 	}
 
+	/// <summary>
+	/// Makes the player jump.
+	/// </summary>
 	public override void Jump()
 	{
 		base.Jump();
@@ -941,6 +1033,9 @@ public sealed partial class Player : NPC
 		SendNetTransformReliable();
 	}
 
+	/// <summary>
+	/// Kicks the player from the game with the specified reason.
+	/// </summary>
 	[ScriptMethod]
 	public void Kick(string reason)
 	{
@@ -973,6 +1068,9 @@ public sealed partial class Player : NPC
 		});
 	}
 
+	/// <summary>
+	/// Unequips the currently equipped tool of the player.
+	/// </summary>
 	[ScriptMethod]
 	public void UnequipTool()
 	{
@@ -996,6 +1094,9 @@ public sealed partial class Player : NPC
 		InternalDetachTool();
 	}
 
+	/// <summary>
+	/// Respawns the player.
+	/// </summary>
 	[ScriptMethod]
 	public new void Respawn()
 	{
@@ -1071,6 +1172,9 @@ public sealed partial class Player : NPC
 		IsDead = false;
 	}
 
+	/// <summary>
+	/// Resets the player's appearance to the default.
+	/// </summary>
 	[ScriptMethod]
 	public void ResetAppearance()
 	{

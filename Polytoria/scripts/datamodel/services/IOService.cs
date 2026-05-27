@@ -14,9 +14,13 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Class for interacting with IO in project, only usable with scripts with the respective permission.
+/// </summary>
 [Static("IO")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class IOService : Instance
 {
 	private const string PolyCreatorTempPath = "polyc_temp";
@@ -34,6 +38,9 @@ public sealed partial class IOService : Instance
 		TempFilePath = Path.GetFullPath(Path.Join(Path.GetTempPath(), PolyCreatorTempPath));
 	}
 
+	/// <summary>
+	/// Reads the buffer file from the given path.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public byte[]? ReadBytesFromPath(string path)
 	{
@@ -81,12 +88,18 @@ public sealed partial class IOService : Instance
 		return null;
 	}
 
+	/// <summary>
+	/// Reads the text file data from the given path.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public string? ReadTextFromPath(string path)
 	{
 		return ReadBytesFromPath(path)?.GetStringFromUtf8();
 	}
 
+	/// <summary>
+	/// Writes buffer data to the file in the project.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IOWrite)]
 	public void WriteBytesToPath(string path, byte[] bytes)
 	{
@@ -124,12 +137,18 @@ public sealed partial class IOService : Instance
 		FileStructure[path] = bytes;
 	}
 
+	/// <summary>
+	/// Writes the text file data to the path.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IOWrite)]
 	public void WriteTextToPath(string path, string txt)
 	{
 		WriteBytesToPath(path, txt.ToUtf8Buffer());
 	}
 
+	/// <summary>
+	/// Lists all files in the project.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public string[] ListProjectFiles()
 	{
@@ -146,6 +165,9 @@ public sealed partial class IOService : Instance
 #endif
 	}
 
+	/// <summary>
+	/// Reads the file data from the linked ID.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public byte[]? ReadBytesFromID(string id)
 	{
@@ -155,6 +177,9 @@ public sealed partial class IOService : Instance
 	}
 
 
+	/// <summary>
+	/// Gets the file path from the linked ID.
+	/// </summary>
 	[ScriptMethod(Permissions = Scripting.ScriptPermissionFlags.IORead)]
 	public string? GetPathFromID(string indexID)
 	{

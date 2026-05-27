@@ -14,7 +14,11 @@ using static Polytoria.Datamodel.Environment;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Represents the local player's camera. Controls perspective, follow mode, field of view, and raycasting from screen space.
+/// </summary>
 [Instantiable]
+[DocCategory("game")]
 public sealed partial class Camera : Dynamic
 {
 	public const float ClipSafeMargin = 2.0f;
@@ -74,6 +78,9 @@ public sealed partial class Camera : Dynamic
 	internal Camera3D Camera3D = null!;
 	internal bool IsTurning => _turning;
 
+	/// <summary>
+	/// Determines or returns the camera's current mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(CameraModeEnum.Follow)]
 	public CameraModeEnum Mode
 	{
@@ -85,6 +92,12 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The camera's field of view in degrees.
+	/// </summary>
+	/// <remarks>
+	/// Only applies when the camera is not in orthographic mode. Typical values range from 60 to 120.
+	/// </remarks>
 	[Editable, ScriptProperty, DefaultValue(75)]
 	public float FOV
 	{
@@ -97,6 +110,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not the camera should clip through walls.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool ClipThroughWalls
 	{
@@ -108,6 +124,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The camera's minimum distance from the target in Follow mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0f)]
 	public float MinDistance
 	{
@@ -119,6 +138,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines camera's maximum distance from the target in Follow mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(20f)]
 	public float MaxDistance
 	{
@@ -130,6 +152,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the distance between the camera and the target when the camera is in Follow mode.
+	/// </summary>
 	[ScriptProperty]
 	public float Distance
 	{
@@ -142,6 +167,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the scroll move speed of the camera.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(DefaultScrollSensitivity)]
 	public float ScrollSensitivity
 	{
@@ -153,6 +181,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not the camera should render in orthographic (2D) mode or not (3D).
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool Orthographic
 	{
@@ -165,6 +196,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not to use lerping in Follow mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool FollowLerp
 	{
@@ -172,6 +206,9 @@ public sealed partial class Camera : Dynamic
 		set { _followLerp = value; OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determines the lerp speed of the camera when lerping is enabled.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(15f)]
 	public float LerpSpeed
 	{
@@ -183,6 +220,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the half-size of the camera when in orthographic mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float OrthographicSize
 	{
@@ -217,6 +257,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the camera's offset from its position.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 PositionOffset
 	{
@@ -228,6 +271,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the camera's offset from its rotation.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 RotationOffset
 	{
@@ -239,6 +285,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Returns whether or not the camera is in first person.
+	/// </summary>
 	[ScriptProperty]
 	public bool IsFirstPerson
 	{
@@ -250,6 +299,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determine if camera can be ctrl locked.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool CanLock
 	{
@@ -261,6 +313,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Multipler for camera sensitivity
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SensitivityMultiplier
 	{
@@ -272,24 +327,36 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Current sensitivity of the camera
+	/// </summary>
 	[ScriptProperty]
 	public float Sensitivity
 	{
 		get => ClientSettingsService.Instance.Get<float>(ClientSettingKeys.General.CameraSensitivity) * _sensitivityMultipler;
 	}
 
+	/// <summary>
+	/// Determines the horizontal movement speed of the camera in Follow mode.
+	/// </summary>
 	[ScriptProperty]
 	public float HorizontalSpeed
 	{
 		get => _xSpeed; set => _xSpeed = value;
 	}
 
+	/// <summary>
+	/// Determines the vertical move speed of the camera.
+	/// </summary>
 	[ScriptProperty]
 	public float VerticalSpeed
 	{
 		get => _ySpeed; set => _ySpeed = value;
 	}
 
+	/// <summary>
+	/// Determines the lerp amount when scrolling
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(15f)]
 	public float ScrollLerpSpeed
 	{
@@ -297,6 +364,9 @@ public sealed partial class Camera : Dynamic
 		set { _scrollLerpSpeed = value; OnPropertyChanged(); }
 	}
 
+	/// <summary>
+	/// Determine if camera is in Ctrl lock mode
+	/// </summary>
 	[ScriptProperty]
 	public bool CtrlLocked
 	{
@@ -319,6 +389,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determine if camera should always be in locked mode
+	/// </summary>
 	[ScriptProperty]
 	public bool AlwaysLocked
 	{
@@ -334,6 +407,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The target of Follow mode
+	/// </summary>
 	[ScriptProperty]
 	public Dynamic? Target
 	{
@@ -363,9 +439,15 @@ public sealed partial class Camera : Dynamic
 		Scripted = 2,
 	}
 
+	/// <summary>
+	/// Fires when camera has entered first person
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal FirstPersonEntered { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when camera has exited first person
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal FirstPersonExited { get; private set; } = new();
 
@@ -910,18 +992,38 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Checks whether a world-space <see cref="Polytoria.Scripting.Datatypes.PTVector3">position</see> is visible within the camera's view frustum.
+	/// </summary>
+	/// <param name="pos">The world-space Vector3 to test.</param>
+	/// <returns>
+	/// <c>true</c> if <c>pos</c> lies within the camera frustum, <c>false</c> otherwise.
+	/// </returns>
+	/// <example>
+	/// See if the <see cref="Polytoria.Datamodel.Dynamic.Position">Position</see> of <see cref="Polytoria.Datamodel.Part">Part</see> <c>part</c> is on screen:
+	/// <code>
+	/// if Camera.IsPositionInView(part.Position) then
+	///     print("Part is on screen")
+	/// end
+	/// </code></example>
 	[ScriptMethod]
 	public bool IsPositionInView(Vector3 pos)
 	{
 		return Camera3D.IsPositionInFrustum(pos);
 	}
 
+	/// <summary>
+	/// Check if position is behind the camera's view.
+	/// </summary>
 	[ScriptMethod]
 	public bool IsPositionBehind(Vector3 pos)
 	{
 		return Camera3D.IsPositionBehind(pos);
 	}
 
+	/// <summary>
+	/// Cast a ray from the camera at the specified ViewportPoint (Vector2 with components with values in range of 0 - 1 describing how far a point is to the right and to the top of the screen) into the game world
+	/// </summary>
 	[ScriptMethod]
 	public RayResult? ViewportPointToRay(Vector2 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
 	{
@@ -933,6 +1035,9 @@ public sealed partial class Camera : Dynamic
 		return Root.Environment.Raycast(rayOrigin, rayDir, maxDistance, ignoreList);
 	}
 
+	/// <summary>
+	/// Cast a ray from the camera at screen point into the game world
+	/// </summary>
 	[ScriptMethod]
 	public RayResult? ScreenPointToRay(Vector2 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
 	{
@@ -941,6 +1046,9 @@ public sealed partial class Camera : Dynamic
 		return Root.Environment.Raycast(rayOrigin, rayDir, maxDistance, ignoreList);
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from viewport space into screen space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector2 ViewportToScreenPoint(Vector2 pos)
 	{
@@ -949,6 +1057,9 @@ public sealed partial class Camera : Dynamic
 		return new Vector2(pos.X * size.X, pos.Y * size.Y);
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from viewport space into world space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector3 ViewportToWorldPoint(Vector2 pos)
 	{
@@ -960,6 +1071,9 @@ public sealed partial class Camera : Dynamic
 		return (origin + direction * Camera3D.Near);
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from world space into viewport space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector2 WorldToViewportPoint(Vector3 pos)
 	{
@@ -969,6 +1083,9 @@ public sealed partial class Camera : Dynamic
 		return new Vector2(screenPos.X / size.X, screenPos.Y / size.Y);
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from world space into screen space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector2 WorldToScreenPoint(Vector3 pos)
 	{
@@ -976,6 +1093,9 @@ public sealed partial class Camera : Dynamic
 		return unprojected;
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from screen space into viewport space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector2 ScreenToViewportPoint(Vector2 pos)
 	{
@@ -987,6 +1107,9 @@ public sealed partial class Camera : Dynamic
 		return new Vector2(pos.X / size.X, pos.Y / size.Y);
 	}
 
+	/// <summary>
+	/// Transforms <c>pos</c> from screen space into world space.
+	/// </summary>
 	[ScriptMethod]
 	public Vector3 ScreenToWorldPoint(Vector2 pos)
 	{

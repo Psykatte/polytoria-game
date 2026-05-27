@@ -6,5 +6,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Base class for hiddens
+/// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class HiddenBase : Instance { }

@@ -11,7 +11,11 @@ using System;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// PresenceService is a service that allows ClientScripts to set the active status of the player. Which will be used to display in supported integrations.
+/// </summary>
 [Static("Presence"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PresenceService : Instance
 {
 	private const long DiscordAppID = 715468601540476959;
@@ -25,6 +29,9 @@ public sealed partial class PresenceService : Instance
 
 	private long _startTime = 0;
 
+	/// <summary>
+	/// Current activity status.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string? State
 	{
@@ -37,6 +44,9 @@ public sealed partial class PresenceService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Activity cover image.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public PTImageAsset? CoverImage
 	{
@@ -104,6 +114,9 @@ public sealed partial class PresenceService : Instance
 		UpdateIntegrations();
 	}
 
+	/// <summary>
+	/// Reset the running timer for this activity.
+	/// </summary>
 	[ScriptMethod]
 	public void ResetTimer()
 	{

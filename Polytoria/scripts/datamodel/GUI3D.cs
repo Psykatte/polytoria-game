@@ -9,7 +9,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// GUI3D is a class that allows GUI to be displayed in a 3D space.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class GUI3D : Dynamic
 {
 	private readonly StandardMaterial3D _material = new();
@@ -26,6 +30,9 @@ public partial class GUI3D : Dynamic
 	private PlaneMesh _plane = null!;
 	private Area3D _area = null!;
 
+	/// <summary>
+	/// Determines if this GUI3D should be affected by lighting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Shaded
 	{
@@ -39,6 +46,9 @@ public partial class GUI3D : Dynamic
 	}
 
 
+	/// <summary>
+	/// Determines if this GUI3D always faces the camera.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool FaceCamera
 	{
@@ -53,6 +63,9 @@ public partial class GUI3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines if the background should be transparent. Recommended to be set to false if transparent background is not needed.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Transparent
 	{
@@ -66,6 +79,9 @@ public partial class GUI3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Absolute size of this GUI3D
+	/// </summary>
 	[ScriptProperty]
 	public Vector2 AbsoluteSize => _subViewport.Size;
 

@@ -15,8 +15,12 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Http is a service used for HTTP communications and requests.
+/// </summary>
 [Static("Http"), ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class HttpService : Instance
 {
 	private const int MaxRequestsPerMinute = 90;
@@ -66,6 +70,9 @@ public sealed partial class HttpService : Instance
 		return true;
 	}
 
+	/// <summary>
+	/// Send a request using the <c>HttpRequestData</c>
+	/// </summary>
 	[ScriptMethod]
 	public async Task<HttpResponseData> RequestAsync(HttpRequestData data)
 	{
@@ -180,6 +187,9 @@ public sealed partial class HttpService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Sends a GET request to the specified URL.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string> GetAsync(string url, Dictionary<string, string>? headers = null)
 	{
@@ -187,6 +197,9 @@ public sealed partial class HttpService : Instance
 		return response.Body;
 	}
 
+	/// <summary>
+	/// Sends a POST request to the specified URL.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string> PostAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -194,6 +207,9 @@ public sealed partial class HttpService : Instance
 		return response.Body;
 	}
 
+	/// <summary>
+	/// Sends a PUT request to the specified URL.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string> PutAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -201,6 +217,9 @@ public sealed partial class HttpService : Instance
 		return response.Body;
 	}
 
+	/// <summary>
+	/// Sends a DELETE request to the specified url.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string> DeleteAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -208,6 +227,9 @@ public sealed partial class HttpService : Instance
 		return response.Body;
 	}
 
+	/// <summary>
+	/// Sends a PATCH request to the specified url.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string> PatchAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -215,6 +237,9 @@ public sealed partial class HttpService : Instance
 		return response.Body;
 	}
 
+	/// <summary>
+	/// Sends a GET request to the specified url, and return the response as buffer.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<byte[]> GetBufferAsync(string url, Dictionary<string, string>? headers = null)
 	{
@@ -222,6 +247,9 @@ public sealed partial class HttpService : Instance
 		return response.Buffer;
 	}
 
+	/// <summary>
+	/// Sends a POST request to the specified url, and return the response as buffer.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<byte[]> PostBufferAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -229,6 +257,9 @@ public sealed partial class HttpService : Instance
 		return response.Buffer;
 	}
 
+	/// <summary>
+	/// Sends a PUT request to the specified url, and return the response as buffer.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<byte[]> PutBufferAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -236,6 +267,9 @@ public sealed partial class HttpService : Instance
 		return response.Buffer;
 	}
 
+	/// <summary>
+	/// Sends a DELETE request to the specified url, and return the response as buffer.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<byte[]> DeleteBufferAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{
@@ -243,6 +277,9 @@ public sealed partial class HttpService : Instance
 		return response.Buffer;
 	}
 
+	/// <summary>
+	/// Sends a PATCH request to the specified url, and return the response as buffer.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<byte[]> PatchBufferAsync(string url, string body, Dictionary<string, string>? headers = null)
 	{

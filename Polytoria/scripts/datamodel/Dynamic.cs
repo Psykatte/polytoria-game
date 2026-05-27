@@ -16,7 +16,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Dynamic is the base class where all objects with a position, rotation and scale derive from.
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Dynamic : Instance
 {
 	internal Node3D GDNode3D = null!;
@@ -60,6 +64,9 @@ public partial class Dynamic : Instance
 	private readonly static Dictionary<Node, Dynamic> _creatorProxyToDyn = [];
 #endif
 
+	/// <summary>
+	/// The position of the object.
+	/// </summary>
 	[Editable, ScriptProperty, NoSync, CloneIgnore, SaveIgnore]
 	public Vector3 Position
 	{
@@ -78,6 +85,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The rotation of the object.
+	/// </summary>
 	[Editable, ScriptProperty, NoSync, CloneIgnore, SaveIgnore]
 	public Vector3 Rotation
 	{
@@ -99,6 +109,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The size of the object.
+	/// </summary>
 	[Editable, ScriptProperty, CloneIgnore, SaveIgnore]
 	public Vector3 Size
 	{
@@ -118,6 +131,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The position of the object relative to its parent.
+	/// </summary>
 	[Editable, ScriptProperty, CloneIgnore, NoSync]
 	public Vector3 LocalPosition
 	{
@@ -136,6 +152,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The rotation of the object relative to its parent.
+	/// </summary>
 	[Editable, ScriptProperty, CloneIgnore, NoSync]
 	public Vector3 LocalRotation
 	{
@@ -154,6 +173,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The size of the object relative to its parent.
+	/// </summary>
 	[Editable, ScriptProperty, CloneIgnore]
 	public Vector3 LocalSize
 	{
@@ -170,6 +192,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The rotation of the object represented as a quaternion.
+	/// </summary>
 	[ScriptProperty, CloneIgnore, NoSync]
 	public Quaternion Quaternion
 	{
@@ -186,6 +211,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// The local rotation of the object represented as a quaternion.
+	/// </summary>
 	[ScriptProperty, CloneIgnore, NoSync]
 	public Quaternion LocalQuaternion
 	{
@@ -202,6 +230,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the object can be selected in the Creator.
+	/// </summary>
 	[Editable(IsHidden = true), ScriptProperty, DefaultValue(false)]
 	public bool Locked
 	{
@@ -234,8 +265,17 @@ public partial class Dynamic : Instance
 	}
 
 	// correct for godot would be -Z, but due to issues described in issue #369, we are using +Z except for the camera
+	/// <summary>
+	/// The forward direction vector of the object.
+	/// </summary>
 	[ScriptProperty] public Vector3 Forward => GetGlobalTransform().Basis.Z.Normalized();
+	/// <summary>
+	/// The right direction vector of the object.
+	/// </summary>
 	[ScriptProperty] public Vector3 Right => GetGlobalTransform().Basis.X.Normalized();
+	/// <summary>
+	/// The up direction vector of the object.
+	/// </summary>
 	[ScriptProperty] public Vector3 Up => GetGlobalTransform().Basis.Y.Normalized();
 
 	public override Node CreateGDNode()
@@ -396,6 +436,12 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// Orients the object to look at a target with a specified up vector.
+	/// </summary>
+	/// <summary>
+	/// Orients the object to look at a target with a specified up vector.
+	/// </summary>
 	[ScriptMethod]
 	public void LookAt(object target)
 	{
@@ -433,6 +479,9 @@ public partial class Dynamic : Instance
 		UpdateNetTransformReliable();
 	}
 
+	/// <summary>
+	/// Moves the transform in the direction and distance of translation.
+	/// </summary>
 	[ScriptMethod]
 	public void Translate(Vector3 translation)
 	{
@@ -443,6 +492,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// Rotates the object around a point by the specified Euler angles.
+	/// </summary>
 	[ScriptMethod]
 	public void RotateAround(Vector3 point, Vector3 axis, float angle)
 	{
@@ -465,6 +517,9 @@ public partial class Dynamic : Instance
 		}
 	}
 
+	/// <summary>
+	/// Rotates the object by the specified Euler angles.
+	/// </summary>
 	[ScriptMethod]
 	public void Rotate(Vector3 eulerAngles)
 	{

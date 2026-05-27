@@ -11,10 +11,14 @@ namespace Polytoria.Datamodel.Resources;
 /// Base class for asset that link to files
 /// </summary>
 [Instantiable, SaveIgnore]
+[DocCategory("assets")]
 public partial class FileLinkAsset : BaseAsset
 {
 	private string _fileID = "";
 
+	/// <summary>
+	/// The ID of the file
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string LinkedID
 	{

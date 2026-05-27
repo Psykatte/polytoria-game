@@ -8,7 +8,11 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Parts represent the basic building blocks of the world.
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Part : Entity
 {
 	private MeshInstance3D? _mesh;
@@ -125,6 +129,9 @@ public partial class Part : Entity
 		_mesh = null;
 	}
 
+	/// <summary>
+	/// Determines the shape of the part.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(ShapeEnum.Brick)]
 	public ShapeEnum Shape
 	{
@@ -143,6 +150,9 @@ public partial class Part : Entity
 		}
 	}
 
+	/// <summary>
+	/// Determines the material of the part.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(PartMaterialEnum.SmoothPlastic)]
 	public PartMaterialEnum Material
 	{
@@ -161,6 +171,9 @@ public partial class Part : Entity
 		}
 	}
 
+	/// <summary>
+	/// Determines the color of the part.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public override Color Color
 	{
@@ -180,6 +193,9 @@ public partial class Part : Entity
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the part casts shadows.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public override bool CastShadows
 	{

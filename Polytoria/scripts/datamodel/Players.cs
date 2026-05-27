@@ -13,15 +13,25 @@ using System.Linq;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Players is the container class for all Player instances.
+/// </summary>
 [Static("Players")]
+[DocCategory("game")]
 public sealed partial class Players : Instance
 {
 	private bool _playerCollisionEnabled = true;
 	private bool _useServerAuthority = true;
 
+	/// <summary>
+	/// The player who is currently playing the game.
+	/// </summary>
 	[ScriptProperty]
 	public Player LocalPlayer { get; private set; } = null!;
 
+	/// <summary>
+	/// Determines whether or not collisions between players are enabled.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool PlayerCollisionEnabled
 	{
@@ -33,6 +43,9 @@ public sealed partial class Players : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not server should trust the client for adjusting player's properties. Enabling this is recommended.
+	/// </summary>
 	[Editable]
 	public bool UseServerAuthority
 	{
@@ -44,12 +57,23 @@ public sealed partial class Players : Instance
 		}
 	}
 
+	/// <summary>
+	/// Fires when player has connected
+	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
 	public PTSignal<Player> PlayerAdded { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when player has disconnected
+	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
 	public PTSignal<Player> PlayerRemoved { get; private set; } = new();
 
+	/// <summary>
+	/// The number of players currently in the game.
+	/// </summary>
 	[ScriptProperty]
 	public int PlayersCount => GetChildren().Count(c => c is Player plr && plr.IsReady);
 
@@ -87,6 +111,9 @@ public sealed partial class Players : Instance
 		return [.. ids];
 	}
 
+	/// <summary>
+	/// Returns a table containing all the players currently in the game.
+	/// </summary>
 	[ScriptMethod]
 	public Player[] GetPlayers()
 	{
@@ -103,12 +130,18 @@ public sealed partial class Players : Instance
 		return [.. plrs];
 	}
 
+	/// <summary>
+	/// Returns the player with the specified username.
+	/// </summary>
 	[ScriptMethod]
 	public Player? GetPlayer(string username)
 	{
 		return FindChild<Player>(username);
 	}
 
+	/// <summary>
+	/// Returns the player with the specified user ID.
+	/// </summary>
 	[ScriptMethod]
 	public Player? GetPlayerByID(int userID)
 	{

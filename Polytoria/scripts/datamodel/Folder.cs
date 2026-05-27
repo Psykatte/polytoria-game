@@ -7,5 +7,9 @@ using Polytoria.Datamodel.Interfaces;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Folder is similar to a model, used for storing objects in the place.
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Folder : Instance, IGroup { }

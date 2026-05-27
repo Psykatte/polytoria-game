@@ -16,16 +16,26 @@ using static Polytoria.Datamodel.Creator.CreatorHistory;
 
 namespace Polytoria.Datamodel.Creator;
 
+/// <summary>
+/// CreatorSelections is an object that manages selections in the game instance. This class is only available in the creator.
+/// </summary>
 [Static("Selections")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("addons")]
 public sealed partial class CreatorSelections : Instance
 {
 	public readonly List<Instance> SelectedInstances = [];
 	private bool _propertiesDirty = false;
 	private TaskCompletionSource<Instance>? _pickTcs;
 
+	/// <summary>
+	/// Fires when an instance has been selected
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Selected { get; private set; } = new();
+	/// <summary>
+	/// Fires when an instance has been deselected
+	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Deselected { get; private set; } = new();
 
 	private InputHelper _inputHelper = null!;
@@ -55,6 +65,9 @@ public sealed partial class CreatorSelections : Instance
 		}
 	}
 
+	/// <summary>
+	/// Select an instance
+	/// </summary>
 	[ScriptMethod]
 	public void Select(Instance instance)
 	{
@@ -92,6 +105,9 @@ public sealed partial class CreatorSelections : Instance
 		}
 	}
 
+	/// <summary>
+	/// Select all children of the instance
+	/// </summary>
 	[ScriptMethod]
 	public void SelectChild(Instance instance)
 	{
@@ -101,6 +117,9 @@ public sealed partial class CreatorSelections : Instance
 		}
 	}
 
+	/// <summary>
+	/// Get all selected instances
+	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetSelected()
 	{
@@ -133,6 +152,9 @@ public sealed partial class CreatorSelections : Instance
 		}
 	}
 
+	/// <summary>
+	/// Deselect the instance
+	/// </summary>
 	[ScriptMethod]
 	public void Deselect(Instance instance)
 	{
@@ -164,6 +186,9 @@ public sealed partial class CreatorSelections : Instance
 		Deselected.Invoke(instance);
 	}
 
+	/// <summary>
+	/// Deselect all, then select the instance
+	/// </summary>
 	[ScriptMethod]
 	public void SelectOnly(Instance instance)
 	{
@@ -171,6 +196,9 @@ public sealed partial class CreatorSelections : Instance
 		Select(instance);
 	}
 
+	/// <summary>
+	/// Deselect all instances
+	/// </summary>
 	[ScriptMethod]
 	public void DeselectAll()
 	{
@@ -348,6 +376,9 @@ public sealed partial class CreatorSelections : Instance
 		Root.CreatorContext.History.ToggleLockedDynamics([.. dyns]);
 	}
 
+	/// <summary>
+	/// Check if instance has been selected
+	/// </summary>
 	[ScriptMethod]
 	public bool HasSelected(Instance instance) => SelectedInstances.Contains(instance);
 

@@ -7,7 +7,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIVFlow is a class that aligns all of it's children vertically and wraps them around at the borders.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIVFlow : UIFlowLayout
 {
 	public override Node CreateGDNode()

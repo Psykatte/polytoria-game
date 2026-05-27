@@ -10,11 +10,18 @@ using System;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// NumberRange is a data type that represents a range between two numbers, defined by a minimum and maximum value.
+/// </summary>
+[DocCategory("types")]
 public struct NumberRange : IScriptObject, IData
 {
 	private float _min = 0;
 	private float _max = 0;
 
+	/// <summary>
+	/// Determines the minimum value of the range.
+	/// </summary>
 	[ScriptProperty]
 	public float Min
 	{
@@ -29,6 +36,9 @@ public struct NumberRange : IScriptObject, IData
 		}
 	}
 
+	/// <summary>
+	/// Determines the maximum value of the range.
+	/// </summary>
 	[ScriptProperty]
 	public float Max
 	{
@@ -45,12 +55,18 @@ public struct NumberRange : IScriptObject, IData
 
 	public NumberRange() { }
 
+	/// <summary>
+	/// Creates a new NumberRange object with the specified minimum and maximum values.
+	/// </summary>
 	[ScriptMethod]
 	public static NumberRange New(float from, float to)
 	{
 		return new() { Min = from, Max = to };
 	}
 
+	/// <summary>
+	/// Linearly interpolates between the minimum and maximum values of the range based on the parameter t, which is typically between 0 and 1.
+	/// </summary>
 	[ScriptMethod]
 	public readonly float Lerp(float t)
 	{

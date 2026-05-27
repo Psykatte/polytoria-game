@@ -14,7 +14,11 @@ using Polytoria.Creator.Spatial;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Sounds are objects that can be placed in the world and play audio.
+/// </summary>
 [Instantiable]
+[DocCategory("elements")]
 public sealed partial class Sound : Dynamic
 {
 	public const float SoundDistanceMultipler = 1.25f;
@@ -38,6 +42,9 @@ public sealed partial class Sound : Dynamic
 
 	private AudioStream? _currentStream;
 
+	/// <summary>
+	/// The audio asset to be played by the sound.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public AudioAsset? Audio
 	{
@@ -86,6 +93,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The volume level of the sound.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Volume
 	{
@@ -98,6 +108,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The pitch level of the sound.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Pitch
 	{
@@ -110,6 +123,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the sound should start playing automatically when loaded.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Autoplay
 	{
@@ -121,6 +137,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the sound should loop when it reaches the end.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Loop
 	{
@@ -146,6 +165,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the sound should be played in the 3D world space.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool PlayInWorld
 	{
@@ -158,6 +180,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the sound should be paused
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Paused
 	{
@@ -171,6 +196,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The maximum distance at which the sound can be heard.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float MaxDistance
 	{
@@ -182,6 +210,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Indicates the current playback position of the sound in seconds.
+	/// </summary>
 	[ScriptProperty]
 	public float Time
 	{
@@ -198,14 +229,26 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Indicates whether the sound is currently playing.
+	/// </summary>
 	[ScriptProperty] public bool Playing { get; private set; } = false;
+	/// <summary>
+	/// Indicates whether the sound is currently loading.
+	/// </summary>
 	[ScriptProperty] public bool Loading { get; private set; } = false;
 
+	/// <summary>
+	/// The total length of the sound in seconds.
+	/// </summary>
 	[ScriptProperty]
 	public float Length => _audioPlayer != null
 				? (float)_audioPlayer.Stream.GetLength()
 				: _audioPlayer3D != null ? (float)_audioPlayer3D.Stream.GetLength() : 0;
 
+	/// <summary>
+	/// Fires when this sound has loaded
+	/// </summary>
 	[ScriptProperty] public PTSignal Loaded { get; private set; } = new();
 	[ScriptProperty] public PTSignal Finished { get; private set; } = new();
 
@@ -320,6 +363,9 @@ public sealed partial class Sound : Dynamic
 		Finished.Invoke();
 	}
 
+	/// <summary>
+	/// Starts playing the sound.
+	/// </summary>
 	[ScriptMethod]
 	public void Play()
 	{
@@ -336,6 +382,9 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Plays the sound once at the specified volume without affecting the current playback.
+	/// </summary>
 	[ScriptMethod]
 	public void PlayOneShot(float volume = 1f)
 	{
@@ -347,12 +396,18 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Pause the sound if it is currently playing.
+	/// </summary>
 	[ScriptMethod]
 	public void Pause()
 	{
 		Paused = true;
 	}
 
+	/// <summary>
+	/// Stops the sound if it is currently playing.
+	/// </summary>
 	[ScriptMethod]
 	public void Stop()
 	{

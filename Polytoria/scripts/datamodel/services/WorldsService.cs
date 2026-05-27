@@ -15,14 +15,24 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// \!! WIP Class, WorldsService is a service that is used to join players to other worlds. This class is currently unavailable in public servers. **This is not recommended for use at this time.**
+/// </summary>
 [Static("Worlds")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class WorldsService : Instance
 {
 	private const string WorldAPINonServerMsg = "Worlds API can only be called on server";
 	private readonly Dictionary<string, MessageNewServerResponse> _testServers = [];
 
+	/// <summary>
+	/// Request a new server with data
+	/// </summary>
+	/// <summary>
+	/// Request a new server with data
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string?> NewServerAsync(string worldPath)
 	{
@@ -81,6 +91,9 @@ public sealed partial class WorldsService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Join a player to a private server of the specified world
+	/// </summary>
 	[ScriptMethod]
 	public async Task JoinPrivateAsync(Player plr, string accessID)
 	{
@@ -104,6 +117,9 @@ public sealed partial class WorldsService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Join a party of player to a private server of the specified world
+	/// </summary>
 	[ScriptMethod]
 	public async Task JoinPrivatePartyAsync(Player[] players, string accessID)
 	{

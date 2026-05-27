@@ -6,5 +6,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UIFlowLayout is a class that aligns all of it's children horizontally or vertically and wraps them around at the borders.
+/// </summary>
 [Abstract]
+[DocCategory("ui")]
 public partial class UIFlowLayout : UIHVLayout { }

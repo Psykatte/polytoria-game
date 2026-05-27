@@ -11,7 +11,11 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// NetworkEvents are events that can be called to communicate between server and client. NetMessages are the class used for sharing data between server and client when sending NetworkEvents.
+/// </summary>
 [Instantiable]
+[DocCategory("networking")]
 public sealed partial class NetworkEvent : Instance
 {
 	private bool _reliable;
@@ -19,10 +23,13 @@ public sealed partial class NetworkEvent : Instance
 	/// <summary>
 	/// Fires when the server receives a message from the client.
 	/// </summary>
+	/// <param name="sender" type="Player"></param>
+	/// <param name="msg" type="NetMessage"></param>
 	[ScriptProperty] public PTSignal<Player, NetMessage> InvokedServer { get; private set; } = new();
 	/// <summary>
 	/// Fires when the client receives a message from the server.
 	/// </summary>
+	/// <param name="msg" type="NetMessage"></param>
 	[ScriptProperty] public PTSignal<NetMessage> InvokedClient { get; private set; } = new();
 
 	/// <summary>

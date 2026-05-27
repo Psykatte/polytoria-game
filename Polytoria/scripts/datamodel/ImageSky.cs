@@ -11,7 +11,11 @@ using Obsolete = Polytoria.Attributes.ObsoleteAttribute;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ImageSky is a class that is used to set a custom image skybox in the world. You can set the images used for the individual sides of the skybox by changing the image properties. Any image from the library can be used for the skybox.
+/// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class ImageSky : Sky
 {
 	private readonly Texture2D _empty = GD.Load<Texture2D>("res://assets/textures/empty.png");
@@ -32,6 +36,9 @@ public sealed partial class ImageSky : Sky
 	private ImageAsset? _backImage;
 	private TextureFilterEnum _textureFilter = TextureFilterEnum.Linear;
 
+	/// <summary>
+	/// The image of the top side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? TopImage
 	{
@@ -62,6 +69,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The image of the bottom side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? BottomImage
 	{
@@ -92,6 +102,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The image of the left side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? LeftImage
 	{
@@ -122,6 +135,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The image of the right side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? RightImage
 	{
@@ -152,6 +168,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The image of the front side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? FrontImage
 	{
@@ -182,6 +201,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The image of the back side of the skybox.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? BackImage
 	{

@@ -13,6 +13,7 @@ namespace Polytoria.Datamodel.Resources;
 /// Base class for asset that is based on Resource
 /// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class ResourceAsset : BaseAsset
 {
 	private bool _queueLoadResource = false;

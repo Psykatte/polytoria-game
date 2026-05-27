@@ -16,7 +16,11 @@ using System.Runtime.CompilerServices;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Physical represents an object affected by physics in the world.
+/// </summary>
 [Abstract]
+[DocCategory("physics")]
 public partial class Physical : Dynamic
 {
 	public const float MinMass = 0.01f;
@@ -59,10 +63,28 @@ public partial class Physical : Dynamic
 	public List<CollisionShape3D> CollisionRootShapes = [];
 	private readonly HashSet<CollisionShape3D> _pendingAreaShapes = [];
 
+	/// <summary>
+	/// Fires when this object has collide with other object
+	/// </summary>
+	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> Touched { get; private set; } = new();
+	/// <summary>
+	/// Fires when this object has stopped colliding with other object
+	/// </summary>
+	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> TouchEnded { get; private set; } = new();
+	/// <summary>
+	/// Fires when cursor is hovered on this object. Only fired locally
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseEnter { get; private set; } = new();
+	/// <summary>
+	/// Fires when cursor leaves this object. Only fired locally
+	/// </summary>
 	[ScriptProperty] public PTSignal MouseExit { get; private set; } = new();
+	/// <summary>
+	/// Fires when this object has been clicked by a player
+	/// </summary>
+	/// <param name="player" type="Player"></param>
 	[ScriptProperty] public PTSignal<Player> Clicked { get; private set; } = new();
 
 	public event Action<CollisionShape3D>? CollisionShapeAdded;
@@ -86,6 +108,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether this object is affected by physics.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public virtual bool Anchored
 	{
@@ -109,6 +134,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether this object can collide with other objects.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public virtual bool CanCollide
 	{
@@ -278,6 +306,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the linear velocity of this object.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public virtual Vector3 Velocity
 	{
@@ -310,6 +341,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the angular velocity of this object.
+	/// </summary>
 	[Editable, ScriptProperty, SyncVar(Unreliable = true, AllowAuthorWrite = true)]
 	public virtual Vector3 AngularVelocity
 	{
@@ -591,6 +625,9 @@ public partial class Physical : Dynamic
 		base.PhysicsProcess(delta);
 	}
 
+	/// <summary>
+	/// Sets the network authority of this object to the specified player.
+	/// </summary>
 	[ScriptMethod]
 	public void SetNetworkAuthority(Player? plr)
 	{
@@ -1165,6 +1202,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Get all objects that's currently in contact with this object.
+	/// </summary>
 	[ScriptMethod]
 	public void SetCollisionLayer(int layer, bool value)
 	{
@@ -1210,18 +1250,27 @@ public partial class Physical : Dynamic
 		return [.. phys];
 	}
 
+	/// <summary>
+	/// Moves the part to the specified position while keeping physics in mind.
+	/// </summary>
 	[ScriptMethod]
 	public void MovePosition(Vector3 position)
 	{
 		Position += position;
 	}
 
+	/// <summary>
+	/// Rotates the part while keeping physics in mind.
+	/// </summary>
 	[ScriptMethod]
 	public void MoveRotation(Vector3 rotation)
 	{
 		Rotation += rotation;
 	}
 
+	/// <summary>
+	/// Add force to this physical
+	/// </summary>
 	[ScriptMethod]
 	public void AddForce(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
 	{
@@ -1230,6 +1279,9 @@ public partial class Physical : Dynamic
 
 	internal virtual void ApplyAddForce(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
+	/// <summary>
+	/// Add torque to this physical
+	/// </summary>
 	[ScriptMethod]
 	public void AddTorque(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
 	{
@@ -1238,6 +1290,9 @@ public partial class Physical : Dynamic
 
 	internal virtual void ApplyAddTorque(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
+	/// <summary>
+	/// Add force at position to this physical
+	/// </summary>
 	[ScriptMethod]
 	public void AddForceAtPosition(Vector3 force, Vector3 position, ForceModeEnum mode = ForceModeEnum.Force)
 	{
@@ -1246,6 +1301,9 @@ public partial class Physical : Dynamic
 
 	internal virtual void ApplyAddForceAtPosition(Vector3 force, Vector3 position, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
+	/// <summary>
+	/// Add relative force to this physical
+	/// </summary>
 	[ScriptMethod]
 	public void AddRelativeForce(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
 	{
@@ -1254,6 +1312,9 @@ public partial class Physical : Dynamic
 
 	internal virtual void ApplyAddRelativeForce(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
+	/// <summary>
+	/// Add relative torque to this physical
+	/// </summary>
 	[ScriptMethod]
 	public void AddRelativeTorque(Vector3 torque, ForceModeEnum mode = ForceModeEnum.Force)
 	{

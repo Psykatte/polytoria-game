@@ -7,7 +7,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ProceduralSky is a type of sky that generates its appearance procedurally based on the position of the sun and its properties.
+/// </summary>
 [Instantiable]
+[DocCategory("lighting")]
 public sealed partial class ProceduralSky : Sky
 {
 	private ProceduralSkyMaterial _mat = null!;
@@ -20,6 +24,9 @@ public sealed partial class ProceduralSky : Sky
 
 	private const float SunSizeConversion = 750;
 
+	/// <summary>
+	/// The size of the sun in the sky.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float SunSize
 	{
@@ -32,6 +39,9 @@ public sealed partial class ProceduralSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The tint color of the sky.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color SkyTint
 	{
@@ -44,6 +54,9 @@ public sealed partial class ProceduralSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The color of the horizon in the sky.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color HorizonColor
 	{
@@ -58,6 +71,9 @@ public sealed partial class ProceduralSky : Sky
 	}
 
 
+	/// <summary>
+	/// The color of the ground in the sky.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color GroundColor
 	{
@@ -70,6 +86,9 @@ public sealed partial class ProceduralSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// The exposure level of the sky.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Exposure
 	{

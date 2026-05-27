@@ -11,17 +11,33 @@ using Polytoria.Enums;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// PreferencesService is a service that allows scripts to access some of the user preferences
+/// </summary>
 [Static("Preferences")]
 [ExplorerExclude]
 [SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PreferencesService : Instance
 {
+	/// <summary>
+	/// Fired when a user preference setting is changed.
+	/// </summary>
+	/// <param name="settingName" type="string"></param>
+	/// <param name="setTo" type="any"></param>
 	[ScriptProperty] public PTSignal<string, object> SettingChanged { get; private set; } = new();
+
 	[ScriptProperty] public float CameraSensitivity => ClientSettingsService.Instance.Get<float>(ClientSettingKeys.General.CameraSensitivity);
 	[ScriptProperty] public float UiScale => ClientSettingsService.Instance.Get<float>(ClientSettingKeys.Display.UiScale);
 
+	/// <summary>
+	/// Determines whether the player has photo mode enabled.
+	/// </summary>
 	[ScriptLegacyProperty("UsePhotoMode")] public static bool LegacyUsePhotoMode => ClientSettingsService.Instance.Get<GraphicsPreset>(SharedSettingKeys.Graphics.Preset) == GraphicsPreset.Photo;
 	// We might want to check if all the post processing is enabled rather than just one.
+	/// <summary>
+	/// Determines whether the player has post-processing effects enabled.
+	/// </summary>
 	[ScriptLegacyProperty("UsePostProcessing")] public static bool UsePostProcessing => ClientSettingsService.Instance.Get<bool>(SharedSettingKeys.PostProcessing.Glow) == true;
 
 	private static readonly Dictionary<string, Type> SettingEnumTypes = new()

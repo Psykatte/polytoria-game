@@ -16,7 +16,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Service for managing achievements
+/// </summary>
 [Static("Achievements")]
+[DocCategory("services")]
 public sealed partial class AchievementsService : Instance
 {
 	private const int MaxRequestsPerMinute = 30;
@@ -30,8 +34,15 @@ public sealed partial class AchievementsService : Instance
 	private int _requestsThisMinute = 0;
 	private int _currentMinute = 0;
 
+	/// <summary>
+	/// Fires when the local player got an achievement
+	/// </summary>
+	/// <param name="achievementID" type="number"></param>
 	[ScriptProperty] public PTSignal<int> GotAchievement { get; private set; } = new();
 
+	/// <summary>
+	/// Determine if the achievement sound effect should play when user receives an achievement
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseAchievementSound
 	{
@@ -43,6 +54,9 @@ public sealed partial class AchievementsService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Determine if achievement toast should show when user receives an achievement
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool NotifyAchievements
 	{
@@ -89,6 +103,9 @@ public sealed partial class AchievementsService : Instance
 		});
 	}
 
+	/// <summary>
+	/// Award achievement to the target user asynchronously.
+	/// </summary>
 	[ScriptMethod]
 	public async Task AwardAsync(int userID, int achievementID)
 	{
@@ -141,6 +158,9 @@ public sealed partial class AchievementsService : Instance
 		});
 	}
 
+	/// <summary>
+	/// Check if the target user has the achievement, asynchronously.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<bool> HasAchievementAsync(int userID, int achievementID)
 	{

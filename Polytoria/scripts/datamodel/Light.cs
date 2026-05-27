@@ -15,7 +15,11 @@ using Polytoria.Creator.Spatial;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Light is an abstract base class for all light objects in the world.
+/// </summary>
 [Abstract]
+[DocCategory("misc")]
 public partial class Light : Dynamic
 {
 	const float IntensityConversion = 4f;
@@ -47,6 +51,9 @@ public partial class Light : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Sets the color of the light.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -59,6 +66,9 @@ public partial class Light : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Sets the brightness of the light.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Brightness
 	{
@@ -83,6 +93,9 @@ public partial class Light : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Sets the specular intensity of the light.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Specular
 	{
@@ -95,6 +108,9 @@ public partial class Light : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Enables or disables shadows cast by the light.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Shadows
 	{

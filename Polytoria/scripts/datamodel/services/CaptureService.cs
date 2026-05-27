@@ -14,7 +14,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Service for capturing photos
+/// </summary>
 [Static("Capture")]
+[DocCategory("services")]
 public sealed partial class CaptureService : Instance
 {
 	private const int CaptureCooldownSec = 3;
@@ -26,9 +30,21 @@ public sealed partial class CaptureService : Instance
 	public ImageTexture? CurrentPhoto = null;
 	public string? CurrentPhotoPath = null;
 
+	/// <summary>
+	/// Returns whether the capture is on cooldown.
+	/// </summary>
 	[ScriptProperty] public bool OnCooldown => _debounce;
+	/// <summary>
+	/// Determines if user/scripts can take a picture.
+	/// </summary>
 	[Editable, ScriptProperty] public bool CanCapture { get; set; } = true;
+	/// <summary>
+	/// Default capture overlay for all captures
+	/// </summary>
 	[ScriptProperty] public UIField? DefaultCaptureOverlay { get; set; } = null;
+	/// <summary>
+	/// Attaches a spectator camera at dynamic for use with spectator mode.
+	/// </summary>
 	[ScriptProperty] public Dynamic? SpectatorAttach { get; set; } = null;
 	internal static ICapturePublisher? CapturePublisher { get; set; }
 
@@ -156,12 +172,18 @@ public sealed partial class CaptureService : Instance
 		OS.ShellOpen(CurrentPhotoPath);
 	}
 
+	/// <summary>
+	/// Take a photo at dynamic
+	/// </summary>
 	[ScriptMethod]
 	public Task TakePhotoAtDynamic(Dynamic dyn, Vector2? photoSize = null, UIField? overlay = null)
 	{
 		return TakePhotoAt(dyn.Position, dyn.Rotation, photoSize, overlay);
 	}
 
+	/// <summary>
+	/// Take photo at <c>pos</c> for position and <c>rot</c> for rotation, optional <c>photoSize</c> defines the size, and optional UI <c>overlay</c> can be passed to include it in the result photo.
+	/// </summary>
 	[ScriptMethod]
 	public async Task TakePhotoAt(Vector3 pos, Vector3 rot, Vector2? photoSize = null, UIField? overlay = null)
 	{

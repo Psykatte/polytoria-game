@@ -7,9 +7,16 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ValueBase is an abstract base class for objects that hold a value.
+/// </summary>
 [Abstract]
+[DocCategory("values")]
 public partial class ValueBase : Instance
 {
+	/// <summary>
+	/// Fires when value has been changed
+	/// </summary>
 	[ScriptProperty]
 	public PTSignal Changed { get; private set; } = new();
 

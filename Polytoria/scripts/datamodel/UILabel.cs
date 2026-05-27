@@ -9,7 +9,11 @@ using Polytoria.Enums;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// UILabel is a class that can be used to display text.
+/// </summary>
 [Instantiable]
+[DocCategory("ui")]
 public partial class UILabel : UIView
 {
 	private readonly Label _label = new();
@@ -31,6 +35,9 @@ public partial class UILabel : UIView
 
 	public const float FontScaleConversion = 1.35f;
 
+	/// <summary>
+	/// The text of the label.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public string Text
 	{
@@ -45,6 +52,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// The color of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color TextColor
 	{
@@ -58,6 +68,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// The width of the text outline.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float OutlineWidth
 	{
@@ -71,6 +84,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// The color of the text outline.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color OutlineColor
 	{
@@ -84,6 +100,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determines the horizontal alignment of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextHorizontalAlignmentEnum HorizontalAlignment
 	{
@@ -110,6 +129,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determines the vertical alignment of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextVerticalAlignmentEnum VerticalAlignment
 	{
@@ -137,6 +159,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// The font size of the text.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float FontSize
 	{
@@ -170,6 +195,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the text uses rich text formatting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseRichText
 	{
@@ -183,6 +211,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// The font asset used for the text.
+	/// </summary>
 	[Editable, ScriptProperty, Export]
 	public FontAsset? FontAsset
 	{
@@ -227,6 +258,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// Text trimming mode for this label.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(TextTrimmingEnum.None)]
 	public TextTrimmingEnum TextTrimming
 	{
@@ -247,6 +281,9 @@ public partial class UILabel : UIView
 		}
 	}
 
+	/// <summary>
+	/// Determines if the text should be wrapped at borders.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool TextWrapped
 	{

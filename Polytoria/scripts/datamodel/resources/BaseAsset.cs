@@ -10,7 +10,11 @@ using System.Linq;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// Base class for all assets
+/// </summary>
 [Abstract]
+[DocCategory("assets")]
 public partial class BaseAsset : NetworkedObject
 {
 	private const int DeleteTimeoutSec = 60;

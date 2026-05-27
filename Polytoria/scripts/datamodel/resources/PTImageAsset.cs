@@ -8,12 +8,19 @@ using System;
 
 namespace Polytoria.Datamodel.Resources;
 
+/// <summary>
+/// An image asset that's loaded from Polytoria.
+/// </summary>
 [Instantiable]
+[DocCategory("assets")]
 public partial class PTImageAsset : ImageAsset
 {
 	private uint _imageID;
 	private ImageTypeEnum _imageType;
 
+	/// <summary>
+	/// Asset ID of this image
+	/// </summary>
 	[Editable, ScriptProperty]
 	public uint ImageID
 	{
@@ -26,6 +33,9 @@ public partial class PTImageAsset : ImageAsset
 		}
 	}
 
+	/// <summary>
+	/// Image type of this image
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageTypeEnum ImageType
 	{

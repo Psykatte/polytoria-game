@@ -10,7 +10,11 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Base class for Character Models
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class CharacterModel : Dynamic
 {
 	private CharacterModelStateEnum _currentState = CharacterModelStateEnum.Idle;
@@ -37,6 +41,9 @@ public partial class CharacterModel : Dynamic
 		LookY,
 	}
 
+	/// <summary>
+	/// Current state of this character.
+	/// </summary>
 	[ScriptProperty, SyncVar(AllowAuthorWrite = true)]
 	public CharacterModelStateEnum CurrentState
 	{
@@ -48,6 +55,9 @@ public partial class CharacterModel : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Current state animation speed of this character.
+	/// </summary>
 	[ScriptProperty, SyncVar(AllowAuthorWrite = true, Unreliable = true)]
 	public float CurrentSpeed
 	{
@@ -60,6 +70,9 @@ public partial class CharacterModel : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The animator for this character
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Animator? Animator
 	{
@@ -165,6 +178,9 @@ public partial class CharacterModel : Dynamic
 	public virtual void RecvBlendValue(CharacterModelBlendEnum blendName, float blendValue) { }
 	public virtual void RecvSpeedValue(float speedValue) { }
 
+	/// <summary>
+	/// Get attachment dynamic from this character
+	/// </summary>
 	[ScriptMethod]
 	public virtual Dynamic GetAttachment(CharacterAttachmentEnum attachmentEnum)
 	{

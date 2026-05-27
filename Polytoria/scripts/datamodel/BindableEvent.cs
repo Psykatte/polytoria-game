@@ -7,11 +7,22 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// BindableEvent is an event that can be called to communicate between scripts in the same boundary.
+/// </summary>
 [Instantiable]
+[DocCategory("networking")]
 public sealed partial class BindableEvent : Instance
 {
+	/// <summary>
+	/// Fires when this event has been invoked
+	/// </summary>
+	/// <param name="..." type="any"></param>
 	[ScriptProperty] public PTSignal Invoked { get; private set; } = new();
 
+	/// <summary>
+	/// Invoke this event with parameters
+	/// </summary>
 	[ScriptMethod]
 	public void Invoke(params object?[] par)
 	{

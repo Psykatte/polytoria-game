@@ -9,6 +9,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace Polytoria.Scripting;
 
+/// <summary>
+/// A function that expects a return value. This will sometimes be referred as <c>function</c>
+/// </summary>
+[DocCategory("scripting")]
 public class PTFunction(Func<object?[], Task<object?[]>> target) : IScriptObject
 {
 	public Func<object?[], Task<object?[]>> _targetAction = target;

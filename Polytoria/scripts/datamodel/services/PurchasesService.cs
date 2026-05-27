@@ -20,7 +20,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Service responsible for handling in-game purchases and ownership verification.
+/// </summary>
 [Static("Purchases"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class PurchasesService : Instance
 {
 	private readonly PTHttpClient _client = new();
@@ -73,6 +77,9 @@ public sealed partial class PurchasesService : Instance
 		base.Process(delta);
 	}
 
+	/// <summary>
+	/// Prompt the purchase prompt to player
+	/// </summary>
 	[ScriptMethod]
 	public async Task<bool> PromptAsync(Player player, int assetID)
 	{
@@ -114,6 +121,9 @@ public sealed partial class PurchasesService : Instance
 		});
 	}
 
+	/// <summary>
+	/// Checks asynchronously if the specified player owns the asset with the given asset ID.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<bool> OwnsItemAsync(Player player, int assetID)
 	{

@@ -17,7 +17,11 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Chat is a static class used for various actions regarding the chat.
+/// </summary>
 [Static("Chat"), ExplorerExclude, SaveIgnore]
+[DocCategory("services")]
 public sealed partial class ChatService : Instance
 {
 	private const int AllowedMessagePerWindow = 5;
@@ -27,12 +31,15 @@ public sealed partial class ChatService : Instance
 	/// <summary>
 	/// Fire when there's new chat message from player
 	/// </summary>
+	/// <param name="sender" type="Player"></param>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<Player, string> NewChatMessage { get; private set; } = new();
 
 	/// <summary>
 	/// Fire when there's new message from broadcast/unicast
 	/// </summary>
+	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> MessageReceived { get; private set; } = new();
 
@@ -187,6 +194,9 @@ public sealed partial class ChatService : Instance
 		MessageReceived.Invoke(FormatEmojis(msgContent));
 	}
 
+	/// <summary>
+	/// Sends a chat message to all players.
+	/// </summary>
 	[ScriptMethod]
 	public void BroadcastMessage(string msg)
 	{
@@ -196,6 +206,9 @@ public sealed partial class ChatService : Instance
 			Rpc(nameof(NetRecvBroadcastMessage), formatted);
 	}
 
+	/// <summary>
+	/// Sends a chat message to a specific player.
+	/// </summary>
 	[ScriptMethod]
 	public void UnicastMessage(string msg, Player plr)
 	{

@@ -11,7 +11,11 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Image3D are objects that can have an image texture and are placed in the world.
+/// </summary>
 [Instantiable]
+[DocCategory("world")]
 public sealed partial class Image3D : Dynamic
 {
 	private ImageAsset? _asset;
@@ -32,6 +36,9 @@ public sealed partial class Image3D : Dynamic
 	private bool _doubleSided;
 	private TextureFilterEnum _textureFilter;
 
+	/// <summary>
+	/// Specifies the image of the Image3D.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? Image
 	{
@@ -88,6 +95,9 @@ public sealed partial class Image3D : Dynamic
 	}
 
 
+	/// <summary>
+	/// The scale of the texture on the Image3D.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 TextureScale
 	{
@@ -100,6 +110,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The offset of the texture on the Image3D.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 TextureOffset
 	{
@@ -112,6 +125,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the color of the Image3D.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -125,6 +141,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not the Image3D should cast shadows.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool CastShadows
 	{
@@ -138,6 +157,9 @@ public sealed partial class Image3D : Dynamic
 	}
 
 
+	/// <summary>
+	/// Determines whether or not the Image3D should be affected by lighting.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool Shaded
 	{
@@ -150,6 +172,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether or not the Image3D should always face the camera.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool FaceCamera
 	{
@@ -174,6 +199,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the texture filter mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(TextureFilterEnum.Linear)]
 	public TextureFilterEnum TextureFilter
 	{

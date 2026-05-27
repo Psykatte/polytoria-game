@@ -8,12 +8,19 @@ using System.Collections.Generic;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Team is an object that represents a player team to which players can be assigned.
+/// </summary>
 [Instantiable]
+[DocCategory("game")]
 public partial class Team : Instance
 {
 	private string _displayName = "";
 	private Color _color = new(1, 0, 0);
 
+	/// <summary>
+	/// Display name for this team
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("")]
 	public string DisplayName
 	{
@@ -25,6 +32,9 @@ public partial class Team : Instance
 		}
 	}
 
+	/// <summary>
+	/// Color for this team
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -36,12 +46,18 @@ public partial class Team : Instance
 		}
 	}
 
+	/// <summary>
+	/// Returns the display name of the team. If DisplayName is specified, it returns DisplayName; otherwise, it returns Name.
+	/// </summary>
 	[ScriptMethod]
 	public string GetDisplayName()
 	{
 		return _displayName == string.Empty ? Name : _displayName;
 	}
 
+	/// <summary>
+	/// Get all players assigned to this team.
+	/// </summary>
 	[ScriptMethod]
 	public Player[] GetPlayers()
 	{

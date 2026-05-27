@@ -8,7 +8,11 @@ using Polytoria.Client.UI;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// PlayerGUI is a class that contains all custom GUIs.
+/// </summary>
 [Static("PlayerGUI")]
+[DocCategory("game")]
 public partial class PlayerGUI : Instance
 {
 	private const string TouchControlsPath = "res://scenes/client/ui/touch_controls.tscn";

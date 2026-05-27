@@ -15,7 +15,11 @@ using Polytoria.Creator.Spatial;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Particles represents a particle system that can be used to create various visual effects.
+/// </summary>
 [Instantiable]
+[DocCategory("effects")]
 public sealed partial class Particles : Dynamic
 {
 	private const double AabbUpdateIntervalSec = 3;
@@ -47,6 +51,9 @@ public sealed partial class Particles : Dynamic
 	private Godot.Mesh _mesh = null!;
 	private StandardMaterial3D _material = null!;
 
+	/// <summary>
+	/// Determines if particles should be emitting.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Playing
 	{
@@ -58,6 +65,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The image used for the particles.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? Image
 	{
@@ -88,6 +98,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the texture filter mode.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(TextureFilterEnum.Linear)]
 	public TextureFilterEnum TextureFilter
 	{
@@ -107,6 +120,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The color gradient used for the particles.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ColorSeries Color
 	{
@@ -120,6 +136,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the lifetime of a particle.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange Lifetime
 	{
@@ -138,6 +157,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the number of particles emitted.
+	/// </summary>
 	[Editable, ScriptProperty, ScriptLegacyProperty("MaxParticles")]
 	public int Amount
 	{
@@ -150,6 +172,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the gravity effect applied to the particles.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 Gravity
 	{
@@ -163,6 +188,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the velocity direction
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 VelocityDirection
 	{
@@ -177,6 +205,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the initial velocity
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange InitialVelocity
 	{
@@ -192,6 +223,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the starting rotation.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange StartRotation
 	{
@@ -207,6 +241,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the spread angle of the velocity
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Spread
 	{
@@ -221,6 +258,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines how flat the spread angle should be
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Flatness
 	{
@@ -235,6 +275,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determine the initial scale range
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange Scale
 	{
@@ -250,6 +293,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determine the hue variation
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange HueVariation
 	{
@@ -265,6 +311,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the blend mode of the particle.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public BlendModeEnum BlendMode
 	{
@@ -284,6 +333,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the particles are shaded.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Shaded
 	{
@@ -296,6 +348,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the emission shape of this particle
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ParticleEmissionShapeEnum EmissionShape
 	{
@@ -317,6 +372,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the emission shape's scale
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 EmissionShapeScale
 	{
@@ -330,6 +388,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Whether the particles are simulated in world or local space.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ParticleSimulationSpaceEnum SimulationSpace
 	{
@@ -342,6 +403,9 @@ public sealed partial class Particles : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines the orientation mode of this particle.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ParticleOrientationEnum Orientation
 	{
@@ -434,6 +498,9 @@ public sealed partial class Particles : Dynamic
 			_particles.VisibilityAabb = new Aabb(captured.Position - captured.Size * 0.5f, captured.Size * 2f);
 	}
 
+	/// <summary>
+	/// Starts playing the particle system.
+	/// </summary>
 	[ScriptMethod]
 	public void Play()
 	{
@@ -444,12 +511,18 @@ public sealed partial class Particles : Dynamic
 	[ScriptLegacyMethod("Pause")]
 	public static void LegacyPause() { }
 
+	/// <summary>
+	/// Stops playing the particle system.
+	/// </summary>
 	[ScriptMethod]
 	public void Stop()
 	{
 		Playing = false;
 	}
 
+	/// <summary>
+	/// Emits a specified number of particles immediately.
+	/// </summary>
 	[ScriptMethod]
 	public void Emit(int count)
 	{

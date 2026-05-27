@@ -6,7 +6,11 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// ServerScript is a script that runs on the server.
+/// </summary>
 [Instantiable]
+[DocCategory("scripting")]
 public sealed partial class ServerScript : Script
 {
 	public override void Init()

@@ -6,11 +6,18 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// NumberValue is an object that holds a number value.
+/// </summary>
 [Instantiable]
+[DocCategory("values")]
 public partial class NumberValue : ValueBase
 {
 	private float _val = 0;
 
+	/// <summary>
+	/// The value of this object.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float Value
 	{
