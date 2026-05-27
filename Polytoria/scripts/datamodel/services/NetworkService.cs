@@ -978,7 +978,7 @@ public sealed partial class NetworkService : Instance
 		[JsonInclude]
 		public string NetID = null!;
 		[JsonInclude]
-		public float[] Value = null!;
+		public byte[] Value = null!;
 	}
 
 	[MemoryPackable]
@@ -1015,6 +1015,8 @@ public sealed partial class NetworkService : Instance
 	[JsonSerializable(typeof(Vector3Dto))]
 	[JsonSerializable(typeof(ColorDto))]
 	[JsonSerializable(typeof(Transform3DDto))]
+	[JsonSerializable(typeof(UnitQuaternionDto))]
+	[JsonSerializable(typeof(TransformPayloadDto))]
 
 	[JsonSerializable(typeof(NetPropNetworkedObjectRef))]
 	[JsonSerializable(typeof(NetPropReplicateData))]

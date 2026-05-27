@@ -20,6 +20,11 @@ public sealed partial class Camera : Dynamic
 	public const float ClipSafeMargin = 2.0f;
 	public const float DefaultZoomDistance = 10.0f;
 	public const float DefaultScrollSensitivity = 15.0f;
+	private const float TrackpadPinchZoomSensitivity = 0.75f;
+	private const float TrackpadPanSensitivity = 10.0f;
+
+	// override default +Z forward orientation as that would be incorrect for the camera
+	[ScriptProperty] new public Vector3 Forward => -GetGlobalTransform().Basis.Z.Normalized();
 
 	private CameraModeEnum _mode;
 	private float _fov;
@@ -41,6 +46,9 @@ public sealed partial class Camera : Dynamic
 	private bool _followLerp = false;
 	private bool _ctrlLocked = false;
 	private bool _alwaysLocked = false;
+
+	private float _near;
+	private float _far;
 
 	private float _moveSpeed = 8f;
 	private readonly float _rotateSpeed = 0.005f;
@@ -183,6 +191,28 @@ public sealed partial class Camera : Dynamic
 		{
 			_orthographicSize = value;
 			Camera3D.Size = value;
+			OnPropertyChanged();
+		}
+	}
+
+	[Editable, ScriptProperty, DefaultValue(0.05f)]
+	public float Near
+	{
+		get => _near;
+		set
+		{
+			_near = Camera3D.Near = value;
+			OnPropertyChanged();
+		}
+	}
+
+	[Editable, ScriptProperty, DefaultValue(4000f)]
+	public float Far
+	{
+		get => _far;
+		set
+		{
+			_far = Camera3D.Far = value;
 			OnPropertyChanged();
 		}
 	}
@@ -482,7 +512,7 @@ public sealed partial class Camera : Dynamic
 				query.HitFromInside = false;
 
 				// Fliter only clipping layers
-				query.CollisionMask = 1 << 5;
+				query.CollisionMask = Entity.CameraClipCollisionLayerMask;
 
 				Dictionary? result = spaceState.IntersectRay(query);
 
@@ -685,6 +715,14 @@ public sealed partial class Camera : Dynamic
 				}
 			}
 		}
+		else if (@event is InputEventMagnifyGesture magnifyGesture)
+		{
+			ZoomByMagnifyGesture(magnifyGesture);
+		}
+		else if (@event is InputEventPanGesture panGesture)
+		{
+			RotateByPanGesture(panGesture);
+		}
 
 		if (Mode == CameraModeEnum.Scripted) return;
 
@@ -715,9 +753,7 @@ public sealed partial class Camera : Dynamic
 			if (Root.Input.IsTouchscreen) return;
 			if (_turning)
 			{
-				_targetRotation += new Vector3(mouseEvent.Relative.Y / -5 * VerticalSpeed * 0.02f, mouseEvent.Relative.X / -5 * HorizontalSpeed * 0.02f, 0) * Sensitivity;
-
-				LimitRotation();
+				RotateCamera(mouseEvent.Relative);
 			}
 		}
 
@@ -821,6 +857,38 @@ public sealed partial class Camera : Dynamic
 	private void SnapBackward()
 	{
 		Position += Forward * -_moveSpeed / 10;
+	}
+
+	private void ZoomByMagnifyGesture(InputEventMagnifyGesture magnifyGesture)
+	{
+		float zoomDelta = Mathf.Clamp(magnifyGesture.Factor - 1f, -1f, 1f);
+
+		if (Mathf.IsZeroApprox(zoomDelta))
+		{
+			return;
+		}
+
+		_targetZoom -= ScrollSensitivity * TrackpadPinchZoomSensitivity * zoomDelta;
+		LimitZoomDistance();
+	}
+
+	private void RotateByPanGesture(InputEventPanGesture panGesture)
+	{
+		if (Mode != CameraModeEnum.Follow) return;
+		if (Root.Input.IsTouchscreen) return;
+
+		RotateCamera(-panGesture.Delta * TrackpadPanSensitivity);
+	}
+
+	private void RotateCamera(Vector2 delta)
+	{
+		_targetRotation += new Vector3(
+			delta.Y / -5 * VerticalSpeed * 0.02f,
+			delta.X / -5 * HorizontalSpeed * 0.02f,
+			0
+		) * Sensitivity;
+
+		LimitRotation();
 	}
 
 	public void ReceiveDragTouchInput(InputEventScreenDrag dragEvent)

@@ -13,6 +13,7 @@ using Polytoria.Scripting;
 using Polytoria.Networking;
 using Polytoria.Shared;
 using Polytoria.Utils;
+using Polytoria.Utils.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -337,9 +338,10 @@ public sealed partial class Player : NPC
 
 	public static string GetBadgeIconPath(Player player)
 	{
-		string badgeName = player.IsAdmin ? "admin"
+		string badgeName = !string.IsNullOrEmpty(player.UserRoleClass) ? player.UserRoleClass
+			: player.IsAdmin ? "admin"
 			: player.IsCreator ? "creator"
-			: player.UserRoleClass;
+			: "";
 
 		if (string.IsNullOrEmpty(badgeName))
 			return "";
@@ -397,8 +399,11 @@ public sealed partial class Player : NPC
 	[
 		"wave",
 		"dance",
+		"dance2",
 		"helicopter",
 		"sit",
+		"agree",
+		"disagree",
 	];
 
 	// List of all emotes
@@ -409,6 +414,11 @@ public sealed partial class Player : NPC
 		"helicopter",
 		"sit",
 		"point",
+		"agree",
+		"disagree",
+		"scream",
+		"dance2",
+		"disappointed",
 	];
 
 	// Oneshot emotes
@@ -416,13 +426,17 @@ public sealed partial class Player : NPC
 	[
 		"wave",
 		"point",
+		"disagree",
+		"agree",
+		"scream",
+		"disappointed",
 	];
 
 	public override void InitGDNode()
 	{
 		base.InitGDNode();
-		CharBody3D.CollisionLayer = 2;
-		CharBody3D.CollisionMask = 3;
+		CollisionLayers = 2;
+		CollisionMask = 3;
 	}
 
 	public override void Init()
@@ -509,11 +523,11 @@ public sealed partial class Player : NPC
 	{
 		if (Root.Players.PlayerCollisionEnabled)
 		{
-			CharBody3D.SetCollisionMaskValue(2, true);
+			SetCollisionMask(2, true);
 		}
 		else
 		{
-			CharBody3D.SetCollisionMaskValue(2, false);
+			SetCollisionMask(2, false);
 		}
 	}
 
@@ -1074,18 +1088,7 @@ public sealed partial class Player : NPC
 		}
 	}
 
-	internal override Transform3D TransformNetworkPass(int fromPeer, Transform3D newTransform)
-	{
-		if (fromPeer != 1)
-		{
-			// Prevent scaling from client
-			Vector3 existingScale = GetLocalTransform().Basis.Scale;
-			newTransform.Basis = newTransform.Basis.Orthonormalized().Scaled(existingScale);
-		}
-		return newTransform;
-	}
-
-	internal override bool TransformNetworkCheck(Transform3D newTransform)
+	internal override bool TransformNetworkCheck(TransformPayloadDto newTransform)
 	{
 		// TODO: Make sanity checks here
 		return true;
