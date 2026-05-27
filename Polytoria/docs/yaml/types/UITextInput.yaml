@@ -1,0 +1,116 @@
+Name: UITextInput
+Description: UITextInput is a class that allows the user to enter text.
+Category: ui
+BaseType: UIView
+Properties:
+  - Name: Text
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The text of the label.
+  - Name: TextColor
+    Type: Color
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The color of the text.
+  - Name: JustifyText
+    Type: TextHorizontalAlignmentEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines how text is justified.
+  - Name: FontSize
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The font size of the label.
+  - Name: MultiLine
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determine if this text input can be typed in multi-line.
+  - Name: Placeholder
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The placeholder text displayed when the input is empty.
+  - Name: PlaceholderColor
+    Type: Color
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The color of the placeholder text.
+  - Name: ReadOnlyColor
+    Type: Color
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The color of the text when the input is read-only.
+  - Name: ReadOnly
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determine if this text input is read-only.
+  - Name: FontAsset
+    Type: FontAsset
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The font asset used for the text.
+Methods:
+  - Name: Focus
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Forces the local player to focus on the text input.
+Events:
+  - Name: Submitted
+    Parameters:
+      - Name: string
+        Type: string
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when user submitted the text
+    Arguments:
+      Name: text
+      Type: string
+  - Name: Changed
+    Parameters:
+      - Name: string
+        Type: string
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when user changed the text
+    Arguments:
+      Name: text
+      Type: string
+  - Name: FocusEnter
+    Parameters: null
+    Description: Fires when user focuses on this input field
+    Arguments: ""
+  - Name: FocusExit
+    Parameters: null
+    Description: Fires when user defocused from this input field
+    Arguments: ""
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

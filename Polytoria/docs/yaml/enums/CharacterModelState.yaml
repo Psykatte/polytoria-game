@@ -1,0 +1,14 @@
+Name: CharacterModelState
+InternalName: CharacterModelStateEnum
+Options:
+  - Name: Idle
+    Description: ""
+  - Name: Walking
+    Description: ""
+  - Name: Running
+    Description: ""
+  - Name: Jumping
+    Description: ""
+  - Name: Climbing
+    Description: ""
+Description: ""

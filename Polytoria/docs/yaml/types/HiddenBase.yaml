@@ -1,0 +1,11 @@
+Name: HiddenBase
+Description: Base class for hiddens
+Category: misc
+BaseType: Instance
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

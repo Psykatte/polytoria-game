@@ -1,0 +1,65 @@
+Name: Explosion
+Description: Explosion is a deadly explosion killing players and applying force
+  to parts at the given position.
+Category: effects
+BaseType: Dynamic
+Properties:
+  - Name: Radius
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the radius of this explosion
+  - Name: Force
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the force of this explosion that will be applied to
+      affected hits
+  - Name: AffectAnchored
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if this explosion should affect anchored parts or not
+  - Name: Damage
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Damage that is applied to the player
+  - Name: AffectPredicate
+    Type: () -> ()
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: |-
+      A predicate function deciding whether this part should be accepted or not
+          
+      Example usage:
+      ```lua
+      explosion.AffectPredicate = function(hit)
+        -- always explode
+        return true
+      end
+      ```
+Methods: []
+Events:
+  - Name: Touched
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this explosion affects an instance
+    Arguments: ""
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

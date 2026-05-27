@@ -1,0 +1,60 @@
+Name: AddonObject
+Description: AddonObject represents an addon in the creator. This object serves
+  as the main interface for addon developers to interact with the addon system.
+Category: addons
+BaseType: null
+Properties:
+  - Name: Identifier
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: The identifier for this addon.
+  - Name: AddonName
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The display name of the addon. This name will appear in the tools menu.
+  - Name: AddonIcon
+    Type: PTImageAsset
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the addon icon.
+Methods:
+  - Name: RequestPermissions
+    ReturnType: nil
+    Parameters:
+      - Name: perms
+        Type: "{ AddonPermissionEnum }"
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Prompt the user to request for permissions
+  - Name: CreateToolItem
+    ReturnType: AddonToolItem
+    Parameters:
+      - Name: txt
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Create a new tool item with text.
+Events:
+  - Name: CleanupReceived
+    Parameters: null
+    Description: Fires when cleanup has been requested by the creator, this is
+      usually fired when updating the addon.
+    Arguments: ""
+IsStatic: false
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

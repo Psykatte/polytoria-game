@@ -1,0 +1,11 @@
+Name: AudioAsset
+Description: Abstract class for audio
+Category: assets
+BaseType: ResourceAsset
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

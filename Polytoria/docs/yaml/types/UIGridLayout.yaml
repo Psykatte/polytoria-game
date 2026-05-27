@@ -1,0 +1,25 @@
+Name: UIGridLayout
+Description: UIGridLayout is a class that arranges all of it's children in a grid layout
+Category: ui
+BaseType: UIContainer
+Properties:
+  - Name: Spacing
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The spacing between each item.
+  - Name: Columns
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The number of columns for this grid layout.
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

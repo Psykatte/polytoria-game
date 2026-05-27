@@ -1,0 +1,18 @@
+Name: MeshAnimationAsset
+Description: \!! WIP Class, Base class for animation loaded from meshes
+Category: assets
+BaseType: ResourceAsset
+Properties:
+  - Name: AnimationType
+    Type: MeshAnimationTypeEnum
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Animation type of this mesh
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

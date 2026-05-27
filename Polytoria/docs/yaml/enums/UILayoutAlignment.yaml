@@ -1,0 +1,10 @@
+Name: UILayoutAlignment
+InternalName: UILayoutAlignmentEnum
+Options:
+  - Name: Start
+    Description: ""
+  - Name: Center
+    Description: ""
+  - Name: End
+    Description: ""
+Description: ""

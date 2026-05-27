@@ -1,0 +1,12 @@
+Name: SunLight
+Description: SunLight is the main directional light source representing the sun
+  in the game world.
+Category: lighting
+BaseType: Light
+Properties: []
+Methods: []
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

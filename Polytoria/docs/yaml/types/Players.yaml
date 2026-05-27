@@ -1,0 +1,89 @@
+Name: Players
+Description: Players is the container class for all Player instances.
+Category: game
+BaseType: Instance
+Properties:
+  - Name: LocalPlayer
+    Type: Player
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: The player who is currently playing the game.
+  - Name: PlayerCollisionEnabled
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether or not collisions between players are enabled.
+  - Name: UseServerAuthority
+    Type: boolean
+    IsAccessibleByScripts: false
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether or not server should trust the client for
+      adjusting player's properties. Enabling this is recommended.
+  - Name: PlayersCount
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: The number of players currently in the game.
+Methods:
+  - Name: GetPlayers
+    ReturnType: "{ Player }"
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns a table containing all the players currently in the game.
+  - Name: GetPlayer
+    ReturnType: Player
+    Parameters:
+      - Name: username
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns the player with the specified username.
+  - Name: GetPlayerByID
+    ReturnType: Player
+    Parameters:
+      - Name: userID
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns the player with the specified user ID.
+Events:
+  - Name: PlayerAdded
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when player has connected
+    Arguments:
+      Name: player
+      Type: Player
+  - Name: PlayerRemoved
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when player has disconnected
+    Arguments:
+      Name: player
+      Type: Player
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Players

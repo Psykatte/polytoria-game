@@ -1,0 +1,196 @@
+Name: Physical
+Description: Physical represents an object affected by physics in the world.
+Category: physics
+BaseType: Dynamic
+Properties:
+  - Name: Anchored
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether this object is affected by physics.
+  - Name: CanCollide
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether this object can collide with other objects.
+  - Name: Velocity
+    Type: Vector3
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the linear velocity of this object.
+  - Name: AngularVelocity
+    Type: Vector3
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines the angular velocity of this object.
+Methods:
+  - Name: SetNetworkAuthority
+    ReturnType: nil
+    Parameters:
+      - Name: plr
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Sets the network authority of this object to the specified player.
+  - Name: GetTouching
+    ReturnType: "{ Physical }"
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Get all objects that's currently in contact with this object.
+  - Name: MovePosition
+    ReturnType: nil
+    Parameters:
+      - Name: position
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Moves the part to the specified position while keeping physics in mind.
+  - Name: MoveRotation
+    ReturnType: nil
+    Parameters:
+      - Name: rotation
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Rotates the part while keeping physics in mind.
+  - Name: AddForce
+    ReturnType: nil
+    Parameters:
+      - Name: force
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: mode
+        Type: ForceModeEnum
+        IsOptional: true
+        DefaultValue: Force
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add force to this physical
+  - Name: AddTorque
+    ReturnType: nil
+    Parameters:
+      - Name: force
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: mode
+        Type: ForceModeEnum
+        IsOptional: true
+        DefaultValue: Force
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add torque to this physical
+  - Name: AddForceAtPosition
+    ReturnType: nil
+    Parameters:
+      - Name: force
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: position
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: mode
+        Type: ForceModeEnum
+        IsOptional: true
+        DefaultValue: Force
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add force at position to this physical
+  - Name: AddRelativeForce
+    ReturnType: nil
+    Parameters:
+      - Name: force
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: mode
+        Type: ForceModeEnum
+        IsOptional: true
+        DefaultValue: Force
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add relative force to this physical
+  - Name: AddRelativeTorque
+    ReturnType: nil
+    Parameters:
+      - Name: torque
+        Type: Vector3
+        IsOptional: false
+        DefaultValue: ""
+      - Name: mode
+        Type: ForceModeEnum
+        IsOptional: true
+        DefaultValue: Force
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add relative torque to this physical
+Events:
+  - Name: Touched
+    Parameters:
+      - Name: physical
+        Type: Physical
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this object has collide with other object
+    Arguments:
+      Name: hit
+      Type: Physical
+  - Name: TouchEnded
+    Parameters:
+      - Name: physical
+        Type: Physical
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this object has stopped colliding with other object
+    Arguments:
+      Name: hit
+      Type: Physical
+  - Name: MouseEnter
+    Parameters: null
+    Description: Fires when cursor is hovered on this object. Only fired locally
+    Arguments: ""
+  - Name: MouseExit
+    Parameters: null
+    Description: Fires when cursor leaves this object. Only fired locally
+    Arguments: ""
+  - Name: Clicked
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when this object has been clicked by a player
+    Arguments:
+      Name: player
+      Type: Player
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

@@ -1,0 +1,93 @@
+Name: IOService
+Description: Class for interacting with IO in project, only usable with scripts
+  with the respective permission.
+Category: services
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: ReadBytesFromPath
+    ReturnType: buffer
+    Parameters:
+      - Name: path
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Reads the buffer file from the given path.
+  - Name: ReadTextFromPath
+    ReturnType: string
+    Parameters:
+      - Name: path
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Reads the text file data from the given path.
+  - Name: WriteBytesToPath
+    ReturnType: nil
+    Parameters:
+      - Name: path
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+      - Name: bytes
+        Type: buffer
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Writes buffer data to the file in the project.
+  - Name: WriteTextToPath
+    ReturnType: nil
+    Parameters:
+      - Name: path
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+      - Name: txt
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Writes the text file data to the path.
+  - Name: ListProjectFiles
+    ReturnType: "{ string }"
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Lists all files in the project.
+  - Name: ReadBytesFromID
+    ReturnType: buffer
+    Parameters:
+      - Name: id
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Reads the file data from the linked ID.
+  - Name: GetPathFromID
+    ReturnType: string
+    Parameters:
+      - Name: indexID
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Gets the file path from the linked ID.
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: IO

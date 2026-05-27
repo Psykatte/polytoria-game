@@ -1,0 +1,8 @@
+Name: TextureFilter
+InternalName: TextureFilterEnum
+Options:
+  - Name: Nearest
+    Description: ""
+  - Name: Linear
+    Description: ""
+Description: ""

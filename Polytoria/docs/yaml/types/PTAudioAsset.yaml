@@ -1,0 +1,18 @@
+Name: PTAudioAsset
+Description: Audio asset which is loaded from Polytoria
+Category: assets
+BaseType: AudioAsset
+Properties:
+  - Name: AudioID
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The audio ID to load
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

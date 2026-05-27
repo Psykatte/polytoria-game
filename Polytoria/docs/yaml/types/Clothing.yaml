@@ -1,0 +1,18 @@
+Name: Clothing
+Description: Clothing represents a clothing that can be applied to a PolytorianModel
+Category: world
+BaseType: Instance
+Properties:
+  - Name: Image
+    Type: ImageAsset
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The clothing texture to use
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

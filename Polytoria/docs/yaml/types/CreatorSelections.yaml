@@ -1,0 +1,97 @@
+Name: CreatorSelections
+Description: CreatorSelections is an object that manages selections in the game
+  instance. This class is only available in the creator.
+Category: addons
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: Select
+    ReturnType: nil
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Select an instance
+  - Name: SelectChild
+    ReturnType: nil
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Select all children of the instance
+  - Name: GetSelected
+    ReturnType: "{ Instance }"
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Get all selected instances
+  - Name: Deselect
+    ReturnType: nil
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Deselect the instance
+  - Name: SelectOnly
+    ReturnType: nil
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Deselect all, then select the instance
+  - Name: DeselectAll
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Deselect all instances
+  - Name: HasSelected
+    ReturnType: boolean
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Check if instance has been selected
+Events:
+  - Name: Selected
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when an instance has been selected
+    Arguments: ""
+  - Name: Deselected
+    Parameters:
+      - Name: instance
+        Type: Instance
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when an instance has been deselected
+    Arguments: ""
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Selections

@@ -1,0 +1,11 @@
+Name: Sky
+Description: Sky is an abstract base class representing the sky in the game world.
+Category: misc
+BaseType: Instance
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

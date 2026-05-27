@@ -1,0 +1,75 @@
+Name: Tool
+Description: Tools are objects that can be held by the player.
+Category: world
+BaseType: RigidBody
+Properties:
+  - Name: Droppable
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines whether the tool can be dropped by the player.
+  - Name: IconImage
+    Type: ImageAsset
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: The icon for this tool, appears in inventory.
+  - Name: Holder
+    Type: NPC
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines who is currently holding this tool.
+Methods:
+  - Name: Activate
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Activates the tool, similarly to pressing the mouse button.
+  - Name: Deactivate
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Deactivates the tool, similarly to releasing the mouse button.
+  - Name: PlayAnimation
+    ReturnType: nil
+    Parameters:
+      - Name: animationName
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Plays the specified animation on the holder of the tool.
+Events:
+  - Name: Equipped
+    Parameters: null
+    Description: Fires when this tool has been equipped
+    Arguments: ""
+  - Name: Unequipped
+    Parameters: null
+    Description: Fires when this tool has been unequipped
+    Arguments: ""
+  - Name: Activated
+    Parameters: null
+    Description: Fires when this tool has been activated (via mouse press or
+      `Tool:Activate`)
+    Arguments: ""
+  - Name: Deactivated
+    Parameters: null
+    Description: Fires when this tool has been deactivated (via mouse release or
+      `Tool:Deactivate`)
+    Arguments: ""
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

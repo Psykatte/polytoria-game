@@ -1,0 +1,8 @@
+Name: FontStyle
+InternalName: FontStyleEnum
+Options:
+  - Name: Normal
+    Description: ""
+  - Name: Italic
+    Description: ""
+Description: ""

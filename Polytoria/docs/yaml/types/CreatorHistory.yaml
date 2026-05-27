@@ -1,0 +1,52 @@
+Name: CreatorHistory
+Description: CreatorHistory is a class that manages history (undo-redo) of this
+  game instance. This class is only available in the creator.
+Category: addons
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: NewAction
+    ReturnType: nil
+    Parameters:
+      - Name: title
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Creates new action
+  - Name: AddDoCallback
+    ReturnType: nil
+    Parameters:
+      - Name: callback
+        Type: () -> ()
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add do callback
+  - Name: AddUndoCallback
+    ReturnType: nil
+    Parameters:
+      - Name: callback
+        Type: () -> ()
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Add undo callback
+  - Name: CommitAction
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Commit the current action
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: History
