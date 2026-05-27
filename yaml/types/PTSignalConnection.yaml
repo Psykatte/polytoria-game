@@ -1,0 +1,18 @@
+Name: PTSignalConnection
+Description: PTSignalConnection represents a signal for this connection
+Category: scripting
+BaseType: null
+Properties: []
+Methods:
+  - Name: Disconnect
+    ReturnType: nil
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Disconnect this signal
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

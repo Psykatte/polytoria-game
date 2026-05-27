@@ -1,0 +1,33 @@
+Name: AssetsService
+Description: Service for managing/loading assets
+Category: services
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: GetFileLinkByPath
+    ReturnType: FileLinkAsset
+    Parameters:
+      - Name: path
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Retrieve `FileLinkAsset` with the specified path
+  - Name: GetFileLinkByID
+    ReturnType: FileLinkAsset
+    Parameters:
+      - Name: id
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Retrieve `FileLinkAsset` with the specified ID
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Assets

@@ -1,0 +1,11 @@
+Name: ResourceAsset
+Description: Base class for resource based assets
+Category: assets
+BaseType: BaseAsset
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

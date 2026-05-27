@@ -1,0 +1,42 @@
+Name: PurchasesService
+Description: Service responsible for handling in-game purchases and ownership verification.
+Category: services
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: PromptAsync
+    ReturnType: boolean
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+      - Name: assetID
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Prompt the purchase prompt to player
+  - Name: OwnsItemAsync
+    ReturnType: boolean
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+      - Name: assetID
+        Type: number
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Checks asynchronously if the specified player owns the asset with
+      the given asset ID.
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Purchases

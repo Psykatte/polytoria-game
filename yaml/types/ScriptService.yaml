@@ -1,0 +1,12 @@
+Name: ScriptService
+Description: ScriptService is a service used for storing scripts and local
+  scripts. It is also responsible for managing their execution within the game.
+Category: services
+BaseType: Instance
+Properties: []
+Methods: []
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: ScriptService

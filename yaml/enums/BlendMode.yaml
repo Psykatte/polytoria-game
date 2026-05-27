@@ -1,0 +1,12 @@
+Name: BlendMode
+InternalName: BlendModeEnum
+Options:
+  - Name: Mix
+    Description: ""
+  - Name: Add
+    Description: ""
+  - Name: Subtract
+    Description: ""
+  - Name: Multiply
+    Description: ""
+Description: ""

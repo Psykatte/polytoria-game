@@ -1,0 +1,22 @@
+Name: CreatorAddons
+Description: Service for managing addons
+Category: addons
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: Register
+    ReturnType: AddonObject
+    Parameters:
+      - Name: identifier
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Register an addon
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Addons

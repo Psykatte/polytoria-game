@@ -1,0 +1,8 @@
+Name: ParticleOrientation
+InternalName: ParticleOrientationEnum
+Options:
+  - Name: FaceCamera
+    Description: ""
+  - Name: FaceCameraFixedY
+    Description: ""
+Description: ""

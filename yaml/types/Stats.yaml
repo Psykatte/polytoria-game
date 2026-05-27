@@ -1,0 +1,18 @@
+Name: Stats
+Description: Stats is a collection of Stat objects used to manage player stats.
+Category: game
+BaseType: Instance
+Properties: []
+Methods:
+  - Name: GetStats
+    ReturnType: "{ Stat }"
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Get all Stat objects
+Events: []
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Stats

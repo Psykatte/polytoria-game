@@ -1,0 +1,40 @@
+Name: GUI3D
+Description: GUI3D is a class that allows GUI to be displayed in a 3D space.
+Category: ui
+BaseType: Dynamic
+Properties:
+  - Name: Shaded
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if this GUI3D should be affected by lighting.
+  - Name: FaceCamera
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if this GUI3D always faces the camera.
+  - Name: Transparent
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Determines if the background should be transparent. Recommended to
+      be set to false if transparent background is not needed.
+  - Name: AbsoluteSize
+    Type: Vector2
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Absolute size of this GUI3D
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: true
+StaticAlias: null

@@ -1,0 +1,22 @@
+Name: FontWeight
+InternalName: FontWeightEnum
+Options:
+  - Name: Thin
+    Description: ""
+  - Name: ExtraLight
+    Description: ""
+  - Name: Light
+    Description: ""
+  - Name: Regular
+    Description: ""
+  - Name: Medium
+    Description: ""
+  - Name: SemiBold
+    Description: ""
+  - Name: Bold
+    Description: ""
+  - Name: ExtraBold
+    Description: ""
+  - Name: Black
+    Description: ""
+Description: ""

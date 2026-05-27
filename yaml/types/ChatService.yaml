@@ -1,0 +1,89 @@
+Name: ChatService
+Description: Chat is a static class used for various actions regarding the chat.
+Category: services
+BaseType: Instance
+Properties:
+  - Name: ChatPredicate
+    Type: () -> ()
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: >
+      A callback function that filters chat messages before they are processed
+      by the server, and displayed to other players.
+
+      ```lua
+
+      Chat.ChatPredicate = function(plr: Player, msg: string)
+          if msg == "miau" then
+              Chat:UnicastMessage("no miau allowed", plr)
+              return false
+          end
+          return true
+      end
+
+      ```
+Methods:
+  - Name: BroadcastMessage
+    ReturnType: nil
+    Parameters:
+      - Name: msg
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Sends a chat message to all players.
+  - Name: UnicastMessage
+    ReturnType: nil
+    Parameters:
+      - Name: msg
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+      - Name: plr
+        Type: Player
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Sends a chat message to a specific player.
+Events:
+  - Name: NewChatMessage
+    Parameters:
+      - Name: player
+        Type: Player
+        IsOptional: false
+        DefaultValue: null
+      - Name: string
+        Type: string
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when new chat message has been received from player
+    Arguments:
+      - Name: sender
+        Type: Player
+      - Name: message
+        Type: string
+  - Name: MessageReceived
+    Parameters:
+      - Name: string
+        Type: string
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when new message has been received from either
+      `BroadcastMessage` or `UnicastMessage`
+    Arguments:
+      Name: message
+      Type: string
+  - Name: MessageDeclined
+    Parameters: null
+    Description: Fires when message has been declined by the server
+    Arguments: ""
+IsStatic: true
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: Chat

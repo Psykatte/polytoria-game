@@ -1,0 +1,123 @@
+Name: NetworkedObject
+Description: NetworkedObject is a base class for all object that's synchronized
+  by the network.
+Category: networking
+BaseType: null
+Properties:
+  - Name: Name
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Name of this object
+  - Name: ClassName
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Class name of this object
+  - Name: Shared
+    Type: ScriptSharedTable
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: A shared table accessible by scripts.
+  - Name: NetworkedObjectID
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns networked ID of this object. Networked ID are always unique
+      per network session.
+  - Name: ObjectID
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns object ID of this object. Object ID originates from the .poly file.
+  - Name: ExistInNetwork
+    Type: boolean
+    IsAccessibleByScripts: true
+    IsReadOnly: true
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns true if this object exists in network, false if this object
+      is spawned by the local client.
+Methods:
+  - Name: IsA
+    ReturnType: boolean
+    Parameters:
+      - Name: className
+        Type: string
+        IsOptional: false
+        DefaultValue: ""
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Returns whether or not the instance is the specified class, this
+      also checks for inheritance.
+  - Name: Clone
+    ReturnType: NetworkedObject
+    Parameters:
+      - Name: parent
+        Type: NetworkedObject
+        IsOptional: true
+        DefaultValue: null
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Clones the instance
+  - Name: Destroy
+    ReturnType: nil
+    Parameters:
+      - Name: time
+        Type: number
+        IsOptional: true
+        DefaultValue: "0"
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Destroys the instance (same as Delete method)
+  - Name: Delete
+    ReturnType: nil
+    Parameters:
+      - Name: time
+        Type: number
+        IsOptional: true
+        DefaultValue: "0"
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Deletes the instance (same as Destroy method)
+Events:
+  - Name: PropertyChanged
+    Parameters:
+      - Name: string
+        Type: string
+        IsOptional: false
+        DefaultValue: null
+    Description: Fires when a property of this object has changed
+    Arguments:
+      Name: propertyName
+      Type: string
+  - Name: Renamed
+    Parameters: null
+    Description: Fires when this object has been renamed
+    Arguments: ""
+  - Name: TreeEntered
+    Parameters: null
+    Description: Fires when object enters the tree
+    Arguments: ""
+  - Name: TreeExited
+    Parameters: null
+    Description: Fires when object exit the tree (via reparent or delete)
+    Arguments: ""
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null

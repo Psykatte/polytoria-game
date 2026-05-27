@@ -1,0 +1,33 @@
+Name: NewServerRequestData
+Description: NewServerRequestData represents the request data for a new server
+  instance, to be used with WorldsService.
+Category: misc
+BaseType: null
+Properties:
+  - Name: PlacePath
+    Type: string
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: Target place path.
+  - Name: MaxPlayers
+    Type: number
+    IsAccessibleByScripts: true
+    IsReadOnly: false
+    IsObsolete: false
+    IsStatic: false
+    Description: How much player slot should the new server allocates for.
+Methods:
+  - Name: New
+    ReturnType: NewServerRequestData
+    Parameters: []
+    IsAsync: false
+    IsObsolete: false
+    IsStatic: true
+    Description: Creates a new `NewServerRequestData`
+Events: []
+IsStatic: false
+IsAbstract: false
+IsInstantiable: false
+StaticAlias: null

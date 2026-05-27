@@ -1,0 +1,14 @@
+Name: ParticleEmissionShape
+InternalName: ParticleEmissionShapeEnum
+Options:
+  - Name: Point
+    Description: ""
+  - Name: Sphere
+    Description: ""
+  - Name: SphereSurface
+    Description: ""
+  - Name: Box
+    Description: ""
+  - Name: Ring
+    Description: ""
+Description: ""

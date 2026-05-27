@@ -1,0 +1,10 @@
+Name: GradientImageFill
+InternalName: GradientImageFillEnum
+Options:
+  - Name: Linear
+    Description: ""
+  - Name: Radial
+    Description: ""
+  - Name: Square
+    Description: ""
+Description: ""

@@ -1,0 +1,11 @@
+Name: ImageAsset
+Description: Base class for image assets
+Category: assets
+BaseType: ResourceAsset
+Properties: []
+Methods: []
+Events: []
+IsStatic: false
+IsAbstract: true
+IsInstantiable: false
+StaticAlias: null
