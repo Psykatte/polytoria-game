@@ -1,0 +1,7 @@
+- [x] Migrate YAML documentation to documentation comments via Python script.
+- [x] Migrate .gitignore and Github workflows.
+- [ ] Add `docs` folders to every folder containing scriptable objects via Python script.
+- [ ] Add `<class>.examples.cs` for every class containing scriptable objects via Python script.
+- [ ] Verify every documentation comment is in the right place and formatted correctly.
+- [ ] Add `<class>.<snippet-name>.md` for every snippet that should be added to the generated markdown.
+- [ ] Implement docgen logic.
