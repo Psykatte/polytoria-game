@@ -14,8 +14,9 @@ namespace Polytoria.Datamodel;
 [DocCategory("physics")]
 public abstract partial class Entity : RigidBody
 {
+	internal const uint CameraClipCollisionLayerMask = 1u << 5;
+
 	private bool _isSpawn = false;
-	private uint _camCollisionLayer = uint.MaxValue;
 
 	private Color _color = new(1, 1, 1);
 	private bool _castShadows = true;
@@ -87,8 +88,8 @@ public abstract partial class Entity : RigidBody
 
 	public override void Init()
 	{
-		UpdateCamLayer();
 		base.Init();
+		UpdateCamLayer();
 	}
 
 	public override void PreDelete()
@@ -100,24 +101,15 @@ public abstract partial class Entity : RigidBody
 
 	internal void UpdateCamLayer()
 	{
-		uint targetLayer;
-		if (Color.A > 0.5)
-		{
-			// Set layer for solid
-			targetLayer = 1u << 0 | 1u << 5;
-		}
-		else
-		{
-			// Set layer for transparent
-			targetLayer = 1u;
-		}
+		ApplyCollisionObjectLayers();
+	}
 
-		if (_camCollisionLayer == targetLayer)
-		{
-			return;
-		}
+	protected override uint GetAppliedCollisionLayers()
+	{
+		uint layers = base.GetAppliedCollisionLayers();
 
-		_camCollisionLayer = targetLayer;
-		GDRigidBody.CollisionLayer = targetLayer;
+		return Color.A > 0.5f
+			? layers | CameraClipCollisionLayerMask
+			: layers & ~CameraClipCollisionLayerMask;
 	}
 }

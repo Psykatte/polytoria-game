@@ -376,6 +376,8 @@ public partial class NetworkedObject : IScriptObject
 	/// </summary>
 	[ScriptProperty] public PTSignal TreeExited { get; private set; } = new();
 
+	[ScriptProperty] public PTSignal Destroying { get; private set; } = new();
+
 	public NetworkedObject()
 	{
 		InitializeRpcMethods();
@@ -1867,6 +1869,7 @@ public partial class NetworkedObject : IScriptObject
 		{
 			await Globals.Singleton.WaitAsync(time);
 		}
+
 		InternalDestroy(false);
 	}
 
@@ -1886,6 +1889,8 @@ public partial class NetworkedObject : IScriptObject
 		if (GetType().IsDefined(typeof(InternalAttribute), false) && !forceDestroy) throw new InvalidOperationException("Cannot destroy an internal class");
 		if (this is Player && !forceDestroy) throw new InvalidOperationException("Cannot destroy a player, use Kick instead.");
 		if (IsDeleted) return;
+
+		Destroying?.Invoke();
 
 		NetworkedObject? parent = NetworkParent;
 

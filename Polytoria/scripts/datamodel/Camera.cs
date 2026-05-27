@@ -24,6 +24,11 @@ public sealed partial class Camera : Dynamic
 	public const float ClipSafeMargin = 2.0f;
 	public const float DefaultZoomDistance = 10.0f;
 	public const float DefaultScrollSensitivity = 15.0f;
+	private const float TrackpadPinchZoomSensitivity = 0.75f;
+	private const float TrackpadPanSensitivity = 10.0f;
+
+	// override default +Z forward orientation as that would be incorrect for the camera
+	[ScriptProperty] new public Vector3 Forward => -GetGlobalTransform().Basis.Z.Normalized();
 
 	private CameraModeEnum _mode;
 	private float _fov;
@@ -45,6 +50,9 @@ public sealed partial class Camera : Dynamic
 	private bool _followLerp = false;
 	private bool _ctrlLocked = false;
 	private bool _alwaysLocked = false;
+
+	private float _near;
+	private float _far;
 
 	private float _moveSpeed = 8f;
 	private readonly float _rotateSpeed = 0.005f;
@@ -68,6 +76,7 @@ public sealed partial class Camera : Dynamic
 	private InputHelper _inputHelper = null!;
 
 	internal Camera3D Camera3D = null!;
+	internal bool IsTurning => _turning;
 
 	/// <summary>
 	/// Determines or returns the camera's current mode.
@@ -222,6 +231,28 @@ public sealed partial class Camera : Dynamic
 		{
 			_orthographicSize = value;
 			Camera3D.Size = value;
+			OnPropertyChanged();
+		}
+	}
+
+	[Editable, ScriptProperty, DefaultValue(0.05f)]
+	public float Near
+	{
+		get => _near;
+		set
+		{
+			_near = Camera3D.Near = value;
+			OnPropertyChanged();
+		}
+	}
+
+	[Editable, ScriptProperty, DefaultValue(4000f)]
+	public float Far
+	{
+		get => _far;
+		set
+		{
+			_far = Camera3D.Far = value;
 			OnPropertyChanged();
 		}
 	}
@@ -563,7 +594,7 @@ public sealed partial class Camera : Dynamic
 				query.HitFromInside = false;
 
 				// Fliter only clipping layers
-				query.CollisionMask = 1 << 5;
+				query.CollisionMask = Entity.CameraClipCollisionLayerMask;
 
 				Dictionary? result = spaceState.IntersectRay(query);
 
@@ -684,26 +715,19 @@ public sealed partial class Camera : Dynamic
 
 	private void OnGameFocused()
 	{
-		if (IsFirstPerson || AlwaysLocked)
+		if (AlwaysLocked)
 		{
-			if (AlwaysLocked)
-			{
-				CtrlLocked = true;
-			}
-			else
-			{
-				StartTurning();
-			}
+			CtrlLocked = true;
+		}
+
+		if (IsFirstPerson || AlwaysLocked || CtrlLocked)
+		{
+			StartTurning();
 		}
 	}
 
 	private void OnGameUnfocused()
 	{
-		if (CtrlLocked)
-		{
-			CtrlLocked = false;
-			StopTurning();
-		}
 		if (_turning)
 		{
 			StopTurning();
@@ -773,6 +797,14 @@ public sealed partial class Camera : Dynamic
 				}
 			}
 		}
+		else if (@event is InputEventMagnifyGesture magnifyGesture)
+		{
+			ZoomByMagnifyGesture(magnifyGesture);
+		}
+		else if (@event is InputEventPanGesture panGesture)
+		{
+			RotateByPanGesture(panGesture);
+		}
 
 		if (Mode == CameraModeEnum.Scripted) return;
 
@@ -803,9 +835,7 @@ public sealed partial class Camera : Dynamic
 			if (Root.Input.IsTouchscreen) return;
 			if (_turning)
 			{
-				_targetRotation += new Vector3(mouseEvent.Relative.Y / -5 * VerticalSpeed * 0.02f, mouseEvent.Relative.X / -5 * HorizontalSpeed * 0.02f, 0) * Sensitivity;
-
-				LimitRotation();
+				RotateCamera(mouseEvent.Relative);
 			}
 		}
 
@@ -903,12 +933,44 @@ public sealed partial class Camera : Dynamic
 
 	private void SnapForward()
 	{
-		Position += Forward * -_moveSpeed / 10;
+		Position += Forward * _moveSpeed / 10;
 	}
 
 	private void SnapBackward()
 	{
-		Position += Forward * _moveSpeed / 10;
+		Position += Forward * -_moveSpeed / 10;
+	}
+
+	private void ZoomByMagnifyGesture(InputEventMagnifyGesture magnifyGesture)
+	{
+		float zoomDelta = Mathf.Clamp(magnifyGesture.Factor - 1f, -1f, 1f);
+
+		if (Mathf.IsZeroApprox(zoomDelta))
+		{
+			return;
+		}
+
+		_targetZoom -= ScrollSensitivity * TrackpadPinchZoomSensitivity * zoomDelta;
+		LimitZoomDistance();
+	}
+
+	private void RotateByPanGesture(InputEventPanGesture panGesture)
+	{
+		if (Mode != CameraModeEnum.Follow) return;
+		if (Root.Input.IsTouchscreen) return;
+
+		RotateCamera(-panGesture.Delta * TrackpadPanSensitivity);
+	}
+
+	private void RotateCamera(Vector2 delta)
+	{
+		_targetRotation += new Vector3(
+			delta.Y / -5 * VerticalSpeed * 0.02f,
+			delta.X / -5 * HorizontalSpeed * 0.02f,
+			0
+		) * Sensitivity;
+
+		LimitRotation();
 	}
 
 	public void ReceiveDragTouchInput(InputEventScreenDrag dragEvent)
@@ -1058,7 +1120,7 @@ public sealed partial class Camera : Dynamic
 
 
 #if CREATOR
-	public void MoveToSelected()
+	public async void MoveToSelected()
 	{
 		Instance[] targets = [.. Root.CreatorContext.Selections.SelectedInstances];
 
@@ -1098,29 +1160,42 @@ public sealed partial class Camera : Dynamic
 		float distance = radius / Mathf.Tan(fovRadians * 0.5f);
 
 		distance *= 1.2f;
-
 		distance = Mathf.Max(distance, radius + 2.0f);
-
-		Vector3 currentDir;
 
 		Vector3 currentPos = GDNode3D.GlobalPosition;
 		Vector3 toCamera = currentPos - center;
 
-		if (toCamera.Length() < 0.1f)
+		Vector3 currentDir =
+			toCamera.Length() < 0.1f
+				? new Vector3(1, 1, 1).Normalized()
+				: toCamera.Normalized();
+
+		Vector3 targetPosition = center + currentDir * distance;
+
+		Transform3D targetTransform =
+			new Transform3D(Basis.Identity, targetPosition)
+				.LookingAt(center, Vector3.Up);
+
+		Quaternion targetRotation =
+			targetTransform.Basis.GetRotationQuaternion();
+
+		for (int i = 0; i < 30; i++)
 		{
-			currentDir = new Vector3(1, 1, 1).Normalized();
+			GDNode3D.GlobalPosition =
+				GDNode3D.GlobalPosition.Lerp(targetPosition, 0.15f);
+
+			Quaternion currentRotation =
+				GDNode3D.GlobalBasis.GetRotationQuaternion();
+
+			GDNode3D.GlobalBasis = new Basis(
+				currentRotation.Slerp(targetRotation, 0.15f)
+			);
+
+			await GDNode3D.ToSignal(
+				GDNode3D.GetTree(),
+				SceneTree.SignalName.ProcessFrame
+			);
 		}
-		else
-		{
-			currentDir = toCamera.Normalized();
-		}
-
-		Vector3 newPosition = center + currentDir * distance;
-
-		GDNode3D.GlobalPosition = newPosition;
-		GDNode3D.LookAt(center, Vector3.Up);
-
-		GDNode3D.RotateObjectLocal(Vector3.Up, Mathf.Pi);
 	}
 
 	public Vector3 GetPlacementPosition(Instance[]? ignoreList = null)

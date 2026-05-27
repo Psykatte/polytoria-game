@@ -488,7 +488,7 @@ public sealed partial class Environment : Instance
 		// Build navigation mesh
 		foreach (Instance i in GetDescendants())
 		{
-			if (i is Part part)
+			if (i is Part part && part.CanCollide is true)
 			{
 				StaticBody3D staticBody = new();
 				_navRegion.AddChild(staticBody);
@@ -500,8 +500,9 @@ public sealed partial class Environment : Instance
 				};
 				staticBody.AddChild(collisionShape);
 				collisionShape.GlobalTransform = part.GetGlobalTransform();
+
 			}
-			else if (i is Mesh m)
+			else if (i is Mesh m && m.CanCollide is true)
 			{
 				Node3D md = (Node3D)m.GDNode.Duplicate();
 				_navRegion.AddChild(md);

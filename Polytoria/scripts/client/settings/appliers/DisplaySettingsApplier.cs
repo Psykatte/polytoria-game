@@ -32,6 +32,12 @@ public sealed partial class DisplaySettingsApplier : Node
 			case SharedSettingKeys.Display.VSync:
 				ApplyVsync();
 				break;
+			case SharedSettingKeys.Display.FpsPreset:
+				ApplyFpsCap();
+				break;
+			case SharedSettingKeys.Display.FpsCap:
+				ApplyFpsCap();
+				break;
 			case ClientSettingKeys.Display.UiScale:
 				ApplyUiScale();
 				break;
@@ -42,6 +48,7 @@ public sealed partial class DisplaySettingsApplier : Node
 	{
 		ApplyFullscreen();
 		ApplyVsync();
+		ApplyFpsCap();
 		ApplyUiScale();
 	}
 
@@ -60,6 +67,12 @@ public sealed partial class DisplaySettingsApplier : Node
 	{
 		bool vsync = ClientSettingsService.Instance.Get<bool>(SharedSettingKeys.Display.VSync);
 		DisplayServer.WindowSetVsyncMode(vsync ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+	}
+
+	private void ApplyFpsCap()
+	{
+		var fpsPreset = ClientSettingsService.Instance.Get<FpsPreset>(SharedSettingKeys.Display.FpsPreset);
+		Engine.MaxFps = fpsPreset != FpsPreset.Custom ? (int)fpsPreset : ClientSettingsService.Instance.Get<int>(SharedSettingKeys.Display.FpsCap);
 	}
 
 	private void ApplyUiScale()

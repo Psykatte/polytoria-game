@@ -12,6 +12,7 @@ using Polytoria.Shared;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
@@ -57,6 +58,7 @@ public sealed partial class ChatService : Instance
 	private readonly PTHttpClient _client = new();
 
 	private static readonly Dictionary<string, string> _builtInEmojis = [];
+	public static IReadOnlyDictionary<string, string> BuiltInEmojis => _builtInEmojis;
 	private const string EmojisPath = "res://assets/textures/client/emojis/";
 
 	private readonly Dictionary<Player, SlidingWindowRateLimiter> _playerToRateLimiter = [];
@@ -170,8 +172,9 @@ public sealed partial class ChatService : Instance
 
 		if (player != null)
 		{
-			NewChatMessage.Invoke(player, msgContent);
-			player.InvokeChatted(msgContent);
+			string formatted = FormatEmojis(msgContent);
+			NewChatMessage.Invoke(player, formatted);
+			player.InvokeChatted(formatted);
 		}
 		else
 		{
@@ -188,7 +191,7 @@ public sealed partial class ChatService : Instance
 	[NetRpc(AuthorityMode.Server, TransferMode = TransferMode.Reliable, TransferChannel = 2)]
 	private void NetRecvBroadcastMessage(string msgContent)
 	{
-		MessageReceived.Invoke(msgContent);
+		MessageReceived.Invoke(FormatEmojis(msgContent));
 	}
 
 	/// <summary>
@@ -197,9 +200,10 @@ public sealed partial class ChatService : Instance
 	[ScriptMethod]
 	public void BroadcastMessage(string msg)
 	{
-		MessageReceived.Invoke(msg);
+		string formatted = FormatEmojis(msg);
+		MessageReceived.Invoke(formatted);
 		if (HasAuthority)
-			Rpc(nameof(NetRecvBroadcastMessage), msg);
+			Rpc(nameof(NetRecvBroadcastMessage), formatted);
 	}
 
 	/// <summary>
@@ -208,13 +212,14 @@ public sealed partial class ChatService : Instance
 	[ScriptMethod]
 	public void UnicastMessage(string msg, Player plr)
 	{
+		string formatted = FormatEmojis(msg);
 		if (plr == Root.Players.LocalPlayer)
 		{
-			MessageReceived.Invoke(msg);
+			MessageReceived.Invoke(formatted);
 		}
 		else
 		{
-			RpcId(plr.PeerID, nameof(NetRecvBroadcastMessage), msg);
+			RpcId(plr.PeerID, nameof(NetRecvBroadcastMessage), formatted);
 		}
 	}
 
@@ -230,14 +235,18 @@ public sealed partial class ChatService : Instance
 		UnicastMessage(msg, plr);
 	}
 
-	public static string FormatEmojis(string msg, int sizeMultipler = 1)
+	private static readonly Regex _emojiRegex = new(@":([^:\s]+):", RegexOptions.Compiled);
+
+	public static string FormatEmojis(string msg, float scale = 1f)
 	{
-		string result = msg;
-		foreach ((string key, string v) in _builtInEmojis)
+		int size = Mathf.RoundToInt(24 * scale);
+		return _emojiRegex.Replace(msg, match =>
 		{
-			result = result.Replace($":{key}:", $"[img={24 * sizeMultipler}x{24 * sizeMultipler}]{v}[/img]");
-		}
-		return result;
+			string name = match.Groups[1].Value;
+			if (_builtInEmojis.TryGetValue(name, out string? path))
+				return $"[img={size}x{size}]{path}[/img]";
+			return match.Value;
+		});
 	}
 
 	// Logging for moderation
