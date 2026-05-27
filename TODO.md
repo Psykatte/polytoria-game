@@ -1,7 +1,7 @@
 - [x] Migrate YAML documentation to documentation comments via Python script.
 - [x] Migrate .gitignore and Github workflows.
-- [ ] Add `docs` folders to every folder containing scriptable objects via Python script.
-- [ ] Add `<class>.examples.cs` for every class containing scriptable objects via Python script.
-- [ ] Verify every documentation comment is in the right place and formatted correctly.
-- [ ] Add `<class>.<snippet-name>.md` for every snippet that should be added to the generated markdown.
-- [ ] Implement docgen logic.
+- [ ] Verify inline `<summary>` comments are in the right place and formatted correctly.
+- [ ] Implement `--docgen` flag.
+- [ ] Parse source XML doc comments via `System.Xml.Linq` and resolve sibling `.md` files by naming convention; warn on missing docs.
+- [ ] Use `DocCategory` attribute to determine the output directory.
+- [ ] Emit final Markdown (inline summary + sibling prose + cross-links) for mkdocs-material.
