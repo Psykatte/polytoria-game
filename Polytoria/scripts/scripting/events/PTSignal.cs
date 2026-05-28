@@ -309,6 +309,9 @@ public class PTSignal : IScriptObject
 	}
 }
 
+/// <summary>
+/// PTSignalConnection represents a signal for this connection.
+/// </summary>
 [DocCategory("scripting")]
 public struct PTSignalConnection() : IScriptObject
 {
