@@ -5,6 +5,7 @@
 using System;
 
 namespace Polytoria.Scripting.Luau;
+
 /// <summary>
 /// Garbage Collector operations.
 /// </summary>

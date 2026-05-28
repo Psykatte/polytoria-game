@@ -3,6 +3,7 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 namespace Polytoria.Scripting.Luau;
+
 /// <summary>
 /// Lua Load/Call status return.
 /// </summary>

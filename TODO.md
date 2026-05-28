@@ -3,7 +3,8 @@
 - [x] Verify inline `<summary>` comments are in the right place and formatted correctly.
 - [x] Add full stops to documentation comments.
 - [x] Remove empty tags.
-- [ ] Ensure return before documentation comments (for contributor readability).
+- [x] Ensure return before documentation comments (for contributor readability).
+- [ ] Ensure full stop within tagged text.
 - [ ] Implement `--docgen` flag.
 - [ ] Parse source XML doc comments via `System.Xml.Linq` and resolve sibling `.md` files by naming convention; warn on missing docs.
 - [ ] Use `DocCategory` attribute to determine the output directory.
