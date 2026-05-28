@@ -84,14 +84,13 @@ public class APIReferenceGenerator
 					ScriptEvent eventDef = new()
 					{
 						Name = property.Name,
-						Description = xmlDocs?.GetMemberSummary(eventKey),
+						Summary = xmlDocs?.GetMemberSummary(eventKey),
+						Value = xmlDocs?.GetMemberSection(eventKey, "value"),
 					};
 
 					Type propertyType = property.PropertyType;
 					if (propertyType.IsGenericType)
 					{
-						// Generic PTSignal<T1, T2…>: types come from reflection;
-						// names + descriptions are pulled from matching <param> tags by index.
 						Type[] genericArgs = propertyType.GetGenericArguments();
 						List<ScriptParameter> paramsDef = [];
 
@@ -109,24 +108,24 @@ public class APIReferenceGenerator
 							});
 						}
 
-						eventDef.Parameters = paramsDef;
+						eventDef.Params = paramsDef;
 					}
 					else if (docParams.Count > 0)
 					{
-						// Non-generic PTSignal: both name and type come from <param name="…" type="…">.
 						List<ScriptParameter> paramsDef = [];
-						foreach ((string pName, string? pType, string? pDesc) in docParams)
+						foreach ((string paramName, string? paramType, string? paramDesc) in docParams)
 						{
 							paramsDef.Add(new ScriptParameter
 							{
-								Name = pName,
-								Type = pType ?? "any",
-								Description = pDesc,
+								Name = paramName,
+								Type = paramType ?? "any",
+								Description = paramDesc,
 								IsOptional = false,
 								DefaultValue = null
 							});
 						}
-						eventDef.Parameters = paramsDef;
+
+						eventDef.Params = paramsDef;
 					}
 
 					eventsDef.Add(eventDef);
@@ -138,9 +137,9 @@ public class APIReferenceGenerator
 					{
 						Name = property.Name,
 						Type = ProcessTypeName(property.PropertyType),
-						Description = xmlDocs?.GetMemberSummary(propKey),
+						Summary = xmlDocs?.GetMemberSummary(propKey),
+						Value = xmlDocs?.GetMemberSection(propKey, "value"),
 						Remarks = xmlDocs?.GetMemberSection(propKey, "remarks"),
-						SeeAlso = xmlDocs?.GetMemberSeeAlso(propKey),
 						IsAccessibleByScripts = !(editableAttribute != null && propAttribute == null),
 						IsObsolete = property.GetCustomAttribute<Attributes.ObsoleteAttribute>() != null,
 						IsStatic = property.GetAccessors(true)[0].IsStatic
@@ -204,16 +203,25 @@ public class APIReferenceGenerator
 
 				if (returnType == typeof(Node)) continue;
 
-				string methodName = metaMethodAttribute != null ? GetMetamethodIndexer(metaMethodAttribute.Metamethod) : methodAttribute?.MethodName ?? method.Name;
-				(string? mDesc, string? mRemarks, string? mReturns, List<string>? mExamples, List<string>? mSeeAlso, Dictionary<string, string> mParamDocs) = xmlDocs?.GetMethodDocs(type.FullName!, method.Name) ?? (null, null, null, null, null, []);
+				string methodName = metaMethodAttribute != null
+					? GetMetamethodIndexer(metaMethodAttribute.Metamethod)
+					: methodAttribute?.MethodName ?? method.Name;
 
-				// Populate parameter descriptions from XML docs
+				(
+					string? methodSummary,
+					Dictionary<string, string> methodParamDocs,
+					string? methodReturns,
+					string? methodRemarks
+				) = xmlDocs?.GetMethodDocs(type.FullName!, method.Name)
+					?? (null, [], null, null);
+
+				// Populate parameter descriptions from XML docs.
 				for (int i = 0; i < paramsDef.Count; i++)
 				{
 					ScriptParameter p = paramsDef[i];
-					if (mParamDocs.TryGetValue(p.Name, out string? pDesc))
+					if (methodParamDocs.TryGetValue(p.Name, out string? paramDesc))
 					{
-						p.Description = pDesc;
+						p.Description = paramDesc;
 						paramsDef[i] = p;
 					}
 				}
@@ -222,13 +230,11 @@ public class APIReferenceGenerator
 				{
 					Name = methodName,
 					ReturnType = ProcessTypeName(returnType),
-					Returns = mReturns,
-					Description = mDesc,
-					Remarks = mRemarks,
-					Examples = mExamples,
-					SeeAlso = mSeeAlso,
+					Summary = methodSummary,
+					Params = paramsDef,
+					Returns = methodReturns,
+					Remarks = methodRemarks,
 					IsAsync = asyncFunc,
-					Parameters = paramsDef,
 					IsObsolete = method.GetCustomAttribute<Attributes.ObsoleteAttribute>() != null,
 					IsStatic = method.IsStatic,
 					IsSemiStatic = method.IsStatic && (methodAttribute?.SemiStatic ?? false),
@@ -245,7 +251,7 @@ public class APIReferenceGenerator
 					Name = "__index",
 					ReturnType = "any",
 					IsAsync = false,
-					Parameters =
+					Params =
 					[
 						new() { Name = "indexer", Type = "any" }
 					],
@@ -257,7 +263,7 @@ public class APIReferenceGenerator
 					Name = "__newindex",
 					ReturnType = "nil",
 					IsAsync = false,
-					Parameters =
+					Params =
 					[
 						new() { Name = "indexer", Type = "any" }
 					],
@@ -275,17 +281,15 @@ public class APIReferenceGenerator
 				Name = ProcessClassName(type),
 				BaseType = ((type.BaseType != null && type.BaseType.IsAssignableTo(typeof(Node))) || type.BaseType == typeof(object) || type.BaseType == typeof(ValueType)) ? null : type.BaseType?.Name ?? null,
 				Category = categoryA?.Category,
-				Description = xmlDocs?.GetMemberSummary(typeKey),
+				Summary = xmlDocs?.GetMemberSummary(typeKey),
 				Remarks = xmlDocs?.GetMemberSection(typeKey, "remarks"),
-				Examples = xmlDocs?.GetMemberExamples(typeKey),
-				SeeAlso = xmlDocs?.GetMemberSeeAlso(typeKey),
+				Properties = propertiesDef,
+				Methods = methodsDef,
+				Events = eventsDef,
 				IsStatic = staticA != null,
 				StaticAlias = staticA?.Alias,
 				IsAbstract = type.IsDefined(typeof(AbstractAttribute), false),
 				IsInstantiable = type.IsDefined(typeof(InstantiableAttribute), false),
-				Properties = propertiesDef,
-				Methods = methodsDef,
-				Events = eventsDef,
 			};
 
 			classMap[type] = typeDef;
@@ -297,18 +301,19 @@ public class APIReferenceGenerator
 
 		foreach ((string key, Type enumType) in ScriptService.EnumMap)
 		{
-			List<ScriptEnumValue> options = Enum.GetNames(enumType)
+			List<ScriptEnumValue> options = [.. Enum.GetNames(enumType)
 				.Select(n => new ScriptEnumValue
 				{
 					Name = n,
-					Description = xmlDocs?.GetMemberSummary("F:" + enumType.FullName + "." + n),
-				})
-				.ToList();
+					Summary = xmlDocs?.GetMemberSummary("F:" + enumType.FullName + "." + n),
+					Remarks = xmlDocs?.GetMemberSection("F:" + enumType.FullName + "." + n, "remarks"),
+				})];
 			enums.Add(new()
 			{
 				Name = key,
 				InternalName = enumType.Name,
-				Description = xmlDocs?.GetMemberSummary("E:" + enumType.FullName),
+				Summary = xmlDocs?.GetMemberSummary("E:" + enumType.FullName),
+				Remarks = xmlDocs?.GetMemberSection("F:" + enumType.FullName, "remarks"),
 				Options = options,
 			});
 		}
@@ -595,12 +600,10 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? ReturnType;
+		public string? Summary;
+		public List<ScriptParameter> Params;
 		public string? Returns;
-		public string? Description;
 		public string? Remarks;
-		public List<string>? Examples;
-		public List<string>? SeeAlso;
-		public List<ScriptParameter> Parameters;
 		public bool IsAsync;
 		public bool IsObsolete;
 		public bool IsStatic;
@@ -611,9 +614,9 @@ public class APIReferenceGenerator
 	{
 		public string Name;
 		public string? Type;
-		public string? Description;
+		public string? Summary;
+		public string? Value;
 		public string? Remarks;
-		public List<string>? SeeAlso;
 		public bool IsAccessibleByScripts;
 		public bool IsReadOnly;
 		public bool IsObsolete;
@@ -623,21 +626,24 @@ public class APIReferenceGenerator
 	public struct ScriptEvent
 	{
 		public string Name;
-		public string? Description;
-		public List<ScriptParameter> Parameters;
+		public string? Summary;
+		public string? Value;
+		public List<ScriptParameter> Params;
 	}
 
 	public struct ScriptEnumValue
 	{
 		public string Name;
-		public string? Description;
+		public string? Summary;
+		public string? Remarks;
 	}
 
 	public struct ScriptEnum
 	{
 		public string Name;
 		public string InternalName;
-		public string? Description;
+		public string? Summary;
+		public string? Remarks;
 		public List<ScriptEnumValue> Options;
 	}
 
@@ -646,10 +652,8 @@ public class APIReferenceGenerator
 		public string Name;
 		public string? BaseType;
 		public string? Category;
-		public string? Description;
+		public string? Summary;
 		public string? Remarks;
-		public List<string>? Examples;
-		public List<string>? SeeAlso;
 		public List<ScriptProperty> Properties;
 		public List<ScriptMethod> Methods;
 		public List<ScriptEvent> Events;
@@ -689,8 +693,8 @@ internal sealed class XmlDocReader
 	public string? GetMemberSummary(string key) => GetMemberSection(key, "summary");
 
 	/// <summary>
-	/// Returns ordered (name, type, description) tuples for a member's &lt;param&gt; tags.
-	/// Recognizes a non-standard `type="…"` attribute used by PTSignal fields whose
+	/// Returns ordered (name, type, description) tuples for a member's param tags.
+	/// Recognizes a non-standard `type="..."` attribute used by PTSignal fields whose
 	/// generic args don't carry semantic naming (e.g. <c>PTSignal</c>, <c>BindableEvent</c>).
 	/// </summary>
 	public List<(string Name, string? Type, string? Description)> GetMemberParamsTyped(string key)
@@ -715,24 +719,7 @@ internal sealed class XmlDocReader
 		return section != null ? RenderInline(section) : null;
 	}
 
-	public List<string>? GetMemberExamples(string key)
-	{
-		if (!_members.TryGetValue(key, out XElement? el)) return null;
-		List<string> list = el.Elements("example").Select(RenderInline).ToList();
-		return list.Count > 0 ? list : null;
-	}
-
-	public List<string>? GetMemberSeeAlso(string key)
-	{
-		if (!_members.TryGetValue(key, out XElement? el)) return null;
-		List<string> list = el.Elements("seealso")
-			.Select(e => ((string?)e.Attribute("cref") ?? "").Split('.').Last())
-			.Where(s => s.Length > 0)
-			.ToList();
-		return list.Count > 0 ? list : null;
-	}
-
-	public (string? Summary, string? Remarks, string? Returns, List<string>? Examples, List<string>? SeeAlso, Dictionary<string, string> ParamDocs)
+	public (string? Summary, Dictionary<string, string> ParamDocs, string? Returns, string? Remarks)
 		GetMethodDocs(string typeFullName, string methodName)
 	{
 		string prefix = "M:" + typeFullName + "." + methodName;
@@ -745,7 +732,7 @@ internal sealed class XmlDocReader
 				break;
 			}
 		}
-		if (foundKey == null) return (null, null, null, null, null, []);
+		if (foundKey == null) return (null, [], null, null);
 
 		Dictionary<string, string> paramDocs = [];
 		if (_members.TryGetValue(foundKey, out XElement? el))
@@ -759,33 +746,10 @@ internal sealed class XmlDocReader
 
 		return (
 			GetMemberSection(foundKey, "summary"),
-			GetMemberSection(foundKey, "remarks"),
+			paramDocs,
 			GetMemberSection(foundKey, "returns"),
-			GetMemberExamples(foundKey),
-			GetMemberSeeAlso(foundKey),
-			paramDocs
+			GetMemberSection(foundKey, "remarks")
 		);
-	}
-
-	// Helper function for removing extra indentation between XML tags.
-	private static string RemoveCommonIndentation(string codeText)
-	{
-		// Split into lines and find minimum indentation
-		var lines = codeText.Split('\n');
-		var minIndent = lines
-			.Where(line => !string.IsNullOrWhiteSpace(line))
-			.Select(line => line.Length - line.TrimStart().Length)
-			.DefaultIfEmpty(0)
-			.Min();
-		
-		// Remove common indentation and trim
-		return string.Join("\n",
-			lines.Select((line, i) => 
-				i == 0 || i == lines.Length - 1 
-					? line.Trim()
-					: (line.Length > minIndent ? line.Substring(minIndent) : line.Trim())
-			)
-		).Trim();
 	}
 
 	static string GetCategory(Type type) =>
@@ -809,7 +773,6 @@ internal sealed class XmlDocReader
 				switch (child.Name.LocalName)
 				{
 					case "c": sb.Append(" `").Append(child.Value.Trim()).Append('`'); break;
-					case "code": sb.Append("\n```luau\n").Append(RemoveCommonIndentation(child.Value)).Append("\n```"); break;
 					case "para": sb.Append("\n\n").Append(RenderInline(child).TrimStart()); break;
 					case "see":
 					{
