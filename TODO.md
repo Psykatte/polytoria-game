@@ -4,7 +4,7 @@
 - [x] Add full stops to documentation comments.
 - [x] Remove empty tags.
 - [x] Ensure return before documentation comments (for contributor readability).
-- [ ] Ensure full stop within tagged text.
+- [x] Ensure full stop within tagged text.
 - [ ] Implement `--docgen` flag.
 - [ ] Parse source XML doc comments via `System.Xml.Linq` and resolve sibling `.md` files by naming convention; warn on missing docs.
 - [ ] Use `DocCategory` attribute to determine the output directory.

@@ -9,7 +9,7 @@ namespace Polytoria.Attributes;
 /// <summary>
 /// Mark this as obsolete.
 /// </summary>
-/// <param name="message">The message regarding the obsolete reason</param>
+/// <param name="message">The message regarding the obsolete reason.</param>
 [AttributeUsage(AttributeTargets.All)]
 public sealed class ObsoleteAttribute(string message) : Attribute
 {

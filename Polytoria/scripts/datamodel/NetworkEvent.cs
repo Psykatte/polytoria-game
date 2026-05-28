@@ -98,7 +98,7 @@ public sealed partial class NetworkEvent : Instance
 	/// <summary>
 	/// Sends a network event to all players from the server.
 	/// </summary>
-	/// <param name="msg">NetMessage to send</param>
+	/// <param name="msg">NetMessage to send.</param>
 	/// <exception cref="System.InvalidOperationException"></exception>
 	[ScriptMethod]
 	public void InvokeClients(NetMessage? msg = null)

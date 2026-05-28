@@ -679,7 +679,7 @@ public partial class Physical : Dynamic
 	/// <summary>
 	/// This function must be called if collision shape has been updated.
 	/// </summary>
-	/// <param name="collisionShape">Target collision shape</param>
+	/// <param name="collisionShape">Target collision shape.</param>
 	internal void PostCollisionShapeUpdate(CollisionShape3D collisionShape)
 	{
 		RemoveCollisionShape(collisionShape, false);
@@ -689,7 +689,7 @@ public partial class Physical : Dynamic
 	/// <summary>
 	/// Remove collision shape from the mirror.
 	/// </summary>
-	/// <param name="collisionShape">Target collision shape</param>
+	/// <param name="collisionShape">Target collision shape.</param>
 	/// <param name="free">Free the shape now?</param>
 	internal void RemoveCollisionShape(CollisionShape3D collisionShape, bool free = true)
 	{

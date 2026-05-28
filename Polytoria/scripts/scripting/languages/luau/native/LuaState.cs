@@ -725,7 +725,7 @@ public partial class LuaState : IDisposable
 	/// </summary>
 	/// <param name="index"></param>
 	/// <param name="obj"></param>
-	/// <returns>Returns the type of the pushed value. </returns>
+	/// <returns>Returns the type of the pushed value.</returns>
 	public LuaType RawGetPointer(int index, IntPtr obj)
 	{
 		lock (_lock)

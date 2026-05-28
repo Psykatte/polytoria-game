@@ -737,7 +737,7 @@ public partial class CreatorInterface : Control, IScriptObject
 	/// <summary>
 	/// Request confirmation before quit.
 	/// </summary>
-	/// <returns>Boolean that indicates if this app should quit</returns>
+	/// <returns>Boolean that indicates if this app should quit.</returns>
 	internal async Task<bool> OnQuitRequested()
 	{
 		return await PromptConfirmation("Are you sure you want to quit? Any unsaved changes will be lost");

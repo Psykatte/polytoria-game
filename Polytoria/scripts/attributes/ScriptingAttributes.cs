@@ -19,7 +19,7 @@ public sealed class ScriptPropertyAttribute : Attribute
 /// <summary>
 /// Mark this property as accessible by legacy scripts.
 /// </summary>
-/// <param name="methodName">Name to be overrided in script</param>
+/// <param name="methodName">Name to be overrided in script.</param>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ScriptLegacyPropertyAttribute(string propName) : Attribute
 {
@@ -41,7 +41,7 @@ public interface IScriptMethodAttribute
 /// <summary>
 /// Mark this method as accessible by scripts.
 /// </summary>
-/// <param name="methodName">Optional name to be overrided in script</param>
+/// <param name="methodName">Optional name to be overrided in script.</param>
 [AttributeUsage(AttributeTargets.Method)]
 public class ScriptMethodAttribute(string? methodName = null) : Attribute, IScriptMethodAttribute
 {
@@ -69,7 +69,7 @@ public class ScriptingCallerAttribute : Attribute { }
 /// <summary>
 /// Mark this method as accessible by legacy scripts.
 /// </summary>
-/// <param name="methodName">Name to be overrided in script</param>
+/// <param name="methodName">Name to be overrided in script.</param>
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class ScriptLegacyMethodAttribute(string methodName) : Attribute, IScriptMethodAttribute
 {
@@ -83,7 +83,7 @@ public sealed class ScriptLegacyMethodAttribute(string methodName) : Attribute, 
 /// <summary>
 /// Mark this method as metamethod (operations such as + - tostring).
 /// </summary>
-/// <param name="metamethod">The target metamethod</param>
+/// <param name="metamethod">The target metamethod.</param>
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class ScriptMetamethodAttribute(ScriptObjectMetamethod metamethod) : Attribute
 {
