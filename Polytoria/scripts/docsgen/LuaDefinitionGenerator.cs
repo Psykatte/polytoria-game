@@ -44,9 +44,6 @@ public class LuaDefinitionGenerator
 		File.WriteAllText(atFolder.PathJoin("def.json"), JsonSerializer.Serialize(refer, APIRefGenerationContext.Default.APIReferenceRoot));
 
 		// Add PTSignal type definitions
-		/// <summary>
-		/// PTSignalConnection represents a signal for this connection.
-		/// </summary>
 		builder.AppendLine("declare class PTSignalConnection");
 		builder.AppendLine("\tfunction Disconnect(self): ()");
 		builder.AppendLine("end");
@@ -66,9 +63,9 @@ public class LuaDefinitionGenerator
 		{
 			builder.AppendLine($"declare class {e.Name} end");
 			builder.AppendLine($"declare class {e.InternalName} extends Enum");
-			foreach (ScriptEnumValue item in e.Options)
+			foreach (string item in e.Options)
 			{
-				builder.AppendLine($"\t{item.Name}:{e.Name}");
+				builder.AppendLine($"\t{item}:{e.Name}");
 			}
 			builder.AppendLine($"end");
 		}
