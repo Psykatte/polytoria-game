@@ -8,7 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// ColorAdjustModifier is a LightingModifier that allows the adjustment of lighting
+/// ColorAdjustModifier is a LightingModifier that allows the adjustment of lighting.
 /// </summary>
 [Instantiable]
 [DocCategory("elements")]

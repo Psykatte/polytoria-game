@@ -100,7 +100,7 @@ public partial class Explosion : Dynamic
 	[ScriptProperty] public PTFunction? AffectPredicate { get; set; }
 
 	/// <summary>
-	/// Fires when this explosion affects an instance
+	/// Fires when this explosion affects an instance.
 	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Touched { get; private set; } = new();
 

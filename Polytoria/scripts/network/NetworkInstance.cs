@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Networking;
 
 /// <summary>
-/// ENet network instance
+/// ENet network instance.
 /// </summary>
 public class NetworkInstance
 {
@@ -92,7 +92,7 @@ public class NetworkInstance
 	}
 
 	/// <summary>
-	/// Adapt server bandwidth to player count
+	/// Adapt server bandwidth to player count.
 	/// </summary>
 	/// <param name="_">used to be player count</param>
 	public void AdaptBandwidth(int _)

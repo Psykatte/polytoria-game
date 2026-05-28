@@ -104,7 +104,7 @@ public sealed partial class NetworkService : Instance
 	public ClientEntry Entry = null!;
 
 	/// <summary>
-	/// Integrity check layer for this network
+	/// Integrity check layer for this network.
 	/// </summary>
 	internal static IIntegrityCheck? IntegrityCheckLayer { get; set; }
 
@@ -782,7 +782,7 @@ public sealed partial class NetworkService : Instance
 	}
 
 	/// <summary>
-	/// Called by World Replication when transform is ready
+	/// Called by World Replication when transform is ready.
 	/// </summary>
 	internal void NetWorldSyncd()
 	{
@@ -799,7 +799,7 @@ public sealed partial class NetworkService : Instance
 	}
 
 	/// <summary>
-	/// Called by TransformSync when transform is ready
+	/// Called by TransformSync when transform is ready.
 	/// </summary>
 	internal void NetTransformSyncd()
 	{
@@ -822,7 +822,7 @@ public sealed partial class NetworkService : Instance
 	}
 
 	/// <summary>
-	/// Called by ClientScriptSync when scripts is ready
+	/// Called by ClientScriptSync when scripts is ready.
 	/// </summary>
 	internal void NetScriptSyncd()
 	{

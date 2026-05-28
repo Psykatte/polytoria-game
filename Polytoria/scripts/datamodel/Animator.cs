@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// WIP class
+/// WIP class.
 /// </summary>
 [Instantiable]
 [DocCategory("world")]

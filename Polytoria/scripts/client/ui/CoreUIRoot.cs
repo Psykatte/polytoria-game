@@ -39,7 +39,7 @@ public partial class CoreUIRoot : CanvasLayer
 	[Export] public DevConsoleWindow DevWindow = null!;
 
 	/// <summary>
-	/// Determine if CoreUI has active popup, this overrides Input.IsGameFocused
+	/// Determine if CoreUI has active popup, this overrides Input.IsGameFocused.
 	/// </summary>
 	public bool CoreUIActive { get; set; } = false;
 

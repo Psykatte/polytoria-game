@@ -11,7 +11,7 @@ using System.Linq;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Base class for all assets
+/// Base class for all assets.
 /// </summary>
 [Abstract]
 [DocCategory("assets")]

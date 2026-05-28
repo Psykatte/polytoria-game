@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Polytoria.Client;
 
 /// <summary>
-/// Multimesh bridge for Datamodel
+/// Multimesh bridge for Datamodel.
 /// </summary>
 public partial class DatamodelBridge : Node3D
 {

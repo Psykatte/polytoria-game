@@ -8,7 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// UIGridLayout is a class that arranges all of it's children in a grid layout
+/// UIGridLayout is a class that arranges all of it's children in a grid layout.
 /// </summary>
 [Instantiable]
 [DocCategory("ui")]

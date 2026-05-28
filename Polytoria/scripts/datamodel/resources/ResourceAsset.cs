@@ -10,7 +10,7 @@ using System;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Base class for asset that is based on Resource
+/// Base class for asset that is based on Resource.
 /// </summary>
 [Abstract]
 [DocCategory("assets")]

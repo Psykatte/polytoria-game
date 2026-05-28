@@ -275,7 +275,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Disconnect all callbacks related to the target script
+	/// Disconnect all callbacks related to the target script.
 	/// </summary>
 	/// <param name="s"></param>
 	public void DisconnectFromScript(Script s)
@@ -293,7 +293,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Cleanup all PTSignals from target script
+	/// Cleanup all PTSignals from target script.
 	/// </summary>
 	/// <param name="s"></param>
 	public static void CleanupScript(Script s)

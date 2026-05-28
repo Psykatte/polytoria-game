@@ -5,6 +5,6 @@
 namespace Polytoria.Datamodel.Interfaces;
 
 /// <summary>
-/// Interface for marking an instance that is for groupping instances, such as Models and Folder
+/// Interface for marking an instance that is for groupping instances, such as Models and Folder.
 /// </summary>
 public interface IGroup { }

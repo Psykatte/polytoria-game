@@ -6,9 +6,10 @@ using Godot;
 
 namespace Polytoria.Utils;
 
+// Docs TODO
 /// <summary>
-/// MathUtils, primarly used for flipping axis
-/// As Polytoria uses left handed coordinates and Godot uses right hand. All Vector2, 3 and Quat must be flipped first before interacting with each other
+/// MathUtils, primarly used for flipping axis.
+/// As Polytoria uses left handed coordinates and Godot uses right hand. All Vector2, 3 and Quat must be flipped first before interacting with each other.
 /// </summary>
 public static class MathUtils
 {
@@ -59,7 +60,7 @@ public static class MathUtils
 
 	/// <summary>
 	/// ExpDecay, primarily used for calculating the alpha for lerps
-	/// Multiplying deltatime by a constant is a really unreliable solution, especially at lower framerates, since the result can be > 1. Use this instead
+	/// Multiplying deltatime by a constant is a really unreliable solution, especially at lower framerates, since the result can be > 1. Use this instead.
 	/// </summary>
 	public static float ExpDecay(float delta, float lambda)
 	{

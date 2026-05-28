@@ -73,7 +73,7 @@ public sealed partial class NetworkEvent : Instance
 	}
 
 	/// <summary>
-	/// Sends a network event to a specific player from the server
+	/// Sends a network event to a specific player from the server.
 	/// </summary>
 	/// <param name="msg">message</param>
 	/// <param name="player">player</param>

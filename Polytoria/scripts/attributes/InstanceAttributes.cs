@@ -7,19 +7,19 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this class as instantiatable via Instance.New/scripts
+/// Mark this class as instantiatable via Instance.New/scripts.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class InstantiableAttribute : Attribute { }
 
 /// <summary>
-/// Mark this class as internal class
+/// Mark this class as internal class.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class InternalAttribute : Attribute { }
 
 /// <summary>
-/// Stop the root finding process
+/// Stop the root finding process.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class PhysicalRootStopAttribute : Attribute { }

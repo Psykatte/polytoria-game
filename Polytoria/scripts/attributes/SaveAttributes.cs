@@ -7,13 +7,13 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this property/class as ignored by save process
+/// Mark this property/class as ignored by save process.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class)]
 public sealed class SaveIgnoreAttribute : Attribute { }
 
 /// <summary>
-/// Include this property when saving
+/// Include this property when saving.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class SaveIncludeAttribute : Attribute { }

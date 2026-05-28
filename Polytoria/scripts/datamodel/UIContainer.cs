@@ -7,7 +7,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// Base class for all UI containers
+/// Base class for all UI containers.
 /// </summary>
 [Abstract]
 [DocCategory("ui")]

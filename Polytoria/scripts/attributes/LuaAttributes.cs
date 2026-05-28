@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this method to handle lua state on it's own
+/// Mark this method to handle lua state on it's own.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
 public sealed class HandlesLuaStateAttribute : Attribute { }

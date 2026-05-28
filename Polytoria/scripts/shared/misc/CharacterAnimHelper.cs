@@ -9,7 +9,7 @@ using static Polytoria.Datamodel.CharacterModel;
 namespace Polytoria.Shared.Misc;
 
 /// <summary>
-/// Class for bridging CharacterModel's state with Godot's
+/// Class for bridging CharacterModel's state with Godot's.
 /// </summary>
 public partial class CharacterAnimHelper : Node
 {

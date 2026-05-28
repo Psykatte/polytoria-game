@@ -8,7 +8,7 @@ using System;
 namespace Polytoria.Shared.Misc;
 
 /// <summary>
-/// Class for bridging inputs with Godot
+/// Class for bridging inputs with Godot.
 /// </summary>
 public partial class InputHelper : Node
 {

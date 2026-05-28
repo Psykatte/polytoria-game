@@ -140,7 +140,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Group the instances and add to history
+	/// Group the instances and add to history.
 	/// </summary>
 	/// <param name="instances"></param>
 	public void GroupInstances(Instance[] instances, GroupAsEnum asWhat = GroupAsEnum.Model)
@@ -167,7 +167,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Ungroup the instances and add to history
+	/// Ungroup the instances and add to history.
 	/// </summary>
 	/// <param name="instances"></param>
 	public void UngroupInstances(Instance[] instances)

@@ -7,7 +7,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Base class for font assets
+/// Base class for font assets.
 /// </summary>
 [Abstract]
 [DocCategory("assets")]

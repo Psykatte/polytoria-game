@@ -8,7 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// Entity represents a physics object that's related to building blocks (inherited by Part and Mesh)
+/// Entity represents a physics object that's related to building blocks (inherited by Part and Mesh).
 /// </summary>
 [Abstract]
 [DocCategory("physics")]

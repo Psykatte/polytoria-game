@@ -147,12 +147,12 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Godot node linked with this object
+	/// Godot node linked with this object.
 	/// </summary>
 	internal Node GDNode = null!;
 
 	/// <summary>
-	/// Slot node. This is where Godot child will be added to
+	/// Slot node. This is where Godot child will be added to.
 	/// </summary>
 	internal Node SlotNode = null!;
 
@@ -193,7 +193,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// NameOverride, allows for setting name directly without restrictions, name will still be enforced
+	/// NameOverride, allows for setting name directly without restrictions, name will still be enforced.
 	/// </summary>
 	internal string NameOverride
 	{
@@ -247,13 +247,13 @@ public partial class NetworkedObject : IScriptObject
 	public event Action? Deleted;
 
 	/// <summary>
-	/// Fires when a property of this object has changed
+	/// Fires when a property of this object has changed.
 	/// </summary>
 	/// <param name="propertyName" type="string"></param>
 	[ScriptProperty] public PTSignal<string> PropertyChanged { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when this object has been renamed
+	/// Fires when this object has been renamed.
 	/// </summary>
 	[ScriptProperty] public PTSignal Renamed { get; private set; } = new();
 
@@ -304,17 +304,17 @@ public partial class NetworkedObject : IScriptObject
 	public bool IsPhysicsProcessRegistered => _physicsProcessRegistered;
 
 	/// <summary>
-	/// Set to false if InvokePropReady is called manually (eg. after properties set)
+	/// Set to false if InvokePropReady is called manually (eg. after properties set).
 	/// </summary>
 	internal bool AutoInvokeReady { get; set; } = true;
 
 	/// <summary>
-	/// Set to false if prop ready should not be called on parent set (eg. when cloning)
+	/// Set to false if prop ready should not be called on parent set (eg. when cloning).
 	/// </summary>
 	internal bool AutoInvokeReadyOnParent { get; set; } = true;
 
 	/// <summary>
-	/// Set to false if properties will be overrided, (eg. when loading from saves or cloning)
+	/// Set to false if properties will be overrided, (eg. when loading from saves or cloning).
 	/// </summary>
 	internal bool CallInitOverrides { get; set; } = true;
 
@@ -337,7 +337,7 @@ public partial class NetworkedObject : IScriptObject
 	protected bool HasAuthority => Root != null && (Root.Network.LocalPeerID == NetworkAuthority || Root.Network.IsServer || !ExistInNetwork);
 
 	/// <summary>
-	/// Check if this object is ready in the network
+	/// Check if this object is ready in the network.
 	/// </summary>
 	public bool IsNetworkReady
 	{
@@ -369,12 +369,12 @@ public partial class NetworkedObject : IScriptObject
 	internal Dictionary<string, NetworkedObject> UniqueNames = [];
 
 	/// <summary>
-	/// Fires when object enters the tree
+	/// Fires when object enters the tree.
 	/// </summary>
 	[ScriptProperty] public PTSignal TreeEntered { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when object exit the tree (via reparent or delete)
+	/// Fires when object exit the tree (via reparent or delete).
 	/// </summary>
 	[ScriptProperty] public PTSignal TreeExited { get; private set; } = new();
 
@@ -608,7 +608,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Initialize the node, required to be called manually when using Game
+	/// Initialize the node, required to be called manually when using Game.
 	/// </summary>
 	public void InitEntry()
 	{
@@ -749,7 +749,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Init default values (editable properties with DefaultValue attribute)
+	/// Init default values (editable properties with DefaultValue attribute).
 	/// </summary>
 	private void InitDefaultValues()
 	{
@@ -866,50 +866,50 @@ public partial class NetworkedObject : IScriptObject
 	public virtual void InitGDNode() { }
 
 	/// <summary>
-	/// Override this function to initialize anything else
+	/// Override this function to initialize anything else.
 	/// </summary>
 	public virtual void Init() { }
 
 	/// <summary>
-	/// Override this function for overriding properties after default value pass
+	/// Override this function for overriding properties after default value pass.
 	/// </summary>
 	public virtual void InitOverrides() { }
 
 	/// <summary>
-	/// Override this function to deinitialize the object
+	/// Override this function to deinitialize the object.
 	/// </summary>
 	public virtual void PreDelete() { }
 
 	/// <summary>
-	/// Calls when object enters the tree, usually by newly inserted into the tree or is reparented
+	/// Calls when object enters the tree, usually by newly inserted into the tree or is reparented.
 	/// </summary>
 	public virtual void EnterTree() { }
 
 	/// <summary>
-	/// Calls when object exit the tree, usually by deletion or is reparented
+	/// Calls when object exit the tree, usually by deletion or is reparented.
 	/// </summary>
 	public virtual void ExitTree() { }
 
 	/// <summary>
-	/// Process function
+	/// Process function.
 	/// </summary>
 	/// <param name="delta"></param>
 	public virtual void Process(double delta) { }
 
 	/// <summary>
-	/// Physics process function
+	/// Physics process function.
 	/// </summary>
 	/// <param name="delta"></param>
 	public virtual void PhysicsProcess(double delta) { }
 
 	/// <summary>
-	/// Calls when this object has been reparented
+	/// Calls when this object has been reparented.
 	/// </summary>
 	public virtual void PostReparent() { }
 
 #if CREATOR
 	/// <summary>
-	/// Calls when this object has been inserted via creator's insert menu
+	/// Calls when this object has been inserted via creator's insert menu.
 	/// </summary>
 	public virtual void CreatorInserted() { }
 #endif
@@ -964,7 +964,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Create GD Node
+	/// Create GD Node.
 	/// </summary>
 	/// <returns></returns>
 	public virtual Node CreateGDNode()
@@ -979,7 +979,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Emits when properties are ready in network
+	/// Emits when properties are ready in network.
 	/// </summary>
 	public virtual void Ready() { }
 
@@ -1205,7 +1205,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Get sequence of property name
+	/// Get sequence of property name.
 	/// </summary>
 	/// <param name="propertyName"></param>
 	/// <returns></returns>
@@ -1219,7 +1219,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Compare sequence with the property
+	/// Compare sequence with the property.
 	/// </summary>
 	/// <param name="propertyName"></param>
 	/// <param name="sequence"></param>
@@ -1419,7 +1419,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Apply network properties after first replication
+	/// Apply network properties after first replication.
 	/// </summary>
 	/// <param name="props"></param>
 	/// <param name="isSyncOnce"></param>

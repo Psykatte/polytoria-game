@@ -7,7 +7,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Abstract class for audio
+/// Abstract class for audio.
 /// </summary>
 [Abstract]
 [DocCategory("assets")]

@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this as obsolete
+/// Mark this as obsolete.
 /// </summary>
 /// <param name="message">The message regarding the obsolete reason</param>
 [AttributeUsage(AttributeTargets.All)]

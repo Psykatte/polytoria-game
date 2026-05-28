@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// Base class for Character Models
+/// Base class for Character Models.
 /// </summary>
 [Instantiable]
 [DocCategory("world")]

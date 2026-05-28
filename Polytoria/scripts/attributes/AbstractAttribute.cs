@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this class as abstract
+/// Mark this class as abstract.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class AbstractAttribute : Attribute { }

@@ -117,7 +117,7 @@ public partial class Script : Instance
 	}
 
 	/// <summary>
-	/// Determine if this script should execute
+	/// Determine if this script should execute.
 	/// </summary>
 	internal bool ShouldContinue => (this is ModuleScript || Ran) && IsEnabled && !IsDeleted;
 

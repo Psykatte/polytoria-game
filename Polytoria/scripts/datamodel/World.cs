@@ -69,7 +69,7 @@ public sealed partial class World : Instance
 	public PTSignal<double> Rendered { get; private set; } = new();
 
 	/// <summary>
-	/// Returns true if this current session is being tested locally
+	/// Returns true if this current session is being tested locally.
 	/// </summary>
 	[ScriptProperty]
 	public bool IsLocalTest => _worldID == 0;
@@ -408,11 +408,10 @@ public sealed partial class World : Instance
 	}
 
 	/// <summary>
-	/// Wait for net object, this will also ensure that it's ready
+	/// Wait for net object, this will also ensure that it's ready.
 	/// </summary>
 	/// <param name="networkID"></param>
 	/// <param name="timeoutMs"></param>
-	/// <returns></returns>
 	public async Task<NetworkedObject?> WaitForNetObjectAsync(string networkID, int timeoutMs = 5000)
 	{
 		NetworkedObject? obj = await WaitForNetObjectExistAsync(networkID, timeoutMs);
@@ -550,9 +549,8 @@ public sealed partial class World : Instance
 	}
 
 	/// <summary>
-	/// Setup full game hierarchy
+	/// Setup full game hierarchy.
 	/// </summary>
-	/// <returns></returns>
 	public World Setup()
 	{
 		InputService? inputService = FindChild<InputService>("Input");

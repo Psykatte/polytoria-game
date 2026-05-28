@@ -19,7 +19,7 @@ public partial class Marker3D : Dynamic
 	private bool _visibleInDev;
 
 	/// <summary>
-	/// Length of this Marker
+	/// Length of this Marker.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1)]
 	public float Length

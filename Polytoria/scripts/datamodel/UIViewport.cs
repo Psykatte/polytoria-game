@@ -8,7 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// UIViewport is a UI object that allows displaying 3D content on 2D UI
+/// UIViewport is a UI object that allows displaying 3D content on 2D UI.
 /// </summary>
 [Instantiable]
 [DocCategory("ui")]

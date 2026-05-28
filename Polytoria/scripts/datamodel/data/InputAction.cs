@@ -18,7 +18,7 @@ using System.Text.Json.Serialization;
 namespace Polytoria.Datamodel.Data;
 
 /// <summary>
-/// A collection of Input Buttons
+/// A collection of Input Buttons.
 /// </summary>
 [DocCategory("input")]
 public class InputButtonCollection : IEnumerable, IScriptObject
@@ -66,7 +66,7 @@ public class InputButtonCollection : IEnumerable, IScriptObject
 
 
 /// <summary>
-/// Base class for input action
+/// Base class for input action.
 /// </summary>
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
 [JsonDerivedType(typeof(InputActionVector2), "Vector2")]
@@ -92,13 +92,13 @@ public abstract class InputAction : IScriptObject
 }
 
 /// <summary>
-/// InputButton is a class that represents a button KeyCode
+/// InputButton is a class that represents a button KeyCode.
 /// </summary>
 [DocCategory("input")]
 public class InputButton : IScriptObject
 {
 	/// <summary>
-	/// Key code for this button
+	/// Key code for this button.
 	/// </summary>
 	[ScriptProperty] public KeyCodeEnum KeyCode { get; set; } = KeyCodeEnum.None;
 

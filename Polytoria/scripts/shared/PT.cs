@@ -40,7 +40,7 @@ public static class PT
 	}
 
 	/// <summary>
-	/// Verbose printing
+	/// Verbose printing.
 	/// </summary>
 	/// <param name="str"></param>
 	public static void PrintV(params object?[] str)
@@ -98,7 +98,7 @@ public static class PT
 	}
 
 	/// <summary>
-	/// Print error verbose
+	/// Print error verbose.
 	/// </summary>
 	/// <param name="str"></param>
 	public static void PrintErrV(params object?[] str)

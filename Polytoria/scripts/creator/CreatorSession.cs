@@ -819,7 +819,7 @@ return module";
 	}
 
 	/// <summary>
-	/// Sync file index to all game's IO
+	/// Sync file index to all game's IO.
 	/// </summary>
 	internal void SyncFileIndex()
 	{

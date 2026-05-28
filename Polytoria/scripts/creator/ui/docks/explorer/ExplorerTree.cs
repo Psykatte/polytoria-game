@@ -41,7 +41,7 @@ public partial class ExplorerTree : Tree
 	}
 
 	/// <summary>
-	/// Basically scroll to item but wait for next frame
+	/// Basically scroll to item but wait for next frame.
 	/// </summary>
 	/// <param name="target"></param>
 	public void ScrollToItemFrame(TreeItem target)

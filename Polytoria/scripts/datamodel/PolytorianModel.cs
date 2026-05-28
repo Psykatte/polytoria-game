@@ -264,13 +264,13 @@ public sealed partial class PolytorianModel : CharacterModel
 
 	// Docs TODO
 	/// <summary>
-	/// Returns the current global ragdoll position, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
+	/// Returns the current global ragdoll position, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>.
 	/// </summary>
 	[ScriptProperty] public Vector3 RagdollPosition => VelocityPhysicalBone == null ? Vector3.Zero : VelocityPhysicalBone.GlobalPosition;
 
 	// Docs TODO
 	/// <summary>
-	/// Returns the current global ragdoll rotation, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
+	/// Returns the current global ragdoll rotation, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>.
 	/// </summary>
 	[ScriptProperty] public Vector3 RagdollRotation => VelocityPhysicalBone == null ? Vector3.Zero : VelocityPhysicalBone.GlobalRotationDegrees.FlipEuler();
 

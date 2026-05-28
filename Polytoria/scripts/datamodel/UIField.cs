@@ -252,7 +252,7 @@ public partial class UIField : Instance
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseDown { get; private set; } = new();
 	/// <summary>
-	/// Fires when user release mouse on this UI
+	/// Fires when user release mouse on this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseUp { get; private set; } = new();
 	/// <summary>

@@ -7,9 +7,9 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this property as editable in Creator
+/// Mark this property as editable in Creator.
 ///
-/// NOTE: Property marked with this property will be synchronized by the network, to override this. Use NoSync attribute
+/// NOTE: Property marked with this property will be synchronized by the network, to override this. Use NoSync attribute.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class EditableAttribute : Attribute

@@ -78,7 +78,7 @@ public sealed partial class PurchasesService : Instance
 	}
 
 	/// <summary>
-	/// Prompt the purchase prompt to player
+	/// Prompt the purchase prompt to player.
 	/// </summary>
 	[ScriptMethod]
 	public async Task<bool> PromptAsync(Player player, int assetID)

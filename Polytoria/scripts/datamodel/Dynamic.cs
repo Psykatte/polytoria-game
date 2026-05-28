@@ -317,9 +317,10 @@ public partial class Dynamic : Instance
 		base.Init();
 	}
 
+	// Docs TODO
 	/// <summary>
-	/// Set physics process state, will check first if has authority, if currently hold an authority. Physics process will always be true
-	/// This is to still allow position sync from network transform owner without server interfering physics process state
+	/// Set physics process state, will check first if has authority, if currently hold an authority. Physics process will always be true.
+	/// This is to still allow position sync from network transform owner without server interfering physics process state.
 	/// </summary>
 	/// <param name="to"></param>
 	private void SetPhysicsProcessWAuthor(bool to)
@@ -347,19 +348,20 @@ public partial class Dynamic : Instance
 	private Transform3D _currentTransform;
 	private bool _lerpUnreliable = false;
 
+	// Docs TODO
 	/// <summary>
-	/// Set if netwwork transform will be update automatically once setter called
-	/// set this to false if you update them manually every frame via UpdateNetTransform()
+	/// Set if netwwork transform will be update automatically once setter called.
+	/// Set this to false if you update them manually every frame via <c>UpdateNetTransform()</c>.
 	/// </summary>
 	public bool AutoUpdateNetTransform { get; internal set; } = true;
 
 	/// <summary>
-	/// Set to true if transform will be overrided, essentially ignoring network transform
+	/// Set to true if transform will be overrided, essentially ignoring network transform.
 	/// </summary>
 	public bool OverrideNetworkTransform { get; internal set; } = false;
 
 	/// <summary>
-	/// Virtual function to notify when node size changed
+	/// Virtual function to notify when node size changed.
 	/// </summary>
 	/// <param name="newSize"></param>
 	internal virtual void OnNodeSizeChanged(Vector3 newSize) { }
@@ -613,7 +615,7 @@ public partial class Dynamic : Instance
 	}
 
 	/// <summary>
-	/// Must be called after manual transform update
+	/// Must be called after manual transform update.
 	/// </summary>
 	internal void UpdateCurrentTransformCache()
 	{
@@ -635,11 +637,10 @@ public partial class Dynamic : Instance
 	}
 
 	/// <summary>
-	/// Function for processing transform, can be used for sanity checks
+	/// Function for processing transform, can be used for sanity checks.
 	/// </summary>
 	/// <param name="fromPeer"></param>
 	/// <param name="newTransform"></param>
-	/// <returns></returns>
 	internal virtual TransformPayloadDto TransformNetworkPass(int fromPeer, TransformPayloadDto newTransform)
 	{
 		return newTransform;

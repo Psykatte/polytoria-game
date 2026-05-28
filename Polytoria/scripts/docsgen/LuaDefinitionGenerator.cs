@@ -45,7 +45,7 @@ public class LuaDefinitionGenerator
 
 		// Add PTSignal type definitions
 		/// <summary>
-		/// PTSignalConnection represents a signal for this connection
+		/// PTSignalConnection represents a signal for this connection.
 		/// </summary>
 		builder.AppendLine("declare class PTSignalConnection");
 		builder.AppendLine("\tfunction Disconnect(self): ()");

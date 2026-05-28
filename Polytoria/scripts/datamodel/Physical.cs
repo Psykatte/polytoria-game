@@ -662,7 +662,7 @@ public partial class Physical : Dynamic
 	}
 
 	/// <summary>
-	/// Add collision shape, this is used for mirroring collision shapes to other body types
+	/// Add collision shape, this is used for mirroring collision shapes to other body types.
 	/// </summary>
 	/// <param name="collisionShape"></param>
 	internal void AddCollisionShape(CollisionShape3D collisionShape)
@@ -677,7 +677,7 @@ public partial class Physical : Dynamic
 	}
 
 	/// <summary>
-	/// This function must be called if collision shape has been updated
+	/// This function must be called if collision shape has been updated.
 	/// </summary>
 	/// <param name="collisionShape">Target collision shape</param>
 	internal void PostCollisionShapeUpdate(CollisionShape3D collisionShape)
@@ -687,7 +687,7 @@ public partial class Physical : Dynamic
 	}
 
 	/// <summary>
-	/// Remove collision shape from the mirror
+	/// Remove collision shape from the mirror.
 	/// </summary>
 	/// <param name="collisionShape">Target collision shape</param>
 	/// <param name="free">Free the shape now?</param>

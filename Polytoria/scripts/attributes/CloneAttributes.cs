@@ -7,13 +7,13 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this property to be ignored when cloning
+/// Mark this property to be ignored when cloning.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class CloneIgnoreAttribute : Attribute { }
 
 /// <summary>
-/// Mark this property to include when cloning
+/// Mark this property to include when cloning.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class CloneIncludeAttribute : Attribute { }

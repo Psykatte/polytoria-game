@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Exclude this class from explorer
+/// Exclude this class from explorer.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class ExplorerExcludeAttribute : Attribute { }

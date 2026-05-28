@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Polytoria.Datamodel.Data;
 
 /// <summary>
-/// HttpRequestData represents the data required to construct an HTTP request
+/// HttpRequestData represents the data required to construct an HTTP request.
 /// </summary>
 [DocCategory("types")]
 public partial class HttpRequestData : IScriptObject
@@ -35,7 +35,7 @@ public partial class HttpRequestData : IScriptObject
 	[ScriptProperty] public Dictionary<string, string>? Headers { get; set; }
 
 	/// <summary>
-	/// Creates and returns a new instance of <c>HttpRequestData</c>
+	/// Creates and returns a new instance of <c>HttpRequestData</c>.
 	/// </summary>
 	[ScriptMethod]
 	public static HttpRequestData New()

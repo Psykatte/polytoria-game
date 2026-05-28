@@ -9,7 +9,7 @@ using Polytoria.Datamodel.Resources;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// Clothing represents a clothing that can be applied to a PolytorianModel
+/// Clothing represents a clothing that can be applied to a PolytorianModel.
 /// </summary>
 [Instantiable]
 [DocCategory("world")]

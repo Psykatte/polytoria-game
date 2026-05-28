@@ -5,7 +5,7 @@
 namespace Polytoria.Scripting.Luau;
 
 /// <summary>
-/// Lua types
+/// Lua types.
 /// </summary>
 public enum LuaType
 {

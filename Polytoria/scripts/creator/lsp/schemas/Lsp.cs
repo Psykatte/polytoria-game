@@ -303,7 +303,7 @@ public class LspDiagnostic
 	public LspRange Range { get; set; } = new();
 
 	/// <summary>
-	/// 1: Error, 2: Warning, 3: Information, 4: Hint
+	/// 1: Error, 2: Warning, 3: Information, 4: Hint.
 	/// </summary>
 	[JsonPropertyName("severity")]
 	public int? Severity { get; set; }
@@ -321,7 +321,7 @@ public class LspDiagnostic
 	public string Message { get; set; } = "";
 
 	/// <summary>
-	/// 1: Unnecessary (Unused), 2: Deprecated
+	/// 1: Unnecessary (Unused), 2: Deprecated.
 	/// </summary>
 	[JsonPropertyName("tags")]
 	public int[]? Tags { get; set; }

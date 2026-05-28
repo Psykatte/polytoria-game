@@ -79,7 +79,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Set parent without checks
+	/// Set parent without checks.
 	/// </summary>
 	internal Instance? ParentOverride
 	{
@@ -719,7 +719,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Fires when this object's index has been moved
+	/// Fires when this object's index has been moved.
 	/// </summary>
 	public virtual void PostIndexMove() { }
 

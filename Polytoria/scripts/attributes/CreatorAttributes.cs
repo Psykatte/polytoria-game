@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Enum options for creator
+/// Enum options for creator.
 /// </summary>
 [AttributeUsage(AttributeTargets.Enum)]
 public class CreatorEnumOptionsAttribute : Attribute

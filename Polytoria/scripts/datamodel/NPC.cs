@@ -1073,7 +1073,7 @@ public partial class NPC : Physical
 	}
 
 	/// <summary>
-	/// Attach tool to hand
+	/// Attach tool to hand.
 	/// </summary>
 	/// <param name="tool"></param>
 	private async void InternalAttachTool(Tool tool)

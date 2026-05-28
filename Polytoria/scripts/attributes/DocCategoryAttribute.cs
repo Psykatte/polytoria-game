@@ -7,7 +7,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Groups this type under a documentation category. Used by the docs generator
+/// Groups this type under a documentation category. Used by the docs generator.
 /// to organize the API reference into sidebar sections (e.g. "services", "physics").
 /// </summary>
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]

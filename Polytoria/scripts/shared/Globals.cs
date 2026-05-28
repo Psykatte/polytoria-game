@@ -80,41 +80,43 @@ public sealed partial class Globals : Node
 	public static AppEntryEnum CurrentAppEntry { get; private set; }
 
 	/// <summary>
-	/// Determine RPC logging. "rpclog" can be set in feature flags to turn this on
+	/// Determine RPC logging. "rpclog" can be set in feature flags to turn this on.
 	/// </summary>
 	public static bool UseLogRPC { get; private set; } = false;
+	// Docs TODO
 	/// <summary>
 	/// Determine network stack trace logging in network errors, useful if you want to see where RPC was called from in the origin.
-	/// "nettrace" can be set in feature flags to turn this on (only on the error issuer is needed). This do consume a portion of bandwidth
+	/// "nettrace" can be set in feature flags to turn this on (only on the error issuer is needed). This do consume a portion of bandwidth.
 	/// </summary>
 	public static bool UseNetTrace { get; private set; } = false;
+	// Docs TODO
 	/// <summary>
 	/// Determine no http mode, Can be used to disable http entirely
-	/// "nohttp" can be set in feature flags to turn this on
+	/// "nohttp" can be set in feature flags to turn this on.
 	/// </summary>
 	public static bool UseNoHttp { get; private set; } = false;
 	/// <summary>
-	/// Determine if node will be enabled, this can be disabled in non Godot environment (eg. unit tests)
+	/// Determine if node will be enabled, this can be disabled in non Godot environment (eg. unit tests).
 	/// </summary>
 	public static bool UseNodes { get; set; } = true;
 	/// <summary>
-	/// Check if is currently running inside Godot Editor
+	/// Check if is currently running inside Godot Editor.
 	/// </summary>
 	public static bool IsInGDEditor { get; private set; } = false;
 	/// <summary>
-	/// Check if this build is a beta build
+	/// Check if this build is a beta build.
 	/// </summary>
 	public static bool IsBetaBuild { get; private set; } = false;
 	/// <summary>
-	/// Check if this build is a server build
+	/// Check if this build is a server build.
 	/// </summary>
 	public static bool IsServerBuild { get; private set; } = false;
 	/// <summary>
-	/// Check if this build is a mobile build
+	/// Check if this build is a mobile build.
 	/// </summary>
 	public static bool IsMobileBuild { get; private set; } = false;
 	/// <summary>
-	/// Check if Godot is available, this can be false in unit testing environments
+	/// Check if Godot is available, this can be false in unit testing environments.
 	/// </summary>
 	public static bool GDAvailable { get; private set; } = false;
 

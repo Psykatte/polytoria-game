@@ -7,13 +7,13 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this property as ignored by the cleanup process
+/// Mark this property as ignored by the cleanup process.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class IgnoreCleanupAttribute : Attribute { }
 
 /// <summary>
-/// Default value for this property
+/// Default value for this property.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class DefaultValueAttribute(object? val) : Attribute

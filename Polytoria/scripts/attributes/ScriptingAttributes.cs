@@ -8,7 +8,7 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark the property as accessible by scripts
+/// Mark the property as accessible by scripts.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public sealed class ScriptPropertyAttribute : Attribute
@@ -17,7 +17,7 @@ public sealed class ScriptPropertyAttribute : Attribute
 }
 
 /// <summary>
-/// Mark this property as accessible by legacy scripts
+/// Mark this property as accessible by legacy scripts.
 /// </summary>
 /// <param name="methodName">Name to be overrided in script</param>
 [AttributeUsage(AttributeTargets.Property)]
@@ -27,19 +27,19 @@ public sealed class ScriptLegacyPropertyAttribute(string propName) : Attribute
 }
 
 /// <summary>
-/// Interface for method based attributes
+/// Interface for method based attributes.
 /// </summary>
 public interface IScriptMethodAttribute
 {
 	string? MethodName { get; set; }
 	/// <summary>
-	/// Should the argument types be converted to Godot equivalent
+	/// Should the argument types be converted to Godot equivalent.
 	/// </summary>
 	bool ConvertParamsToGD { get; set; }
 }
 
 /// <summary>
-/// Mark this method as accessible by scripts
+/// Mark this method as accessible by scripts.
 /// </summary>
 /// <param name="methodName">Optional name to be overrided in script</param>
 [AttributeUsage(AttributeTargets.Method)]
@@ -47,11 +47,11 @@ public class ScriptMethodAttribute(string? methodName = null) : Attribute, IScri
 {
 	public string? MethodName { get; set; } = methodName;
 	/// <summary>
-	/// Should the argument types be converted to Godot equivalent
+	/// Should the argument types be converted to Godot equivalent.
 	/// </summary>
 	public bool ConvertParamsToGD { get; set; } = true;
 	/// <summary>
-	/// Should the parameter be get as a function
+	/// Should the parameter be get as a function.
 	/// </summary>
 	public bool GetParamsAsFunction { get; set; } = false;
 	public ScriptPermissionFlags Permissions { get; set; } = ScriptPermissionFlags.None;
@@ -67,7 +67,7 @@ public class ScriptingCallerAttribute : Attribute { }
 
 
 /// <summary>
-/// Mark this method as accessible by legacy scripts
+/// Mark this method as accessible by legacy scripts.
 /// </summary>
 /// <param name="methodName">Name to be overrided in script</param>
 [AttributeUsage(AttributeTargets.Method)]
@@ -75,13 +75,13 @@ public sealed class ScriptLegacyMethodAttribute(string methodName) : Attribute, 
 {
 	public string? MethodName { get; set; } = methodName;
 	/// <summary>
-	/// Should the argument types be converted to Godot equivalent
+	/// Should the argument types be converted to Godot equivalent.
 	/// </summary>
 	public bool ConvertParamsToGD { get; set; } = true;
 }
 
 /// <summary>
-/// Mark this method as metamethod (operations such as + - tostring)
+/// Mark this method as metamethod (operations such as + - tostring).
 /// </summary>
 /// <param name="metamethod">The target metamethod</param>
 [AttributeUsage(AttributeTargets.Method)]
@@ -89,7 +89,7 @@ public sealed class ScriptMetamethodAttribute(ScriptObjectMetamethod metamethod)
 {
 	public ScriptObjectMetamethod Metamethod { get; } = metamethod;
 	/// <summary>
-	/// Should the argument types be converted to Godot equivalent
+	/// Should the argument types be converted to Godot equivalent.
 	/// </summary>
 	public bool ConvertParamsToGD { get; set; } = false;
 }
