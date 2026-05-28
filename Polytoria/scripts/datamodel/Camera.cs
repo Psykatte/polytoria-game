@@ -488,6 +488,7 @@ public sealed partial class Camera : Dynamic
 
 		GDNode.AddChild(_inputHelper = new(), @internal: Node.InternalMode.Back);
 		_inputHelper.GodotUnhandledInputEvent += OnInput;
+		_inputHelper.GodotInputEvent += OnInputEarly;
 
 		GDNode3D.AddChild(Camera3D = new());
 
@@ -512,6 +513,7 @@ public sealed partial class Camera : Dynamic
 	public override void PreDelete()
 	{
 		_inputHelper.GodotUnhandledInputEvent -= OnInput;
+		_inputHelper.GodotInputEvent -= OnInputEarly;
 		_inputHelper.QueueFree();
 		base.PreDelete();
 	}
@@ -830,15 +832,6 @@ public sealed partial class Camera : Dynamic
 			}
 		}
 
-		if (@event is InputEventMouseMotion mouseEvent)
-		{
-			if (Root.Input.IsTouchscreen) return;
-			if (_turning)
-			{
-				RotateCamera(mouseEvent.Relative);
-			}
-		}
-
 		// Toggle first person
 		if (@event.IsActionPressed("cam_toggle_firstperson"))
 		{
@@ -850,6 +843,21 @@ public sealed partial class Camera : Dynamic
 		{
 			if (AlwaysLocked) return;
 			CtrlLocked = !CtrlLocked;
+		}
+	}
+
+	private void OnInputEarly(InputEvent @event)
+	{
+		if (Root.Environment.CurrentCamera != this) return;
+		if (!Root.Input.IsGameFocused) return;
+
+		if (@event is InputEventMouseMotion mouseEvent)
+		{
+			if (Root.Input.IsTouchscreen) return;
+			if (_turning)
+			{
+				RotateCamera(mouseEvent.Relative);
+			}
 		}
 	}
 
