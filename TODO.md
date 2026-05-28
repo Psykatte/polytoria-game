@@ -1,6 +1,9 @@
 - [x] Migrate YAML documentation to documentation comments via Python script.
 - [x] Migrate .gitignore and Github workflows.
-- [ ] Verify inline `<summary>` comments are in the right place and formatted correctly.
+- [x] Verify inline `<summary>` comments are in the right place and formatted correctly.
+- [x] Add full stops to documentation comments.
+- [x] Remove empty tags.
+- [ ] Ensure return before documentation comments (for contributor readability).
 - [ ] Implement `--docgen` flag.
 - [ ] Parse source XML doc comments via `System.Xml.Linq` and resolve sibling `.md` files by naming convention; warn on missing docs.
 - [ ] Use `DocCategory` attribute to determine the output directory.

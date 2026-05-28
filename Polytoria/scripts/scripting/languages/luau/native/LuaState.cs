@@ -120,7 +120,6 @@ public partial class LuaState : IDisposable
 	/// Converts the acceptable index idx into an equivalent absolute index (that is, one that does not depend on the stack top).
 	/// </summary>
 	/// <param name="index"></param>
-	/// <returns></returns>
 	public int AbsIndex(int index)
 	{
 		if (index > 0 || index < LuaState.LUA_REGISTRYINDEX)
@@ -311,8 +310,6 @@ public partial class LuaState : IDisposable
 	/// </summary>
 	/// <param name="obj"></param>
 	/// <param name="name"></param>
-	/// <returns></returns>
-
 	public bool CallMetamethod(int obj, string name)
 	{
 		lock (_lock)

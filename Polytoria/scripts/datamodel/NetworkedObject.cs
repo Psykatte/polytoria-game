@@ -966,7 +966,6 @@ public partial class NetworkedObject : IScriptObject
 	/// <summary>
 	/// Create GD Node.
 	/// </summary>
-	/// <returns></returns>
 	public virtual Node CreateGDNode()
 	{
 		if (GDNode != null) return GDNode;
@@ -1208,7 +1207,6 @@ public partial class NetworkedObject : IScriptObject
 	/// Get sequence of property name.
 	/// </summary>
 	/// <param name="propertyName"></param>
-	/// <returns></returns>
 	internal long GetSequenceForProp(string propertyName)
 	{
 		PropertySequence.TryGetValue(propertyName, out long val);
@@ -1223,7 +1221,6 @@ public partial class NetworkedObject : IScriptObject
 	/// </summary>
 	/// <param name="propertyName"></param>
 	/// <param name="sequence"></param>
-	/// <returns></returns>
 	internal bool CompareSequenceForProp(string propertyName, long sequence)
 	{
 		PropertySequence.TryGetValue(propertyName, out long val);

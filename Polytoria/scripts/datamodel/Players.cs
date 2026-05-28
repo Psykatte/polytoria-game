@@ -89,7 +89,6 @@ public sealed partial class Players : Instance
 	/// Get Player from Peer ID. This should only be called on server, as peer is not guaranteed to be available on clients.
 	/// </summary>
 	/// <param name="peerID"></param>
-	/// <returns></returns>
 	internal Player? GetPlayerFromPeerID(int peerID)
 	{
 		if (PeerIDToPlayer.TryGetValue(peerID, out Player? player)) return player;
