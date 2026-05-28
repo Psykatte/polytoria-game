@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Datamodel.Services;
 
 /// <summary>
-/// Service for capturing photos
+/// Service for capturing photos.
 /// </summary>
 [Static("Capture")]
 [DocCategory("services")]
@@ -39,7 +39,7 @@ public sealed partial class CaptureService : Instance
 	/// </summary>
 	[Editable, ScriptProperty] public bool CanCapture { get; set; } = true;
 	/// <summary>
-	/// Default capture overlay for all captures
+	/// Default capture overlay for all captures.
 	/// </summary>
 	[ScriptProperty] public UIField? DefaultCaptureOverlay { get; set; } = null;
 	/// <summary>
@@ -173,7 +173,7 @@ public sealed partial class CaptureService : Instance
 	}
 
 	/// <summary>
-	/// Take a photo at dynamic
+	/// Take a photo at dynamic.
 	/// </summary>
 	[ScriptMethod]
 	public Task TakePhotoAtDynamic(Dynamic dyn, Vector2? photoSize = null, UIField? overlay = null)

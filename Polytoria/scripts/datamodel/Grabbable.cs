@@ -85,7 +85,7 @@ public partial class Grabbable : Instance
 	}
 
 	/// <summary>
-	/// Determines the permission mode for this grabber
+	/// Determines the permission mode for this grabber.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public GrabbablePermissionModeEnum PermissionMode
@@ -99,21 +99,25 @@ public partial class Grabbable : Instance
 	}
 
 	/// <summary>
-	/// Returns the current dragger
+	/// Returns the current dragger.
 	/// </summary>
 	[ScriptProperty] public Player? Dragger => _dragger;
+
+	// Docs TODO
 	/// <summary>
 	/// <para>A predicate function deciding whether this player can grab this object. <c>PermissionMode</c> must be set to <c>GrabbablePermissionMode.Scripted</c></para>
 	/// <para>Example usage: ``<c>lua grabbable.PermissionMode = Enums.GrabbablePermissionMode.Scripted grabbable.PermissionPredicate = function(player) return player.Name == "Player1" end </c>``</para>
 	/// </summary>
 	[ScriptProperty] public PTFunction? PermissionPredicate { get; set; }
+
 	/// <summary>
-	/// Fires when this object has been grabbed
+	/// Fires when this object has been grabbed.
 	/// </summary>
 	/// <param name="grabber" type="Player"></param>
 	[ScriptProperty] public PTSignal<Player> Grabbed { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when this object has been released
+	/// Fires when this object has been released.
 	/// </summary>
 	[ScriptProperty] public PTSignal<Player> Released { get; private set; } = new();
 

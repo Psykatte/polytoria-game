@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Datamodel.Services;
 
 /// <summary>
-/// Service for managing achievements
+/// Service for managing achievements.
 /// </summary>
 [Static("Achievements")]
 [DocCategory("services")]
@@ -35,13 +35,13 @@ public sealed partial class AchievementsService : Instance
 	private int _currentMinute = 0;
 
 	/// <summary>
-	/// Fires when the local player got an achievement
+	/// Fires when the local player got an achievement.
 	/// </summary>
 	/// <param name="achievementID" type="number"></param>
 	[ScriptProperty] public PTSignal<int> GotAchievement { get; private set; } = new();
 
 	/// <summary>
-	/// Determine if the achievement sound effect should play when user receives an achievement
+	/// Determine if the achievement sound effect should play when user receives an achievement.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseAchievementSound
@@ -55,7 +55,7 @@ public sealed partial class AchievementsService : Instance
 	}
 
 	/// <summary>
-	/// Determine if achievement toast should show when user receives an achievement
+	/// Determine if achievement toast should show when user receives an achievement.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool NotifyAchievements

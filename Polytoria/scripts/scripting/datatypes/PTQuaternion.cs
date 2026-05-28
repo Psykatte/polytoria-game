@@ -21,18 +21,22 @@ public class PTQuaternion : IScriptGDObject
 	/// The X component of the quaternion.
 	/// </summary>
 	[ScriptProperty] public float X { get => quat.X; set => quat.X = value; }
+
 	/// <summary>
 	/// The Y component of the quaternion.
 	/// </summary>
 	[ScriptProperty] public float Y { get => quat.Y; set => quat.Y = value; }
+
 	/// <summary>
 	/// The Z component of the quaternion.
 	/// </summary>
 	[ScriptProperty] public float Z { get => quat.Z; set => quat.Z = value; }
+
 	/// <summary>
 	/// The W component of the quaternion.
 	/// </summary>
 	[ScriptProperty] public float W { get => quat.W; set => quat.W = value; }
+
 	/// <summary>
 	/// The identity rotation.
 	/// </summary>
@@ -54,15 +58,15 @@ public class PTQuaternion : IScriptGDObject
 	/// <summary>
 	/// Creates a new Quaternion object with the specified components.
 	/// </summary>
-	/// <summary>
-	/// Creates a new Quaternion object with the specified components.
-	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion New()
 	{
 		return Identity;
 	}
 
+	/// <summary>
+	/// Creates a new Quaternion object with the specified components.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion New(float x, float y, float z, float w)
 	{
@@ -145,15 +149,15 @@ public class PTQuaternion : IScriptGDObject
 	/// <summary>
 	/// Creates a quaternion from Euler angles specified by a Vector3.
 	/// </summary>
-	/// <summary>
-	/// Creates a quaternion from Euler angles specified by a Vector3.
-	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion Euler(float x, float y, float z)
 	{
 		return FromGDClass(Quaternion.FromEuler(MathUtils.Vector3DegToRad(new(x, y, z))));
 	}
 
+	/// <summary>
+	/// Creates a quaternion from Euler angles specified by a Vector3.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion Euler(Vector3 euler)
 	{
@@ -242,15 +246,15 @@ public class PTQuaternion : IScriptGDObject
 	/// <summary>
 	/// Creates a rotation with the specified forward and upwards directions.
 	/// </summary>
-	/// <summary>
-	/// Creates a rotation with the specified forward and upwards directions.
-	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion LookRotation(Vector3 forward)
 	{
 		return LookRotation(forward, Vector3.Up);
 	}
 
+	/// <summary>
+	/// Creates a rotation with the specified forward and upwards directions.
+	/// </summary>
 	[ScriptMethod]
 	public static PTQuaternion LookRotation(Vector3 forward, Vector3 upwards)
 	{

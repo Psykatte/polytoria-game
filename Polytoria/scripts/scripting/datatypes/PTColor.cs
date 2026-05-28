@@ -16,19 +16,22 @@ public class PTColor : IScriptGDObject
 	Color color;
 
 	/// <summary>
-	/// Red color component
+	/// Red color component.
 	/// </summary>
 	[ScriptProperty] public float R { get => color.R; set => color.R = value; }
+
 	/// <summary>
-	/// Green color component
+	/// Green color component.
 	/// </summary>
 	[ScriptProperty] public float G { get => color.G; set => color.G = value; }
+
 	/// <summary>
-	/// Blue color component
+	/// Blue color component.
 	/// </summary>
 	[ScriptProperty] public float B { get => color.B; set => color.B = value; }
+
 	/// <summary>
-	/// Alpha (opacity) color component
+	/// Alpha (opacity) color component.
 	/// </summary>
 	[ScriptProperty] public float A { get => color.A; set => color.A = value; }
 
@@ -46,16 +49,7 @@ public class PTColor : IScriptGDObject
 	}
 
 	/// <summary>
-	/// Creates a new Color with the set R, G, B and A values
-	/// </summary>
-	/// <summary>
-	/// Creates a new Color with the set R, G, B and A values
-	/// </summary>
-	/// <summary>
-	/// Creates a new Color with the set R, G, B and A values
-	/// </summary>
-	/// <summary>
-	/// Creates a new Color with the set R, G, B and A values
+	/// Creates a new Color with the set R, G, B and A values.
 	/// </summary>
 	[ScriptMethod]
 	public static PTColor New()
@@ -69,6 +63,9 @@ public class PTColor : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Creates a new Color with the set R, G, B and A values.
+	/// </summary>
 	[ScriptMethod]
 	public static PTColor New(float d)
 	{
@@ -81,6 +78,9 @@ public class PTColor : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Creates a new Color with the set R, G, B and A values.
+	/// </summary>
 	[ScriptMethod]
 	public static PTColor New(float r, float g, float b)
 	{
@@ -93,6 +93,9 @@ public class PTColor : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Creates a new Color with the set R, G, B and A values.
+	/// </summary>
 	[ScriptMethod]
 	public static PTColor New(float r, float g, float b, float a)
 	{

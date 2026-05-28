@@ -126,10 +126,7 @@ public partial class Stat : Instance
 	}
 
 	/// <summary>
-	/// Set the value stat of player to string
-	/// </summary>
-	/// <summary>
-	/// Set the value stat of player to string
+	/// Set the value stat of player to string.
 	/// </summary>
 	[ScriptMethod]
 	public void Set(Player player, double val)
@@ -139,6 +136,9 @@ public partial class Stat : Instance
 			Rpc(nameof(NetSetDouble), player.UserID, val);
 	}
 
+	/// <summary>
+	/// Set the value stat of player to string.
+	/// </summary>
 	[ScriptMethod]
 	public void Set(Player player, string val)
 	{
@@ -182,7 +182,7 @@ public partial class Stat : Instance
 	}
 
 	/// <summary>
-	/// Get the value stat of player
+	/// Get the value stat of player.
 	/// </summary>
 	[ScriptMethod]
 	public object? Get(Player player)
@@ -195,7 +195,7 @@ public partial class Stat : Instance
 	}
 
 	/// <summary>
-	/// Get the total value for team
+	/// Get the total value for team.
 	/// </summary>
 	[ScriptMethod]
 	public double GetTotalForTeam(Team team)

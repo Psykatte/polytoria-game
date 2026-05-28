@@ -19,7 +19,7 @@ public partial class PTImageAsset : ImageAsset
 	private ImageTypeEnum _imageType;
 
 	/// <summary>
-	/// Asset ID of this image
+	/// Asset ID of this image.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public uint ImageID
@@ -34,7 +34,7 @@ public partial class PTImageAsset : ImageAsset
 	}
 
 	/// <summary>
-	/// Image type of this image
+	/// Image type of this image.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageTypeEnum ImageType

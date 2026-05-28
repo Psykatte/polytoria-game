@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Polytoria.Datamodel.Interfaces;
 
 /// <summary>
-/// IData, interface for data class to implement
+/// IData, interface for data class to implement.
 /// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
 public interface IData

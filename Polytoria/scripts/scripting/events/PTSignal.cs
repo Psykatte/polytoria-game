@@ -16,7 +16,7 @@ namespace Polytoria.Scripting;
 
 
 /// <summary>
-/// A signal which scripts can subscribe to
+/// A signal which scripts can subscribe to.
 /// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
 [DocCategory("scripting")]
@@ -79,7 +79,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Connect a function to this signal
+	/// Connect a function to this signal.
 	/// </summary>
 	[ScriptMethod]
 	public PTSignalConnection Connect(PTCallback action)
@@ -128,7 +128,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Disconnect a function from this signal
+	/// Disconnect a function from this signal.
 	/// </summary>
 	[ScriptMethod]
 	public void Disconnect(PTCallback action)
@@ -176,7 +176,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Wait until this signal's emitted
+	/// Wait until this signal's emitted.
 	/// </summary>
 	[ScriptMethod]
 	public async Task<object?[]> Wait()
@@ -187,7 +187,7 @@ public class PTSignal : IScriptObject
 	}
 
 	/// <summary>
-	/// Listen to this signal only once
+	/// Listen to this signal only once.
 	/// </summary>
 	[ScriptMethod]
 	public void Once(PTCallback action)

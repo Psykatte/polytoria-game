@@ -20,32 +20,37 @@ public class PTVector2 : IScriptGDObject
 	/// The X component of the vector.
 	/// </summary>
 	[ScriptProperty] public float X { get => vector.X; set => vector.X = value; }
+
 	/// <summary>
 	/// The Y component of the vector.
 	/// </summary>
 	[ScriptProperty] public float Y { get => vector.Y; set => vector.Y = value; }
 
-
 	/// <summary>
 	/// Shorthand for Vector2.New(0, -1).
 	/// </summary>
 	[ScriptProperty] public static PTVector2 Down { get; private set; } = new() { X = 0, Y = -1 };
+
 	/// <summary>
 	/// Shorthand for Vector2.New(-1, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector2 Left { get; private set; } = new() { X = -1, Y = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector2.New(1, 1).
 	/// </summary>
 	[ScriptProperty] public static PTVector2 One { get; private set; } = new() { X = 1, Y = 1 };
+
 	/// <summary>
 	/// Shorthand for Vector2.New(0, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector2 Zero { get; private set; } = new() { X = 0, Y = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector2.New(1, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector2 Right { get; private set; } = new() { X = 1, Y = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector2.New(0, 1).
 	/// </summary>
@@ -55,10 +60,12 @@ public class PTVector2 : IScriptGDObject
 	/// The length of the vector.
 	/// </summary>
 	[ScriptProperty] public float Magnitude => vector.Length();
+
 	/// <summary>
 	/// The normalized version of the vector.
 	/// </summary>
 	[ScriptProperty] public PTVector2 Normalized => FromGDClass(vector.Normalized());
+
 	/// <summary>
 	/// The squared length of the vector.
 	/// </summary>
@@ -80,12 +87,6 @@ public class PTVector2 : IScriptGDObject
 	/// <summary>
 	/// Returns a new Vector2 with the given x and y components.
 	/// </summary>
-	/// <summary>
-	/// Returns a new Vector2 with the given x and y components.
-	/// </summary>
-	/// <summary>
-	/// Returns a new Vector2 with the given x and y components.
-	/// </summary>
 	[ScriptMethod]
 	public static PTVector2 New()
 	{
@@ -96,6 +97,9 @@ public class PTVector2 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector2 with the given x and y components.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector2 New(float d)
 	{
@@ -106,6 +110,9 @@ public class PTVector2 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector2 with the given x and y components.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector2 New(float x, float y)
 	{
@@ -205,46 +212,57 @@ public class PTVector2 : IScriptGDObject
 	/// Returns the angle in degrees between from and to.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Angle(PTVector2 from, PTVector2 to) => from.vector.AngleTo(to.vector);
+
 	/// <summary>
 	/// Returns the cross product of lhs and rhs.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Cross(PTVector2 lhs, PTVector2 rhs) => lhs.vector.Cross(rhs.vector);
+
 	/// <summary>
 	/// Returns the distance between a and b.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Distance(PTVector2 a, PTVector2 b) => a.vector.DistanceTo(b.vector);
+
 	/// <summary>
 	/// Returns the dot product of lhs and rhs.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Dot(PTVector2 lhs, PTVector2 rhs) => lhs.vector.Dot(rhs.vector);
+
 	/// <summary>
 	/// Returns a new vector that is the linear interpolation between a and b by t.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Lerp(PTVector2 a, PTVector2 b, float t) => FromGDClass(a.vector.Lerp(b.vector, t));
+
 	/// <summary>
 	/// Returns a vector that is made from the largest components of two vectors.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Max(PTVector2 lhs, PTVector2 rhs) => FromGDClass(lhs.vector.Max(rhs.vector));
+
 	/// <summary>
 	/// Returns a vector that is made from the smallest components of two vectors.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Min(PTVector2 lhs, PTVector2 rhs) => FromGDClass(lhs.vector.Min(rhs.vector));
+
 	/// <summary>
 	/// Calculate a position between the points specified by current and target, moving no farther than the distance specified by maxDistanceDelta.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 MoveTowards(PTVector2 current, PTVector2 target, float maxDistanceDelta) => FromGDClass(current.vector.MoveToward(target.vector, maxDistanceDelta));
+
 	/// <summary>
 	/// Returns a new Vector2 that is the normalized version of the given vector.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Normalize(PTVector2 value) => FromGDClass(value.vector.Normalized());
+
 	/// <summary>
 	/// Returns the projection of a vector onto another vector.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Project(PTVector2 vector, PTVector2 onNormal) => FromGDClass(vector.vector.Project(onNormal.vector));
+
 	/// <summary>
 	/// Returns the reflection of a vector off the plane defined by a normal.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector2 Reflect(PTVector2 inDirection, PTVector2 inNormal) => FromGDClass(inDirection.vector.Reflect(inNormal.vector));
+	
 	/// <summary>
 	/// Spherically interpolates between two vectors.
 	/// </summary>

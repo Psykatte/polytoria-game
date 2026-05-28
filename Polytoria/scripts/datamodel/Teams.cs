@@ -33,7 +33,7 @@ public sealed partial class Teams : Instance
 	}
 
 	/// <summary>
-	/// Get all the teams
+	/// Get all the teams.
 	/// </summary>
 	[ScriptMethod]
 	public Team[] GetTeams()

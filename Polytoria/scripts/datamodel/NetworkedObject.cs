@@ -157,7 +157,7 @@ public partial class NetworkedObject : IScriptObject
 	internal Node SlotNode = null!;
 
 	/// <summary>
-	/// Name of this object
+	/// Name of this object.
 	/// </summary>
 	[Editable, ScriptProperty, SaveIgnore]
 	public string Name
@@ -215,7 +215,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Class name of this object
+	/// Class name of this object.
 	/// </summary>
 	[ScriptProperty]
 	public string ClassName => GetType().Name;
@@ -251,6 +251,7 @@ public partial class NetworkedObject : IScriptObject
 	/// </summary>
 	/// <param name="propertyName" type="string"></param>
 	[ScriptProperty] public PTSignal<string> PropertyChanged { get; private set; } = new();
+
 	/// <summary>
 	/// Fires when this object has been renamed
 	/// </summary>
@@ -371,6 +372,7 @@ public partial class NetworkedObject : IScriptObject
 	/// Fires when object enters the tree
 	/// </summary>
 	[ScriptProperty] public PTSignal TreeEntered { get; private set; } = new();
+
 	/// <summary>
 	/// Fires when object exit the tree (via reparent or delete)
 	/// </summary>
@@ -1600,7 +1602,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Clones the instance
+	/// Clones the instance.
 	/// </summary>
 	[ScriptMethod]
 	public NetworkedObject Clone(NetworkedObject? parent = null)
@@ -1860,7 +1862,7 @@ public partial class NetworkedObject : IScriptObject
 
 
 	/// <summary>
-	/// Destroys the instance (same as Delete method)
+	/// Destroys the instance (same as Delete method).
 	/// </summary>
 	[ScriptMethod]
 	public async void Destroy(float time = 0f)
@@ -2024,7 +2026,7 @@ public partial class NetworkedObject : IScriptObject
 	}
 
 	/// <summary>
-	/// Deletes the instance (same as Destroy method)
+	/// Deletes the instance (same as Destroy method).
 	/// </summary>
 	[ScriptMethod]
 	public void Delete(float time = 0f) => Destroy(time);

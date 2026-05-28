@@ -16,7 +16,7 @@ public partial class ScriptSharedTable : IScriptObject
 	internal Dictionary<object, object> SharedDict = [];
 
 	/// <summary>
-	/// Clear the shared table
+	/// Clear the shared table.
 	/// </summary>
 	[ScriptMethod]
 	public void Clear()
@@ -25,7 +25,7 @@ public partial class ScriptSharedTable : IScriptObject
 	}
 
 	/// <summary>
-	/// Remove the key from shared table
+	/// Remove the key from shared table.
 	/// </summary>
 	[ScriptMethod]
 	public void Remove(string key)
@@ -34,7 +34,7 @@ public partial class ScriptSharedTable : IScriptObject
 	}
 
 	/// <summary>
-	/// Clear all keys with the prefix
+	/// Clear all keys with the prefix.
 	/// </summary>
 	[ScriptMethod]
 	public void ClearPrefix(string prefix)
@@ -49,7 +49,7 @@ public partial class ScriptSharedTable : IScriptObject
 	}
 
 	/// <summary>
-	/// Clear all keys with the suffix
+	/// Clear all keys with the suffix.
 	/// </summary>
 	[ScriptMethod]
 	public void ClearSuffix(string suffix)

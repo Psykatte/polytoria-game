@@ -81,7 +81,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	public PhysicalBone3D? VelocityPhysicalBone;
 
 	/// <summary>
-	/// The head color
+	/// The head color.
 	/// </summary>
 	[Editable, ScriptProperty, Export, SyncVar]
 	public Color HeadColor
@@ -96,7 +96,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The torso color
+	/// The torso color.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color TorsoColor
@@ -110,7 +110,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The left arm color
+	/// The left arm color.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color LeftArmColor
@@ -124,7 +124,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The right arm color
+	/// The right arm color.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color RightArmColor
@@ -138,7 +138,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The left leg color
+	/// The left leg color.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color LeftLegColor
@@ -152,7 +152,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The right leg color
+	/// The right leg color.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public Color RightLegColor
@@ -179,7 +179,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// The face image to use
+	/// The face image to use.
 	/// </summary>
 	[Editable, ScriptProperty, SyncVar]
 	public ImageAsset? FaceImage
@@ -258,13 +258,17 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// Returns true if this character is ragdolling
+	/// Returns true if this character is ragdolling.
 	/// </summary>
 	[ScriptProperty] public bool Ragdolling { get; private set; } = false;
+
+	// Docs TODO
 	/// <summary>
 	/// Returns the current global ragdoll position, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
 	/// </summary>
 	[ScriptProperty] public Vector3 RagdollPosition => VelocityPhysicalBone == null ? Vector3.Zero : VelocityPhysicalBone.GlobalPosition;
+
+	// Docs TODO
 	/// <summary>
 	/// Returns the current global ragdoll rotation, if ragdoll haven't starts yet. Returns <c>Vector3.Zero</c>
 	/// </summary>
@@ -275,11 +279,12 @@ public sealed partial class PolytorianModel : CharacterModel
 	public event Action? AvatarLoaded;
 
 	/// <summary>
-	/// Fires when ragdoll has been started
+	/// Fires when ragdoll has been started.
 	/// </summary>
 	[ScriptProperty] public PTSignal RagdollStarted { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when ragdoll has been stopped
+	/// Fires when ragdoll has been stopped.
 	/// </summary>
 	[ScriptProperty] public PTSignal RagdollStopped { get; private set; } = new();
 
@@ -567,7 +572,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// Start ragdoll
+	/// Start ragdoll.
 	/// </summary>
 	[ScriptMethod]
 	public void StartRagdoll(Vector3? force = null)
@@ -577,7 +582,7 @@ public sealed partial class PolytorianModel : CharacterModel
 	}
 
 	/// <summary>
-	/// Stop ragdoll
+	/// Stop ragdoll.
 	/// </summary>
 	[ScriptMethod]
 	public void StopRagdoll()

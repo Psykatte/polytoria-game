@@ -27,7 +27,7 @@ public partial class Explosion : Dynamic
 	private bool _affectWelds;
 
 	/// <summary>
-	/// Determines the radius of this explosion
+	/// Determines the radius of this explosion.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Radius
@@ -41,7 +41,7 @@ public partial class Explosion : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the force of this explosion that will be applied to affected hits
+	/// Determines the force of this explosion that will be applied to affected hits.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Force
@@ -55,7 +55,7 @@ public partial class Explosion : Dynamic
 	}
 
 	/// <summary>
-	/// Determines if this explosion should affect anchored parts or not
+	/// Determines if this explosion should affect anchored parts or not.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AffectAnchored
@@ -69,7 +69,7 @@ public partial class Explosion : Dynamic
 	}
 
 	/// <summary>
-	/// Damage that is applied to the player
+	/// Damage that is applied to the player.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Damage
@@ -93,6 +93,7 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	// Docs TODO
 	/// <summary>
 	/// A predicate function deciding whether this part should be accepted or not Example usage: ``<c>lua explosion.AffectPredicate = function(hit) -- always explode return true end </c>``
 	/// </summary>

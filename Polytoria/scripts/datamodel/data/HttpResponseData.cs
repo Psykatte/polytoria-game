@@ -19,18 +19,22 @@ public partial class HttpResponseData : IScriptObject
 	/// Indicates whether the HTTP request completed successfully.
 	/// </summary>
 	[ScriptProperty] public bool Success { get; internal set; }
+
 	/// <summary>
 	/// The HTTP status code returned by the server.
 	/// </summary>
 	[ScriptProperty] public int StatusCode { get; internal set; }
+
 	/// <summary>
 	/// A table containing the HTTP response headers returned by the server, represented as key-value pairs.
 	/// </summary>
 	[ScriptProperty] public Dictionary<string, string>? Headers { get; internal set; }
+
 	/// <summary>
 	/// The response payload returned by the server as a string.
 	/// </summary>
 	[ScriptProperty] public string Body { get; internal set; } = "";
+	
 	/// <summary>
 	/// The response payload returned by the server as a buffer.
 	/// </summary>

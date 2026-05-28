@@ -567,22 +567,27 @@ public sealed partial class Environment : Instance
 		/// The origin point of the ray.
 		/// </summary>
 		[ScriptProperty] public Vector3 Origin { get; set; }
+
 		/// <summary>
 		/// The direction vector of the ray.
 		/// </summary>
 		[ScriptProperty] public Vector3 Direction { get; set; }
+
 		/// <summary>
 		/// The position where the ray hit an object.
 		/// </summary>
 		[ScriptProperty] public Vector3 Position { get; set; }
+
 		/// <summary>
 		/// The surface normal at the point where the ray hit.
 		/// </summary>
 		[ScriptProperty] public Vector3 Normal { get; set; }
+
 		/// <summary>
 		/// The distance from the ray's origin to the hit point.
 		/// </summary>
 		[ScriptProperty] public float Distance { get; set; }
+		
 		[ScriptProperty] public Instance? Instance { get; set; }
 
 		public override readonly int GetHashCode()

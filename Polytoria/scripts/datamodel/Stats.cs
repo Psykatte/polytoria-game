@@ -26,7 +26,7 @@ public sealed partial class Stats : Instance
 	}
 
 	/// <summary>
-	/// Get all Stat objects
+	/// Get all Stat objects.
 	/// </summary>
 	[ScriptMethod]
 	public Stat[] GetStats()

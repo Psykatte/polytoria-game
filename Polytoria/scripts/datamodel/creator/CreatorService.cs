@@ -35,13 +35,13 @@ public sealed partial class CreatorService : Node, IScriptObject
 	private long _localTestIDCounter = 0;
 
 	/// <summary>
-	/// The interface
+	/// The interface.
 	/// </summary>
 	[ScriptProperty] public static CreatorInterface Interface { get; private set; } = null!;
 	public static CreatorClipboard Clipboard { get; private set; } = null!;
 
 	/// <summary>
-	/// Current active game
+	/// Current active game.
 	/// </summary>
 	[ScriptProperty] public static World? CurrentGame => World.Current;
 
@@ -49,15 +49,17 @@ public sealed partial class CreatorService : Node, IScriptObject
 	public static CreatorSession? CurrentSession { get; internal set; }
 
 	/// <summary>
-	/// Fires when local testing starts
+	/// Fires when local testing starts.
 	/// </summary>
 	[ScriptProperty] public PTSignal LocalTestStarted { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when local testing ends
+	/// Fires when local testing ends.
 	/// </summary>
 	[ScriptProperty] public PTSignal LocalTestStopped { get; private set; } = new();
+
 	/// <summary>
-	/// Returns true if local test is active
+	/// Returns true if local test is active.
 	/// </summary>
 	[ScriptProperty] public bool LocalTestActive => LocalTestProcesses.Count != 0;
 	public List<int> LocalTestProcesses { get; private set; } = [];

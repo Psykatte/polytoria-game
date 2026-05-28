@@ -52,7 +52,7 @@ public partial class Animator : Instance
 	public bool AutoInit { get; set; } = true;
 
 	/// <summary>
-	/// Determines the currently playing animation name
+	/// Determines the currently playing animation name.
 	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string CurrentAnimation
@@ -483,7 +483,7 @@ public partial class Animator : Instance
 	}
 
 	/// <summary>
-	/// Play animation
+	/// Play animation.
 	/// </summary>
 	[ScriptMethod]
 	public void PlayAnimation(string animationKey)
@@ -524,7 +524,7 @@ public partial class Animator : Instance
 	}
 
 	/// <summary>
-	/// Play one-shot animation
+	/// Play one-shot animation.
 	/// </summary>
 	[ScriptMethod]
 	public void PlayOneShotAnimation(string animationKey)
@@ -555,7 +555,7 @@ public partial class Animator : Instance
 	}
 
 	/// <summary>
-	/// Stop current animation
+	/// Stop current animation.
 	/// </summary>
 	[ScriptMethod]
 	public void StopAnimation()
@@ -571,7 +571,7 @@ public partial class Animator : Instance
 	}
 
 	/// <summary>
-	/// Stop one-shot animation
+	/// Stop one-shot animation.
 	/// </summary>
 	[ScriptMethod]
 	public void StopOneShotAnimation()

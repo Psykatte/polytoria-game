@@ -269,10 +269,12 @@ public partial class Dynamic : Instance
 	/// The forward direction vector of the object.
 	/// </summary>
 	[ScriptProperty] public Vector3 Forward => GetGlobalTransform().Basis.Z.Normalized();
+
 	/// <summary>
 	/// The right direction vector of the object.
 	/// </summary>
 	[ScriptProperty] public Vector3 Right => GetGlobalTransform().Basis.X.Normalized();
+
 	/// <summary>
 	/// The up direction vector of the object.
 	/// </summary>
@@ -439,15 +441,15 @@ public partial class Dynamic : Instance
 	/// <summary>
 	/// Orients the object to look at a target with a specified up vector.
 	/// </summary>
-	/// <summary>
-	/// Orients the object to look at a target with a specified up vector.
-	/// </summary>
 	[ScriptMethod]
 	public void LookAt(object target)
 	{
 		LookAt(target, Vector3.Up);
 	}
 
+	/// <summary>
+	/// Orients the object to look at a target with a specified up vector.
+	/// </summary>
 	[ScriptMethod]
 	public void LookAt(object target, Vector3 up)
 	{
@@ -1023,10 +1025,10 @@ public partial class Dynamic : Instance
 		return false;
 	}
 
+	// For internal use use CalculateBounds.
 	/// <summary>
-	/// GetBounds for scripting uses, for internal use. use CalculateBounds
+	/// GetBounds for scripting uses.
 	/// </summary>
-	/// <returns></returns>
 	[ScriptMethod]
 	public Aabb GetBounds()
 	{

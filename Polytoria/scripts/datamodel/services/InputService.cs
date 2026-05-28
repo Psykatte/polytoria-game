@@ -49,22 +49,27 @@ public sealed partial class InputService : Instance
 	/// Indicates whether the game window is currently focused.
 	/// </summary>
 	[ScriptProperty] public bool IsWindowFocused { get; private set; } = true;
+
 	/// <summary>
 	/// Indicates whether the input device is a touchscreen.
 	/// </summary>
 	[ScriptProperty] public bool IsTouchscreen { get; private set; } = false;
+
 	/// <summary>
 	/// Indicates whether the game is currently focused.
 	/// </summary>
 	[ScriptProperty] public bool IsGameFocused { get; internal set; } = false;
+
 	/// <summary>
 	/// Indicates whether an input is currently focused.
 	/// </summary>
 	[ScriptProperty] public bool IsInputFocused => !IsGameFocused;
+
 	/// <summary>
 	/// Indicates whether a gamepad is currently connected.
 	/// </summary>
 	[ScriptProperty] public bool IsGamepadConnected { get; private set; } = false;
+
 	/// <summary>
 	/// Indicates whether the game menu is currently opened.
 	/// </summary>
@@ -98,18 +103,22 @@ public sealed partial class InputService : Instance
 	}
 
 	[ScriptProperty] public Vector2 MouseDelta { get; private set; } = Vector2.Zero;
+
 	/// <summary>
 	/// Indicates the current position of the mouse cursor.
 	/// </summary>
 	[ScriptProperty] public Vector2 MousePosition => OverrideMousePos ? OverrideMousePosTo : GDNode.GetViewport().GetMousePosition();
-	/// <summary>
-	/// Indicates the height of the screen.
-	/// </summary>
+
 	[ScriptLegacyProperty("MousePosition")] public Vector3 LegacyMousePosition => new(MousePosition.X, ScreenHeight - MousePosition.Y, 0);
+
 	/// <summary>
 	/// Indicates the width of the screen.
 	/// </summary>
 	[ScriptProperty] public int ScreenWidth => (int)GDNode.GetViewport().GetVisibleRect().Size.X;
+
+	/// <summary>
+	/// Indicates the height of the screen.
+	/// </summary>
 	[ScriptProperty] public int ScreenHeight => (int)GDNode.GetViewport().GetVisibleRect().Size.Y;
 
 	internal bool OverrideMousePos { get; set; }
@@ -118,36 +127,41 @@ public sealed partial class InputService : Instance
 	[ScriptProperty] public PTSignal<Vector2> MouseMoved { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when the game has been focused
+	/// Fires when the game has been focused.
 	/// </summary>
 	[ScriptProperty] public PTSignal GameFocused { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when the game has been unfocused
+	/// Fires when the game has been unfocused.
 	/// </summary>
 	[ScriptProperty] public PTSignal GameUnfocused { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when gamepad is connected
+	/// Fires when gamepad is connected.
 	/// </summary>
 	[ScriptProperty] public PTSignal GamepadConnected { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when gamepad has been disconnected
+	/// Fires when gamepad has been disconnected.
 	/// </summary>
 	[ScriptProperty] public PTSignal GamepadDisconnected { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when key has been pressed
+	/// Fires when key has been pressed.
 	/// </summary>
 	/// <param name="keycode" type="KeyCodeEnum"></param>
 	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyDown { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when key has been released
+	/// Fires when key has been released.
 	/// </summary>
 	/// <param name="keycode" type="KeyCodeEnum"></param>
 	/// <param name="gameFocused" type="boolean"></param>
 	[ScriptProperty] public PTSignal<KeyCodeEnum, bool> KeyUp { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when analog input has been changed
+	/// Fires when analog input has been changed.
 	/// </summary>
 	/// <param name="keycode" type="KeyCodeEnum"></param>
 	/// <param name="value" type="number"></param>
@@ -737,7 +751,7 @@ public sealed partial class InputService : Instance
 	}
 
 	/// <summary>
-	/// Bind a new Button Input Action
+	/// Bind a new Button Input Action.
 	/// </summary>
 	[ScriptMethod]
 	public InputActionButton BindButton(string name)
@@ -746,7 +760,7 @@ public sealed partial class InputService : Instance
 	}
 
 	/// <summary>
-	/// Bind new Axis Input Action
+	/// Bind new Axis Input Action.
 	/// </summary>
 	[ScriptMethod]
 	public InputActionAxis BindAxis(string name)
@@ -755,7 +769,7 @@ public sealed partial class InputService : Instance
 	}
 
 	/// <summary>
-	/// Bind new Vector2 Input Action
+	/// Bind new Vector2 Input Action.
 	/// </summary>
 	[ScriptMethod]
 	public InputActionVector2 BindVector2(string name)

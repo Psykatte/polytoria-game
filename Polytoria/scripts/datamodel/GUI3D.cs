@@ -80,7 +80,7 @@ public partial class GUI3D : Dynamic
 	}
 
 	/// <summary>
-	/// Absolute size of this GUI3D
+	/// Absolute size of this GUI3D.
 	/// </summary>
 	[ScriptProperty]
 	public Vector2 AbsoluteSize => _subViewport.Size;

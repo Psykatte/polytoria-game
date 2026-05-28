@@ -8,7 +8,7 @@ using Polytoria.Shared.AssetLoaders;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Audio asset which is loaded from Polytoria
+/// Audio asset which is loaded from Polytoria.
 /// </summary>
 [Instantiable]
 [DocCategory("assets")]
@@ -17,7 +17,7 @@ public partial class PTAudioAsset : AudioAsset
 	private uint _audioID = 0;
 
 	/// <summary>
-	/// The audio ID to load
+	/// The audio ID to load.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public uint AudioID

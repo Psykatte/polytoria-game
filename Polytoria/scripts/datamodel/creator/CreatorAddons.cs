@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Datamodel.Creator;
 
 /// <summary>
-/// Service for managing addons
+/// Service for managing addons.
 /// </summary>
 [Static("Addons")]
 [DocCategory("addons")]
@@ -26,7 +26,7 @@ public sealed partial class CreatorAddons : Instance
 	private readonly Dictionary<Script, AddonObject> _scriptToAddon = [];
 
 	/// <summary>
-	/// Register an addon
+	/// Register an addon.
 	/// </summary>
 	[ScriptMethod(Permissions = ScriptPermissionFlags.ContextAccess)]
 	public AddonObject Register([ScriptingCaller] Script caller, string identifier)
@@ -118,7 +118,7 @@ public sealed partial class CreatorAddons : Instance
 		public readonly List<AddonToolItem> ToolItems = [];
 
 		/// <summary>
-		/// Prompt the user to request for permissions
+		/// Prompt the user to request for permissions.
 		/// </summary>
 		[ScriptMethod]
 		public static async Task RequestPermissions([ScriptingCaller] Script caller, AddonPermissionEnum[] perms)
@@ -163,7 +163,7 @@ public sealed partial class CreatorAddons : Instance
 		public string Text = txt;
 
 		/// <summary>
-		/// Fires when this tool item has been pressed
+		/// Fires when this tool item has been pressed.
 		/// </summary>
 		[ScriptProperty] public PTSignal Pressed { get; private set; } = new();
 	}

@@ -58,14 +58,14 @@ public sealed partial class Players : Instance
 	}
 
 	/// <summary>
-	/// Fires when player has connected
+	/// Fires when player has connected.
 	/// </summary>
 	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
 	public PTSignal<Player> PlayerAdded { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when player has disconnected
+	/// Fires when player has disconnected.
 	/// </summary>
 	/// <param name="player" type="Player"></param>
 	[ScriptProperty]
@@ -78,7 +78,7 @@ public sealed partial class Players : Instance
 	public int PlayersCount => GetChildren().Count(c => c is Player plr && plr.IsReady);
 
 	/// <summary>
-	/// Get current player count including connecting
+	/// Get current player count including connecting.
 	/// </summary>
 	public int AbsolutePlayersCount => GetChildren().Count(c => c is Player plr);
 

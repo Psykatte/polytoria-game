@@ -55,25 +55,27 @@ public partial class CreatorInterface : Control, IScriptObject
 	public LoadOverlay? LoadOverlay { get; internal set; }
 
 	/// <summary>
-	/// Returns the target tool mode
+	/// Returns the target tool mode.
 	/// </summary>
 	[ScriptProperty] public ToolModeEnum ToolMode { get; internal set; } = ToolModeEnum.Select;
+
 	/// <summary>
-	/// Returns the target part color
+	/// Returns the target part color.
 	/// </summary>
 	[ScriptProperty] public Color TargetPartColor { get; internal set; } = new(1, 1, 1);
+
 	/// <summary>
-	/// Returns the target part material
+	/// Returns the target part material.
 	/// </summary>
 	[ScriptProperty] public Part.PartMaterialEnum TargetPartMaterial { get; internal set; } = Part.PartMaterialEnum.SmoothPlastic;
 
 	/// <summary>
-	/// Returns the move snapping value
+	/// Returns the move snapping value.
 	/// </summary>
 	[ScriptProperty] public bool MoveSnapEnabled { get; internal set; } = true;
 
 	/// <summary>
-	/// Returns whenever the move snapping is enabled by the user
+	/// Returns whenever the move snapping is enabled by the user.
 	/// </summary>
 	[ScriptProperty]
 	public float MoveSnapping
@@ -89,16 +91,17 @@ public partial class CreatorInterface : Control, IScriptObject
 	}
 
 	/// <summary>
-	/// Returns the move snapping value defined by the user
+	/// Returns the move snapping value defined by the user.
 	/// </summary>
 	[ScriptProperty] public float UserMoveSnapping { get; internal set; } = 1;
+
 	/// <summary>
-	/// Returns whenever the rotate snapping is enabled by the user
+	/// Returns whenever the rotate snapping is enabled by the user.
 	/// </summary>
 	[ScriptProperty] public bool RotateSnapEnabled { get; internal set; } = true;
 
 	/// <summary>
-	/// Returns the rotate snapping value
+	/// Returns the rotate snapping value.
 	/// </summary>
 	[ScriptProperty]
 	public float RotateSnapping
@@ -114,7 +117,7 @@ public partial class CreatorInterface : Control, IScriptObject
 	}
 
 	/// <summary>
-	/// Returns the rotate snapping value defined by the user
+	/// Returns the rotate snapping value defined by the user.
 	/// </summary>
 	[ScriptProperty] public float UserRotateSnapping { get; internal set; } = 45;
 

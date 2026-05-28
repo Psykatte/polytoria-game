@@ -607,13 +607,15 @@ public sealed partial class Mesh : Entity
 	public struct MeshAnimationInfo : IScriptObject
 	{
 		/// <summary>
-		/// The name of this animation
+		/// The name of this animation.
 		/// </summary>
 		[ScriptProperty] public string Name { get; set; }
+
 		/// <summary>
-		/// The length of this animation
+		/// The length of this animation.
 		/// </summary>
 		[ScriptProperty] public float Length { get; set; }
+		
 		/// <summary>
 		/// Indicates the playing state of this animation.
 		/// </summary>

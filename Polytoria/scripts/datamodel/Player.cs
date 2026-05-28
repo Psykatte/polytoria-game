@@ -92,29 +92,26 @@ public sealed partial class Player : NPC
 	internal APIUserInfo? UserInfo { get; private set; }
 
 	/// <summary>
-	/// Fires when this player chats
+	/// Fires when this player chats.
 	/// </summary>
 	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> Chatted { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when stat value has changed
+	/// Fires when stat value has changed.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal<Stat, object?> StatChanged { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when player has been assigned a team
-	/// </summary>
-	/// <summary>
-	/// Player's assigned team
+	/// Fires when player has been assigned a team.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal<Team?> TeamChanged { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when this player has respawned
+	/// Fires when this player has respawned.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Respawned { get; private set; } = new();
@@ -292,7 +289,7 @@ public sealed partial class Player : NPC
 	}
 
 	/// <summary>
-	/// If true, animation will not stop when player starts moving
+	/// If true, animation will not stop when player starts moving.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AllowAnimationWhileMoving
@@ -305,6 +302,9 @@ public sealed partial class Player : NPC
 		}
 	}
 
+	/// <summary>
+	/// Player's assigned team.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Team? Team
 	{
@@ -368,12 +368,12 @@ public sealed partial class Player : NPC
 	[ScriptProperty, SyncVar]
 	public bool IsCreator { get; internal set; }
 
-	/// <summary>
-	/// Determines the chat color of the player.
-	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string UserRoleClass { get; internal set; } = "";
 
+	/// <summary>
+	/// Determines the chat color of the player.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public Color ChatColor { get; set; } = new(1, 1, 1);
 

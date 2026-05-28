@@ -19,7 +19,7 @@ public partial class Accessory : Dynamic
 	private RemoteTransform3D? remoteTransform;
 
 	/// <summary>
-	/// Specifies the character attachment point
+	/// Specifies the character attachment point.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public PolytorianModel.CharacterAttachmentEnum TargetAttachment

@@ -64,25 +64,29 @@ public partial class Physical : Dynamic
 	private readonly HashSet<CollisionShape3D> _pendingAreaShapes = [];
 
 	/// <summary>
-	/// Fires when this object has collide with other object
+	/// Fires when this object has collide with other object.
 	/// </summary>
 	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> Touched { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when this object has stopped colliding with other object
+	/// Fires when this object has stopped colliding with other object.
 	/// </summary>
 	/// <param name="hit" type="Physical"></param>
 	[ScriptProperty] public PTSignal<Physical> TouchEnded { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when cursor is hovered on this object. Only fired locally
+	/// Fires when cursor is hovered on this object. Only fired locally.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseEnter { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when cursor leaves this object. Only fired locally
+	/// Fires when cursor leaves this object. Only fired locally.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseExit { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when this object has been clicked by a player
+	/// Fires when this object has been clicked by a player.
 	/// </summary>
 	/// <param name="player" type="Player"></param>
 	[ScriptProperty] public PTSignal<Player> Clicked { get; private set; } = new();
@@ -1269,7 +1273,7 @@ public partial class Physical : Dynamic
 	}
 
 	/// <summary>
-	/// Add force to this physical
+	/// Add force to this physical.
 	/// </summary>
 	[ScriptMethod]
 	public void AddForce(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
@@ -1280,7 +1284,7 @@ public partial class Physical : Dynamic
 	internal virtual void ApplyAddForce(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
 	/// <summary>
-	/// Add torque to this physical
+	/// Add torque to this physical.
 	/// </summary>
 	[ScriptMethod]
 	public void AddTorque(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
@@ -1291,7 +1295,7 @@ public partial class Physical : Dynamic
 	internal virtual void ApplyAddTorque(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
 	/// <summary>
-	/// Add force at position to this physical
+	/// Add force at position to this physical.
 	/// </summary>
 	[ScriptMethod]
 	public void AddForceAtPosition(Vector3 force, Vector3 position, ForceModeEnum mode = ForceModeEnum.Force)
@@ -1302,7 +1306,7 @@ public partial class Physical : Dynamic
 	internal virtual void ApplyAddForceAtPosition(Vector3 force, Vector3 position, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
 	/// <summary>
-	/// Add relative force to this physical
+	/// Add relative force to this physical.
 	/// </summary>
 	[ScriptMethod]
 	public void AddRelativeForce(Vector3 force, ForceModeEnum mode = ForceModeEnum.Force)
@@ -1313,7 +1317,7 @@ public partial class Physical : Dynamic
 	internal virtual void ApplyAddRelativeForce(Vector3 force, ForceModeEnum mode) { throw new NotImplementedException(ClassName + " does not support this force function"); }
 
 	/// <summary>
-	/// Add relative torque to this physical
+	/// Add relative torque to this physical.
 	/// </summary>
 	[ScriptMethod]
 	public void AddRelativeTorque(Vector3 torque, ForceModeEnum mode = ForceModeEnum.Force)

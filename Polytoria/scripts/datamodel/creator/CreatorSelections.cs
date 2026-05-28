@@ -30,11 +30,12 @@ public sealed partial class CreatorSelections : Instance
 	private TaskCompletionSource<Instance>? _pickTcs;
 
 	/// <summary>
-	/// Fires when an instance has been selected
+	/// Fires when an instance has been selected.
 	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Selected { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when an instance has been deselected
+	/// Fires when an instance has been deselected.
 	/// </summary>
 	[ScriptProperty] public PTSignal<Instance> Deselected { get; private set; } = new();
 
@@ -66,7 +67,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Select an instance
+	/// Select an instance.
 	/// </summary>
 	[ScriptMethod]
 	public void Select(Instance instance)
@@ -106,7 +107,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Select all children of the instance
+	/// Select all children of the instance.
 	/// </summary>
 	[ScriptMethod]
 	public void SelectChild(Instance instance)
@@ -118,7 +119,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Get all selected instances
+	/// Get all selected instances.
 	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetSelected()
@@ -153,7 +154,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Deselect the instance
+	/// Deselect the instance.
 	/// </summary>
 	[ScriptMethod]
 	public void Deselect(Instance instance)
@@ -187,7 +188,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Deselect all, then select the instance
+	/// Deselect all, then select the instance.
 	/// </summary>
 	[ScriptMethod]
 	public void SelectOnly(Instance instance)
@@ -197,7 +198,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Deselect all instances
+	/// Deselect all instances.
 	/// </summary>
 	[ScriptMethod]
 	public void DeselectAll()
@@ -377,7 +378,7 @@ public sealed partial class CreatorSelections : Instance
 	}
 
 	/// <summary>
-	/// Check if instance has been selected
+	/// Check if instance has been selected.
 	/// </summary>
 	[ScriptMethod]
 	public bool HasSelected(Instance instance) => SelectedInstances.Contains(instance);

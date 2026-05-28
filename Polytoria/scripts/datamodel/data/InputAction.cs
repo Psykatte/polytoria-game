@@ -105,15 +105,15 @@ public class InputButton : IScriptObject
 	/// <summary>
 	/// Creates a new button with this keycode.
 	/// </summary>
-	/// <summary>
-	/// Creates a new button with this keycode.
-	/// </summary>
 	[ScriptMethod]
 	public static InputButton New()
 	{
 		return new();
 	}
 
+	/// <summary>
+	/// Creates a new button with this keycode.
+	/// </summary>
 	[ScriptMethod]
 	public static InputButton New(KeyCodeEnum key)
 	{
@@ -147,21 +147,24 @@ public class InputActionVector2 : InputAction
 	/// Collection of up inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Up { get; set; } = [];
+
 	/// <summary>
 	/// Collection of down inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Down { get; set; } = [];
+
 	/// <summary>
 	/// Collection of left inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Left { get; set; } = [];
+
 	/// <summary>
 	/// Collection of right inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Right { get; set; } = [];
 
 	/// <summary>
-	/// The value of the input
+	/// The value of the input.
 	/// </summary>
 	[ScriptProperty, JsonIgnore] public Vector2 Value { get; internal set; }
 }
@@ -181,17 +184,19 @@ public class InputActionButton : InputAction
 	/// Returns true if any of the buttons in the collection is currently being pressed.
 	/// </summary>
 	[ScriptProperty, JsonIgnore] public bool IsPressed { get; set; }
+
 	/// <summary>
 	/// Returns the current analog input of the button.
 	/// </summary>
 	[ScriptProperty, JsonIgnore] public float Weight { get; set; }
 
 	/// <summary>
-	/// Fires when this button has been pressed
+	/// Fires when this button has been pressed.
 	/// </summary>
 	[ScriptProperty, JsonIgnore] public PTSignal Pressed { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when this button has been released
+	/// Fires when this button has been released.
 	/// </summary>
 	[ScriptProperty, JsonIgnore] public PTSignal Released { get; private set; } = new();
 }
@@ -203,11 +208,12 @@ public class InputActionButton : InputAction
 public class InputActionAxis : InputAction
 {
 	/// <summary>
-	/// Collection of negative inputs
+	/// Collection of negative inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Negative { get; set; } = [];
+
 	/// <summary>
-	/// Collection of positive inputs
+	/// Collection of positive inputs.
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Positive { get; set; } = [];
 

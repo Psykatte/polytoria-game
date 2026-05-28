@@ -111,25 +111,25 @@ public sealed partial class Tool : RigidBody
 	}
 
 	/// <summary>
-	/// Fires when this tool has been equipped
+	/// Fires when this tool has been equipped.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Equipped { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when this tool has been unequipped
+	/// Fires when this tool has been unequipped.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Unequipped { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when this tool has been activated (via mouse press or <c>Tool:Activate</c>)
+	/// Fires when this tool has been activated (via mouse press or <c>Tool:Activate</c>).
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Activated { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when this tool has been deactivated (via mouse release or <c>Tool:Deactivate</c>)
+	/// Fires when this tool has been deactivated (via mouse release or <c>Tool:Deactivate</c>).
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Deactivated { get; private set; } = new();

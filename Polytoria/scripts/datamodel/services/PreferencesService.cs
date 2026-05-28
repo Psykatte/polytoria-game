@@ -12,7 +12,7 @@ using Polytoria.Enums;
 namespace Polytoria.Datamodel.Services;
 
 /// <summary>
-/// PreferencesService is a service that allows scripts to access some of the user preferences
+/// PreferencesService is a service that allows scripts to access some of the user preferences.
 /// </summary>
 [Static("Preferences")]
 [ExplorerExclude]
@@ -34,6 +34,7 @@ public sealed partial class PreferencesService : Instance
 	/// Determines whether the player has photo mode enabled.
 	/// </summary>
 	[ScriptLegacyProperty("UsePhotoMode")] public static bool LegacyUsePhotoMode => ClientSettingsService.Instance.Get<GraphicsPreset>(SharedSettingKeys.Graphics.Preset) == GraphicsPreset.Photo;
+	
 	// We might want to check if all the post processing is enabled rather than just one.
 	/// <summary>
 	/// Determines whether the player has post-processing effects enabled.

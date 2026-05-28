@@ -189,7 +189,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the velocity direction
+	/// Determines the velocity direction.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 VelocityDirection
@@ -206,7 +206,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the initial velocity
+	/// Determines the initial velocity.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange InitialVelocity
@@ -242,7 +242,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the spread angle of the velocity
+	/// Determines the spread angle of the velocity.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Spread
@@ -259,7 +259,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines how flat the spread angle should be
+	/// Determines how flat the spread angle should be.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Flatness
@@ -276,7 +276,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determine the initial scale range
+	/// Determine the initial scale range.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange Scale
@@ -294,7 +294,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determine the hue variation
+	/// Determine the hue variation.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange HueVariation
@@ -349,7 +349,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the emission shape of this particle
+	/// Determines the emission shape of this particle.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public ParticleEmissionShapeEnum EmissionShape
@@ -373,7 +373,7 @@ public sealed partial class Particles : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the emission shape's scale
+	/// Determines the emission shape's scale.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 EmissionShapeScale

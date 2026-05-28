@@ -243,7 +243,7 @@ public partial class Script : Instance
 	}
 
 	/// <summary>
-	/// Link script with the target file path
+	/// Link script with the target file path.
 	/// </summary>
 	[ScriptMethod(Permissions = ScriptPermissionFlags.IOWrite)]
 	public void LinkWithScriptFile(string scriptPath)

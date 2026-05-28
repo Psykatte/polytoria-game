@@ -29,7 +29,7 @@ public sealed partial class ChatService : Instance
 	private const int MaxMsgContentLength = 200;
 
 	/// <summary>
-	/// Fire when there's new chat message from player
+	/// Fire when there's new chat message from player.
 	/// </summary>
 	/// <param name="sender" type="Player"></param>
 	/// <param name="message" type="string"></param>
@@ -37,20 +37,20 @@ public sealed partial class ChatService : Instance
 	public PTSignal<Player, string> NewChatMessage { get; private set; } = new();
 
 	/// <summary>
-	/// Fire when there's new message from broadcast/unicast
+	/// Fire when there's new message from broadcast/unicast.
 	/// </summary>
 	/// <param name="message" type="string"></param>
 	[ScriptProperty]
 	public PTSignal<string> MessageReceived { get; private set; } = new();
 
 	/// <summary>
-	/// Fire when the sent message is declined by the server
+	/// Fire when the sent message is declined by the server.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal MessageDeclined { get; private set; } = new();
 
 	/// <summary>
-	/// Predicate function to determine if this message should be sent or not
+	/// Predicate function to determine if this message should be sent or not.
 	/// </summary>
 	[ScriptProperty]
 	public PTFunction? ChatPredicate { get; set; }

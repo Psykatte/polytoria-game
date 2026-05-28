@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Datamodel.Services;
 
 /// <summary>
-/// WIP Class
+/// WIP Class.
 /// </summary>
 [Static("Social")]
 [ExplorerExclude]

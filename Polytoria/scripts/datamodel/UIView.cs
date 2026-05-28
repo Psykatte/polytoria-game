@@ -19,10 +19,6 @@ public partial class UIView : UIField
 	private float _borderWidth;
 	private float _cornerRadius;
 
-
-	/// <summary>
-	/// Determines the color of the UI.
-	/// </summary>
 	/// <summary>
 	/// Determines the border color of the UI.
 	/// </summary>
@@ -41,6 +37,9 @@ public partial class UIView : UIField
 		}
 	}
 
+	/// <summary>
+	/// Determines the color of the UI.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{

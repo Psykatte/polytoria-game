@@ -41,7 +41,7 @@ public sealed partial class InsertService : Instance
 	}
 
 	/// <summary>
-	/// Inserts a Default NPC
+	/// Inserts a Default NPC.
 	/// </summary>
 	[ScriptMethod]
 	public NPC DefaultNPC()
@@ -52,7 +52,7 @@ public sealed partial class InsertService : Instance
 	}
 
 	/// <summary>
-	/// Initialize default NPC with the DefaultCharacter and sounds
+	/// Initialize default NPC with the DefaultCharacter and sounds.
 	/// </summary>
 	[ScriptMethod]
 	public void InitializeDefaultNPC(NPC npc)
@@ -91,7 +91,7 @@ public sealed partial class InsertService : Instance
 	}
 
 	/// <summary>
-	/// Inserts a Default PolytorianModel
+	/// Inserts a Default PolytorianModel.
 	/// </summary>
 	[ScriptMethod]
 	public PolytorianModel DefaultCharacter()
@@ -189,7 +189,7 @@ public sealed partial class InsertService : Instance
 	}
 
 	/// <summary>
-	/// Inserts a new tool with the specified ID
+	/// Inserts a new tool with the specified ID.
 	/// </summary>
 	[ScriptMethod]
 	public async Task<Tool?> ToolAsync(int id)

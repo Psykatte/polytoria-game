@@ -305,22 +305,25 @@ public partial class Instance : NetworkedObject
 	public bool IsInTemporary => IsDescendantOfClass<Temporary>();
 
 	/// <summary>
-	/// Fires when child has been added to this instance
+	/// Fires when child has been added to this instance.
 	/// </summary>
 	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildAdded { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when child has been removed from this instance (either via reparent or delete)
+	/// Fires when child has been removed from this instance (either via reparent or delete).
 	/// </summary>
 	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildRemoved { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when child is being deleted from this instance
+	/// Fires when child is being deleted from this instance.
 	/// </summary>
 	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleting { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when child has been deleted from this instance
+	/// Fires when child has been deleted from this instance.
 	/// </summary>
 	/// <param name="child" type="Instance"></param>
 	[ScriptProperty] public PTSignal<Instance> ChildDeleted { get; private set; } = new();
@@ -515,7 +518,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Find first child with the specified tag
+	/// Find first child with the specified tag.
 	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChildWithTag(string tag)
@@ -532,7 +535,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Get children with the specified tag
+	/// Get children with the specified tag.
 	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetChildrenWithTag(string tag)
@@ -550,7 +553,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Get descendants with the specified tag
+	/// Get descendants with the specified tag.
 	/// </summary>
 	[ScriptMethod]
 	public Instance[] GetDescendantsWithTag(string tag)
@@ -568,7 +571,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Find ancestor by the specified class name
+	/// Find ancestor by the specified class name.
 	/// </summary>
 	[ScriptMethod]
 	public Instance? FindAncestorByClass(string className)
@@ -604,7 +607,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Find child by its index (index for this function starts from 0)
+	/// Find child by its index (index for this function starts from 0).
 	/// </summary>
 	[ScriptMethod]
 	public Instance? FindChildByIndex(int index)
@@ -614,7 +617,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Move children to specified index (index for this function starts from 0)
+	/// Move children to specified index (index for this function starts from 0).
 	/// </summary>
 	[ScriptMethod]
 	public void MoveChild(Instance child, int index)
@@ -977,7 +980,7 @@ public partial class Instance : NetworkedObject
 	}
 
 	/// <summary>
-	/// Reparent this instance to another instance
+	/// Reparent this instance to another instance.
 	/// </summary>
 	[ScriptMethod]
 	public void Reparent(Instance to)

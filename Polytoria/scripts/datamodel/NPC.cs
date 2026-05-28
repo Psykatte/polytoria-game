@@ -468,10 +468,12 @@ public partial class NPC : Physical
 	/// Indicates the distance to the navigation destination.
 	/// </summary>
 	[ScriptProperty] public float NavDestinationDistance => _navAgent == null ? Mathf.Inf : _navAgent.DistanceToTarget();
+
 	/// <summary>
 	/// Indicates whether the NPC has reached its navigation destination.
 	/// </summary>
 	[ScriptProperty] public bool NavDestinationReached => _navAgent != null && _navAgent.IsTargetReached();
+	
 	/// <summary>
 	/// Indicates whether the navigation destination is valid.
 	/// </summary>

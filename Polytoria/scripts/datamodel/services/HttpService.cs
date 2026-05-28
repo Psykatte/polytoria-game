@@ -71,7 +71,7 @@ public sealed partial class HttpService : Instance
 	}
 
 	/// <summary>
-	/// Send a request using the <c>HttpRequestData</c>
+	/// Send a request using the <c>HttpRequestData</c>.
 	/// </summary>
 	[ScriptMethod]
 	public async Task<HttpResponseData> RequestAsync(HttpRequestData data)

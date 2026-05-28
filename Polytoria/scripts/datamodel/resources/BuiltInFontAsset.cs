@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Polytoria.Datamodel.Resources;
 
 /// <summary>
-/// Font asset that's built-in with the client
+/// Font asset that's built-in with the client.
 /// </summary>
 [Instantiable]
 [DocCategory("assets")]
@@ -22,7 +22,7 @@ public partial class BuiltInFontAsset : FontAsset
 	private FontStyleEnum _fontStyle = FontStyleEnum.Normal;
 
 	/// <summary>
-	/// Target font to use
+	/// Target font to use.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public BuiltInTextFontPresetEnum FontPreset
@@ -37,7 +37,7 @@ public partial class BuiltInFontAsset : FontAsset
 	}
 
 	/// <summary>
-	/// Font weight for this font
+	/// Font weight for this font.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public FontWeightEnum FontWeight
@@ -52,7 +52,7 @@ public partial class BuiltInFontAsset : FontAsset
 	}
 
 	/// <summary>
-	/// Font style for this font
+	/// Font style for this font.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public FontStyleEnum FontStyle

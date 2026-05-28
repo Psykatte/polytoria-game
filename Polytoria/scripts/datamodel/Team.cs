@@ -19,7 +19,7 @@ public partial class Team : Instance
 	private Color _color = new(1, 0, 0);
 
 	/// <summary>
-	/// Display name for this team
+	/// Display name for this team.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("")]
 	public string DisplayName
@@ -33,7 +33,7 @@ public partial class Team : Instance
 	}
 
 	/// <summary>
-	/// Color for this team
+	/// Color for this team.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color

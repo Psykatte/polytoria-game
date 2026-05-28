@@ -43,10 +43,7 @@ public readonly struct ColorSeries : IScriptObject, IData
 	}
 
 	/// <summary>
-	/// Creates a color series from a color range
-	/// </summary>
-	/// <summary>
-	/// Creates a color series from a color range
+	/// Creates a color series from a color range.
 	/// </summary>
 	[ScriptMethod]
 	public static ColorSeries New()
@@ -54,6 +51,9 @@ public readonly struct ColorSeries : IScriptObject, IData
 		return new();
 	}
 
+	/// <summary>
+	/// Creates a color series from a color range.
+	/// </summary>
 	[ScriptMethod]
 	public static ColorSeries New(Color min, Color max)
 	{
@@ -65,7 +65,7 @@ public readonly struct ColorSeries : IScriptObject, IData
 	}
 
 	/// <summary>
-	/// Clear this ColorSeries
+	/// Clear this ColorSeries.
 	/// </summary>
 	[ScriptMethod]
 	public readonly void Clear()
@@ -98,7 +98,7 @@ public readonly struct ColorSeries : IScriptObject, IData
 	}
 
 	/// <summary>
-	/// Get all offsets
+	/// Get all offsets.
 	/// </summary>
 	[ScriptMethod]
 	public readonly float[] GetOffsets()
@@ -112,7 +112,7 @@ public readonly struct ColorSeries : IScriptObject, IData
 	}
 
 	/// <summary>
-	/// Get all colors
+	/// Get all colors.
 	/// </summary>
 	[ScriptMethod]
 	public readonly Color[] GetColors()

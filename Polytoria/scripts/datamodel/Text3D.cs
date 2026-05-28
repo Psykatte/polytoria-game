@@ -250,7 +250,7 @@ public sealed partial class Text3D : Dynamic
 	}
 
 	/// <summary>
-	/// NOTE: This is experimental
+	/// NOTE: This is experimental.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool UseRichText

@@ -28,10 +28,7 @@ public sealed partial class WorldsService : Instance
 	private readonly Dictionary<string, MessageNewServerResponse> _testServers = [];
 
 	/// <summary>
-	/// Request a new server with data
-	/// </summary>
-	/// <summary>
-	/// Request a new server with data
+	/// Request a new server with data.
 	/// </summary>
 	[ScriptMethod]
 	public async Task<string?> NewServerAsync(string worldPath)
@@ -39,6 +36,9 @@ public sealed partial class WorldsService : Instance
 		return await NewServerAsync(new NewServerRequestData() { WorldPath = worldPath });
 	}
 
+	/// <summary>
+	/// Request a new server with data.
+	/// </summary>
 	[ScriptMethod]
 	public async Task<string?> NewServerAsync(NewServerRequestData data)
 	{
@@ -92,7 +92,7 @@ public sealed partial class WorldsService : Instance
 	}
 
 	/// <summary>
-	/// Join a player to a private server of the specified world
+	/// Join a player to a private server of the specified world.
 	/// </summary>
 	[ScriptMethod]
 	public async Task JoinPrivateAsync(Player plr, string accessID)
@@ -118,7 +118,7 @@ public sealed partial class WorldsService : Instance
 	}
 
 	/// <summary>
-	/// Join a party of player to a private server of the specified world
+	/// Join a party of player to a private server of the specified world.
 	/// </summary>
 	[ScriptMethod]
 	public async Task JoinPrivatePartyAsync(Player[] players, string accessID)

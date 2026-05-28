@@ -21,7 +21,7 @@ public partial class Clothing : Instance
 	internal Texture2D? ClothTexture;
 
 	/// <summary>
-	/// The clothing texture to use
+	/// The clothing texture to use.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public ImageAsset? Image

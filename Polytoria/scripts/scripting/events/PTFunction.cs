@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Polytoria.Scripting;
 
 /// <summary>
-/// A function that expects a return value. This will sometimes be referred as <c>function</c>
+/// A function that expects a return value. This will sometimes be referred as <c>function</c>.
 /// </summary>
 [DocCategory("scripting")]
 public class PTFunction(Func<object?[], Task<object?[]>> target) : IScriptObject

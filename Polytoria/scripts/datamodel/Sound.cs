@@ -181,7 +181,7 @@ public sealed partial class Sound : Dynamic
 	}
 
 	/// <summary>
-	/// Determines whether the sound should be paused
+	/// Determines whether the sound should be paused.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Paused
@@ -233,6 +233,7 @@ public sealed partial class Sound : Dynamic
 	/// Indicates whether the sound is currently playing.
 	/// </summary>
 	[ScriptProperty] public bool Playing { get; private set; } = false;
+
 	/// <summary>
 	/// Indicates whether the sound is currently loading.
 	/// </summary>
@@ -247,9 +248,13 @@ public sealed partial class Sound : Dynamic
 				: _audioPlayer3D != null ? (float)_audioPlayer3D.Stream.GetLength() : 0;
 
 	/// <summary>
-	/// Fires when this sound has loaded
+	/// Fires when this sound has loaded.
 	/// </summary>
 	[ScriptProperty] public PTSignal Loaded { get; private set; } = new();
+
+	/// <summary>
+	/// Fires when this sound has finished playing.
+	/// </summary>
 	[ScriptProperty] public PTSignal Finished { get; private set; } = new();
 
 	[SyncVar]

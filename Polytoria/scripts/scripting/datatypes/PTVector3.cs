@@ -21,10 +21,12 @@ public class PTVector3 : IScriptGDObject
 	/// The X component of the vector.
 	/// </summary>
 	[ScriptProperty] public float X { get => vector.X; set => vector.X = value; }
+
 	/// <summary>
 	/// The Y component of the vector.
 	/// </summary>
 	[ScriptProperty] public float Y { get => vector.Y; set => vector.Y = value; }
+
 	/// <summary>
 	/// The Z component of the vector.
 	/// </summary>
@@ -34,30 +36,37 @@ public class PTVector3 : IScriptGDObject
 	/// Shorthand for Vector3.New(0, 0, -1).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Forward { get; private set; } = new() { X = 0, Y = 0, Z = -1 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(0, 0, 1).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Back { get; private set; } = new() { X = 0, Y = 0, Z = 1 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(0, -1, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Down { get; private set; } = new() { X = 0, Y = -1, Z = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(-1, 0, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Left { get; private set; } = new() { X = -1, Y = 0, Z = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(1, 1, 1).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 One { get; private set; } = new() { X = 1, Y = 1, Z = 1 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(0, 0, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Zero { get; private set; } = new() { X = 0, Y = 0, Z = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(1, 0, 0).
 	/// </summary>
 	[ScriptProperty] public static PTVector3 Right { get; private set; } = new() { X = 1, Y = 0, Z = 0 };
+
 	/// <summary>
 	/// Shorthand for Vector3.New(0, 1, 0).
 	/// </summary>
@@ -67,10 +76,12 @@ public class PTVector3 : IScriptGDObject
 	/// The length of the vector.
 	/// </summary>
 	[ScriptProperty] public float Magnitude => vector.Length();
+
 	/// <summary>
 	/// The normalized version of the vector.
 	/// </summary>
 	[ScriptProperty] public PTVector3 Normalized => FromGDClass(vector.Normalized());
+
 	/// <summary>
 	/// The squared length of the vector.
 	/// </summary>
@@ -92,18 +103,6 @@ public class PTVector3 : IScriptGDObject
 	/// <summary>
 	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
 	/// </summary>
-	/// <summary>
-	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
-	/// </summary>
-	/// <summary>
-	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
-	/// </summary>
-	/// <summary>
-	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
-	/// </summary>
-	/// <summary>
-	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
-	/// </summary>
 	[ScriptMethod]
 	public static PTVector3 New()
 	{
@@ -115,6 +114,9 @@ public class PTVector3 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector3 New(float d)
 	{
@@ -126,6 +128,9 @@ public class PTVector3 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector3 New(float x, float y)
 	{
@@ -137,6 +142,9 @@ public class PTVector3 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector3 New(float x, float y, float z)
 	{
@@ -149,6 +157,9 @@ public class PTVector3 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Returns a new Vector3 with the given Vector2 components and a z component of 0.
+	/// </summary>
 	[ScriptMethod]
 	public static PTVector3 New(PTVector2 v)
 	{
@@ -257,50 +268,66 @@ public class PTVector3 : IScriptGDObject
 	/// Returns the angle in degrees between from and to.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Angle(PTVector3 from, PTVector3 to) => from.vector.AngleTo(to.vector);
+
+	// TODO: Why is this commented?
 	//[ScriptMethod] public static Vector3 ClampMagnitude(Vector3 vector, float maxLength) => vector.Clamp(vector, maxLength);
+
 	/// <summary>
 	/// Returns the cross product of lhs and rhs.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Cross(PTVector3 lhs, PTVector3 rhs) => FromGDClass(lhs.vector.Cross(rhs.vector));
+
 	/// <summary>
 	/// Returns the distance between a and b.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Distance(PTVector3 a, PTVector3 b) => a.vector.DistanceTo(b.vector);
+
 	/// <summary>
 	/// Returns the dot product of lhs and rhs.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static float Dot(PTVector3 lhs, PTVector3 rhs) => lhs.vector.Dot(rhs.vector);
+
 	/// <summary>
 	/// Returns a new Vector3 that is the linear interpolation between a and b by t.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Lerp(PTVector3 a, PTVector3 b, float t) => FromGDClass(a.vector.Lerp(b.vector, t));
+
 	/// <summary>
 	/// Returns a vector that is made from the largest components of two vectors.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Max(PTVector3 lhs, PTVector3 rhs) => FromGDClass(lhs.vector.Max(rhs.vector));
+
 	/// <summary>
 	/// Returns a vector that is made from the smallest components of two vectors.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Min(PTVector3 lhs, PTVector3 rhs) => FromGDClass(lhs.vector.Min(rhs.vector));
+
 	/// <summary>
 	/// Calculate a position between the points specified by current and target, moving no farther than the distance specified by maxDistanceDelta.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 MoveTowards(PTVector3 current, PTVector3 target, float maxDistanceDelta) => FromGDClass(current.vector.MoveToward(target.vector, maxDistanceDelta));
+
 	/// <summary>
 	/// Returns a new Vector3 that is the normalized version of the given vector.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Normalize(PTVector3 value) => FromGDClass(value.vector.Normalized());
+
 	/// <summary>
 	/// Returns the projection of a vector onto another vector.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Project(PTVector3 vector, PTVector3 onNormal) => FromGDClass(vector.vector.Project(onNormal.vector));
+
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 ProjectOnPlane(PTVector3 vector, PTVector3 planeNormal) => FromGDClass(vector.vector.Slide(planeNormal.vector.Normalized()));
+
 	/// <summary>
 	/// Returns the reflection of a vector off the plane defined by a normal.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Reflect(PTVector3 inDirection, PTVector3 inNormal) => FromGDClass(inDirection.vector.Reflect(inNormal.vector));
+
+	// TODO: Why is this commented?
 	//[ScriptMethod] public static Vector3 RotateTowards(Vector3 current, Vector3 target, float maxRadiansDelta, float maxMagnitudeDelta) => current.RotateTowards(current, target, maxRadiansDelta, maxMagnitudeDelta);
 	//public static Vector3 Scale(Vector3 a, Vector3 b) => a.Scale(b);
+
 	/// <summary>
 	/// Returns the signed angle in degrees between from and to.
 	/// </summary>
@@ -316,6 +343,8 @@ public class PTVector3 : IScriptGDObject
 		Vector3 normalizedB = b.vector.Normalized();
 		return FromGDClass(normalizedA.Slerp(normalizedB, t));
 	}
+
+	// TODO: Why are these commented?
 	//public static Vector3 SlerpUnclamped(Vector3 a, Vector3 b, float t) => a.SlerpUnclamped(b, t);
 	//public static Vector3 SmoothDamp(Vector3 current, Vector3 target, ref Vector3 currentVelocity, float smoothTime, float maxSpeed, float deltaTime) => current.SmoothDamp(target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Floor(PTVector3 val) => FromGDClass(val.vector.Floor());

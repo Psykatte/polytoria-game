@@ -18,14 +18,17 @@ public partial class HttpRequestData : IScriptObject
 	/// The target endpoint of the HTTP request.
 	/// </summary>
 	[ScriptProperty] public string URL { get; set; } = "";
+
 	/// <summary>
 	/// The HTTP method used for the request.
 	/// </summary>
 	[ScriptProperty] public HttpRequestMethodEnum Method { get; set; } = HttpRequestMethodEnum.Get;
+
 	/// <summary>
 	/// The payload sent with the request.
 	/// </summary>
 	[ScriptProperty] public string? Body { get; set; }
+	
 	/// <summary>
 	/// A table of HTTP headers to include with the request, represented as key-value pairs.
 	/// </summary>

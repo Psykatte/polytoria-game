@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Polytoria.Datamodel.Services;
 
 /// <summary>
-/// TweenService is a service for managing tweens
+/// TweenService is a service for managing tweens.
 /// </summary>
 [Static("Tween"), ExplorerExclude, SaveIgnore]
 [DocCategory("services")]
@@ -363,7 +363,7 @@ public sealed partial class TweenService : Instance
 	}
 
 	/// <summary>
-	/// An object that represents tween
+	/// An object that represents tween.
 	/// </summary>
 	[DocCategory("misc")]
 	public class TweenObject : IScriptObject
@@ -376,7 +376,7 @@ public sealed partial class TweenService : Instance
 		private TweenTransitionEnum _transition;
 
 		/// <summary>
-		/// Determines if this tween is looped
+		/// Determines if this tween is looped.
 		/// </summary>
 		[ScriptProperty]
 		public bool Looped
@@ -390,7 +390,7 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Determines if this tween will run all the tweens in parallel
+		/// Determines if this tween will run all the tweens in parallel.
 		/// </summary>
 		[ScriptProperty]
 		public bool Parallel
@@ -405,7 +405,7 @@ public sealed partial class TweenService : Instance
 
 
 		/// <summary>
-		/// Determines the speed scale of this tween
+		/// Determines the speed scale of this tween.
 		/// </summary>
 		[ScriptProperty]
 		public float SpeedScale
@@ -469,19 +469,22 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Returns whether or not this tween is running
+		/// Returns whether or not this tween is running.
 		/// </summary>
 		[ScriptProperty] public bool IsRunning => tween.IsRunning();
+
 		/// <summary>
-		/// Returns the elapsed time of this tween
+		/// Returns the elapsed time of this tween.
 		/// </summary>
 		[ScriptProperty] public double ElapsedTime => tween.GetTotalElapsedTime();
+
 		/// <summary>
-		/// Fires when this tween has finished
+		/// Fires when this tween has finished.
 		/// </summary>
 		[ScriptProperty] public PTSignal Finished { get; private set; } = new();
+
 		/// <summary>
-		/// Fires when this tween has been canceled
+		/// Fires when this tween has been canceled.
 		/// </summary>
 		[ScriptProperty] public PTSignal Canceled { get; private set; } = new();
 
@@ -609,7 +612,7 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Play this tween
+		/// Play this tween.
 		/// </summary>
 		[ScriptMethod]
 		public void Play()
@@ -619,7 +622,7 @@ public sealed partial class TweenService : Instance
 
 
 		/// <summary>
-		/// Pause this tween
+		/// Pause this tween.
 		/// </summary>
 		[ScriptMethod]
 		public void Pause()
@@ -628,7 +631,7 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Stop this tween
+		/// Stop this tween.
 		/// </summary>
 		[ScriptMethod]
 		public void Stop()
@@ -646,7 +649,7 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Chain a tween if parallel is set to true
+		/// Chain a tween if parallel is set to true.
 		/// </summary>
 		[ScriptMethod]
 		public TweenObject Chain()
@@ -656,7 +659,7 @@ public sealed partial class TweenService : Instance
 		}
 
 		/// <summary>
-		/// Cancel this tween
+		/// Cancel this tween.
 		/// </summary>
 		[ScriptMethod]
 		public void Cancel(bool callFinished = false)

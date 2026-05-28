@@ -17,7 +17,7 @@ public partial class PTMeshAsset : MeshAsset
 	private uint _assetID;
 
 	/// <summary>
-	/// Asset ID of this mesh
+	/// Asset ID of this mesh.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public uint AssetID

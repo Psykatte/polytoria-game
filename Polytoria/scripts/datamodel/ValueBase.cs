@@ -15,7 +15,7 @@ namespace Polytoria.Datamodel;
 public partial class ValueBase : Instance
 {
 	/// <summary>
-	/// Fires when value has been changed
+	/// Fires when value has been changed.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal Changed { get; private set; } = new();

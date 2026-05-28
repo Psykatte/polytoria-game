@@ -71,7 +71,7 @@ public partial class CharacterModel : Dynamic
 	}
 
 	/// <summary>
-	/// The animator for this character
+	/// The animator for this character.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Animator? Animator
@@ -179,7 +179,7 @@ public partial class CharacterModel : Dynamic
 	public virtual void RecvSpeedValue(float speedValue) { }
 
 	/// <summary>
-	/// Get attachment dynamic from this character
+	/// Get attachment dynamic from this character.
 	/// </summary>
 	[ScriptMethod]
 	public virtual Dynamic GetAttachment(CharacterAttachmentEnum attachmentEnum)

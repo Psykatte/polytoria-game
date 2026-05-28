@@ -54,6 +54,7 @@ public partial class Seat : Part
 	/// </summary>
 	/// <param name="occupant" type="NPC"></param>
 	[ScriptProperty] public PTSignal<NPC> Sat { get; private set; } = new();
+	
 	/// <summary>
 	/// Fires when an occupant leaves the seat.
 	/// </summary>

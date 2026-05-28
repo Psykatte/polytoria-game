@@ -19,22 +19,27 @@ public class PTBounds : IScriptGDObject
 	/// Indicates the center point of the bounds.
 	/// </summary>
 	[ScriptProperty] public Vector3 Center => aabb.GetCenter();
+
 	/// <summary>
 	/// Determines the size of the bounds.
 	/// </summary>
 	[ScriptProperty] public Vector3 Size { get => aabb.Size; set => aabb.Size = value; }
+
 	/// <summary>
 	/// Indicates the extents of the bounds.
 	/// </summary>
 	[ScriptProperty] public Vector3 Extents => aabb.Size / 2;
+
 	/// <summary>
-	/// The origin point
+	/// The origin point.
 	/// </summary>
 	[ScriptProperty, ScriptLegacyProperty("Min")] public Vector3 Start => aabb.Position;
+
 	/// <summary>
-	/// The ending point
+	/// The ending point.
 	/// </summary>
 	[ScriptProperty, ScriptLegacyProperty("Max")] public Vector3 End { get => aabb.End; set => aabb.End = value; }
+
 	/// <summary>
 	/// Indicates the volume of the bounds.
 	/// </summary>
@@ -56,15 +61,15 @@ public class PTBounds : IScriptGDObject
 	/// <summary>
 	/// Creates a new Bounds object with the specified position and size.
 	/// </summary>
-	/// <summary>
-	/// Creates a new Bounds object with the specified position and size.
-	/// </summary>
 	[ScriptMethod]
 	public static PTBounds New()
 	{
 		return FromGDClass(new Aabb(Vector3.Zero, Vector3.Zero));
 	}
 
+	/// <summary>
+	/// Creates a new Bounds object with the specified position and size.
+	/// </summary>
 	[ScriptMethod]
 	public static PTBounds New(Vector3 position, Vector3 size)
 	{
@@ -88,18 +93,23 @@ public class PTBounds : IScriptGDObject
 	/// Calculates the closest point on the bounds to the specified point.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static Vector3 ClosestPoint(PTBounds bounds, PTVector3 point) => bounds.aabb.GetSupport(point.vector);
+
 	/// <summary>
 	/// Returns whether the bounds contain the specified point.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static bool Contains(PTBounds bounds, PTVector3 point) => bounds.aabb.HasPoint(point.vector);
-	/// <summary>
-	/// Expands the bounds by the specified amount.
-	/// </summary>
+	
+	// Docs TODO
 	/// <summary>
 	/// Expands the bounds by the specified amount.
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTBounds Encapsulate(PTBounds bounds, PTVector3 point) => FromGDClass(bounds.aabb.Expand(point.vector));
+
+	/// <summary>
+	/// Expands the bounds by the specified amount.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTBounds Expand(PTBounds bounds, float amount) => FromGDClass(bounds.aabb.Grow(amount));
+
 	/// <summary>
 	/// Determines whether the bounds intersect with another bounds.
 	/// </summary>

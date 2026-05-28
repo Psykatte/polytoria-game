@@ -314,7 +314,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Multipler for camera sensitivity
+	/// Multipler for camera sensitivity.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float SensitivityMultiplier
@@ -328,7 +328,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Current sensitivity of the camera
+	/// Current sensitivity of the camera.
 	/// </summary>
 	[ScriptProperty]
 	public float Sensitivity
@@ -355,7 +355,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Determines the lerp amount when scrolling
+	/// Determines the lerp amount when scrolling.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(15f)]
 	public float ScrollLerpSpeed
@@ -365,7 +365,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Determine if camera is in Ctrl lock mode
+	/// Determine if camera is in Ctrl lock mode.
 	/// </summary>
 	[ScriptProperty]
 	public bool CtrlLocked
@@ -390,7 +390,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Determine if camera should always be in locked mode
+	/// Determine if camera should always be in locked mode.
 	/// </summary>
 	[ScriptProperty]
 	public bool AlwaysLocked
@@ -408,7 +408,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// The target of Follow mode
+	/// The target of Follow mode.
 	/// </summary>
 	[ScriptProperty]
 	public Dynamic? Target
@@ -440,13 +440,13 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Fires when camera has entered first person
+	/// Fires when camera has entered first person.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal FirstPersonEntered { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when camera has exited first person
+	/// Fires when camera has exited first person.
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal FirstPersonExited { get; private set; } = new();
@@ -992,6 +992,7 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	// Docs TODO
 	/// <summary>
 	/// Checks whether a world-space <see cref="Polytoria.Scripting.Datatypes.PTVector3">position</see> is visible within the camera's view frustum.
 	/// </summary>
@@ -1022,7 +1023,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Cast a ray from the camera at the specified ViewportPoint (Vector2 with components with values in range of 0 - 1 describing how far a point is to the right and to the top of the screen) into the game world
+	/// Cast a ray from the camera at the specified ViewportPoint (Vector2 with components with values in range of 0 - 1 describing how far a point is to the right and to the top of the screen) into the game world.
 	/// </summary>
 	[ScriptMethod]
 	public RayResult? ViewportPointToRay(Vector2 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
@@ -1036,7 +1037,7 @@ public sealed partial class Camera : Dynamic
 	}
 
 	/// <summary>
-	/// Cast a ray from the camera at screen point into the game world
+	/// Cast a ray from the camera at screen point into the game world.
 	/// </summary>
 	[ScriptMethod]
 	public RayResult? ScreenPointToRay(Vector2 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)

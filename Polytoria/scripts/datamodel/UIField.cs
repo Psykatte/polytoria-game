@@ -198,7 +198,7 @@ public partial class UIField : Instance
 	}
 
 	/// <summary>
-	/// Determines if the UI field should be ignored by mouse input
+	/// Determines if the UI field should be ignored by mouse input.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public bool IgnoreMouse
@@ -231,22 +231,24 @@ public partial class UIField : Instance
 	/// The absolute position of the UI element in pixels.
 	/// </summary>
 	[ScriptProperty] public Vector2 AbsolutePosition => NodeControl.GlobalPosition;
+
 	/// <summary>
 	/// The absolute size of the UI element in pixels.
 	/// </summary>
 	[ScriptProperty] public Vector2 AbsoluteSize => OverrideAbsSize ? OverrideAbsSizeTo : NodeControl.Size;
 
 	/// <summary>
-	/// Fires when user's cursor hovers on this UI
+	/// Fires when user's cursor hovers on this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseEnter { get; private set; } = new();
+
 	/// <summary>
-	/// Fires when user's cursor leaves this UI
+	/// Fires when user's cursor leaves this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseExit { get; private set; } = new();
 
 	/// <summary>
-	/// Fires when user hold down mouse on this UI
+	/// Fires when user hold down mouse on this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseDown { get; private set; } = new();
 	/// <summary>
@@ -254,11 +256,11 @@ public partial class UIField : Instance
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseUp { get; private set; } = new();
 	/// <summary>
-	/// Fires when this UI transform has been changed
+	/// Fires when this UI transform has been changed.
 	/// </summary>
 	[ScriptProperty] public PTSignal TransformChanged { get; private set; } = new();
 	/// <summary>
-	/// Fires when this UI visibility has been changed
+	/// Fires when this UI visibility has been changed.
 	/// </summary>
 	[ScriptProperty] public PTSignal VisibilityChanged { get; private set; } = new();
 

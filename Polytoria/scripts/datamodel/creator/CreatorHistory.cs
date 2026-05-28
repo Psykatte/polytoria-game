@@ -61,7 +61,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Creates new action
+	/// Creates new action.
 	/// </summary>
 	[ScriptMethod]
 	public void NewAction(string title)
@@ -70,7 +70,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Add do callback
+	/// Add do callback.
 	/// </summary>
 	[ScriptMethod]
 	public void AddDoCallback(PTCallback callback)
@@ -87,7 +87,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Add undo callback
+	/// Add undo callback.
 	/// </summary>
 	[ScriptMethod]
 	public void AddUndoCallback(PTCallback callback)
@@ -104,7 +104,7 @@ public sealed partial class CreatorHistory : Instance
 	}
 
 	/// <summary>
-	/// Commit the current action
+	/// Commit the current action.
 	/// </summary>
 	[ScriptMethod]
 	public void CommitAction()

@@ -26,6 +26,7 @@ public sealed partial class NetworkEvent : Instance
 	/// <param name="sender" type="Player"></param>
 	/// <param name="msg" type="NetMessage"></param>
 	[ScriptProperty] public PTSignal<Player, NetMessage> InvokedServer { get; private set; } = new();
+	
 	/// <summary>
 	/// Fires when the client receives a message from the server.
 	/// </summary>
