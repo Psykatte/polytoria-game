@@ -1,3 +1,28 @@
+## -- System Files -- #
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+## -- IDE & Editor -- ##
+
+# JetBrains Rider
+.idea/
+*.DotSettings.user
+
+# Visual Studio
+.vs/
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# C# Dev Kit language server cache files
+*.lscache
+
+
 ## -- Godot -- ##
 
 # Auto-generated Godot editor/import cache
@@ -5,6 +30,7 @@
 
 # Godot Export Templates (Please copy from the template: export_presets.cfg.template)
 Polytoria/export_presets.cfg
+
 
 ## -- .NET/C# Build Artifacts -- ##
 
@@ -27,22 +53,6 @@ obj/
 # Test result output
 TestResults/
 
-## -- IDE & Editor -- ##
-
-# JetBrains Rider
-.idea/
-*.DotSettings.user
-
-# Visual Studio
-.vs/
-
-# Visual Studio Code
-.vscode/
-*.code-workspace
-.history/
-
-# C# Dev Kit language server cache files
-*.lscache
 
 ## -- Android -- ##
 
@@ -52,6 +62,23 @@ TestResults/
 # Signing keys
 /Polytoria/android/key/*
 /Polytoria/keys
+
+
+## -- Launch Configurations -- ##
+
+# Local launch profiles
+/Polytoria/Properties/launchSettings.json
+
+
+## -- Sample Projects -- ##
+
+# Local world storage for contributors
+/Polytoria/samples/worlds/temp
+/samples/projects/temp
+
+# .poly folders
+.poly/
+
 
 ## -- Generated/Temporary Files -- ##
 
@@ -72,9 +99,11 @@ TestResults/
 /Polytoria/test.packed
 /Polytoria/test.ptpacked
 
+
 ## -- Documentation Generation -- ##
 
 __pycache__
+.venv/
 node_modules
 def.json
 
@@ -86,30 +115,14 @@ Polytoria.Docs/docs/api/enums/*
 
 site
 
-## -- Sample projects -- ##
-
-# Local world storage for contributors
-/Polytoria/samples/worlds/temp
-/samples/projects/temp
-
-# .poly folders
-.poly/
-
-
-## -- Launch configrations -- ##
-
-# Local launch profiles
-/Polytoria/Properties/launchSettings.json
-
 
 ## -- Exceptions -- ##
 
 # Deeplink plugin's prebuilt binary
 !/Polytoria/addons/DeeplinkPlugin/bin/
 
-# Misc
-ers
 
-.DS_Store
-Thumbs.db
-desktop.ini
+##  -- Misc -- ##
+
+# Unknown exclusion, typo?
+ers
