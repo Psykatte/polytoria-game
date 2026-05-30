@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Creator.UI;
 
+/// <summary>
+/// Container that switches between the creator's open editor tabs, showing one tab's content at a time.
+/// </summary>
 public sealed partial class Tabs : Control
 {
 	private Control? _currentControl;

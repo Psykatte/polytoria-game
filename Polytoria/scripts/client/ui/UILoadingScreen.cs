@@ -8,6 +8,9 @@ using Polytoria.Schemas.API;
 
 namespace Polytoria.Client.UI;
 
+/// <summary>
+/// The loading screen shown while a world or asset loads, displaying status text and progress.
+/// </summary>
 public partial class UILoadingScreen : Control
 {
 	[Export] private Label _statusLabel = null!;

@@ -11,6 +11,9 @@ using static Polytoria.Scripting.LogDispatcher;
 
 namespace Polytoria.Creator.UI;
 
+/// <summary>
+/// The creator's output console, displaying engine, server, client and addon log messages with filtering.
+/// </summary>
 public partial class DebugConsole : Control
 {
 	private const string ErrorColorHex = "#F95D5D";

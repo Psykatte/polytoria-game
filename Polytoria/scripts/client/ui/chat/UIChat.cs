@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Client.UI.Chat;
 
+/// <summary>
+/// The in-game chat window, handling message display, text input and emoji insertion.
+/// </summary>
 public partial class UIChat : Control
 {
 	private const int MaxMessages = 100;

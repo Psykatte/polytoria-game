@@ -17,6 +17,9 @@ using static Polytoria.Datamodel.Services.NetworkService;
 
 namespace Polytoria.Client.Networking;
 
+/// <summary>
+/// Batches and replicates object transform updates between the server and clients.
+/// </summary>
 [Internal]
 public partial class NetworkTransformSync : Instance
 {

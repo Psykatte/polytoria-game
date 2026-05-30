@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Client.UI;
 
+/// <summary>
+/// The radial emote selection wheel shown in-game.
+/// </summary>
 public partial class UIEmoteWheel : Control
 {
 	public bool EmoteWheelActive = false;

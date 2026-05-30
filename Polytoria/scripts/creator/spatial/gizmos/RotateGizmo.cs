@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator.Spatial;
 
+/// <summary>
+/// Editing gizmo that rotates the selected objects around their axes.
+/// </summary>
 public partial class RotateGizmo : Node, IGizmo
 {
 	private const float GizmoRingHalfWidth = 0.1f;

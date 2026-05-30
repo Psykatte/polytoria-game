@@ -12,6 +12,9 @@ using System.Reflection;
 
 namespace Polytoria.Creator.UI;
 
+/// <summary>
+/// The creator's explorer dock, presenting the datamodel instance hierarchy as a tree.
+/// </summary>
 public sealed partial class Explorer : TabContainer
 {
 	private const string ExplorerTabPath = "res://scenes/creator/docks/explorer/explorer_tab.tscn";

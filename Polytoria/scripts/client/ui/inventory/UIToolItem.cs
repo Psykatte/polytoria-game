@@ -7,6 +7,9 @@ using Polytoria.Datamodel;
 
 namespace Polytoria.Client.UI;
 
+/// <summary>
+/// A single tool slot button in the inventory hotbar or backpack.
+/// </summary>
 public partial class UIToolItem : Button
 {
 	public UIInventory Root = null!;

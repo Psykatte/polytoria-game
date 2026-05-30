@@ -6,6 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Polytoria.Scripting;
 
+/// <summary>
+/// Marker interface for objects that can be exposed to and accessed from scripts.
+/// </summary>
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicMethods | DynamicallyAccessedMemberTypes.PublicEvents | DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
 public interface IScriptObject
 {

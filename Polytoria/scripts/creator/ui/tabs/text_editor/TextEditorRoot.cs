@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Creator.UI.TextEditor;
 
+/// <summary>
+/// Root of the creator's script editor, wiring the code editing field to LSP completion, diagnostics and save state.
+/// </summary>
 public partial class TextEditorRoot : Node
 {
 	private const string CodeCompletionIconPath = "res://assets/textures/creator/tabs/text_editor/code_completion/";

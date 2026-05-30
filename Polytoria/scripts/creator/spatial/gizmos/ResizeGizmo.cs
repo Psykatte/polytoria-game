@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator.Spatial;
 
+/// <summary>
+/// Editing gizmo that resizes the selected objects by their bounds.
+/// </summary>
 public partial class ResizeGizmo : Node, IGizmo
 {
 	private Vector3 _ivec = new(0f, 0f, -1f);

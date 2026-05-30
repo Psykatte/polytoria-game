@@ -20,6 +20,9 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Creator.Managers;
 
+/// <summary>
+/// Loads, manages and enforces permissions for creator addons.
+/// </summary>
 public sealed partial class AddonsManager : Node
 {
 	private const ScriptPermissionFlags AddonDefaultPermissionFlags =

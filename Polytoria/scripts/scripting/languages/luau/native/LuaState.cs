@@ -14,6 +14,9 @@ namespace Polytoria.Scripting.Luau;
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate int LuaFunction(IntPtr state);
 
+/// <summary>
+/// Managed wrapper around a native Luau lua_State, owning the interpreter handle and exposing the stack-based API used to run and interoperate with Luau scripts.
+/// </summary>
 public partial class LuaState : IDisposable
 {
 	private IntPtr _state;

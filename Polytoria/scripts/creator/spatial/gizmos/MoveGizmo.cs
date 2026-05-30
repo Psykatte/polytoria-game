@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator.Spatial;
 
+/// <summary>
+/// Editing gizmo that translates the selected objects along their axes.
+/// </summary>
 public partial class MoveGizmo : Node, IGizmo
 {
 	private const float GizmoArrowOffset = Gizmos.GizmoCircleSize + 0.3f;

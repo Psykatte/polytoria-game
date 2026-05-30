@@ -38,6 +38,9 @@ public struct LuauCompileOptions
 	}
 }
 
+/// <summary>
+/// P/Invoke declarations that bind the native Luau VM and compiler libraries into managed code.
+/// </summary>
 internal partial class NativeBindings
 {
 #if GODOT_ANDROID

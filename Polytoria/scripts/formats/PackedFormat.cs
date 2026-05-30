@@ -27,6 +27,9 @@ using System.Text.Json.Serialization;
 
 namespace Polytoria.Formats;
 
+/// <summary>
+/// Reads and writes the packed, compressed project bundle format used to save and load creator projects.
+/// </summary>
 public static partial class PackedFormat
 {
 	internal const string MetaExtension = ".meta";

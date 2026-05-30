@@ -10,6 +10,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator.Spatial;
 
+/// <summary>
+/// Editing gizmo that scales the selected objects along their axes.
+/// </summary>
 public partial class ScaleGizmo : Node, IGizmo
 {
 	private const float GizmoScaleOffset = Gizmos.GizmoCircleSize + 0.3f;

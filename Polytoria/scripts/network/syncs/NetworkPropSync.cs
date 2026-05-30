@@ -22,6 +22,9 @@ using static Polytoria.Datamodel.Services.NetworkService;
 
 namespace Polytoria.Networking.Synchronizers;
 
+/// <summary>
+/// Batches and replicates instance property changes between the server and clients.
+/// </summary>
 [Internal]
 public sealed partial class NetworkPropSync : Instance
 {

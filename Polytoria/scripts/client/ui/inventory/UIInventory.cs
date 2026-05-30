@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Client.UI;
 
+/// <summary>
+/// The player's hotbar and backpack UI, displaying and managing equipped tools.
+/// </summary>
 public partial class UIInventory : Control
 {
 	public const int MaximumToolSlot = 6;

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator.UI.Gizmos;
 
+/// <summary>
+/// On-screen handles for moving and resizing a 2D UI element in the creator's UI editor.
+/// </summary>
 public partial class UIGizmoBox : Control
 {
 	private static readonly Vector2 DefaultPivot = new(0.5f, 0.5f);

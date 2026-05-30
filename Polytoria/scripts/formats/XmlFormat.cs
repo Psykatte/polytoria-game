@@ -22,6 +22,9 @@ using XmlParser = TurboXml.XmlParser;
 
 namespace Polytoria.Formats;
 
+/// <summary>
+/// Parses the XML-based world and object file format into datamodel instances.
+/// </summary>
 public static class XmlFormat
 {
 	private static readonly ShapeEnum[] _partShapes = [

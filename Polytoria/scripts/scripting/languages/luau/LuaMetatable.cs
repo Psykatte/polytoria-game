@@ -20,6 +20,9 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Scripting.Luau;
 
+/// <summary>
+/// Builds and dispatches the Luau metatable for a managed type, mapping index, new-index and method calls onto its properties and methods.
+/// </summary>
 public class LuaMetatable : LuaObject
 {
 	private static readonly Dictionary<OverloadKey, (MethodInfo? methodInfo, bool hasParams)> _overloadCache = [];

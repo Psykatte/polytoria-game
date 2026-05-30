@@ -26,6 +26,9 @@ using System.Text.Json.Serialization.Metadata;
 
 namespace Polytoria.Formats;
 
+/// <summary>
+/// Serializes and deserializes datamodel instances and their property values to and from Polytoria's native object format.
+/// </summary>
 public static partial class PolyFormat
 {
 	private static readonly ConditionalWeakTable<Type, Dictionary<string, PropertyInfo>> _propertyCache = [];

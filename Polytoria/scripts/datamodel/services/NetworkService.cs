@@ -32,6 +32,9 @@ using System.Threading.Tasks;
 
 namespace Polytoria.Datamodel.Services;
 
+/// <summary>
+/// Core networking service handling connections, authentication, heartbeats and RPC dispatch between the server and clients.
+/// </summary>
 [ExplorerExclude, SaveIgnore, Internal]
 public sealed partial class NetworkService : Instance
 {

@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace Polytoria.Creator;
 
+/// <summary>
+/// Manages the in-viewport editing gizmos and selection boxes used to move, rotate and scale objects in the creator.
+/// </summary>
 public sealed partial class Gizmos : Node
 {
 	public const float GizmoCircleSize = 1.1f;

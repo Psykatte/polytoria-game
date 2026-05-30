@@ -28,6 +28,9 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Creator;
 
+/// <summary>
+/// Represents an open creator editing session for a single world, managing its lifecycle, periodic backups and on-disk project files.
+/// </summary>
 public partial class CreatorSession : Node, IDisposable
 {
 	private const string LuauRCContent = @"{

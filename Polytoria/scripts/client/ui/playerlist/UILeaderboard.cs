@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace Polytoria.Client.UI.Playerlist;
 
+/// <summary>
+/// The in-game player list, showing connected players grouped by team.
+/// </summary>
 public partial class UILeaderboard : Control
 {
 	private const int LeaderboardMaxHeight = 300;

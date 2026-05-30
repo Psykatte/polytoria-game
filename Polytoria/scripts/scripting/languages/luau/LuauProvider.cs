@@ -27,6 +27,9 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Scripting.Luau;
 
+/// <summary>
+/// Script language provider that runs Luau, marshalling between engine objects and the Luau VM and managing script execution and garbage collection.
+/// </summary>
 public sealed partial class LuauProvider : IScriptLanguageProvider
 {
 	private const DynamicallyAccessedMemberTypes DynamicallyAccessedTypes = DynamicallyAccessedMemberTypes.PublicProperties | DynamicallyAccessedMemberTypes.PublicMethods;

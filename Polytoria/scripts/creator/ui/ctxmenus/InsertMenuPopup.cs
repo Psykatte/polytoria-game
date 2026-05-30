@@ -15,6 +15,9 @@ using Script = Polytoria.Datamodel.Script;
 
 namespace Polytoria.Creator.UI;
 
+/// <summary>
+/// Popup menu for inserting new instances into the world, grouped by category.
+/// </summary>
 public partial class InsertMenuPopup : PopupPanel
 {
 	private Vector2I _popupSize = new(250, 350);
