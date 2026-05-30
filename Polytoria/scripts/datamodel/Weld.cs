@@ -12,6 +12,7 @@ namespace Polytoria.Datamodel;
 /// A constraint that rigidly joins two parts together so they move as one.
 /// </summary>
 [Instantiable]
+[DocCategory("world")]
 public partial class Weld : Instance
 {
 	static readonly Dictionary<Instance, List<Weld>> _connections = new();

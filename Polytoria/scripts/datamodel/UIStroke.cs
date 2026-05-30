@@ -9,6 +9,7 @@ using Polytoria.Datamodel.Data;
 namespace Polytoria.Datamodel;
 
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIStroke : Instance
 {
 	private UIScale _thickness;

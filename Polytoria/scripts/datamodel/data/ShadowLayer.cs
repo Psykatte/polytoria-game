@@ -12,6 +12,7 @@ using Polytoria.Scripting;
 namespace Polytoria.Datamodel.Data;
 
 [MemoryPackable]
+[DocCategory("effects")]
 public partial struct ShadowLayer : IScriptObject, IData
 {
 	private float _radius;

@@ -8,6 +8,7 @@ using Polytoria.Datamodel.Data;
 namespace Polytoria.Datamodel;
 
 [Instantiable]
+[DocCategory("values")]
 public partial class RangeValue : ValueBase
 {
 	private NumberRange _val = new();

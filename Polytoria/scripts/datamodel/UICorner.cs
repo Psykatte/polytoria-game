@@ -10,6 +10,7 @@ using System;
 namespace Polytoria.Datamodel;
 
 [Instantiable]
+[DocCategory("ui")]
 public partial class UICorner : Instance
 {
 	private UIScale _topLeftRadius;

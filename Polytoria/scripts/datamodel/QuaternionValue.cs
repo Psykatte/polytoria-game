@@ -8,6 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 [Instantiable]
+[DocCategory("values")]
 public partial class QuaternionValue : ValueBase
 {
 	private Quaternion _val = new(0, 0, 0, 0);

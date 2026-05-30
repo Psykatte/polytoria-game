@@ -10,6 +10,7 @@ using Polytoria.Enums;
 namespace Polytoria.Datamodel;
 
 [Instantiable]
+[DocCategory("ui")]
 public partial class UIShadow : Instance
 {
 	private ShadowLayer[] _layers = [new ShadowLayer()];

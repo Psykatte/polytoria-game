@@ -10,6 +10,7 @@ using System;
 
 namespace Polytoria.Datamodel.Data;
 
+[DocCategory("ui")]
 public struct UIScale : IScriptObject, IData
 {
 	[ScriptProperty]
