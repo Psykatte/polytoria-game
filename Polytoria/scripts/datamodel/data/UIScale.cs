@@ -10,6 +10,9 @@ using System;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// A UI dimension expressed as a constant offset plus a fraction (scale) of the parent's size.
+/// </summary>
 [DocCategory("ui")]
 public struct UIScale : IScriptObject, IData
 {

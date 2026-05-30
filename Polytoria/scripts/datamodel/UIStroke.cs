@@ -8,6 +8,9 @@ using Polytoria.Datamodel.Data;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Draws a colored outline of a configurable thickness around it's parent UI element.
+/// </summary>
 [Instantiable]
 [DocCategory("ui")]
 public partial class UIStroke : Instance

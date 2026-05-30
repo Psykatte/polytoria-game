@@ -7,6 +7,9 @@ using Polytoria.Attributes;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// QuaternionValue is an object that holds a <see cref="Polytoria.Scripting.Datatypes.PTQuaternion">Quaternion</see> value.
+/// </summary>
 [Instantiable]
 [DocCategory("values")]
 public partial class QuaternionValue : ValueBase

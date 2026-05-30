@@ -13,6 +13,10 @@ using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// A prompt attached to a physical object that lets a nearby player trigger an interaction,
+/// firing <see cref="Interacted"/> once they hold the activation input for long enough.
+/// </summary>
 [Instantiable]
 [DocCategory("game")]
 public sealed partial class InteractionPrompt : Physical

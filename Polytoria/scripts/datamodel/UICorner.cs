@@ -9,6 +9,9 @@ using System;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Rounds the corners of its parent UI element, with an individually adjustable radius per corner.
+/// </summary>
 [Instantiable]
 [DocCategory("ui")]
 public partial class UICorner : Instance

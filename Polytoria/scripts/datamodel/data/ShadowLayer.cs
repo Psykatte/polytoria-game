@@ -11,6 +11,9 @@ using Polytoria.Scripting;
 
 namespace Polytoria.Datamodel.Data;
 
+/// <summary>
+/// A single drop-shadow layer; color, offset, blur radius, and spread; as used by UIShadow.
+/// </summary>
 [MemoryPackable]
 [DocCategory("effects")]
 public partial struct ShadowLayer : IScriptObject, IData

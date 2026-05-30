@@ -9,6 +9,9 @@ using Polytoria.Enums;
 
 namespace Polytoria.Datamodel;
 
+/// <summary>
+/// Renders one or more drop-shadow layers behind its parent UI element.
+/// </summary>
 [Instantiable]
 [DocCategory("ui")]
 public partial class UIShadow : Instance
