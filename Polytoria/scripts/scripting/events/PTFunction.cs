@@ -28,6 +28,9 @@ public class PTFunction(Func<object?[], Task<object?[]>> target) : IScriptObject
 		return await _targetAction.Invoke(args ?? []);
 	}
 
+	/// <summary>
+	/// Invokes the function with the arguments passed from Luau, yielding the coroutine until the async call completes and pushing the return values back onto the stack.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Call), HandlesLuaState]
 	public int LuaCall(LuaState state)
 	{

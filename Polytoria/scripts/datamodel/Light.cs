@@ -39,6 +39,9 @@ public partial class Light : Dynamic
 		base.OnNodeSizeChanged(newSize);
 	}
 
+	/// <summary>
+	/// Determines whether the light source is active and emitting light.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool Enabled
 	{
@@ -81,6 +84,9 @@ public partial class Light : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Controls the radius of the light source, affecting the softness of shadows it casts.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public float LightSize
 	{

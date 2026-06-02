@@ -7,11 +7,9 @@ using System;
 namespace Polytoria.Attributes;
 
 /// <summary>
-/// Mark this as obsolete.
+/// Marks a scripting member as obsolete. Document the reason and the
+/// replacement in the member's <c>remarks</c> tag, leading with "OBSOLETE:",
+/// which the docs generator renders as an "Obsolete API" banner.
 /// </summary>
-/// <param name="message">The message regarding the obsolete reason.</param>
 [AttributeUsage(AttributeTargets.All)]
-public sealed class ObsoleteAttribute(string message) : Attribute
-{
-	public string Message => message;
-}
+public sealed class ObsoleteAttribute : Attribute;

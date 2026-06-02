@@ -16,7 +16,7 @@ public partial class NumberValue : ValueBase
 	private float _val = 0;
 
 	/// <summary>
-	/// The value of this object.
+	/// The number value stored in this object.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public float Value

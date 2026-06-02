@@ -368,6 +368,9 @@ public sealed partial class Player : NPC
 	[ScriptProperty, SyncVar]
 	public bool IsCreator { get; internal set; }
 
+	/// <summary>
+	/// The role class identifier assigned to this player, used to determine badge display and special permissions.
+	/// </summary>
 	[ScriptProperty, SyncVar]
 	public string UserRoleClass { get; internal set; } = "";
 
@@ -429,7 +432,11 @@ public sealed partial class Player : NPC
 		return result;
 	}
 
-	[ScriptProperty, Attributes.Obsolete("Use Input.IsInputFocused instead")]
+	/// <summary>
+	/// Returns whether any input field currently has focus.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="InputService.IsInputFocused"/> instead.</remarks>
+	[ScriptProperty, Attributes.Obsolete]
 	public bool IsInputFocused => Root.Input.IsInputFocused;
 
 	/// <summary>
@@ -480,7 +487,11 @@ public sealed partial class Player : NPC
 	[ScriptProperty]
 	public Inventory Inventory => FindChild<Inventory>("Inventory")!;
 
-	[Attributes.Obsolete("Use Inventory instead"), ScriptProperty]
+	/// <summary>
+	/// The inventory of the player. 
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Inventory"/> instead.</remarks>
+	[Attributes.Obsolete, ScriptProperty]
 	public Inventory Backpack => Inventory;
 
 	// Emotes visible in emote wheel
@@ -1051,7 +1062,11 @@ public sealed partial class Player : NPC
 		}
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Use PurchasesService.OwnsItem instead")]
+	/// <summary>
+	/// Asynchronously checks whether this player owns the given asset and invokes the callback with the result.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PurchasesService.OwnsItemAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void OwnsItem(int assetId, PTCallback callback)
 	{
 		Root.Purchases.OwnsItemAsync(this, assetId).ContinueWith(tsk =>

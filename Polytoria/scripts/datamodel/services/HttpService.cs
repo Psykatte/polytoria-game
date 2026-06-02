@@ -288,7 +288,11 @@ public sealed partial class HttpService : Instance
 	}
 
 
-	[ScriptMethod, Attributes.Obsolete("Use GetAsync instead")]
+	/// <summary>
+	/// Sends a GET request to the specified URL and invokes a <see cref="PTCallback"/> with the response.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="GetAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Get(string url, PTCallback? callback = null, Dictionary<string, string>? headers = null)
 	{
 		ServerGuard();
@@ -298,7 +302,11 @@ public sealed partial class HttpService : Instance
 		}
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Use PostAsync instead")]
+	/// <summary>
+	/// Sends a POST request with the given body to the specified URL and invokes a <see cref="PTCallback"/> with the response.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PostAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Post(string url, string body, PTCallback? callback = null, Dictionary<string, string>? headers = null)
 	{
 		ServerGuard();
@@ -308,7 +316,11 @@ public sealed partial class HttpService : Instance
 		}
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Use PutAsync instead")]
+	/// <summary>
+	/// Sends a PUT request with the given body to the specified URL and invokes a <see cref="PTCallback"/> with the response.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PutAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Put(string url, string body, PTCallback? callback = null, Dictionary<string, string>? headers = null)
 	{
 		ServerGuard();
@@ -318,7 +330,11 @@ public sealed partial class HttpService : Instance
 		}
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Use DeleteAsync instead")]
+	/// <summary>
+	/// Sends a DELETE request with the given body to the specified URL and invokes a <paramref name="PTCallback"/> with the response.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="DeleteAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Delete(string url, string body, PTCallback? callback = null, Dictionary<string, string>? headers = null)
 	{
 		ServerGuard();
@@ -328,7 +344,11 @@ public sealed partial class HttpService : Instance
 		}
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Use PatchAsync instead")]
+	/// <summary>
+	/// Sends a PATCH request with the given body to the specified URL and invokes a <paramref name="PTCallback"/> with the response.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PatchAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Patch(string url, string body, PTCallback? callback = null, Dictionary<string, string>? headers = null)
 	{
 		ServerGuard();

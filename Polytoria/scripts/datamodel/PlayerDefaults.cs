@@ -127,6 +127,10 @@ public sealed partial class PlayerDefaults : HiddenBase
 		get => _chatColorsEnabled;
 		set { _chatColorsEnabled = value; OnPropertyChanged(); }
 	}
+
+	/// <summary>
+	/// Determines whether players in this game are allowed to move by default.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool CanMove
 	{

@@ -9,12 +9,18 @@ namespace Polytoria.Scripting.Libraries;
 
 public class LuaLibGUID : IScriptObject
 {
+	/// <summary>
+	/// Returns a new randomly generated GUID as a string.
+	/// </summary>
 	[ScriptMethod("new")]
 	public static string New()
 	{
 		return Guid.NewGuid().ToString();
 	}
 
+	/// <summary>
+	/// Returns the all-zeros empty GUID as a string.
+	/// </summary>
 	[ScriptMethod("empty")]
 	public static string Empty()
 	{

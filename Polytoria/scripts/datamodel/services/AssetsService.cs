@@ -25,7 +25,11 @@ public sealed partial class AssetsService : Instance
 		base.PreDelete();
 	}
 
-	[ScriptMethod, Obsolete("Use .New static instead")]
+	/// <summary>
+	/// Creates and returns a new asset instance of the given class name.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use the <c>.New()</c> static method instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public BaseAsset? NewAsset(string assetClassName)
 	{
 		NetworkedObject? obj = NewInternal(assetClassName, Root);
@@ -37,7 +41,11 @@ public sealed partial class AssetsService : Instance
 		return (BaseAsset)obj;
 	}
 
-	[ScriptMethod, Obsolete("Use .New static instead")]
+	/// <summary>
+	/// Creates and returns a new <see cref="PTImageAsset"/> configured with the specified image ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use the <c>.New()</c> static method to return a new <see cref="PTImageAsset"> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public PTImageAsset? NewPTImage(uint imgID)
 	{
 		PTImageAsset ptImg = New<PTImageAsset>();
@@ -45,7 +53,11 @@ public sealed partial class AssetsService : Instance
 		return ptImg;
 	}
 
-	[ScriptMethod, Obsolete("Use .New static instead")]
+	/// <summary>
+	/// Creates and returns a new <see cref="PTAudioAsset"/> configured with the specified audio ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use the <c>.New()</c> static method to return a new <see cref="PTAudioAsset"> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public PTAudioAsset? NewPTAudio(uint audioID)
 	{
 		PTAudioAsset ptAudio = New<PTAudioAsset>();
@@ -53,7 +65,11 @@ public sealed partial class AssetsService : Instance
 		return ptAudio;
 	}
 
-	[ScriptMethod, Obsolete("Use .New static instead")]
+	/// <summary>
+	/// Creates and returns a new <see cref="PTMeshAsset"/> configured with the specified asset ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use the <c>.New()</c> static method to return a new <see cref="PTMeshAsset"> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public PTMeshAsset? NewPTMesh(uint assetID)
 	{
 		PTMeshAsset ptMesh = New<PTMeshAsset>();

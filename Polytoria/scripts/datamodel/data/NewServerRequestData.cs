@@ -13,8 +13,11 @@ namespace Polytoria.Datamodel.Data;
 [DocCategory("misc")]
 public partial class NewServerRequestData : IScriptObject
 {
+	/// <summary>
+	/// The path to the world file that the new server instance should load.
+	/// </summary>
 	[ScriptProperty] public string WorldPath { get; set; } = "";
-	
+
 	/// <summary>
 	/// How much player slot should the new server allocates for.
 	/// </summary>

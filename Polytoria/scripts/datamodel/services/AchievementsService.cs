@@ -87,6 +87,10 @@ public sealed partial class AchievementsService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Awards an achievement to the specified user and invokes the callback with the result.
+	/// <remarks>Callback-based wrapper for <see cref="AwardAsync"/>.</remarks>
+	/// </summary>
 	[ScriptLegacyMethod("Award")]
 	public void Award(int userID, int achievementID, PTCallback? callback)
 	{
@@ -141,6 +145,10 @@ public sealed partial class AchievementsService : Instance
 		GotAchievement.Invoke(id);
 	}
 
+	/// <summary>
+	/// Checks whether the specified user has the given achievement and invokes the callback with the result.
+	/// <remarks>Callback-based wrapper for <see cref="HasAchievementAsync"/>.</remarks>
+	/// </summary>
 	[ScriptLegacyMethod("HasAchievement")]
 	public void HasAchievement(int userID, int achievementID, PTCallback callback)
 	{

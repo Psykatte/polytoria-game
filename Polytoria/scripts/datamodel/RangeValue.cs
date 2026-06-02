@@ -8,7 +8,7 @@ using Polytoria.Datamodel.Data;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// RangeValue is an object that holds a <see cref="Polytoria.Datamodel.Data.NumberRange">NumberRange</see> value.
+/// RangeValue is an object that holds a <see cref="Polytoria.Datamodel.Data.NumberRange"/> value.
 /// </summary>
 [Instantiable]
 [DocCategory("values")]
@@ -16,6 +16,9 @@ public partial class RangeValue : ValueBase
 {
 	private NumberRange _val = new();
 
+	/// <summary>
+	/// The <see cref="Datamodel.Data.NumberRange"/> value stored in this object.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public NumberRange Value
 	{

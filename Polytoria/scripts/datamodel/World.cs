@@ -232,7 +232,11 @@ public sealed partial class World : Instance
 		}
 	}
 
-	[ScriptProperty, Attributes.Obsolete("Use Players.PlayersCount instead")]
+	/// <summary>
+	/// The number of players currently connected to the server.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Players.PlayersCount"/> instead.</remarks>
+	[ScriptProperty, Attributes.Obsolete]
 	public int PlayersConnected => Players.PlayersCount;
 
 	/// <summary>
@@ -241,7 +245,11 @@ public sealed partial class World : Instance
 	[ScriptProperty]
 	public int InstanceCount { get; private set; } = 0;
 
-	[ScriptProperty, Attributes.Obsolete("Use InstanceCount instead")]
+	/// <summary>
+	/// The total number of instances currently loaded.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="InstanceCount"/> instead.</remarks>
+	[ScriptProperty, Attributes.Obsolete]
 	public int LocalInstanceCount => InstanceCount;
 
 	[SyncVar]

@@ -16,9 +16,15 @@ namespace Polytoria.Datamodel.Data;
 [DocCategory("ui")]
 public struct UIScale : IScriptObject, IData
 {
+	/// <summary>
+	/// The constant pixel offset added to the computed dimension, independent of parent size.
+	/// </summary>
 	[ScriptProperty]
 	public float Offset { get; set; }
 
+	/// <summary>
+	/// The fraction of the parent's size that is added to the computed dimension.
+	/// </summary>
 	[ScriptProperty]
 	public float Scale { get; set; }
 
@@ -30,6 +36,9 @@ public struct UIScale : IScriptObject, IData
 		Scale = scale;
 	}
 
+	/// <summary>
+	/// Returns the resolved pixel size given the parent's size, computed as <c>Offset + Scale * parentSize</c>, clamped to a minimum of zero.
+	/// </summary>
 	[ScriptMethod]
 	public readonly float Compute(float parentSize)
 	{

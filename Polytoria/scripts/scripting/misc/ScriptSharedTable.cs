@@ -63,6 +63,9 @@ public partial class ScriptSharedTable : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns the value stored at the given key, or <c>null</c> if the key does not exist.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Index)]
 	public object? Index(object index)
 	{
@@ -73,6 +76,9 @@ public partial class ScriptSharedTable : IScriptObject
 		return null;
 	}
 
+	/// <summary>
+	/// Sets the value at the given key. Passing <c>null</c> as the value removes the key from the table.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.NewIndex)]
 	public void NewIndex(object index, object val)
 	{
@@ -83,6 +89,9 @@ public partial class ScriptSharedTable : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Iterates over the table's key/value pairs.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Iter)]
 	public static IEnumerable<(object, object)> Iter(ScriptSharedTable sTable)
 	{

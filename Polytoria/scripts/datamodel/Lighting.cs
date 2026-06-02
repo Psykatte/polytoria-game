@@ -12,7 +12,6 @@ using Polytoria.Creator;
 using Polytoria.Creator.Settings;
 #endif
 using Polytoria.Shared;
-using ObsoleteAttribute = Polytoria.Attributes.ObsoleteAttribute;
 
 namespace Polytoria.Datamodel;
 
@@ -232,7 +231,11 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Obsolete("Replaced with SunLight.Brightness")]
+	/// <summary>
+	/// Gets or sets the sun's brightness.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="SunLight.Brightness"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public float SunBrightness
 	{
 		get => Sun.Brightness;
@@ -243,7 +246,11 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Obsolete("Replaced with SunLight.Color")]
+	/// <summary>
+	/// Gets or sets the sun's light color.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="SunLight.Color"/> instead.<remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public Color SunColor
 	{
 		get => Sun.Color;
@@ -254,7 +261,11 @@ public sealed partial class Lighting : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Obsolete("Replaced with SunLight.Shadows")]
+	/// <summary>
+	/// Gets or sets whether the sun casts shadows.
+	/// </summary>
+	/// <remarks>Use <see cref="SunLight.Shadows"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public bool Shadows
 	{
 		get => Sun.Shadows;

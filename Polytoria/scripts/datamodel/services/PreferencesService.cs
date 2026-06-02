@@ -27,7 +27,14 @@ public sealed partial class PreferencesService : Instance
 	/// <param name="setTo" type="any"></param>
 	[ScriptProperty] public PTSignal<string, object> SettingChanged { get; private set; } = new();
 
+	/// <summary>
+	/// The player's current camera sensitivity setting.
+	/// </summary>
 	[ScriptProperty] public float CameraSensitivity => ClientSettingsService.Instance.Get<float>(ClientSettingKeys.General.CameraSensitivity);
+
+	/// <summary>
+	/// The player's current UI scale setting.
+	/// </summary>
 	[ScriptProperty] public float UiScale => ClientSettingsService.Instance.Get<float>(ClientSettingKeys.Display.UiScale);
 
 	/// <summary>
@@ -49,6 +56,9 @@ public sealed partial class PreferencesService : Instance
 		[SharedSettingKeys.Graphics.Msaa] = typeof(MsaaScaleEnum),
 	};
 
+	/// <summary>
+	/// Returns the current value of the target preference setting.
+	/// </summary>
 	[ScriptMethod]
 	public object? Get(string name)
 	{

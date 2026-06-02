@@ -13,6 +13,9 @@ namespace Polytoria.Scripting.Libraries;
 
 public class LuaLibJSON : IScriptObject
 {
+	/// <summary>
+	/// Parses a JSON string and returns the corresponding Luau-compatible value (table, array, string, number, boolean, or null).
+	/// </summary>
 	[ScriptMethod("parse")]
 	public static dynamic? Parse(string str)
 	{
@@ -22,6 +25,9 @@ public class LuaLibJSON : IScriptObject
 		return JsonElementToObject(root);
 	}
 
+	/// <summary>
+	/// Parses a JSON string and returns the corresponding Luau-compatible value (table, array, string, number, boolean, or null).
+	/// </summary>
 	[ScriptLegacyMethod("parse")]
 	public static dynamic? LegacyParse(object? obj)
 	{
@@ -73,6 +79,9 @@ public class LuaLibJSON : IScriptObject
 	}
 
 
+	/// <summary>
+	/// Serializes a Luau-compatible value to a JSON string. Throws if the value contains non-serializable types.
+	/// </summary>
 	[ScriptMethod("serialize")]
 	public static string Serialize(object? data)
 	{
@@ -95,12 +104,18 @@ public class LuaLibJSON : IScriptObject
 		}
 	}
 
+	/// <summary>
+	/// Returns the JSON null sentinel value.
+	/// </summary>
 	[ScriptMethod("null")]
 	public static object Null()
 	{
 		return JSONNull.Value;
 	}
 
+	/// <summary>
+	/// Returns <c>true</c> if the given value is <c>null</c> or the JSON null sentinel; <c>false</c> otherwise.
+	/// </summary>
 	[ScriptMethod("isNull")]
 	public static bool IsNull(object? value)
 	{

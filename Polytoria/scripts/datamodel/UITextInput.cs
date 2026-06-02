@@ -255,7 +255,11 @@ public partial class UITextInput : UIView
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use FontAsset instead"), CloneIgnore]
+	/// <summary>
+	/// The built-in font preset used for the text.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="FontAsset"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public BuiltInFontAsset.BuiltInTextFontPresetEnum Font
 	{
 		get => _fontPreset;

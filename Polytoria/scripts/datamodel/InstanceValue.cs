@@ -7,7 +7,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// InstanceValue is an object that holds an Instance value.
+/// InstanceValue is an object that holds an <see cref="Instance"/> value.
 /// </summary>
 [Instantiable]
 [DocCategory("values")]
@@ -16,7 +16,7 @@ public partial class InstanceValue : ValueBase
 	private Instance? _val;
 
 	/// <summary>
-	/// The value of this object.
+	/// The <see cref="Instance"/> value stored in this object.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Instance? Value

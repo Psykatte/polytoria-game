@@ -169,6 +169,9 @@ public class PTSignal : IScriptObject
 		Disconnect(cb);
 	}
 
+	/// <summary>
+	/// Returns the string representation of this signal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTSignal? _)
 	{

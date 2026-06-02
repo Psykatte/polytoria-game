@@ -35,6 +35,9 @@ public partial class Weld : Instance
 		return System.Array.Empty<Weld>();
 	}
 
+	/// <summary>
+	/// The first part joined by this weld constraint.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Instance? Part0
 	{
@@ -51,6 +54,9 @@ public partial class Weld : Instance
 		}
 	}
 
+	/// <summary>
+	/// The second part joined by this weld constraint.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Instance? Part1
 	{
@@ -93,6 +99,9 @@ public partial class Weld : Instance
 		}
 	}
 
+	/// <summary>
+	/// Controls whether this weld constraint is active and holds the two parts together.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool Enabled
 	{
@@ -106,6 +115,9 @@ public partial class Weld : Instance
 		}
 	}
 
+	/// <summary>
+	/// Disables this weld and clears both Part0 and Part1, effectively breaking the joint.
+	/// </summary>
 	[ScriptMethod]
 	public void Break()
 	{

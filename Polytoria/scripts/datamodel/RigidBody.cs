@@ -187,6 +187,9 @@ public partial class RigidBody : Physical
 		}
 	}
 
+	/// <summary>
+	/// When true, prevents the physics engine from rotating this rigid body in response to forces or collisions.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool LockRotation
 	{

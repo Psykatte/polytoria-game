@@ -82,6 +82,9 @@ public partial class Explosion : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the explosion applies forces to welded parts in addition to free rigid bodies.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool AffectWelds
 	{

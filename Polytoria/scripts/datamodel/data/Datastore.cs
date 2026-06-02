@@ -21,8 +21,14 @@ public partial class Datastore : IScriptObject
 
 	public IDatastoreProvider Provider { get; set; } = null!;
 
+	/// <summary>
+	/// Returns whether the datastore is still loading.
+	/// </summary>
 	[ScriptLegacyProperty("Loading")] public bool LegacyLoading { get; private set; } = true;
 
+	/// <summary>
+	/// Fires when the datastore has finished loading.
+	/// </summary>
 	[ScriptLegacyProperty("Loaded")] public PTSignal LegacyLoaded { get; private set; } = new();
 
 	/// <summary>
@@ -67,6 +73,10 @@ public partial class Datastore : IScriptObject
 		await Provider.WriteData(key, null);
 	}
 
+	/// <summary>
+	/// Retrieves a value from the datastore by key and invokes the callback with the result.
+	/// <remarks>Callback-based wrapper for <see cref="GetAsync"/>.</remarks>
+	/// </summary>
 	[ScriptLegacyMethod(nameof(Get))]
 	public void Get(string key, PTCallback? callback)
 	{
@@ -84,6 +94,10 @@ public partial class Datastore : IScriptObject
 		});
 	}
 
+	/// <summary>
+	/// Stores a value in the datastore by key and invokes the callback on completion.
+	/// <remarks>Callback-based wrapper for <see cref="SetAsync"/>.</remarks>
+	/// </summary>
 	[ScriptLegacyMethod(nameof(Set))]
 	public void Set(string key, object value, PTCallback? callback)
 	{
@@ -100,6 +114,10 @@ public partial class Datastore : IScriptObject
 		});
 	}
 
+	/// <summary>
+	/// Removes a value from the datastore by key and invokes the callback on completion.
+	/// <remarks>Callback-based wrapper for <see cref="RemoveAsync"/>.</remarks>
+	/// </summary>
 	[ScriptLegacyMethod(nameof(Remove))]
 	public void Remove(string key, PTCallback? callback)
 	{

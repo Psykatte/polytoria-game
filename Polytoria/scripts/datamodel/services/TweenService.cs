@@ -215,6 +215,9 @@ public sealed partial class TweenService : Instance
 	}
 
 
+	/// <summary>
+	/// Tweens the position of <paramref name="target"/> to <paramref name="destination"/> over <paramref name="time"/> seconds using the specified easing, returning a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenPosition")]
 	public int CompatTweenPosition(Dynamic target, Vector3 destination, float time, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -224,6 +227,9 @@ public sealed partial class TweenService : Instance
 		}), tweenType, callOnComplete);
 	}
 
+	/// <summary>
+	/// Tweens the rotation of <paramref name="target"/> to the Euler angles in <paramref name="destination"/> over <paramref name="time"/> seconds using the specified easing, returning a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenRotation")]
 	public int CompatTweenRotation(Dynamic target, Vector3 destination, float time, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -246,6 +252,9 @@ public sealed partial class TweenService : Instance
 		return RegisterTween(tw);
 	}
 
+	/// <summary>
+	/// Tweens the size of <paramref name="target"/> to <paramref name="destination"/> over <paramref name="time"/> seconds using the specified easing, returning a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenSize")]
 	public int CompatTweenSize(Dynamic target, Vector3 destination, float time, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -255,6 +264,9 @@ public sealed partial class TweenService : Instance
 		}), tweenType, callOnComplete);
 	}
 
+	/// <summary>
+	/// Tweens a number from <paramref name="from"/> to <paramref name="to"/> over <paramref name="time"/> seconds, invoking <paramref name="callback"/> each frame with the current value, and returns a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenNumber")]
 	public int CompatTweenNumber(float from, float to, float time, PTCallback? callback, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -277,6 +289,9 @@ public sealed partial class TweenService : Instance
 		return RegisterTween(tw);
 	}
 
+	/// <summary>
+	/// Tweens a color from <paramref name="from"/> to <paramref name="to"/> over <paramref name="time"/> seconds, invoking <paramref name="callback"/> each frame with the current value, and returns a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenColor")]
 	public int CompatTweenColor(Color from, Color to, float time, PTCallback? callback, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -299,6 +314,9 @@ public sealed partial class TweenService : Instance
 		return RegisterTween(tw);
 	}
 
+	/// <summary>
+	/// Tweens a Vector3 value from <paramref name="from"/> to <paramref name="to"/> over <paramref name="time"/> seconds, invoking <paramref name="callback"/> each frame with the current value, and returns a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenVector3")]
 	public int CompatTweenVector3(Vector3 from, Vector3 to, float time, PTCallback? callback, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -321,6 +339,9 @@ public sealed partial class TweenService : Instance
 		return RegisterTween(tw);
 	}
 
+	/// <summary>
+	/// Tweens a Vector2 value from <paramref name="from"/> to <paramref name="to"/> over <paramref name="time"/> seconds, invoking <paramref name="callback"/> each frame with the current value, and returns a tween ID.
+	/// </summary>
 	[ScriptLegacyMethod("TweenVector2")]
 	public int CompatTweenVector2(Vector2 from, Vector2 to, float time, PTCallback? callback, LeanTweenType tweenType = LeanTweenType.linear, PTCallback? callOnComplete = null)
 	{
@@ -343,6 +364,9 @@ public sealed partial class TweenService : Instance
 		return RegisterTween(tw);
 	}
 
+	/// <summary>
+	/// Stops and removes the tween registered under the given legacy ID.
+	/// </summary>
 	[ScriptLegacyMethod("Cancel")]
 	public void CompatCancel(int id, bool _ = false)
 	{
@@ -353,6 +377,9 @@ public sealed partial class TweenService : Instance
 		_legacyTweenIDs.Remove(id);
 	}
 
+	/// <summary>
+	/// Stops and removes all active legacy tweens.
+	/// </summary>
 	[ScriptLegacyMethod("CancelAll")]
 	public void CompatCancelAll()
 	{

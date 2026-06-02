@@ -28,7 +28,7 @@ public partial class HttpRequestData : IScriptObject
 	/// The payload sent with the request.
 	/// </summary>
 	[ScriptProperty] public string? Body { get; set; }
-	
+
 	/// <summary>
 	/// A table of HTTP headers to include with the request, represented as key-value pairs.
 	/// </summary>

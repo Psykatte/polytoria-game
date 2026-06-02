@@ -108,18 +108,27 @@ public class PTColor : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Adds two colors together.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Add)]
 	public static PTColor Add(PTColor a, PTColor b)
 	{
 		return FromGDClass(a.color + b.color);
 	}
 
+	/// <summary>
+	/// Subtracts one color from another.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Sub)]
 	public static PTColor Sub(PTColor a, PTColor b)
 	{
 		return FromGDClass(a.color - b.color);
 	}
 
+	/// <summary>
+	/// Multiplies the color by a scalar.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static object Mul(PTColor a, object b)
 	{
@@ -128,12 +137,18 @@ public class PTColor : IScriptGDObject
 		return FromGDClass(a.color);
 	}
 
+	/// <summary>
+	/// Returns whether two colors are equal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTColor a, PTColor b)
 	{
 		return a.color == b.color;
 	}
 
+	/// <summary>
+	/// Returns the string representation of the color.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTColor? v)
 	{

@@ -120,6 +120,9 @@ public class InputButton : IScriptObject
 		return new() { KeyCode = key };
 	}
 
+	/// <summary>
+	/// Returns whether the two input buttons are equal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool MetamethodEquals(InputButton a, InputButton b)
 	{
@@ -217,6 +220,9 @@ public class InputActionAxis : InputAction
 	/// </summary>
 	[ScriptProperty] public InputButtonCollection Positive { get; set; } = [];
 
+	/// <summary>
+	/// The current analog value of this axis action, ranging from -1 to 1.
+	/// </summary>
 	[ScriptProperty, JsonIgnore] public float Value { get; internal set; }
 }
 

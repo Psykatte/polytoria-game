@@ -16,7 +16,7 @@ public partial class StringValue : ValueBase
 	private string _val = "";
 
 	/// <summary>
-	/// The value of this object.
+	/// The string value stored in this object.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public string Value

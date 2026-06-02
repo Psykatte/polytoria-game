@@ -77,7 +77,11 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Asset instead"), CloneIgnore]
+	/// <summary>
+	/// Gets or sets the mesh asset by numeric ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Asset"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public int AssetID
 	{
 		get => _assetID;
@@ -359,6 +363,10 @@ public sealed partial class Mesh : Entity
 		}
 	}
 
+	/// <summary>
+	/// Plays the named animation on the mesh.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PlayAnimation"/> instead; ignores the unused second string parameter.</remarks>
 	[ScriptLegacyMethod("PlayAnimation")]
 	public void LegacyPlayAnimation(string animationName, string _ = "", float speed = 1.0f, bool loop = true)
 	{
@@ -615,7 +623,7 @@ public sealed partial class Mesh : Entity
 		/// The length of this animation.
 		/// </summary>
 		[ScriptProperty] public float Length { get; set; }
-		
+
 		/// <summary>
 		/// Indicates the playing state of this animation.
 		/// </summary>

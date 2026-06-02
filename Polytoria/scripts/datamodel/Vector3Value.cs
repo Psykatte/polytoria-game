@@ -8,7 +8,7 @@ using Polytoria.Attributes;
 namespace Polytoria.Datamodel;
 
 /// <summary>
-/// Vector3Value is an object that holds a Vector3 value.
+/// Vector3Value is an object that holds a <see cref="Scripting.Datatypes.PTVector3"/> value.
 /// </summary>
 [Instantiable]
 [DocCategory("values")]
@@ -17,7 +17,7 @@ public partial class Vector3Value : ValueBase
 	private Vector3 _val = new(0, 0, 0);
 
 	/// <summary>
-	/// The value of this object.
+	/// The <see cref="Scripting.Datatypes.PTVector3"/> value stored in this object.
 	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector3 Value

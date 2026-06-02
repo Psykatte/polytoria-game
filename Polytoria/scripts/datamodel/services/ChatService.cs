@@ -223,12 +223,20 @@ public sealed partial class ChatService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Broadcasts a chat message to all players.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="BroadcastMessage"/> instead.</remarks>
 	[ScriptLegacyMethod("BroadcastMessage")]
 	public void LegacyBroadcastMessage(string msg, object? _ = null)
 	{
 		BroadcastMessage(msg);
 	}
 
+	/// <summary>
+	/// Sends a chat message to a single player.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="UnicastMessage"/> instead.</remarks>
 	[ScriptLegacyMethod("UnicastMessage")]
 	public void LegacyUnicastMessage(string msg, Player plr)
 	{

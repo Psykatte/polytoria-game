@@ -88,6 +88,7 @@ public sealed partial class InputService : Instance
 			RecomputeMouseMode();
 		}
 	}
+
 	/// <summary>
 	/// Determines whether the cursor is currently visible.
 	/// </summary>
@@ -102,6 +103,9 @@ public sealed partial class InputService : Instance
 		}
 	}
 
+	/// <summary>
+	/// The amount the mouse cursor moved this frame, in pixels.
+	/// </summary>
 	[ScriptProperty] public Vector2 MouseDelta { get; private set; } = Vector2.Zero;
 
 	/// <summary>
@@ -109,6 +113,9 @@ public sealed partial class InputService : Instance
 	/// </summary>
 	[ScriptProperty] public Vector2 MousePosition => OverrideMousePos ? OverrideMousePosTo : GDNode.GetViewport().GetMousePosition();
 
+	/// <summary>
+	/// Legacy compatibility variant of MousePosition. Returns the mouse cursor position as a Vector3 with the Y axis flipped (Unity-style: Y increases upward from the bottom of the screen).
+	/// </summary>
 	[ScriptLegacyProperty("MousePosition")] public Vector3 LegacyMousePosition => new(MousePosition.X, ScreenHeight - MousePosition.Y, 0);
 
 	/// <summary>
@@ -124,6 +131,9 @@ public sealed partial class InputService : Instance
 	internal bool OverrideMousePos { get; set; }
 	internal Vector2 OverrideMousePosTo { get; set; }
 
+	/// <summary>
+	/// Fires each frame the mouse cursor moves, passing the new cursor position as a Vector2.
+	/// </summary>
 	[ScriptProperty] public PTSignal<Vector2> MouseMoved { get; private set; } = new();
 
 	/// <summary>
@@ -674,12 +684,18 @@ public sealed partial class InputService : Instance
 		Input.StartJoyVibration(0, weakMagnitude, strongMagnitude, duration);
 	}
 
+	/// <summary>
+	/// Stops all vibration on the primary gamepad.
+	/// </summary>
 	[ScriptMethod]
 	public void StopGamepadVibration()
 	{
 		Input.StopJoyVibration(0);
 	}
 
+	/// <summary>
+	/// Casts a ray from the camera through the current mouse cursor position and returns the 3D world-space hit point, or a point 1000 units along the ray if nothing is hit.
+	/// </summary>
 	[ScriptMethod]
 	public Vector3 GetMouseWorldPosition(Instance[]? ignoreList = null)
 	{
@@ -921,12 +937,18 @@ public sealed partial class InputService : Instance
 		return IsKeyPressed(keyCode) ? 1 : 0;
 	}
 
+	/// <summary>
+	/// Casts a ray through the current mouse position and returns the 3D world-space hit point.
+	/// </summary>
 	[ScriptLegacyMethod("GetMouseWorldPosition")]
 	public Vector3 LegacyGetMouseWorldPosition(object? _ = null)
 	{
 		return GetMouseWorldPosition();
 	}
 
+	/// <summary>
+	/// Returns the 3D point on the camera's near plane directly beneath the current mouse cursor.
+	/// </summary>
 	[ScriptLegacyMethod("GetMouseWorldPoint")]
 	public Vector3 LegacyGetMouseWorldPoint(object? _ = null)
 	{
@@ -945,6 +967,9 @@ public sealed partial class InputService : Instance
 		return (rayOrigin + rayDir * z);
 	}
 
+	/// <summary>
+	/// Legacy compatibility variant exposed as ScreenToWorldPoint. Converts a screen-space position (X, Y in pixels; Z as depth) to a 3D world-space point using the active camera.
+	/// </summary>
 	[ScriptLegacyMethod("ScreenToWorldPoint")]
 	public Vector3 LegacyScreenToWorldPoint(Vector3 pos)
 	{
@@ -958,6 +983,9 @@ public sealed partial class InputService : Instance
 		return (rayOrigin + rayDir * pos.Z);
 	}
 
+	/// <summary>
+	/// Converts a screen-space pixel position to normalized viewport coordinates (0-1 range).
+	/// </summary>
 	[ScriptLegacyMethod("ScreenToViewportPoint")]
 	public Vector3 LegacyScreenToViewportPoint(Vector3 pos)
 	{
@@ -969,6 +997,9 @@ public sealed partial class InputService : Instance
 		return new(pos.X / size.X, pos.Y / size.Y, pos.Z);
 	}
 
+	/// <summary>
+	/// Projects a 3D world-space position onto the screen and returns its pixel coordinates, preserving Z.
+	/// </summary>
 	[ScriptLegacyMethod("WorldToScreenPoint")]
 	public Vector3 LegacyWorldToScreenPoint(Vector3 pos)
 	{
@@ -980,6 +1011,9 @@ public sealed partial class InputService : Instance
 		return new(unprojected.X, unprojected.Y, pos.Z);
 	}
 
+	/// <summary>
+	/// Projects a 3D world-space position to normalized viewport coordinates (0-1 range), preserving Z.
+	/// </summary>
 	[ScriptLegacyMethod("WorldToViewportPoint")]
 	public Vector3 LegacyWorldToViewportPoint(Vector3 pos)
 	{
@@ -991,6 +1025,9 @@ public sealed partial class InputService : Instance
 		return new(size.X, size.Y, pos.Z);
 	}
 
+	/// <summary>
+	/// Converts normalized viewport coordinates (0-1 range) plus a depth value to a 3D world-space point using the active camera.
+	/// </summary>
 	[ScriptLegacyMethod("ViewportToWorldPoint")]
 	public Vector3 LegacyViewportToWorldPoint(Vector3 pos)
 	{
@@ -1006,6 +1043,9 @@ public sealed partial class InputService : Instance
 		return (origin + direction * pos.Z);
 	}
 
+	/// <summary>
+	/// Converts normalized viewport coordinates (0-1 range) to screen-space pixel coordinates, preserving Z.
+	/// </summary>
 	[ScriptLegacyMethod("ViewportToScreenPoint")]
 	public Vector3 LegacyViewportToScreenPoint(Vector3 pos)
 	{
@@ -1018,6 +1058,9 @@ public sealed partial class InputService : Instance
 	}
 
 
+	/// <summary>
+	/// Casts a ray from the camera through the given screen-space pixel position and returns the first hit result, or null if nothing is hit.
+	/// </summary>
 	[ScriptLegacyMethod("ScreenPointToRay")]
 	public RayResult? LegacyScreenPointToRay(Vector2 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
 	{
@@ -1028,6 +1071,9 @@ public sealed partial class InputService : Instance
 		return Root.Environment.CurrentCamera!.ScreenPointToRay(pos, ignoreList, maxDistance);
 	}
 
+	/// <summary>
+	/// Casts a ray from the camera through the given screen-space position (X, Y used; Z ignored) and returns the first hit result, or null if nothing is hit.
+	/// </summary>
 	[ScriptLegacyMethod("ScreenPointToRay")]
 	public RayResult? LegacyScreenPointToRay(Vector3 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
 	{
@@ -1038,6 +1084,9 @@ public sealed partial class InputService : Instance
 		return Root.Environment.CurrentCamera!.ScreenPointToRay(new(pos.X, pos.Y), ignoreList, maxDistance);
 	}
 
+	/// <summary>
+	/// Casts a ray from the camera through the given normalized viewport position (X, Y in 0-1 range) and returns the first hit result, or null if nothing is hit.
+	/// </summary>
 	[ScriptLegacyMethod("ViewportPointToRay")]
 	public RayResult? LegacyViewportPointToRay(Vector3 pos, Instance[]? ignoreList = null, float maxDistance = 10000f)
 	{
@@ -1049,6 +1098,9 @@ public sealed partial class InputService : Instance
 	}
 
 
+	/// <summary>
+	/// Returns true while the named button is held down.
+	/// </summary>
 	[ScriptLegacyMethod("GetButton")]
 	public bool LegacyGetButton(string buttonName)
 	{
@@ -1059,6 +1111,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the named button was pressed.
+	/// </summary>
 	[ScriptLegacyMethod("GetButtonDown")]
 	public bool LegacyGetButtonDown(string buttonName)
 	{
@@ -1069,6 +1124,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the named button was released.
+	/// </summary>
 	[ScriptLegacyMethod("GetButtonUp")]
 	public bool LegacyGetButtonUp(string buttonName)
 	{
@@ -1079,12 +1137,18 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns the smoothed value of the named axis (Horizontal, Vertical, Mouse X, Mouse Y, Mouse ScrollWheel), clamped to -1-1.
+	/// </summary>
 	[ScriptLegacyMethod("GetAxis")]
 	public float LegacyGetAxis(string axisName)
 	{
 		return Mathf.Clamp(LegacyGetAxisRaw(axisName), -1f, 1f);
 	}
 
+	/// <summary>
+	/// Returns the raw, unclamped value of the named axis (Horizontal, Vertical, Mouse X, Mouse Y, Mouse ScrollWheel) with no smoothing applied.
+	/// </summary>
 	[ScriptLegacyMethod("GetAxisRaw")]
 	public float LegacyGetAxisRaw(string axisName)
 	{
@@ -1137,6 +1201,10 @@ public sealed partial class InputService : Instance
 
 		return value;
 	}
+
+	/// <summary>
+	/// Returns true while the specified key is held down.
+	/// </summary>
 	[ScriptLegacyMethod("GetKey")]
 	public bool LegacyGetKey(LegacyKeyCode key)
 	{
@@ -1147,6 +1215,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the specified key was pressed.
+	/// </summary>
 	[ScriptLegacyMethod("GetKeyDown")]
 	public bool LegacyGetKeyDown(LegacyKeyCode key)
 	{
@@ -1157,6 +1228,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the specified key was released.
+	/// </summary>
 	[ScriptLegacyMethod("GetKeyUp")]
 	public bool LegacyGetKeyUp(LegacyKeyCode key)
 	{
@@ -1167,6 +1241,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true while the specified mouse button is held down (0-based index, matching Unity's convention).
+	/// </summary>
 	[ScriptLegacyMethod("GetMouseButton")]
 	public bool LegacyGetMouseButton(int button)
 	{
@@ -1177,6 +1254,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the specified mouse button was pressed (0-based index, matching Unity's convention).
+	/// </summary>
 	[ScriptLegacyMethod("GetMouseButtonDown")]
 	public bool LegacyGetMouseButtonDown(int button)
 	{
@@ -1187,6 +1267,9 @@ public sealed partial class InputService : Instance
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true during the frame the specified mouse button was released (0-based index, matching Unity's convention).
+	/// </summary>
 	[ScriptLegacyMethod("GetMouseButtonUp")]
 	public bool LegacyGetMouseButtonUp(int button)
 	{

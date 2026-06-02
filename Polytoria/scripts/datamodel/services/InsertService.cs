@@ -28,7 +28,11 @@ public sealed partial class InsertService : Instance
 	private readonly PTHttpClient _httpClient = new();
 	private static readonly Dictionary<int, APIStoreItem> _storeItemCache = [];
 
-	[ScriptMethod, Attributes.Obsolete("Use ModelAsync instead")]
+	/// <summary>
+	/// Inserts the store model with the given ID into the game, invoking a <paramref name="PTCallback"/> with the result.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="ModelAsync"/> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void Model(int id, PTCallback? callback = null)
 	{
 		_ = ModelAsync(id).ContinueWith(tsk =>

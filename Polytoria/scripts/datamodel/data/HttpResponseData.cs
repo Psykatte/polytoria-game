@@ -34,7 +34,7 @@ public partial class HttpResponseData : IScriptObject
 	/// The response payload returned by the server as a string.
 	/// </summary>
 	[ScriptProperty] public string Body { get; internal set; } = "";
-	
+
 	/// <summary>
 	/// The response payload returned by the server as a buffer.
 	/// </summary>

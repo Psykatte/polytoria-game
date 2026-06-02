@@ -76,12 +76,18 @@ public class PTBounds : IScriptGDObject
 		return FromGDClass(new Aabb(position, size));
 	}
 
+	/// <summary>
+	/// Returns whether two bounds are equal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTBounds a, PTBounds b)
 	{
 		return a.aabb == b.aabb;
 	}
 
+	/// <summary>
+	/// Returns the string representation of the bounds.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTBounds? v)
 	{

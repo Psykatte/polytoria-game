@@ -313,7 +313,8 @@ public partial class Part : Entity
 		Frame = 9
 	}
 
-	[Attributes.Obsolete("This should not be used, it's here only for compatibility with legacy scripts.")]
+	/// <remarks>OBSOLETE: This should not be used, it's here only for compatibility with legacy scripts.</remarks>
+	[Attributes.Obsolete]
 	public enum LegacyShapeEnum
 	{
 		Brick = 0,

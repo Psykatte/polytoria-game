@@ -21,6 +21,9 @@ public partial class UICorner : Instance
 	private UIScale _bottomLeftRadius;
 	private UIScale _bottomRightRadius;
 
+	/// <summary>
+	/// Gets the top left corner radius, or sets all four corner radii to the same value simultaneously.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale CornerRadius
 	{
@@ -36,6 +39,9 @@ public partial class UICorner : Instance
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the radius of the top-left corner.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale TopLeftRadius
 	{
@@ -48,6 +54,9 @@ public partial class UICorner : Instance
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the radius of the top-right corner.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale TopRightRadius
 	{
@@ -60,6 +69,9 @@ public partial class UICorner : Instance
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the radius of the bottom-left corner.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale BottomLeftRadius
 	{
@@ -72,6 +84,9 @@ public partial class UICorner : Instance
 		}
 	}
 
+	/// <summary>
+	/// Gets or sets the radius of the bottom-right corner.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale BottomRightRadius
 	{

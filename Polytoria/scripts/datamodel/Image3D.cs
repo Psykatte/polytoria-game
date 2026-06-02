@@ -70,7 +70,11 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Asset instead"), CloneIgnore, SaveIgnore]
+	/// <summary>
+	/// The asset ID of the image.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PTImageAsset.ImageID"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore, SaveIgnore]
 	public string ImageID
 	{
 		get => _imageID;
@@ -82,7 +86,11 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Asset instead"), CloneIgnore, SaveIgnore]
+	/// <summary>
+	/// The source type used to resolve the image asset.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PTImageAsset.ImageType"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore, SaveIgnore]
 	public ImageTypeEnum ImageType
 	{
 		get => _imageType;
@@ -187,6 +195,9 @@ public sealed partial class Image3D : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// Determines whether the Image3D is rendered on both sides, disabling back-face culling.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool DoubleSided
 	{

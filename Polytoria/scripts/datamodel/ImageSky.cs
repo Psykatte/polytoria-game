@@ -7,7 +7,6 @@ using Polytoria.Attributes;
 using Polytoria.Datamodel.Resources;
 using Polytoria.Enums;
 using System;
-using Obsolete = Polytoria.Attributes.ObsoleteAttribute;
 
 namespace Polytoria.Datamodel;
 
@@ -234,6 +233,9 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
+	/// <summary>
+	/// Controls the texture filtering mode applied to the skybox faces.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public TextureFilterEnum TextureFilter
 	{
@@ -247,7 +249,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(TopId))]
+	/// <summary>
+	/// Gets or sets the asset ID of the top skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="TopImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(TopId))]
 	public int TopId
 	{
 		get => _topId;
@@ -259,7 +265,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(BottomId))]
+	/// <summary>
+	/// Gets or sets the asset ID of the bottom skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="BottomImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(BottomId))]
 	public int BottomId
 	{
 		get => _bottomId;
@@ -271,7 +281,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(LeftId))]
+	/// <summary>
+	/// Gets or sets the asset ID of the left skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="LeftImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(LeftId))]
 	public int LeftId
 	{
 		get => _leftId;
@@ -283,7 +297,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(RightId))]
+	/// <summary>
+	/// Gets or sets the asset ID of the right skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="RightImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(RightId))]
 	public int RightId
 	{
 		get => _rightId;
@@ -295,7 +313,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(FrontId))]
+	/// <summary>
+	/// Legacy. Gets or sets the asset ID of the front skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="FrontImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(FrontId))]
 	public int FrontId
 	{
 		get => _frontId;
@@ -307,7 +329,11 @@ public sealed partial class ImageSky : Sky
 		}
 	}
 
-	[Editable, Obsolete("Use Image instead"), NoSync, ScriptLegacyProperty(nameof(BackId))]
+	/// <summary>
+	/// Legacy. Gets or sets the asset ID of the back skybox face.
+	/// </summary>
+	/// OBSOLETE: Use <see cref="BackImage"/> instead.
+	[Editable, Attributes.Obsolete, NoSync, ScriptLegacyProperty(nameof(BackId))]
 	public int BackId
 	{
 		get => _backId;

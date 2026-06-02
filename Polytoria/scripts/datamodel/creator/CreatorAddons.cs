@@ -82,6 +82,7 @@ public sealed partial class CreatorAddons : Instance
 		/// The identifier for this addon.
 		/// </summary>
 		[ScriptProperty] public string Identifier { get; internal set; } = "";
+
 		/// <summary>
 		/// Fires when cleanup has been requested by the creator, this is usually fired when updating the addon.
 		/// </summary>

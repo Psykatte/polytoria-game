@@ -16,7 +16,7 @@ public partial class IntValue : ValueBase
 	private int _val = 0;
 
 	/// <summary>
-	/// The value of this object.
+	/// The integer value stored in this object.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0)]
 	public int Value

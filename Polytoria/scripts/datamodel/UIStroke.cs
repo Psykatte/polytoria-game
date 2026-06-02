@@ -20,6 +20,9 @@ public partial class UIStroke : Instance
 	private Panel? _strokePanel;
 	private StyleBoxFlat? _strokeStyleBox;
 
+	/// <summary>
+	/// The width of the outline drawn around the parent element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIScale Thickness
 	{
@@ -32,6 +35,9 @@ public partial class UIStroke : Instance
 		}
 	}
 
+	/// <summary>
+	/// The color of the outline of the parent element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{

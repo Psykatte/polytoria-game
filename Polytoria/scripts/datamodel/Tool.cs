@@ -77,6 +77,9 @@ public sealed partial class Tool : RigidBody
 		}
 	}
 
+	/// <summary>
+	/// The minimum time in seconds a player must wait after dropping this tool before they can equip it again.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1.5)]
 	public float DropEquipCooldown
 	{

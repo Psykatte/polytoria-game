@@ -123,7 +123,11 @@ public sealed partial class Environment : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Attributes.Obsolete("Replaced with Lighting.Skybox")]
+	/// <summary>
+	/// The skybox shown in the world.
+	/// </summary>
+	/// <remarks>OBSOLETE: Set the skybox through <see cref="Lighting.Skybox"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public Lighting.SkyboxEnum Skybox
 	{
 		get => _skybox;
@@ -135,7 +139,11 @@ public sealed partial class Environment : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Attributes.Obsolete("Replaced with Lighting.FogEnabled")]
+	/// <summary>
+	/// Toggles atmospheric fog in the world.
+	/// </summary>
+	/// <remarks>OBSOLETE: Enable fog with <see cref="Lighting.FogEnabled"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public bool FogEnabled
 	{
 		get => _fogEnabled;
@@ -147,7 +155,11 @@ public sealed partial class Environment : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Attributes.Obsolete("Replaced with Lighting.FogColor")]
+	/// <summary>
+	/// The color of the atmospheric fog.
+	/// </summary>
+	/// <remarks>OBSOLETE: Set the fog's color with <see cref="Lighting.FogColor"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public Color FogColor
 	{
 		get => _fogColor;
@@ -159,7 +171,11 @@ public sealed partial class Environment : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Attributes.Obsolete("Replaced with Lighting.FogStartDistance")]
+	/// <summary>
+	/// The distance from the camera at which fog begins to appear.
+	/// </summary>
+	/// <remarks>OBSOLETE: Set the fog's starting distance with <see cref="Lighting.FogStartDistance"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public float FogStartDistance
 	{
 		get => _fogStartDistance;
@@ -171,7 +187,11 @@ public sealed partial class Environment : Instance
 		}
 	}
 
-	[Editable, ScriptProperty, Attributes.Obsolete("Replaced with Lighting.FogEndDistance")]
+	/// <summary>
+	/// The distance from the camera at which fog reaches full opacity.
+	/// </summary>
+	/// <remarks>OBSOLETE: Set the fog's ending distance with <see cref="Lighting.FogEndDistance"/> instead.</remarks>
+	[Editable, ScriptProperty, Attributes.Obsolete]
 	public float FogEndDistance
 	{
 		get => _fogEndDistance;
@@ -446,7 +466,11 @@ public sealed partial class Environment : Instance
 		return [.. intersects];
 	}
 
-	[ScriptMethod, Attributes.Obsolete("Explosion can be created using Instance.New('Explosion')")]
+	/// <summary>
+	/// Creates an explosion at the given position with the specified radius, force, and damage.
+	/// </summary>
+	/// <remarks>OBSOLETE: An <see cref="Explosion"/> can be created using <c>Instance.New("Explosion")</c> instead.</remarks>
+	[ScriptMethod, Attributes.Obsolete]
 	public void CreateExplosion(Vector3 position, float radius = 10f, float force = 5000f, bool affectAnchored = true, PTCallback? callback = null, float damage = 10000f)
 	{
 		Explosion explod = New<Explosion>();
@@ -587,7 +611,10 @@ public sealed partial class Environment : Instance
 		/// The distance from the ray's origin to the hit point.
 		/// </summary>
 		[ScriptProperty] public float Distance { get; set; }
-		
+
+		/// <summary>
+		/// The instance that was struck by the ray, or <c>nil</c> if no scripted instance was found.
+		/// </summary>
 		[ScriptProperty] public Instance? Instance { get; set; }
 
 		public override readonly int GetHashCode()

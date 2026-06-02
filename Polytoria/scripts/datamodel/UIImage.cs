@@ -81,7 +81,11 @@ public partial class UIImage : UIField
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Image instead"), CloneIgnore]
+	/// <summary>
+	/// The numeric image ID used to load an image.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Image"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public string ImageID
 	{
 		get => _imageID;
@@ -92,7 +96,11 @@ public partial class UIImage : UIField
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Image instead"), CloneIgnore]
+	/// <summary>
+	/// The image type used when loading via ImageID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Image"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public ImageTypeEnum ImageType
 	{
 		get => _imageType;
@@ -118,6 +126,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// The UV offset applied to the texture.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Vector2 TextureOffset
 	{
@@ -130,6 +141,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// The tint color multiplied over the image.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public Color Color
 	{
@@ -185,6 +199,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// When true, flips the image horizontally.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool FlipHorizontal
 	{
@@ -197,6 +214,9 @@ public partial class UIImage : UIField
 		}
 	}
 
+	/// <summary>
+	/// When true, flips the image vertically.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool FlipVertical
 	{

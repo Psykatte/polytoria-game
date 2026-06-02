@@ -507,7 +507,7 @@ public sealed partial class Particles : Dynamic
 		Playing = true;
 	}
 
-	// cannot pause in godot
+	/// <remarks>OBSOLETE: This method is a no-op: Pausing a particle system is not supported in Godot.
 	[ScriptLegacyMethod("Pause")]
 	public static void LegacyPause() { }
 

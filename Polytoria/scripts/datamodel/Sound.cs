@@ -81,7 +81,11 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use Audio instead"), CloneIgnore]
+	/// <summary>
+	/// Gets or sets the audio asset by numeric ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="Audio"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public int SoundID
 	{
 		get => _soundID;

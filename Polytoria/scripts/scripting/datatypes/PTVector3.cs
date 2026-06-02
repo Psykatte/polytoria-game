@@ -171,42 +171,69 @@ public class PTVector3 : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Adds two vectors together component-wise.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Add)]
 	public static PTVector3 Add(PTVector3 a, PTVector3 b)
 	{
 		return FromGDClass(a.vector + b.vector);
 	}
 
+	/// <summary>
+	/// Subtracts vector <paramref name="b"/> from vector <paramref name="a"/> component-wise.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Sub)]
 	public static PTVector3 SubVectorVector(PTVector3 a, PTVector3 b)
 	=> FromGDClass(a.vector - b.vector);
 
+	/// <summary>
+	/// Subtracts the XYZ components of quaternion <paramref name="q"/> from vector <paramref name="a"/>.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Sub)]
 	public static PTVector3 SubVectorQuaternion(PTVector3 a, PTQuaternion q)
 		=> FromGDClass(a.vector - new Vector3(q.X, q.Y, q.Z));
 
+	/// <summary>
+	/// Multiplies two vectors component-wise.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulVectorVector(PTVector3 a, PTVector3 b)
 	=> FromGDClass(a.vector * b.vector);
 
+	/// <summary>
+	/// Multiplies the vector by a scalar.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulVectorScalar(PTVector3 a, double scalar)
 		=> FromGDClass(a.vector * (float)scalar);
 
+	/// <summary>
+	/// Multiplies the vector by a scalar.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulScalarVector(double scalar, PTVector3 b)
 		=> FromGDClass(b.vector * (float)scalar);
 
+	/// <summary>
+	/// Rotates the vector by the given quaternion.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulVectorQuaternion(PTVector3 a, PTQuaternion q)
 		=> FromGDClass(a.vector * q.quat.Normalized());
 
+	/// <summary>
+	/// Divides the vector by a scalar.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Div)]
 	public static PTVector3 Div(PTVector3 a, double b)
 	{
 		return FromGDClass(a.vector / (float)b);
 	}
 
+	/// <summary>
+	/// Returns the modulo of two vectors component-wise.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mod)]
 	public static PTVector3 Mod(PTVector3 a, PTVector3 b)
 	{
@@ -217,12 +244,18 @@ public class PTVector3 : IScriptGDObject
 		));
 	}
 
+	/// <summary>
+	/// Negates the vector.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Unm)]
 	public static PTVector3 Unm(PTVector3 a)
 	{
 		return FromGDClass(-a.vector);
 	}
 
+	/// <summary>
+	/// Raises vector <paramref name="a"/> to the power of <paramref name="b"/> component-wise.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Pow)]
 	public static PTVector3 Pow(PTVector3 a, PTVector3 b)
 	{
@@ -233,30 +266,45 @@ public class PTVector3 : IScriptGDObject
 		));
 	}
 
+	/// <summary>
+	/// Returns whether the two vectors are equal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTVector3 a, PTVector3 b)
 	{
 		return a.vector == b.vector;
 	}
 
+	/// <summary>
+	/// Returns whether vector <paramref name="a"/> is less than vector <paramref name="b"/> by comparing their lengths.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Lt)]
 	public static bool Lt(PTVector3 a, PTVector3 b)
 	{
 		return a.vector.LengthSquared() < b.vector.LengthSquared();
 	}
 
+	/// <summary>
+	/// Returns whether vector <paramref name="a"/> is less than or equal to vector <paramref name="b"/> by comparing their lengths.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Le)]
 	public static bool Le(PTVector3 a, PTVector3 b)
 	{
 		return a.vector.LengthSquared() <= b.vector.LengthSquared();
 	}
 
+	/// <summary>
+	/// Returns the length (magnitude) of the vector.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Len)]
 	public static double Len(PTVector3 a)
 	{
 		return a.vector.Length();
 	}
 
+	/// <summary>
+	/// Returns the string representation of the vector.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTVector3? v)
 	{
@@ -317,6 +365,9 @@ public class PTVector3 : IScriptGDObject
 	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Project(PTVector3 vector, PTVector3 onNormal) => FromGDClass(vector.vector.Project(onNormal.vector));
 
+	/// <summary>
+	/// Returns the component of the vector projected onto the plane defined by the given normal.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 ProjectOnPlane(PTVector3 vector, PTVector3 planeNormal) => FromGDClass(vector.vector.Slide(planeNormal.vector.Normalized()));
 
 	/// <summary>
@@ -347,14 +398,54 @@ public class PTVector3 : IScriptGDObject
 	// TODO: Why are these commented?
 	//public static Vector3 SlerpUnclamped(Vector3 a, Vector3 b, float t) => a.SlerpUnclamped(b, t);
 	//public static Vector3 SmoothDamp(Vector3 current, Vector3 target, ref Vector3 currentVelocity, float smoothTime, float maxSpeed, float deltaTime) => current.SmoothDamp(target, ref currentVelocity, smoothTime, maxSpeed, deltaTime);
+
+	/// <summary>
+	/// Returns the vector with each component rounded down to the nearest integer.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Floor(PTVector3 val) => FromGDClass(val.vector.Floor());
+
+	/// <summary>
+	/// Returns the vector with each component rounded up to the nearest integer.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Ceil(PTVector3 val) => FromGDClass(val.vector.Ceil());
+
+	/// <summary>
+	/// Returns the vector with each component rounded to the nearest integer.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Round(PTVector3 val) => FromGDClass(val.vector.Round());
+
+	/// <summary>
+	/// Returns the vector with each component set to its absolute value.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Abs(PTVector3 val) => FromGDClass(val.vector.Abs());
+
+	/// <summary>
+	/// Returns the vector with each component replaced by its sign (-1, 0, or 1).
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Sign(PTVector3 val) => FromGDClass(val.vector.Sign());
+
+	/// <summary>
+	/// Returns the vector rotated around the given axis by the specified angle in radians.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Rotated(PTVector3 val, PTVector3 axis, float angle) => FromGDClass(val.vector.Rotated(axis.vector, angle));
+
+	/// <summary>
+	/// Returns the vector scaled down to at most the specified length, preserving its direction.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 LimitLength(PTVector3 val, float length) => FromGDClass(val.vector.LimitLength(length));
+
+	/// <summary>
+	/// Returns the vector clamped component-wise between the given minimum and maximum vectors.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 Clamp(PTVector3 val, PTVector3 min, PTVector3 max) => FromGDClass(val.vector.Clamp(min.vector, max.vector));
+
+	/// <summary>
+	/// Converts each component from radians to degrees.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 RadToDeg(PTVector3 val) => FromGDClass(val.vector.RadToDeg());
+
+	/// <summary>
+	/// Converts each component from degrees to radians.
+	/// </summary>
 	[ScriptMethod(ConvertParamsToGD = false, SemiStatic = true)] public static PTVector3 DegToRad(PTVector3 val) => FromGDClass(val.vector.DegToRad());
 }

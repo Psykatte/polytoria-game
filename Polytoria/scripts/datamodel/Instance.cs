@@ -147,6 +147,10 @@ public partial class Instance : NetworkedObject
 		}
 	}
 
+	/// <summary>
+	/// The name of the instance.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that supports XML-format names.</remarks>
 	[CloneInclude, ScriptLegacyProperty("Name"), SyncVar]
 	public string LegacyName
 	{
@@ -480,6 +484,10 @@ public partial class Instance : NetworkedObject
 	}
 
 
+	/// <summary>
+	/// Finds and returns the first direct child with the given name.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that matches against legacy XML-format names.</remarks>
 	[ScriptLegacyMethod("FindChild")]
 	public Instance? LegacyFindChild(string name)
 	{
@@ -592,6 +600,10 @@ public partial class Instance : NetworkedObject
 		return null;
 	}
 
+	/// <summary>
+	/// Finds and returns the first direct child whose class matches the given class name.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that converts XML-format class names before matching.</remarks>
 	[ScriptLegacyMethod("FindChildByClass")]
 	public Instance? LegacyFindChildByClass(string className)
 	{
@@ -751,6 +763,10 @@ public partial class Instance : NetworkedObject
 		return [.. instances];
 	}
 
+	/// <summary>
+	/// Returns all direct children whose class matches the given class name.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that converts XML-format class names before matching.</remarks>
 	[ScriptLegacyMethod("GetChildrenOfClass")]
 	public Instance[] LegacyGetChildrenOfClass(string className)
 	{
@@ -860,6 +876,9 @@ public partial class Instance : NetworkedObject
 		return IsDescendantOfClass(typeof(T).Name);
 	}
 
+	/// <summary>
+	/// Creates and returns a new instance of the specified class, optionally parented to the given instance.
+	/// </summary>
 	[ScriptMethod("New")]
 	public static Instance? ScriptNew([ScriptingCaller] Script caller, string className, Instance? parent = null)
 	{
@@ -885,6 +904,10 @@ public partial class Instance : NetworkedObject
 		return (Instance)obj;
 	}
 
+	/// <summary>
+	/// Creates and returns a new instance of the specified class.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that converts XML-format class names and defaults the parent to the caller's environment.</remarks>
 	[ScriptLegacyMethod("New")]
 	public static Instance? LegacyNew([ScriptingCaller] Script caller, string className, Instance? parent = null)
 	{

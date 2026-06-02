@@ -165,7 +165,11 @@ public sealed partial class PolytorianModel : CharacterModel
 		}
 	}
 
-	[Editable, ScriptProperty, NoSync, Attributes.Obsolete("Use FaceImage instead"), CloneIgnore]
+	/// <summary>
+	/// Gets or sets the Polytoria face image by numeric ID.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="FaceImage"/> instead.</remarks>
+	[Editable, ScriptProperty, NoSync, Attributes.Obsolete, CloneIgnore]
 	public int FaceID
 	{
 		get => (int)((_faceImage is PTImageAsset polyImg) ? polyImg.ImageID : 0);

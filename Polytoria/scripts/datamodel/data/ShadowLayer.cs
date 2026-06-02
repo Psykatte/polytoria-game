@@ -20,14 +20,23 @@ public partial struct ShadowLayer : IScriptObject, IData
 {
 	private float _radius;
 
+	/// <summary>
+	/// The color of the shadow, including its opacity.
+	/// </summary>
 	[MemoryPackAllowSerialize]
 	[ScriptProperty]
 	public Color Color { get; set; }
 
+	/// <summary>
+	/// The horizontal and vertical offset of the shadow from its element.
+	/// </summary>
 	[MemoryPackAllowSerialize]
 	[ScriptProperty]
 	public Vector2 Offset { get; set; }
 
+	/// <summary>
+	/// The blur radius of the shadow; larger values produce a softer, more spread out shadow.
+	/// </summary>
 	[ScriptProperty]
 	public float Radius
 	{
@@ -37,6 +46,9 @@ public partial struct ShadowLayer : IScriptObject, IData
 
 	private float _spread;
 
+	/// <summary>
+	/// The amount by which the shadow is expanded outward before blurring.
+	/// </summary>
 	[ScriptProperty]
 	public float Spread
 	{
@@ -44,6 +56,9 @@ public partial struct ShadowLayer : IScriptObject, IData
 		set => _spread = Mathf.Max(0, value);
 	}
 
+	/// <summary>
+	/// The blend mode used when compositing this shadow layer onto the element.
+	/// </summary>
 	[ScriptProperty]
 	public BlendModeEnum BlendMode { get; set; }
 

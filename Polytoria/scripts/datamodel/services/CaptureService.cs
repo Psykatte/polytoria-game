@@ -34,14 +34,17 @@ public sealed partial class CaptureService : Instance
 	/// Returns whether the capture is on cooldown.
 	/// </summary>
 	[ScriptProperty] public bool OnCooldown => _debounce;
+
 	/// <summary>
 	/// Determines if user/scripts can take a picture.
 	/// </summary>
 	[Editable, ScriptProperty] public bool CanCapture { get; set; } = true;
+
 	/// <summary>
 	/// Default capture overlay for all captures.
 	/// </summary>
 	[ScriptProperty] public UIField? DefaultCaptureOverlay { get; set; } = null;
+
 	/// <summary>
 	/// Attaches a spectator camera at dynamic for use with spectator mode.
 	/// </summary>

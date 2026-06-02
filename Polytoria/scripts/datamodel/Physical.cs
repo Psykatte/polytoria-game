@@ -160,6 +160,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// A bitmask controlling which collision layers this object occupies.
+	/// </summary>
 	[Editable(CustomPropertyControl = "Bitmap32"), ScriptProperty]
 	public virtual uint CollisionLayers
 	{
@@ -179,6 +182,9 @@ public partial class Physical : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// A bitmask controlling which collision layers this object detects and responds to.
+	/// </summary>
 	[Editable(CustomPropertyControl = "Bitmap32"), ScriptProperty]
 	public virtual uint CollisionMask
 	{
@@ -1215,24 +1221,36 @@ public partial class Physical : Dynamic
 		CollisionLayers = BitmapUtils.Set(CollisionLayers, layer, value);
 	}
 
+	/// <summary>
+	/// Sets the enabled state of a single collision mask layer by it's index.
+	/// </summary>
 	[ScriptMethod]
 	public void SetCollisionMask(int layer, bool value)
 	{
 		CollisionMask = BitmapUtils.Set(CollisionMask, layer, value);
 	}
 
+	/// <summary>
+	/// Returns whether the specified collision layer index is enabled on this object.
+	/// </summary>
 	[ScriptMethod]
 	public bool GetCollisionLayer(int layer)
 	{
 		return BitmapUtils.Get(CollisionLayers, layer);
 	}
 
+	/// <summary>
+	/// Returns whether the specified collision mask layer index is enabled on this object.
+	/// </summary>
 	[ScriptMethod]
 	public bool GetCollisionMask(int layer)
 	{
 		return BitmapUtils.Get(CollisionMask, layer);
 	}
 
+	/// <summary>
+	/// Returns all physical objects currently in contact with this object.
+	/// </summary>
 	[ScriptMethod]
 	public Physical[] GetTouching()
 	{

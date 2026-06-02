@@ -28,6 +28,9 @@ public sealed partial class Camera : Dynamic
 	private const float TrackpadPanSensitivity = 10.0f;
 
 	// override default +Z forward orientation as that would be incorrect for the camera
+	/// <summary>
+	/// The forward direction of the camera in world space, pointing in the direction the camera faces.
+	/// </summary>
 	[ScriptProperty] new public Vector3 Forward => -GetGlobalTransform().Basis.Z.Normalized();
 
 	private CameraModeEnum _mode;
@@ -235,6 +238,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The distance to the camera's near clipping plane.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0.05f)]
 	public float Near
 	{
@@ -246,6 +252,9 @@ public sealed partial class Camera : Dynamic
 		}
 	}
 
+	/// <summary>
+	/// The distance to the camera's far clipping plane.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(4000f)]
 	public float Far
 	{

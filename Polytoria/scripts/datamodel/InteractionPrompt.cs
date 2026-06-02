@@ -61,6 +61,9 @@ public sealed partial class InteractionPrompt : Physical
 
 	private List<GUI3D> _gui3Ds = new();
 
+	/// <summary>
+	/// Controls whether the prompt uses the default sprite UI or a child <see cref="GUI3D"/> for its display.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public UIModeEnum UIMode
 	{
@@ -82,6 +85,9 @@ public sealed partial class InteractionPrompt : Physical
 	}
 
 
+	/// <summary>
+	/// Determines whether this prompt can be activated by players.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool Enabled
 	{
@@ -93,6 +99,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// When true, the prompt is hidden for all players until explicitly shown via <see cref="ShowFor"/>.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public bool HideByDefault
 	{
@@ -105,6 +114,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// The primary label displayed on the prompt UI.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("Interact")]
 	public string Title
 	{
@@ -118,6 +130,9 @@ public sealed partial class InteractionPrompt : Physical
 	}
 
 
+	/// <summary>
+	/// The secondary label displayed below <see cref="Title"/> on the prompt UI, supporting rich-text color tags.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("[color=#a3a3a3]Subtitle[/color]")]
 	public string Subtitle
 	{
@@ -130,6 +145,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// Uniform scale applied to the prompt's visual node.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1f)]
 	public float Scale
 	{
@@ -142,6 +160,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// The maximum distance in studs at which a player can see and activate this prompt.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(10.0f)]
 	public float MaxDistance
 	{
@@ -153,6 +174,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// The minimum dot-product value between the player's look direction and the direction to the prompt required for the prompt to be considered in line of sight.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0.5f)]
 	public float LineOfSightThreshold
 	{
@@ -164,6 +188,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// The number of seconds a player must hold the interact input to fire <see cref="Interacted"/>.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(0.5f)]
 	public float ActivationTime
 	{
@@ -175,6 +202,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// When true, the prompt is only visible while the player's cursor hovers over the parent object.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(false)]
 	public bool UseParentForVisibility
 	{
@@ -188,6 +218,9 @@ public sealed partial class InteractionPrompt : Physical
 
 
 
+	/// <summary>
+	/// When true, the player must be looking toward the prompt within the <see cref="LineOfSightThreshold"/> to activate it.
+	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool RequireFacing
 	{
@@ -200,6 +233,9 @@ public sealed partial class InteractionPrompt : Physical
 	}
 
 
+	/// <summary>
+	/// The list of players for whom this prompt is currently hidden.
+	/// </summary>
 	[ScriptProperty]
 	public Player[] HiddenFor
 	{
@@ -211,6 +247,9 @@ public sealed partial class InteractionPrompt : Physical
 		}
 	}
 
+	/// <summary>
+	/// The current hold progress toward activation, expressed as a value from 0 to 1.
+	/// </summary>
 	[ScriptProperty, NoSync]
 	public float Progress
 	{
@@ -379,6 +418,9 @@ public sealed partial class InteractionPrompt : Physical
 		_progressBar.Value = _progress * 100f;
 	}
 
+	/// <summary>
+	/// Hides the prompt for the specified player and prevents them from activating it.
+	/// </summary>
 	[ScriptMethod]
 	public void HideFor(Player plr)
 	{
@@ -386,6 +428,9 @@ public sealed partial class InteractionPrompt : Physical
 		RpcId(plr.PeerID, nameof(HideRPC));
 	}
 
+	/// <summary>
+	/// Restores prompt visibility for the specified player, reversing a prior <see cref="HideFor"/> call.
+	/// </summary>
 	[ScriptMethod]
 	public void ShowFor(Player plr)
 	{
@@ -422,6 +467,9 @@ public sealed partial class InteractionPrompt : Physical
 		Interacted.Invoke(p);
 	}
 
+	/// <summary>
+	/// Fires when a player completes the hold activation on this prompt.
+	/// </summary>
 	[ScriptProperty] public PTSignal<Player> Interacted { get; private set; } = new();
 
 	[ScriptEnum("UIMode")]

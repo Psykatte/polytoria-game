@@ -28,6 +28,9 @@ public partial class UIShadow : Instance
 		public StyleBoxFlat StyleBox = null!;
 	}
 
+	/// <summary>
+	/// The array of shadow layers rendered behind the parent element.
+	/// </summary>
 	[Editable, ScriptProperty]
 	public ShadowLayer[] Layers
 	{

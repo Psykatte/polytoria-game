@@ -56,6 +56,9 @@ public sealed partial class WorldsService : Instance
 		return null;
 	}
 
+	/// <summary>
+	/// Teleports a single player to the world at the given path, creating a new server instance as needed.
+	/// </summary>
 	[ScriptMethod]
 	public async Task JoinWorldAsync(Player plr, string to)
 	{
@@ -72,6 +75,9 @@ public sealed partial class WorldsService : Instance
 		}
 	}
 
+	/// <summary>
+	/// Teleports a group of players together to the world at the given path, creating a shared new server instance and skipping players that are already teleporting.
+	/// </summary>
 	[ScriptMethod]
 	public async Task JoinWorldPartyAsync(Player[] plrs, string to)
 	{

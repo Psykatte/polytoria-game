@@ -220,6 +220,10 @@ public partial class NetworkedObject : IScriptObject
 	[ScriptProperty]
 	public string ClassName => GetType().Name;
 
+	/// <summary>
+	/// The XML-format class name of this object.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that converts the class name to its XML-format equivalent.</remarks>
 	[ScriptLegacyProperty("ClassName")]
 	public string LegacyClassName => XmlFormat.ConvertClassName(ClassName);
 
@@ -354,6 +358,10 @@ public partial class NetworkedObject : IScriptObject
 	[Export, ScriptProperty]
 	public bool ExistInNetwork { get; internal set; } = false;
 
+	/// <summary>
+	/// Returns true if this object was spawned by the local client and does not exist on the network.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <c>!</c><see cref="ExistInNetwork"/> instead.</remarks>
 	[ScriptLegacyProperty("ClientSpawned")]
 	public bool ClientSpawned => !ExistInNetwork;
 
@@ -378,6 +386,9 @@ public partial class NetworkedObject : IScriptObject
 	/// </summary>
 	[ScriptProperty] public PTSignal TreeExited { get; private set; } = new();
 
+	/// <summary>
+	/// Fires when this object is about to be destroyed.
+	/// </summary>
 	[ScriptProperty] public PTSignal Destroying { get; private set; } = new();
 
 	public NetworkedObject()
@@ -1103,6 +1114,10 @@ public partial class NetworkedObject : IScriptObject
 		return false;
 	}
 
+	/// <summary>
+	/// Returns true if this object is an instance of the given class name or any of its base classes.
+	/// </summary>
+	/// <remarks>OBSOLETE: Legacy compatibility variant that converts XML-format class names before checking.</remarks>
 	[ScriptLegacyMethod("IsA")]
 	public bool LegacyIsA(string className)
 	{
@@ -2029,6 +2044,9 @@ public partial class NetworkedObject : IScriptObject
 	public void Delete(float time = 0f) => Destroy(time);
 
 
+	/// <summary>
+	/// Returns the string representation of the object in the format <c><ClassName:Name></c>.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(NetworkedObject? obj)
 	{
@@ -2036,6 +2054,9 @@ public partial class NetworkedObject : IScriptObject
 		return "<" + obj.ClassName + ":" + obj.Name + ">";
 	}
 
+	/// <summary>
+	/// Returns whether two objects are equal, compared by their network object ID.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool MetamethodEquals(object? a, object? b)
 	{

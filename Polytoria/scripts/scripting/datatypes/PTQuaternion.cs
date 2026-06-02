@@ -79,38 +79,62 @@ public class PTQuaternion : IScriptGDObject
 		};
 	}
 
+	/// <summary>
+	/// Adds two quaternions together.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Add)]
 	public static PTQuaternion Add(PTQuaternion a, PTQuaternion b)
 	{
 		return FromGDClass(a.quat + b.quat);
 	}
 
+	/// <summary>
+	/// Subtracts one quaternion from another.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Sub)]
 	public static PTQuaternion SubQuaternionQuaternion(PTQuaternion a, PTQuaternion b)
 		=> FromGDClass(a.quat - b.quat);
 
+	/// <summary>
+	/// Subtracts a vector from a quaternion.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Sub)]
 	public static PTQuaternion SubQuaternionVector(PTQuaternion a, PTVector3 v)
 		=> FromGDClass(a.quat - new Quaternion(v.X, v.Y, v.Z, 1));
 
+	/// <summary>
+	/// Combines two rotations by multiplying two quaternions.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTQuaternion MulQuaternionQuaternion(PTQuaternion a, PTQuaternion b)
 		=> FromGDClass(a.quat.Normalized() * b.quat.Normalized());
 
+	/// <summary>
+	/// Rotates a vector by a quaternion.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulQuaternionVector(PTQuaternion a, PTVector3 v)
 		=> PTVector3.FromGDClass(a.quat.Normalized() * v.vector);
 
+	/// <summary>
+	/// Rotates a vector by a quaternion.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Mul)]
 	public static PTVector3 MulVectorQuaternion(PTVector3 v, PTQuaternion q)
 	=> PTVector3.FromGDClass(q.quat.Normalized() * v.vector);
 
+	/// <summary>
+	/// Returns whether two quaternions are equal.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Eq)]
 	public static bool Eq(PTQuaternion a, PTQuaternion b)
 	{
 		return a.quat == b.quat;
 	}
 
+	/// <summary>
+	/// Returns the string representation of the quaternion.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.ToString)]
 	public static string ToString(PTQuaternion? v)
 	{

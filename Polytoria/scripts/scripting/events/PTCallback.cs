@@ -43,6 +43,9 @@ public class PTCallback(Action<object?[]> target) : IDisposable, IScriptObject
 		});
 	}
 
+	/// <summary>
+	/// Invokes the callback with the arguments passed from Luau, yielding the coroutine until the action completes.
+	/// </summary>
 	[ScriptMetamethod(ScriptObjectMetamethod.Call), HandlesLuaState]
 	public int LuaCall(LuaState state)
 	{

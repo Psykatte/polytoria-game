@@ -41,6 +41,7 @@ public partial class UIField : Instance
 	internal bool OverrideParentCheck = false;
 
 	private bool _visible = true;
+
 	/// <summary>
 	/// The offset of the UI element in pixels.
 	/// </summary>
@@ -251,14 +252,17 @@ public partial class UIField : Instance
 	/// Fires when user hold down mouse on this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseDown { get; private set; } = new();
+
 	/// <summary>
 	/// Fires when user release mouse on this UI.
 	/// </summary>
 	[ScriptProperty] public PTSignal MouseUp { get; private set; } = new();
+
 	/// <summary>
 	/// Fires when this UI transform has been changed.
 	/// </summary>
 	[ScriptProperty] public PTSignal TransformChanged { get; private set; } = new();
+
 	/// <summary>
 	/// Fires when this UI visibility has been changed.
 	/// </summary>

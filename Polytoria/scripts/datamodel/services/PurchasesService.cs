@@ -104,6 +104,10 @@ public sealed partial class PurchasesService : Instance
 		return await tcs.Task;
 	}
 
+	/// <summary>
+	/// Prompts the specified player to purchase the given asset, invoking a <paramref name="PTCallback"/> with the purchase result.
+	/// </summary>
+	/// <remarks>OBSOLETE: Use <see cref="PromptAsync"/> instead.</remarks>
 	[ScriptLegacyMethod("Prompt")]
 	public void LegacyPrompt(Player player, int assetID, PTCallback callback)
 	{
