@@ -6,8 +6,17 @@
 - [x] Ensure return before documentation comments (for contributor readability).
 - [x] Ensure full stop within tagged text.
 - [x] Create separate `.cproj` dev/CLI that leverages Roslyn.
-- [ ] Retire legacy generators, unlink them from existing code.
-- [ ] Emit and handle `apiref.json`.
-- [ ] Emit and handle `def.d.luau`.
-- [ ] Emit and handle `def.json`.
-- [ ] Emit and handle `docs.json`.
+- [x] Save local copies of generated files for use as a baseline.
+- [x] Retire legacy generators, unlink them from existing code.
+- [ ] Update the docs website to reflect the desired workflow, add specifics to the TODO.
+- [ ] Implement def/ref generation logic.
+    - [ ] Emit and handle `apiref.json`.
+    - [ ] Emit and handle `def.d.luau`.
+    - [ ] Emit and handle `def.json`.
+    - [ ] Emit and handle `docs.json`.
+    - [ ] Add a command argument to conditionally generate def/ref.
+- [ ] Implement docgen logic.
+    - [ ] Define the desired docs page layout.
+    - [ ] Update some existing documentation to reflect the new layout.
+    - [ ] Add a command argument to conditionally generate docs.
+- [ ] Add docgen to Github workflow?

@@ -92,28 +92,30 @@ TestResults/
 /Polytoria/client_dump.xml
 /Polytoria/dump.tscn
 
-# API reference snapshot
-/Polytoria/apiref.json
-
 # Packed/exported scene test files
 /Polytoria/test.packed
 /Polytoria/test.ptpacked
 
 
-## -- Documentation Generation -- ##
+## -- Polytoria.Docs and Generator -- ##
 
+# Python
 __pycache__
 .venv/
 node_modules
-def.json
 
+# Artifacts
+apiref.json
+def.d.luau
+def.json
+docs.json
+
+# Documentation
 Polytoria.Docs/docs/api/types/*
 Polytoria.Docs/docs/api/enums/*
 
 !Polytoria.Docs/docs/api/types/index.md
 !Polytoria.Docs/docs/api/enums/index.md
-
-site
 
 
 ## -- Exceptions -- ##

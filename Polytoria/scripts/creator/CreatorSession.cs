@@ -14,7 +14,6 @@ using Polytoria.Datamodel.Creator;
 using Polytoria.Datamodel.Data;
 using Polytoria.Datamodel.Resources;
 using Polytoria.Datamodel.Services;
-using Polytoria.DocsGen;
 using Polytoria.Formats;
 using Polytoria.Shared;
 using Polytoria.Utils;
@@ -33,6 +32,7 @@ namespace Polytoria.Creator;
 /// </summary>
 public partial class CreatorSession : Node, IDisposable
 {
+	private const string DefResource = "res://modules/creator/codehint/def.d.luau";
 	private const string LuauRCContent = @"{
 	""languageMode"": ""nocheck""
 }";
@@ -201,24 +201,32 @@ public partial class CreatorSession : Node, IDisposable
 
 		string versionPath = PolyFolderPath.PathJoin("version");
 
-		if (!File.Exists(versionPath))
-		{
-			PT.Print("Writing version...");
-			File.WriteAllText(versionPath, "");
-		}
-
 		PT.Print("Reading version...");
 		string versionData = File.ReadAllText(versionPath);
 
 		if (versionData != Globals.AppVersion || Globals.IsInGDEditor)
 		{
-			PT.Print("Generating doc...");
-			LuaDefinitionGenerator.GenerateDocFiles(luauPath);
+			PT.Print("Writing luau definitions...");
+			WriteApiDefinitions(luauPath);
 
-			PT.Print("Writing doc...");
+			PT.Print("Writing version...");
 			File.WriteAllText(versionPath, Globals.AppVersion);
 			File.WriteAllText(luauRcPath, LuauRCContent);
 		}
+	}
+
+	// Copies the build-time-generated Luau type definitions into the project's `.poly/luau`
+	// folder, where the luau-lsp loads them as the @poly definition file.
+	private static void WriteApiDefinitions(string luauPath)
+	{
+		string defs = Godot.FileAccess.GetFileAsString(DefResource);
+		if (string.IsNullOrEmpty(defs))
+		{
+			PT.PrintErr($"Bundled scripting API definitions missing or empty at {DefResource}");
+			return;
+		}
+
+		File.WriteAllText(luauPath.PathJoin("def.d.luau"), defs);
 	}
 
 	public void Save()

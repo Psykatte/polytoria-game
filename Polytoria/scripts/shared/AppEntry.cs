@@ -8,7 +8,6 @@ using Polytoria.Client;
 using System;
 using Polytoria.DatamodelTest;
 #endif
-using Polytoria.DocsGen;
 using System.Collections.Generic;
 using static Polytoria.Shared.Globals;
 
@@ -19,7 +18,6 @@ public partial class AppEntry : Node
 	public async override void _Ready()
 	{
 		Dictionary<string, string> cmdargs = ReadCmdArgs();
-		bool isApiRefGen = cmdargs.ContainsKey("genapi");
 		bool isCreator = cmdargs.ContainsKey("creator");
 		bool isLtChild = cmdargs.ContainsKey("ltchild");
 		bool isSolo = cmdargs.ContainsKey("solo");
@@ -27,15 +25,6 @@ public partial class AppEntry : Node
 		if (cmdargs.TryGetValue("wait", out string? waitTime))
 		{
 			await Singleton.WaitAsync(float.Parse(waitTime));
-		}
-
-		if (isApiRefGen && IsInGDEditor)
-		{
-			PT.Print("Generating references...");
-			APIReferenceGenerator.GenerateRefFile();
-			PT.Print("Completed! Exiting...");
-			Globals.Singleton.Quit();
-			return;
 		}
 
 #if DEBUG
