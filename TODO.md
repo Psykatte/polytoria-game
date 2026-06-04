@@ -5,7 +5,9 @@
 - [x] Remove empty tags.
 - [x] Ensure return before documentation comments (for contributor readability).
 - [x] Ensure full stop within tagged text.
-- [ ] Implement `--docgen` flag.
-- [ ] Parse source XML doc comments via `System.Xml.Linq` and resolve sibling `.md` files by naming convention; warn on missing docs.
-- [ ] Use `DocCategory` attribute to determine the output directory.
-- [ ] Emit final Markdown (inline summary + sibling prose + cross-links) for mkdocs-material.
+- [x] Create separate `.cproj` dev/CLI that leverages Roslyn.
+- [ ] Retire legacy generators, unlink them from existing code.
+- [ ] Emit and handle `apiref.json`.
+- [ ] Emit and handle `def.d.luau`.
+- [ ] Emit and handle `def.json`.
+- [ ] Emit and handle `docs.json`.

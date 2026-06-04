@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Polytoria.Docs.Generator</RootNamespace>
+    <!-- This tool analyses the game project; it must NEVER be referenced by it. -->
+
+    <!--
+      NU1903: A transitive Microsoft.Build.Tasks.Core (via Workspaces.MSBuild) carries an advisory.
+      This is a build-time-only dev/CI tool, and at runtime MSBuildLocator loads MSBuild from the
+      installed .NET SDK (RegisterDefaults) rather than these NuGet assemblies (the
+      Microsoft.Build.* runtime assets are excluded below), so the flagged code path is never used.
+    -->
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.7.8" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.12.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.12.0" />
+  </ItemGroup>
+
+  <!-- MSBuild is supplied at runtime by the SDK (MSBuildLocator.RegisterDefaults), so keep the
+  NuGet MSBuild assemblies out of the output entirely. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="17.7.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.7.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.7.2" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.7.2" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+</Project>
