@@ -84,6 +84,7 @@ public sealed partial class NetworkPropSync : Instance
 		else if (propValue is Color c) propValue = new ColorDto(c);
 		else if (propValue is Transform3D t) propValue = new Transform3DDto(t);
 		else if (propValue is ColorSeries cs) propValue = new ColorSeriesDto(cs);
+		else if (propValue is NumberSeries ns) propValue = new NumberSeriesDto(ns);
 		else if (propValue is NumberRange nr) propValue = new NumberRangeDto(nr);
 		else if (propValue is UIScale us) propValue = new UIScaleDto(us);
 
@@ -146,6 +147,11 @@ public sealed partial class NetworkPropSync : Instance
 			ColorSeriesDto? dto = SerializeUtils.Deserialize<ColorSeriesDto?>(data);
 			if (dto != null) intermediateValue = dto.ToColorRange();
 		}
+		else if (targetType == typeof(NumberSeries))
+		{
+			NumberSeriesDto? dto = SerializeUtils.Deserialize<NumberSeriesDto?>(data);
+			if (dto != null) intermediateValue = dto.ToNumberSeries();
+		}
 		else if (targetType == typeof(NumberRange))
 		{
 			NumberRangeDto? dto = SerializeUtils.Deserialize<NumberRangeDto?>(data);
@@ -200,6 +206,7 @@ public sealed partial class NetworkPropSync : Instance
 		else if (propValue is Color c) propValue = new ColorDto(c);
 		else if (propValue is Transform3D t) propValue = new Transform3DDto(t);
 		else if (propValue is ColorSeries cs) propValue = new ColorSeriesDto(cs);
+		else if (propValue is NumberSeries ns) propValue = new NumberSeriesDto(ns);
 		else if (propValue is NumberRange nr) propValue = new NumberRangeDto(nr);
 		else if (propValue is UIScale us) propValue = new UIScaleDto(us);
 		Type propType = propValue.GetType();
@@ -261,6 +268,11 @@ public sealed partial class NetworkPropSync : Instance
 		{
 			ColorSeriesDto? dto = await SerializeUtils.DeserializeAsync<ColorSeriesDto?>(mem);
 			if (dto != null) intermediateValue = dto.ToColorRange();
+		}
+		else if (targetType == typeof(NumberSeries))
+		{
+			NumberSeriesDto? dto = await SerializeUtils.DeserializeAsync<NumberSeriesDto?>(mem);
+			if (dto != null) intermediateValue = dto.ToNumberSeries();
 		}
 		else if (targetType == typeof(NumberRange))
 		{

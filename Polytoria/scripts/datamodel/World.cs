@@ -277,6 +277,10 @@ public sealed partial class World : Instance
 #if CREATOR
 		Properties.Singleton?.Insert(this);
 #endif
+		if (SessionType == SessionTypeEnum.Client)
+		{
+			RegisterNewNetworkedObject(this, "1");
+		}
 	}
 
 	public override void PreDelete()
@@ -475,12 +479,13 @@ public sealed partial class World : Instance
 	}
 
 
-	internal void RegisterNewNetworkedObject(NetworkedObject netObj)
+	internal void RegisterNewNetworkedObject(NetworkedObject netObj, string? forceId = null)
 	{
 		if (netObj.NetworkedObjectID == "")
 		{
 			_nextId++;
-			netObj.NetworkedObjectID = WorldSessionID + _nextId.ToString();
+			string targetId = WorldSessionID + (forceId ?? _nextId.ToString());
+			netObj.NetworkedObjectID = targetId;
 		}
 	}
 

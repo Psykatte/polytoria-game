@@ -55,6 +55,12 @@ public struct NumberRange : IScriptObject, IData
 
 	public NumberRange() { }
 
+	public NumberRange(float min, float max)
+	{
+		_min = min;
+		_max = max;
+	}
+
 	/// <summary>
 	/// Creates a new NumberRange object with the specified minimum and maximum values.
 	/// </summary>

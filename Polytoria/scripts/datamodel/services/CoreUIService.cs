@@ -2,8 +2,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using Godot;
 using Polytoria.Attributes;
 using Polytoria.Client.UI;
+using Polytoria.Scripting;
 using Polytoria.Shared;
 using System.Threading.Tasks;
 
@@ -27,8 +29,27 @@ public sealed partial class CoreUIService : Instance
 	private bool _useMenuButton = true;
 	private bool _useEmoteWheel = true;
 	private bool _canRespawn = true;
+	private CtrlLockCursorEnum _ctrlLockCursor = CtrlLockCursorEnum.Chevron;
 
 	public CoreUIRoot CoreUI = null!;
+
+	public PTSignal CtrlLockCursorChanged { get; private set; } = new();
+
+	/// <summary>
+	/// Determines whether or not to lock the cursor to the center of the screen while hiding it, binding camera movement to cursor movement.
+	/// </summary>
+	[Editable, ScriptProperty]
+	public CtrlLockCursorEnum CtrlLockCursor
+	{
+		get => _ctrlLockCursor;
+		set
+		{
+			_ctrlLockCursor = value;
+			RefreshCoreUIsVisibility();
+			OnPropertyChanged();
+			CtrlLockCursorChanged.Invoke();
+		}
+	}
 
 	/// <summary>
 	/// Determines whether or not the user card (in the upper right hand corner above the leaderboard) is visible.
@@ -173,5 +194,19 @@ public sealed partial class CoreUIService : Instance
 		}
 
 		return CoreUI;
+	}
+
+	[ScriptEnum("CtrlLockCursor")]
+	public enum CtrlLockCursorEnum
+	{
+		None,
+		Chevron,
+		Stereotypical,
+		StereotypicalDot,
+		Tactical,
+		Dot,
+		TacticalDot,
+		Plus,
+		X
 	}
 }

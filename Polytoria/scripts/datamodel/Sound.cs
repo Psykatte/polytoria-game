@@ -7,6 +7,8 @@ using Polytoria.Attributes;
 using Polytoria.Datamodel.Resources;
 using Polytoria.Networking;
 using Polytoria.Scripting;
+using Polytoria.Enums;
+
 
 #if CREATOR
 using Polytoria.Creator.Spatial;
@@ -23,6 +25,7 @@ public sealed partial class Sound : Dynamic
 {
 	public const float SoundDistanceMultipler = 1.25f;
 	private const float MinPitch = 0.001f;
+	private const float MaxVolume = 2;
 	private AudioAsset? _asset;
 	private AudioStreamPlayer? _audioPlayer;
 	private AudioStreamPlayer3D? _audioPlayer3D;
@@ -35,6 +38,7 @@ public sealed partial class Sound : Dynamic
 	private float _volume = 1;
 	private float _time = 0;
 	private bool _loop = false;
+	private float _loopStart = 0;
 	private bool _playInWorld = false;
 	private bool _paused = false;
 	private float _pitch = 1f;
@@ -106,7 +110,7 @@ public sealed partial class Sound : Dynamic
 		get => _volume;
 		set
 		{
-			_volume = Mathf.Clamp(value, 0, 1);
+			_volume = Mathf.Clamp(value, 0, MaxVolume);
 			UpdateVolume();
 			OnPropertyChanged();
 		}
@@ -155,11 +159,9 @@ public sealed partial class Sound : Dynamic
 			switch (_currentStream)
 			{
 				case AudioStreamMP3 aStream:
-					aStream.LoopOffset = 0;
 					aStream.Loop = value;
 					break;
 				case AudioStreamOggVorbis aStream:
-					aStream.LoopOffset = 0;
 					aStream.Loop = value;
 					break;
 					// unused in Polytoria
@@ -172,6 +174,35 @@ public sealed partial class Sound : Dynamic
 	/// <summary>
 	/// Determines whether the sound should be played in the 3D world space.
 	/// </summary>
+	[Editable, ScriptProperty]
+	public float LoopStart
+	{
+		get => _loopStart;
+		set
+		{
+			// unclamped value is reapplied and clamped when Sound is loaded
+			if (_currentStream != null)
+			{
+				value = (float)Mathf.Clamp(value, 0, _currentStream.GetLength());
+			}
+
+			_loopStart = value;
+
+			switch (_currentStream)
+			{
+				case AudioStreamMP3 aStream:
+					aStream.LoopOffset = value;
+					break;
+				case AudioStreamOggVorbis aStream:
+					aStream.LoopOffset = value;
+					break;
+					// unused in Polytoria
+					//case AudioStreamWav aStream:
+			}
+			OnPropertyChanged();
+		}
+	}
+
 	[Editable, ScriptProperty]
 	public bool PlayInWorld
 	{
@@ -214,6 +245,45 @@ public sealed partial class Sound : Dynamic
 		}
 	}
 
+	private AudioStreamPlayer3D.AttenuationModelEnum _attenuationMode = AudioStreamPlayer3D.AttenuationModelEnum.Disabled;
+
+	/// <summary>
+	/// The sound attenuation mode of the given <c>Sound</c> instance.
+	/// </summary>
+	[Editable, ScriptProperty]
+	public SoundAttenuationModeEnum AttenuationMode
+	{
+		get
+		{
+			return _attenuationMode switch
+			{
+				AudioStreamPlayer3D.AttenuationModelEnum.InverseDistance => SoundAttenuationModeEnum.Linear,
+				AudioStreamPlayer3D.AttenuationModelEnum.InverseSquareDistance => SoundAttenuationModeEnum.Squared,
+				AudioStreamPlayer3D.AttenuationModelEnum.Logarithmic => SoundAttenuationModeEnum.Logarithmic,
+				AudioStreamPlayer3D.AttenuationModelEnum.Disabled => SoundAttenuationModeEnum.Disabled,
+				_ => SoundAttenuationModeEnum.Disabled
+			};
+		}
+		set
+		{
+			if (_audioPlayer3D == null) return;
+
+			_attenuationMode = value switch
+			{
+				SoundAttenuationModeEnum.Linear => AudioStreamPlayer3D.AttenuationModelEnum.InverseDistance,
+				SoundAttenuationModeEnum.Squared => AudioStreamPlayer3D.AttenuationModelEnum.InverseSquareDistance,
+				SoundAttenuationModeEnum.Logarithmic => AudioStreamPlayer3D.AttenuationModelEnum.Logarithmic,
+				SoundAttenuationModeEnum.Disabled => AudioStreamPlayer3D.AttenuationModelEnum.Disabled,
+				_ => _audioPlayer3D.AttenuationModel
+			};
+
+			_audioPlayer3D.AttenuationModel = _attenuationMode;
+			_audioPlayer3D.AttenuationFilterCutoffHz = _attenuationMode == AudioStreamPlayer3D.AttenuationModelEnum.Disabled ? 20500 : 5000;
+
+			OnPropertyChanged();
+		}
+	}
+
 	/// <summary>
 	/// Indicates the current playback position of the sound in seconds.
 	/// </summary>
@@ -247,9 +317,7 @@ public sealed partial class Sound : Dynamic
 	/// The total length of the sound in seconds.
 	/// </summary>
 	[ScriptProperty]
-	public float Length => _audioPlayer != null
-				? (float)_audioPlayer.Stream.GetLength()
-				: _audioPlayer3D != null ? (float)_audioPlayer3D.Stream.GetLength() : 0;
+	public float Length => (_currentStream != null ? (float)_currentStream.GetLength() : 0);
 
 	/// <summary>
 	/// Fires when this sound has loaded.
@@ -307,11 +375,11 @@ public sealed partial class Sound : Dynamic
 		{
 			_audioPlayer3D = new AudioStreamPlayer3D
 			{
-				Stream = _currentStream
+				Stream = _currentStream,
+				AttenuationModel = _attenuationMode,
+				AttenuationFilterCutoffHz = _attenuationMode == AudioStreamPlayer3D.AttenuationModelEnum.Disabled ? 20500 : 5000
 			};
 			GDNode.AddChild(_audioPlayer3D, @internal: Node.InternalMode.Back);
-			// check issue https://github.com/godotengine/godot/issues/23485
-			_audioPlayer3D.AttenuationFilterCutoffHz = 20500;
 			_audioPlayer3D.Finished += OnPlayerFinished;
 		}
 		UpdateAudioPlayer();
@@ -431,9 +499,9 @@ public sealed partial class Sound : Dynamic
 	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
 	private void NetPlayOneshot(float volume)
 	{
-		if (volume > 1)
+		if (volume > MaxVolume)
 		{
-			volume = 1;
+			volume = MaxVolume;
 		}
 
 		InternalPlayOneShot(volume);
@@ -548,7 +616,9 @@ public sealed partial class Sound : Dynamic
 		_currentStream = (AudioStream)audio;
 		_audioPlayer?.Stream = (AudioStream)audio;
 		_audioPlayer3D?.Stream = (AudioStream)audio;
-		Loop = _loop; // reapply to new stream
+		// reapply to new stream
+		LoopStart = _loopStart;
+		Loop = _loop;
 
 		Loaded.Invoke();
 
