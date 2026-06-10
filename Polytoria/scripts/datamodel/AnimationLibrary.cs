@@ -38,25 +38,25 @@ public partial class AnimationLibrary : Instance
     /// Emitted when an <see cref="Animation"> is added to the library.
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationAdded { get; private set; } = new();
+    public PTSignal<string> AnimationAdded { get; private set; } = new();
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> in the library is modified.
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationChanged { get; private set; } = new();
+    public PTSignal<string> AnimationChanged { get; private set; } = new();
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> is removed from the library.
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationRemoved { get; private set; } = new();
+    public PTSignal<string> AnimationRemoved { get; private set; } = new();
 
     /// <summary>
     /// Emitted when an <see cref="Animation"> key is renamed.
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationRenamed{ get; private set; } = new();
+    public PTSignal<string> AnimationRenamed{ get; private set; } = new();
 
     private void OnAnimationAdded(StringName name)
     {
@@ -106,7 +106,7 @@ public partial class AnimationLibrary : Instance
     /// <param name="animation">The <see cref="Animation"> to store.</param>
     /// <returns>The <see cref="ErrorEnum"> returned by Godot.</returns>
     [ScriptMethod]
-    public ErrorEnum AddAnimation(PTStringName name, Animation animation)
+    public ErrorEnum AddAnimation(string name, Animation animation)
     {
         return (ErrorEnum)GDAnimationLibrary.AddAnimation(name, animation);
     }
@@ -117,7 +117,7 @@ public partial class AnimationLibrary : Instance
     /// <param name="name">The key of the animation to retrieve.</param>
     /// <returns>The <see cref="Animation"> if found, otherwise <c>null</c>.</returns>
     [ScriptMethod]
-    public Animation? GetAnimation(PTStringName name)
+    public Animation? GetAnimation(string name)
     {
         return GDAnimationLibrary.GetAnimation(name);
     }
@@ -127,13 +127,13 @@ public partial class AnimationLibrary : Instance
     /// </summary>
     /// <returns>An array of <see cref="StringName"> keys.</returns>
     [ScriptMethod]
-    public PTStringName[] GetAnimationList()
+    public string[] GetAnimationList()
     {
         var array = GDAnimationLibrary.GetAnimationList();
-        var result = new PTStringName[array.Count];
+        var result = new string[array.Count];
         for (int i = 0; i < array.Count; i++)
         {
-            result[i] = (PTStringName)array[i];
+            result[i] = (string)array[i];
         }
         return result;
     }
@@ -154,7 +154,7 @@ public partial class AnimationLibrary : Instance
     /// <param name="name">The key to check.</param>
     /// <returns><c>true</c> if the animation exists, otherwise <c>false</c>.</returns>
     [ScriptMethod]
-    public bool HasAnimation(PTStringName name)
+    public bool HasAnimation(string name)
     {
         return GDAnimationLibrary.HasAnimation(name);
     }
@@ -164,7 +164,7 @@ public partial class AnimationLibrary : Instance
     /// </summary>
     /// <param name="name">The key of the animation to remove.</param>
     [ScriptMethod]
-    public void RemoveAnimation(PTStringName name)
+    public void RemoveAnimation(string name)
     {
         GDAnimationLibrary.RemoveAnimation(name);
     }
@@ -175,7 +175,7 @@ public partial class AnimationLibrary : Instance
     /// <param name="name">The current key of the animation.</param>
     /// <param name="newname">The new key for the animation.</param>
     [ScriptMethod]
-    public void RenameAnimation(PTStringName name, PTStringName newname)
+    public void RenameAnimation(string name, string newname)
     {
         GDAnimationLibrary.RenameAnimation(name, newname);
     }

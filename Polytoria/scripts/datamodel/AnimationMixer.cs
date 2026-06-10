@@ -173,7 +173,7 @@ public abstract partial class AnimationMixer : Instance
     /// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationFinished { get; private set; } = new();
+    public PTSignal<string> AnimationFinished { get; private set; } = new();
 
     /// <summary>
     /// Notifies when the animation libraries have changed.
@@ -192,7 +192,7 @@ public abstract partial class AnimationMixer : Instance
     /// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
     /// </summary>
     [ScriptProperty]
-    public PTSignal<PTStringName> AnimationStarted { get; private set; } = new();
+    public PTSignal<string> AnimationStarted { get; private set; } = new();
 
     /// <summary>
     /// Notifies when the caches have been cleared, either automatically, or manually via <see cref="ClearCaches"/>.
@@ -283,7 +283,7 @@ public abstract partial class AnimationMixer : Instance
     /// AnimationMixer has a global library by default with an empty string as key.
     /// </summary>
     [ScriptMethod]
-    public ErrorEnum AddAnimationLibrary(PTStringName name, AnimationLibrary library)
+    public ErrorEnum AddAnimationLibrary(string name, AnimationLibrary library)
         => (ErrorEnum)GDAnimationMixer.AddAnimationLibrary(name, library);
 
     /// <summary>
@@ -297,7 +297,7 @@ public abstract partial class AnimationMixer : Instance
     /// After this it will interpolate with current animation blending result during the playback process for the time specified by <paramref name="duration"/>.
     /// </summary>
     [ScriptMethod]
-    public void Capture(PTStringName name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
+    public void Capture(string name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
         => GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
 
     /// <summary>
@@ -310,38 +310,38 @@ public abstract partial class AnimationMixer : Instance
     /// Returns the key of <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public PTStringName FindAnimation(Animation animation) => GDAnimationMixer.FindAnimation(animation);
+    public string FindAnimation(Animation animation) => GDAnimationMixer.FindAnimation(animation);
 
     /// <summary>
     /// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>StringName</c> if not found.
     /// </summary>
     [ScriptMethod]
-    public PTStringName FindAnimationLibrary(Animation animation) => GDAnimationMixer.FindAnimationLibrary(animation);
+    public string FindAnimationLibrary(Animation animation) => GDAnimationMixer.FindAnimationLibrary(animation);
 
     /// <summary>
     /// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
     /// </summary>
     [ScriptMethod]
-    public Animation? GetAnimation(PTStringName name) => GDAnimationMixer.GetAnimation(name);
+    public Animation? GetAnimation(string name) => GDAnimationMixer.GetAnimation(name);
 
     /// <summary>
     /// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
     /// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
     /// </summary>
     [ScriptMethod]
-    public AnimationLibrary? GetAnimationLibrary(PTStringName name) => GDAnimationMixer.GetAnimationLibrary(name);
+    public AnimationLibrary? GetAnimationLibrary(string name) => GDAnimationMixer.GetAnimationLibrary(name);
 
     /// <summary>
     /// Returns the list of stored library keys.
     /// </summary>
     [ScriptMethod]
-    public PTStringName[] GetAnimationLibraryList()
+    public string[] GetAnimationLibraryList()
      {
         var array = GDAnimationMixer.GetAnimationLibraryList();
-        var result = new PTStringName[array.Count];
+        var result = new string[array.Count];
         for (int i = 0; i < array.Count; i++)
         {
-            result[i] = (PTStringName)array[i];
+            result[i] = (string)array[i];
         }
         return result;
     }
@@ -397,23 +397,23 @@ public abstract partial class AnimationMixer : Instance
     /// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>Animation</c> with key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public bool HasAnimation(PTStringName name) => GDAnimationMixer.HasAnimation(name);
+    public bool HasAnimation(string name) => GDAnimationMixer.HasAnimation(name);
 
     /// <summary>
     /// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>AnimationLibrary</c> with key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public bool HasAnimationLibrary(PTStringName name) => GDAnimationMixer.HasAnimationLibrary(name);
+    public bool HasAnimationLibrary(string name) => GDAnimationMixer.HasAnimationLibrary(name);
 
     /// <summary>
     /// Removes the <c>AnimationLibrary</c> associated with the key <paramref name="name"/>.
     /// </summary>
     [ScriptMethod]
-    public void RemoveAnimationLibrary(PTStringName name) => GDAnimationMixer.RemoveAnimationLibrary(name);
+    public void RemoveAnimationLibrary(string name) => GDAnimationMixer.RemoveAnimationLibrary(name);
 
     /// <summary>
     /// Moves the <c>AnimationLibrary</c> associated with the key <paramref name="name"/> to the key <paramref name="newname"/>.
     /// </summary>
     [ScriptMethod]
-    public void RenameAnimationLibrary(PTStringName name, PTStringName newname) => GDAnimationMixer.RenameAnimationLibrary(name, newname);
+    public void RenameAnimationLibrary(string name, string newname) => GDAnimationMixer.RenameAnimationLibrary(name, newname);
 }

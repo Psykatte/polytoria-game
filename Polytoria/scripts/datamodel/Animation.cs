@@ -95,7 +95,7 @@ public partial class Animation : Instance
 	/// <param name="name">The name of the marker.</param>
 	/// <param name="time">The time (in seconds) where the marker is placed.</param>
 	[ScriptMethod]
-    public void AddMarker(PTStringName name, float time)
+    public void AddMarker(string name, float time)
     {
         GDAnimation.AddMarker(name, time);
     }
@@ -119,7 +119,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key within the track.</param>
     /// <returns>The animation name (StringName) at the specified key.</returns>
     [ScriptMethod]
-    public PTStringName AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
+    public string AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
     {
         return GDAnimation.AnimationTrackGetKeyAnimation(trackIdx, keyIdx);
     }
@@ -132,7 +132,7 @@ public partial class Animation : Instance
     /// <param name="animation">The animation name to set for this key.</param>
     /// <returns>The index of the newly inserted key.</returns>
     [ScriptMethod]
-    public int AnimationTrackInsertKey(int trackIdx, float time, PTStringName animation)
+    public int AnimationTrackInsertKey(int trackIdx, float time, string animation)
     {
         return GDAnimation.AnimationTrackInsertKey(trackIdx, time, animation);
     }
@@ -144,7 +144,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key to set.</param>
     /// <param name="animation">The animation name to assign to the key.</param>
     [ScriptMethod]
-    public void AnimationTrackSetKeyAnimation(int trackIdx, int keyIdx, PTStringName animation)
+    public void AnimationTrackSetKeyAnimation(int trackIdx, int keyIdx, string animation)
     {
         GDAnimation.AnimationTrackSetKeyAnimation(trackIdx, keyIdx, animation);
     }
@@ -440,7 +440,7 @@ public partial class Animation : Instance
     /// <param name="time">The time (in seconds) to check for a marker.</param>
     /// <returns>The name of the marker, or an empty StringName if none exists.</returns>
     [ScriptMethod]
-    public PTStringName GetMarkerAtTime(float time)
+    public string GetMarkerAtTime(float time)
     {
         return GDAnimation.GetMarkerAtTime(time);
     }
@@ -451,7 +451,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <returns>The Color of the marker.</returns>
     [ScriptMethod]
-    public Color GetMarkerColor(PTStringName name)
+    public Color GetMarkerColor(string name)
     {
         return GDAnimation.GetMarkerColor(name);
     }
@@ -472,7 +472,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <returns>The time (in seconds) of the marker.</returns>
     [ScriptMethod]
-    public double GetMarkerTime(PTStringName name)
+    public double GetMarkerTime(string name)
     {
         return GDAnimation.GetMarkerTime(name);
     }
@@ -483,7 +483,7 @@ public partial class Animation : Instance
     /// <param name="time">The reference time (in seconds).</param>
     /// <returns>The name of the next marker, or an empty StringName.</returns>
     [ScriptMethod]
-    public PTStringName GetNextMarker(float time)
+    public string GetNextMarker(float time)
     {
         return GDAnimation.GetNextMarker(time);
     }
@@ -494,7 +494,7 @@ public partial class Animation : Instance
     /// <param name="time">The reference time (in seconds).</param>
     /// <returns>The name of the previous marker, or an empty StringName.</returns>
     [ScriptMethod]
-    public PTStringName GetPrevMarker(float time)
+    public string GetPrevMarker(float time)
     {
         return GDAnimation.GetPrevMarker(time);
     }
@@ -515,7 +515,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker to check.</param>
     /// <returns><c>true</c> if the marker exists; otherwise, <c>false</c>.</returns>
     [ScriptMethod]
-    public bool HasMarker(PTStringName name)
+    public bool HasMarker(string name)
     {
         return GDAnimation.HasMarker(name);
     }
@@ -528,7 +528,7 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The name of the method to call.</returns>
 /*     [ScriptMethod]
-    public PTStringName MethodTrackGetName(int trackIdx, int keyIdx)
+    public string MethodTrackGetName(int trackIdx, int keyIdx)
     {
         return GDAnimation.MethodTrackGetName(trackIdx, keyIdx);
     } */
@@ -589,7 +589,7 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="name">The name of the marker to remove.</param>
     [ScriptMethod]
-    public void RemoveMarker(PTStringName name)
+    public void RemoveMarker(string name)
     {
         GDAnimation.RemoveMarker(name);
     }
@@ -662,7 +662,7 @@ public partial class Animation : Instance
     /// <param name="name">The name of the marker.</param>
     /// <param name="color">The new color for the marker.</param>
     [ScriptMethod]
-    public void SetMarkerColor(PTStringName name, Color color)
+    public void SetMarkerColor(string name, Color color)
     {
         GDAnimation.SetMarkerColor(name, color);
     }
