@@ -10,7 +10,7 @@ namespace Polytoria.Enums;
 /// Process animation during physics frames (see <c>Node.NOTIFICATION_INTERNAL_PHYSICS_PROCESS</c>). 
 /// This is especially useful when animating physics bodies.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("AnimationCallbackModeProcess")]
 public enum AnimationCallbackModeProcessEnum
 {
     /// <summary>
@@ -33,7 +33,7 @@ public enum AnimationCallbackModeProcessEnum
 /// <summary>
 /// Controls how method calls are handled during animation playback.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("AnimationCallbackModeMethod")]
 public enum AnimationCallbackModeMethodEnum
 {
     /// <summary>
@@ -51,7 +51,7 @@ public enum AnimationCallbackModeMethodEnum
 /// <summary>
 /// Controls how discrete track values are blended with continuous or capture track values.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("AnimationCallbackModeDiscrete")]
 public enum AnimationCallbackModeDiscreteEnum
 {
     /// <summary>
@@ -80,7 +80,7 @@ public enum AnimationCallbackModeDiscreteEnum
 /// <summary>
 /// Defines the easing behavior for interpolation.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("EaseType")]
 public enum EaseTypeEnum
 {
     /// <summary>
@@ -109,7 +109,7 @@ public enum EaseTypeEnum
 /// <summary>
 /// Defines the search mode for finding keys in animations.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("FindMode")]
 public enum FindModeEnum
 {
     /// <summary>
@@ -131,7 +131,7 @@ public enum FindModeEnum
 /// <summary>
 /// Defines the interpolation method for animation tracks.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("InterpolationType")]
 public enum InterpolationTypeEnum
 {
     /// <summary>
@@ -167,7 +167,7 @@ public enum InterpolationTypeEnum
 /// <summary>
 /// Flags indicating loop state during animation playback.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("LoopedFlag")]
 public enum LoopedFlagEnum
 {
     /// <summary>
@@ -189,7 +189,7 @@ public enum LoopedFlagEnum
 /// <summary>
 /// Defines the loop mode for animations.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("LoopMode")]
 public enum LoopModeEnum
 {
     /// <summary>
@@ -211,7 +211,7 @@ public enum LoopModeEnum
 /// <summary>
 /// Defines the type of animation track.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("TrackType")]
 public enum TrackTypeEnum
 {
     /// <summary>
@@ -268,7 +268,7 @@ public enum TrackTypeEnum
 /// <summary>
 /// Defines the transition function used for interpolation.
 /// </summary>
-[ScriptEnum]
+[ScriptEnum("TransitionType")]
 public enum TransitionTypeEnum
 {
     /// <summary>
