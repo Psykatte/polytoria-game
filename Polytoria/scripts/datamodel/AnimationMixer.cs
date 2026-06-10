@@ -28,8 +28,8 @@ public abstract partial class AnimationMixer : Instance
     private bool _deterministic = false;
     private bool _resetOnSave = true;
     private bool _rootMotionLocal = false;
-    private NodePath _rootMotionTrack = new("");
-    private NodePath _rootNode = new("..");
+/*     private NodePath _rootMotionTrack = new("");
+    private NodePath _rootNode = new(".."); */
 
 	[SyncVar]
 	public bool AutoInit { get; set; } = true;
@@ -145,7 +145,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// The path to the Animation track used for root motion. Paths must be valid scene-tree paths to a node, and must be specified starting from the parent node of the node that will reproduce the animation.
     /// </summary>
-    [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty]
     public NodePath RootMotionTrack {
         get => _rootMotionTrack;
         set {
@@ -153,12 +153,12 @@ public abstract partial class AnimationMixer : Instance
             GDAnimationMixer.RootMotionTrack = value;
             OnPropertyChanged();
         }
-    }
+    } */
 
     /// <summary>
     /// The node which node path references will travel from.
     /// </summary>
-    [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty]
     public NodePath RootNode {
         get => _rootNode;
         set {
@@ -166,7 +166,7 @@ public abstract partial class AnimationMixer : Instance
             GDAnimationMixer.RootNode = value;
             OnPropertyChanged();
         }
-    }
+    } */
 
     /// <summary>
     /// Notifies when an animation finished playing.

@@ -428,11 +428,11 @@ public partial class Animation : Instance
     /// <param name="path">The NodePath of the property/bone being animated.</param>
     /// <param name="type">The type of track to search for.</param>
     /// <returns>The index of the track, or -1 if not found.</returns>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public int FindTrack(NodePath path, TrackTypeEnum type)
     {
         return GDAnimation.FindTrack(path, (Godot.Animation.TrackType)type);
-    }
+    } */
 
     /// <summary>
     /// Returns the name of the marker located at the given time.
@@ -758,11 +758,11 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="trackIdx">The index of the track.</param>
     /// <returns>The NodePath of the track.</returns>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public NodePath TrackGetPath(int trackIdx)
     {
         return GDAnimation.TrackGetPath(trackIdx);
-    }
+    } */
 
     /// <summary>
     /// Gets the type of a track.
@@ -961,11 +961,11 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="trackIdx">The index of the track.</param>
     /// <param name="path">The new NodePath for the track.</param>
-    [ScriptMethod]
+/*     [ScriptMethod]
     public void TrackSetPath(int trackIdx, NodePath path)
     {
         GDAnimation.TrackSetPath(trackIdx, path);
-    }
+    } */
 
     /// <summary>
     /// Swaps the track <paramref name="trackIdx"/>'s index position with the track <paramref name="withIdx"/>.
