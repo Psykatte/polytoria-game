@@ -30,7 +30,7 @@ public partial class Animation : Instance
     /// <summary>
     /// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
     /// </summary>
-	[Editable, ScriptProperty, DefaultValue(false)]
+	[ScriptProperty, DefaultValue(false)]
     public bool CaptureIncluded { get => _captureIncluded; }
 
     /// <summary>
