@@ -9,6 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace Polytoria.Scripting.Datatypes;
 
+// TODO: This is a placeholder, it needs a much more controlled implementation.
+
 /// <summary>
 /// StringNames are immutable strings designed for general-purpose representation
 /// of unique names. StringName ensures that only one instance of a given name exists
@@ -46,7 +48,26 @@ public class PTStringName : IScriptGDObject
 	}
 
     // Implicit conversion from ACL type to Godot type.
-    public static implicit operator StringName(PTStringName acl) => acl.GDStringName;
+    public static implicit operator StringName(PTStringName? acl)
+	{
+		if (acl == null) return new StringName("");
+		return acl.GDStringName;
+	}
+
+    // Implicit conversion from string type to ACL type.
+    public static implicit operator PTStringName(string str)
+	{
+		if (GDStringNames.TryGetValue(str, out PTStringName? acl))
+		{
+			return acl;
+		}
+		else
+		{
+			acl = new StringName(str);
+        	GDStringNames.Add(str, acl);
+			return acl;
+		}
+	}
 
     // Implicit conversion from Godot type to ACL type.
     public static implicit operator PTStringName(StringName gd)
