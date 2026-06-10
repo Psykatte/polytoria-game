@@ -37,7 +37,7 @@ public partial class Animation : Instance
     /// The total length of the animation (in seconds).
     /// <para><strong>Note:</strong> Length is not delimited by the last key, as this one may be before or after the end to ensure correct interpolation and looping.</para>
     /// </summary>
-	[Editable, ScriptProperty, DefaultValue(1)]
+	[Editable, ScriptProperty, DefaultValue(1.0f)]
     public float Length {
         get => _length;
         set

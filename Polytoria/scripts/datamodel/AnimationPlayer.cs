@@ -81,7 +81,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// When set, this changes the animation, but will not play it unless already playing.
     /// See also <see cref="CurrentAnimation"/>.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(null)]
     public PTStringName? AssignedAnimation {
         get => _assignedAnimation;
         set {
@@ -94,7 +94,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The key of the animation to play when the scene loads.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue("")]
     public PTStringName Autoplay {
         get => _autoplay;
         set {
@@ -110,7 +110,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <para><strong>Note:</strong> While this property appears in the Inspector, it's not meant to be edited, and it's not saved in the scene.
     /// This property is mainly used to get the currently playing animation, and internally for animation playback tracks.</para>
     /// </summary>
-    [ScriptProperty]
+    [ScriptProperty, DefaultValue("")]
     public PTStringName CurrentAnimation {
         get => _currentAnimation;
     }
@@ -118,7 +118,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The length (in seconds) of the currently playing animation.
     /// </summary>
-    [ScriptProperty]
+    [ScriptProperty, DefaultValue(null)]
     public float? CurrentAnimationLength {
         get {
             var val = GDAnimationPlayer?.CurrentAnimationLength;
@@ -129,7 +129,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The position (in seconds) of the currently playing animation.
     /// </summary>
-    [ScriptProperty]
+    [ScriptProperty, DefaultValue(null)]
     public float? CurrentAnimationPosition {
         get {
             var val = GDAnimationPlayer?.CurrentAnimationPosition;
@@ -142,7 +142,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// as soon as an animation is done playing in this <c>Polytoria.Datamodel.AnimationPlayer</c>. A message is printed when the engine quits for this reason.
     /// <para><strong>Note:</strong> This obeys the same logic as the <c>AnimationMixer.AnimationFinished</c> signal, so it will not quit the engine if the animation is set to be looping.</para>
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(false)]
     public bool MovieQuitOnFinishEnabled {
         get => _movieQuitOnFinish;
         set {
@@ -157,7 +157,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// This means just <see cref="PlayWithCapture"/> is executed with default arguments instead of <see cref="Play"/>.
     /// <para><strong>Note:</strong> Capture interpolation is only performed if the animation contains a capture track. See also <c>Animation.UpdateCapture</c>.</para>
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(true)]
     public bool PlaybackAutoCapture {
         get => _playbackAutoCapture;
         set {
@@ -171,7 +171,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// Duration for auto capture. If negative, the duration is set to the interval between the current position and the first key.
     /// See also <see cref="PlayWithCapture"/> and <c>AnimationMixer.Capture()</c>.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(-1.0f)]
     public float PlaybackAutoCaptureDuration {
         get => _playbackAutoCaptureDuration;
         set {
@@ -184,7 +184,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The transition type of the capture interpolation. See also <c>TransitionType</c>.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(TransitionTypeEnum.Linear)]
     public TransitionTypeEnum PlaybackAutoCaptureTransitionType {
         get => _playbackAutoCaptureTransitionType;
         set {
@@ -197,7 +197,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The ease type of the capture interpolation. See also <c>EaseType</c>.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(EaseTypeEnum.In)]
     public EaseTypeEnum PlaybackAutoCaptureEaseType {
         get => _playbackAutoCaptureEaseType;
         set {
@@ -210,7 +210,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// <summary>
     /// The default time in which to blend animations. Ranges from 0 to 4096 with 0.01 precision.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(0.0f)]
     public float PlaybackDefaultBlendTime {
         get => _playbackDefaultBlendTime;
         set {
@@ -225,7 +225,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// If it's <c>0.5</c>, then it plays at half speed. If it's <c>2</c>, then it plays at double speed.
     /// If set to a negative value, the animation is played in reverse. If set to <c>0</c>, the animation will not advance.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(1.0)]
     public float SpeedScale {
         get => _speedScale;
         set {

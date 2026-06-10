@@ -22,10 +22,10 @@ public abstract partial class AnimationMixer : Instance
     protected abstract Godot.AnimationMixer GDAnimationMixer { get; }
     private bool _active = true;
     private int _audioMaxPolyphony = 32;
-    private AnimationCallbackModeDiscreteEnum _callbackModeDiscrete = AnimationCallbackModeDiscreteEnum.Recessive;
+    protected AnimationCallbackModeDiscreteEnum _callbackModeDiscrete = AnimationCallbackModeDiscreteEnum.Recessive;
     private AnimationCallbackModeMethodEnum _callbackModeMethod = AnimationCallbackModeMethodEnum.Deferred;
     private AnimationCallbackModeProcessEnum _callbackModeProcess = AnimationCallbackModeProcessEnum.Idle;
-    private bool _deterministic = false;
+    protected bool _deterministic = false;
     private bool _resetOnSave = true;
     private bool _rootMotionLocal = false;
 /*     private NodePath _rootMotionTrack = new("");
@@ -37,7 +37,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// If <c>true</c>, the <strong>AnimationMixer</strong> will be processing.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(true)]
     public bool Active {
         get => _active;
         set {
@@ -51,7 +51,7 @@ public abstract partial class AnimationMixer : Instance
     /// The number of possible simultaneous sounds for each of the assigned AudioStreamPlayers.
     /// For example, if this value is <c>32</c> and the animation has two audio tracks, the two <c>AudioStreamPlayer</c>s assigned can play simultaneously up to <c>32</c> voices each.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(32)]
     public int AudioMaxPolyphony {
         get => _audioMaxPolyphony;
         set {
@@ -66,8 +66,8 @@ public abstract partial class AnimationMixer : Instance
     /// However, when blending with <c>Animation.UPDATE_CONTINUOUS</c> several results are considered. The <c>callback_mode_discrete</c> specify it explicitly.
     /// To make the blended results look good, it is recommended to set this to <c>ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS</c> to update every frame during blending.
     /// </summary>
-    [Editable, ScriptProperty]
-    public AnimationCallbackModeDiscreteEnum CallbackModeDiscrete {
+    [Editable, ScriptProperty, DefaultValue(AnimationCallbackModeDiscreteEnum.Recessive)]
+    public virtual AnimationCallbackModeDiscreteEnum CallbackModeDiscrete {
         get => _callbackModeDiscrete;
         set {
             _callbackModeDiscrete = value;
@@ -79,7 +79,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// The call mode used for "Call Method" tracks.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(AnimationCallbackModeMethodEnum.Deferred)]
     public AnimationCallbackModeMethodEnum CallbackModeMethod {
         get => _callbackModeMethod;
         set {
@@ -92,7 +92,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// The process notification in which to update animations.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(AnimationCallbackModeProcessEnum.Idle)]
     public AnimationCallbackModeProcessEnum CallbackModeProcess {
         get => _callbackModeProcess;
         set {
@@ -106,8 +106,8 @@ public abstract partial class AnimationMixer : Instance
     /// If <c>true</c>, the blending uses the deterministic algorithm. The total weight is not normalized and the result is accumulated with an initial value (<c>0</c> or a <c>"RESET"</c> animation if present).
     /// If <c>false</c>, The blend does not use the deterministic algorithm. The total weight is normalized and always <c>1.0</c>.
     /// </summary>
-    [Editable, ScriptProperty]
-    public bool Deterministic {
+    [Editable, ScriptProperty, DefaultValue(false)]
+    public virtual bool Deterministic {
         get => _deterministic;
         set {
             _deterministic = value;
@@ -119,7 +119,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// This is used by the editor. If set to <c>true</c>, the scene will be saved with the effects of the reset animation (the animation with the key <c>"RESET"</c>) applied as if it had been seeked to time 0.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(true)]
     public bool ResetOnSaveEnabled {
         get => _resetOnSave;
         set {
@@ -132,7 +132,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// If <c>true</c>, <c>get_root_motion_position()</c> value is extracted as a local translation value before blending. In other words, it is treated like the translation is done after the rotation.
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue(false)]
     public bool RootMotionLocal {
         get => _rootMotionLocal;
         set {
@@ -145,7 +145,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// The path to the Animation track used for root motion. Paths must be valid scene-tree paths to a node, and must be specified starting from the parent node of the node that will reproduce the animation.
     /// </summary>
-/*     [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty, DefaultValue("")]
     public NodePath RootMotionTrack {
         get => _rootMotionTrack;
         set {
@@ -158,7 +158,7 @@ public abstract partial class AnimationMixer : Instance
     /// <summary>
     /// The node which node path references will travel from.
     /// </summary>
-/*     [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty, DefaultValue("..")]
     public NodePath RootNode {
         get => _rootNode;
         set {

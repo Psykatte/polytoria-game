@@ -4,6 +4,7 @@
 
 using Godot;
 using Polytoria.Attributes;
+using Polytoria.Enums;
 using Polytoria.Scripting;
 using Polytoria.Shared;
 
@@ -29,7 +30,7 @@ public partial class AnimationTree : AnimationMixer
     /// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
     /// if one is not explicitly specified internally.
     /// </summary>
-/*     [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty, DefaultValue(".")]
     public NodePath AdvanceExpressionBaseNode {
         get => _advanceExpressionBaseNode;
         set {
@@ -46,7 +47,7 @@ public partial class AnimationTree : AnimationMixer
     /// should be handled using only the <c>AnimationTree</c> and its constituent <see cref="AnimationNode"/>(s).
     /// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
     /// </summary>
-    [Editable, ScriptProperty]
+    [Editable, ScriptProperty, DefaultValue("")]
     public AnimationPlayer? AnimPlayer {
         get => _animPlayer;
         set {
@@ -62,9 +63,34 @@ public partial class AnimationTree : AnimationMixer
     }
 
     /// <summary>
+    /// Ordinarily, tracks can be set to <c>Animation.UPDATE_DISCRETE</c> to update infrequently, usually when using nearest interpolation.
+    /// However, when blending with <c>Animation.UPDATE_CONTINUOUS</c> several results are considered. The <c>callback_mode_discrete</c> specify it explicitly.
+    /// To make the blended results look good, it is recommended to set this to <c>ANIMATION_CALLBACK_MODE_DISCRETE_FORCE_CONTINUOUS</c> to update every frame during blending.
+    /// </summary>
+    [Editable, ScriptProperty, DefaultValue(AnimationCallbackModeDiscreteEnum.ForceContinuous)]
+    public override AnimationCallbackModeDiscreteEnum CallbackModeDiscrete {
+        get => _callbackModeDiscrete;
+        set {
+            _callbackModeDiscrete = value;
+            GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>
+    /// If <c>true</c>, the blending uses the deterministic algorithm. The total weight is not normalized and the result is accumulated with an initial value (<c>0</c> or a <c>"RESET"</c> animation if present).
+    /// If <c>false</c>, The blend does not use the deterministic algorithm. The total weight is normalized and always <c>1.0</c>.
+    /// </summary>
+    [Editable, ScriptProperty, DefaultValue(true)]
+    public override bool Deterministic {
+        get => base.Deterministic;
+        set => base.Deterministic = value;
+    }
+
+    /// <summary>
     /// The root animation node of this <c>AnimationTree</c>. See <see cref="AnimationRootNode"/>.
     /// </summary>
-/*     [Editable, ScriptProperty]
+/*     [Editable, ScriptProperty, DefaultValue(null)]
     public AnimationRootNode? TreeRoot {
         get => _treeRoot;
         set {
