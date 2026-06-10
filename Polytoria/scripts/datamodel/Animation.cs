@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
-using Polytoria.Scripting.Datatypes;
 
 namespace Polytoria.Datamodel;
 

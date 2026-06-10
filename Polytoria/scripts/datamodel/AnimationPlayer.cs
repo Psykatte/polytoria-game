@@ -6,7 +6,6 @@ using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
-using Polytoria.Scripting.Datatypes;
 using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
