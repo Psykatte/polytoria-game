@@ -11,7 +11,7 @@ using Polytoria.Scripting.Datatypes;
 
 namespace Polytoria.Datamodel;
 
-// Polytoria.Datamodel.AnimationMixer is an anti-corruption layer for interfacing with Godot.AnimationMixer.
+// Polytoria.Datamodel.AnimationLibrary is an anti-corruption layer for interfacing with Godot.AnimationLibrary.
 
 /// <summary>
 /// An animation library stores a set of animations accessible through <see cref="StringName"> keys, for use with <see cref="AnimationPlayer"> nodes.
