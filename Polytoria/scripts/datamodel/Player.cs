@@ -615,6 +615,8 @@ public sealed partial class Player : NPC
 
 	public override void PhysicsProcess(double delta)
 	{
+		base.PhysicsProcess(delta);
+
 		if (Root.SessionType != World.SessionTypeEnum.Client || !IsLocal || !IsReady) { return; }
 
 		if (Character is PolytorianModel pt && pt.Ragdolling)
@@ -642,13 +644,13 @@ public sealed partial class Player : NPC
 			{
 				if (!IsClimbing)
 				{
-					if (ClimbDebounce)
+					if (!ClimbDebounce)
 					{
-						return;
+						ClimbingTruss = truss;
+						IsClimbing = true;
+						Character?.PlayClimb();
 					}
-					ClimbingTruss = truss;
-					IsClimbing = true;
-					Character?.PlayClimb();
+
 				}
 			}
 			else
@@ -709,8 +711,6 @@ public sealed partial class Player : NPC
 		AfkTick(delta);
 
 		ApplyPushForce();
-
-		base.PhysicsProcess(delta);
 	}
 
 	internal void EndClimb()

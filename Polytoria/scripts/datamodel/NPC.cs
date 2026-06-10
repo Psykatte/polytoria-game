@@ -29,7 +29,7 @@ public partial class NPC : Physical
 	public const float ForwardRaycastRange = 1;
 	public const float StairForwardRaycastRange = 4;
 	public const float NameTagHeightMinus = 3f;
-	private Vector3 _seatOffset = new(0, 1.5f, 0);
+	private Vector3 _seatOffset = new(0, 1.7f, 0);
 	private float _health = 100;
 	private RemoteTransform3D? _toolRemoteTransform;
 	private float _maxHealth = 100;
@@ -567,6 +567,8 @@ public partial class NPC : Physical
 
 	public override void PhysicsProcess(double delta)
 	{
+		base.PhysicsProcess(delta);
+
 		if (Root == null) return;
 		if (Anchored || IsHidden) return;
 		if (!Root.IsLoaded) return;
@@ -585,8 +587,15 @@ public partial class NPC : Physical
 			if (!Root.Network.IsServer && SittingIn != null)
 			{
 				Velocity = Vector3.Zero;
-				Position = SittingIn.Position + SeatOffset * Up;
-				Rotation = SittingIn.Rotation;
+				Position = SittingIn.Position + SeatOffset.Y * Up;
+				if (!SittingIn.SitDirectionLocked)
+				{
+					Rotation = new Vector3(SittingIn.Rotation.X, Rotation.Y, SittingIn.Rotation.Z);
+				}
+				else
+				{
+					Rotation = SittingIn.Rotation;
+				}
 				Character?.PlayIdle();
 			}
 			return;
@@ -702,8 +711,6 @@ public partial class NPC : Physical
 				}
 			}
 		}
-
-		base.PhysicsProcess(delta);
 	}
 
 	[ScriptMethod]
