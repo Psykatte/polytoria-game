@@ -6,7 +6,6 @@ using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
-using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
@@ -57,12 +56,20 @@ public partial class AnimationPlayer : AnimationMixer
     {
         CurrentAnimationChanged.Invoke(name);
     }
-    
-    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
+
+	public override Node CreateGDNode()
+	{
+		return new Godot.AnimationPlayer();
+	}
+
+	public override void InitGDNode()
+	{
+		GDAnimationPlayer = (Godot.AnimationPlayer)GDNode;
+		base.InitGDNode();
+	}
 
     public override void Init()
     {
-        GDAnimationPlayer = (Godot.AnimationPlayer)GDNode;
         GDAnimationPlayer.AnimationChanged += OnAnimationChanged;
         GDAnimationPlayer.CurrentAnimationChanged += OnCurrentAnimationChanged;
         base.Init();

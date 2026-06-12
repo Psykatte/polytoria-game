@@ -6,7 +6,6 @@ using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
-using Polytoria.Shared;
 
 namespace Polytoria.Datamodel;
 
@@ -47,20 +46,16 @@ public partial class AnimationTree : AnimationMixer
     /// should be handled using only the <c>AnimationTree</c> and its constituent <see cref="AnimationNode"/>(s).
     /// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
     /// </summary>
-    [Editable, ScriptProperty, DefaultValue("")]
+/*     [Editable, ScriptProperty]
     public AnimationPlayer? AnimPlayer {
         get => _animPlayer;
         set {
             _animPlayer = value;
-            if (value != null)
-            {
-                value.GDAnimationPlayer.Reparent(GDAnimationTree); // TODO: Will break node paths!
-                GDAnimationTree.AnimPlayer = value.GDAnimationPlayer.GetPath();
-            }
+            if (value != null) GDAnimationTree.AnimPlayer = value.GDAnimationPlayer.GetPath();
             else GDAnimationTree.AnimPlayer = "";
             OnPropertyChanged();
         }
-    }
+    } */
 
     /// <summary>
     /// Ordinarily, tracks can be set to <c>Animation.UPDATE_DISCRETE</c> to update infrequently, usually when using nearest interpolation.
@@ -111,11 +106,19 @@ public partial class AnimationTree : AnimationMixer
         AnimationPlayerChanged.Invoke();
     }
     
-    public override Node CreateGDNode() => Globals.LoadNetworkedObjectScene(ClassName)!;
+	public override Node CreateGDNode()
+	{
+		return new Godot.AnimationTree();
+	}
+
+	public override void InitGDNode()
+	{
+		GDAnimationTree = (Godot.AnimationTree)GDNode;
+		base.InitGDNode();
+	}
 
     public override void Init()
     {
-        GDAnimationTree = (Godot.AnimationTree)GDNode;
         GDAnimationTree.AnimationPlayerChanged += OnAnimationPlayerChanged;
         base.Init();
     }
