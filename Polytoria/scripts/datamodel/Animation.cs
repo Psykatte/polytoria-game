@@ -99,6 +99,35 @@ public partial class Animation : Instance
         GDAnimation.AddMarker(name, time);
     }
 
+    // Converts a Godot Variant to a value marshallable to Luau. Godot structs (Vector3, Quaternion,
+    // Color, ...) are returned as their Godot type and automagically handled by the scripting bridge.
+    private static object? FromVariant(Variant variant) => variant.Obj;
+
+    // Converts a value coming from Luau into a Godot Variant. Only the marshallable scalar/struct types
+    // are accepted; anything else (e.g. dictionaries that could encode a method-call key) is rejected.
+    // I am not yet comfortable implimenting logic that marshalls method-call, as it will require extensive testing.
+    // This can later be implemented as a PT scripting type, as it will be helpful for bridging Godot features.
+    private static Variant ToVariant(object? value)
+    {
+        return value switch
+        {
+            null => new Variant(),
+            bool b => b,
+            string s => s,
+            // Luau numbers arrive as double.
+            double d => d,
+            // Accept the other numeric types defensively.
+            float f => f,
+            int i => i,
+            long l => l,
+            Vector2 v2 => v2,
+            Vector3 v3 => v3,
+            Quaternion q => q,
+            Color c => c,
+            _ => throw new ArgumentException($"Unsupported key value type for animation track: {value.GetType().Name}")
+        };
+    }
+
     /// <summary>
     /// Adds a track to the Animation.
     /// <para><strong>Note:</strong> Method and Audio tracks are not available from scripting.</para>
@@ -109,6 +138,9 @@ public partial class Animation : Instance
     [ScriptMethod]
     public int AddTrack(TrackTypeEnum type, int atPosition = -1)
     {
+        if (type is TrackTypeEnum.Method or TrackTypeEnum.Audio)
+            throw new ArgumentException($"{type} tracks cannot be created from scripting.");
+
         return GDAnimation.AddTrack((Godot.Animation.TrackType)type, atPosition);
     }
 
@@ -750,9 +782,9 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The value stored at the key.</returns>
     [ScriptMethod]
-    public Variant TrackGetKeyValue(int trackIdx, int keyIdx)
+    public object? TrackGetKeyValue(int trackIdx, int keyIdx)
     {
-        return GDAnimation.TrackGetKeyValue(trackIdx, keyIdx);
+        return FromVariant(GDAnimation.TrackGetKeyValue(trackIdx, keyIdx));
     }
 
     /// <summary>
@@ -786,9 +818,12 @@ public partial class Animation : Instance
     /// <param name="transition">The transition curve value (default 1.0).</param>
     /// <returns>The index of the newly inserted key.</returns>
     [ScriptMethod]
-    public int TrackInsertKey(int trackIdx, float time, Variant key, float transition = 1.0f)
+    public int TrackInsertKey(int trackIdx, float time, object key, float transition = 1.0f)
     {
-        return GDAnimation.TrackInsertKey(trackIdx, time, key, transition);
+        if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
+            throw new ArgumentException("Cannot insert keys on a method track from scripting.");
+
+        return GDAnimation.TrackInsertKey(trackIdx, time, ToVariant(key), transition);
     }
 
     /// <summary>
@@ -952,9 +987,12 @@ public partial class Animation : Instance
     /// <param name="keyIdx">The index of the key.</param>
     /// <param name="value">The new value to set.</param>
     [ScriptMethod]
-    public void TrackSetKeyValue(int trackIdx, int keyIdx, Variant value)
+    public void TrackSetKeyValue(int trackIdx, int keyIdx, object value)
     {
-        GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, value);
+        if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
+            throw new ArgumentException("Cannot set key values on a method track from scripting.");
+
+        GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, ToVariant(value));
     }
 
     /// <summary>
@@ -1000,9 +1038,9 @@ public partial class Animation : Instance
     /// <param name="backward">If true, searches backwards for the previous key if no exact match is found.</param>
     /// <returns>The interpolated value.</returns>
     [ScriptMethod]
-    public Variant ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
+    public object? ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
     {
-        return GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward);
+        return FromVariant(GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward));
     }
 
     /// <summary>
