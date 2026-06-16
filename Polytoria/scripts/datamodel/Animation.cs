@@ -424,14 +424,14 @@ public partial class Animation : Instance
     /// <summary>
     /// Returns the index of the specified track. If the track is not found, return -1.
     /// </summary>
-    /// <param name="path">The NodePath of the property/bone being animated.</param>
+    /// <param name="path">The node path of the property/bone being animated, for example <c>"zombie:torso"</c>.</param>
     /// <param name="type">The type of track to search for.</param>
     /// <returns>The index of the track, or -1 if not found.</returns>
-/*     [ScriptMethod]
-    public int FindTrack(NodePath path, TrackTypeEnum type)
+    [ScriptMethod]
+    public int FindTrack(string path, TrackTypeEnum type)
     {
         return GDAnimation.FindTrack(path, (Godot.Animation.TrackType)type);
-    } */
+    }
 
     /// <summary>
     /// Returns the name of the marker located at the given time.
@@ -756,12 +756,12 @@ public partial class Animation : Instance
     /// Gets the path of a track. For more information on the path format, see <see cref="TrackSetPath"/>.
     /// </summary>
     /// <param name="trackIdx">The index of the track.</param>
-    /// <returns>The NodePath of the track.</returns>
-/*     [ScriptMethod]
-    public NodePath TrackGetPath(int trackIdx)
+    /// <returns>The node path of the track.</returns>
+    [ScriptMethod]
+    public string TrackGetPath(int trackIdx)
     {
-        return GDAnimation.TrackGetPath(trackIdx);
-    } */
+        return GDAnimation.TrackGetPath(trackIdx).ToString();
+    }
 
     /// <summary>
     /// Gets the type of a track.
@@ -959,12 +959,12 @@ public partial class Animation : Instance
     /// <para>For example, <c>"character/skeleton:ankle"</c> or <c>"character/mesh:transform/local"</c>.</para>
     /// </summary>
     /// <param name="trackIdx">The index of the track.</param>
-    /// <param name="path">The new NodePath for the track.</param>
-/*     [ScriptMethod]
-    public void TrackSetPath(int trackIdx, NodePath path)
+    /// <param name="path">The new node path for the track.</param>
+    [ScriptMethod]
+    public void TrackSetPath(int trackIdx, string path)
     {
         GDAnimation.TrackSetPath(trackIdx, path);
-    } */
+    }
 
     /// <summary>
     /// Swaps the track <paramref name="trackIdx"/>'s index position with the track <paramref name="withIdx"/>.

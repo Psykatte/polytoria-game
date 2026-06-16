@@ -21,23 +21,23 @@ public partial class AnimationTree : AnimationMixer
     private Godot.AnimationTree GDAnimationTree = null!;
     protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationTree;
 
-    // private NodePath _advanceExpressionBaseNode = new(".");
-    private AnimationPlayer? _animPlayer = null;
+    private string _advanceExpressionBaseNode = ".";
+    private string _animPlayer = "";
     // private AnimationRootNode? _treeRoot = null;
 
     /// <summary>
     /// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
     /// if one is not explicitly specified internally.
     /// </summary>
-/*     [Editable, ScriptProperty, DefaultValue(".")]
-    public NodePath AdvanceExpressionBaseNode {
+    [Editable, ScriptProperty, DefaultValue(".")]
+    public string AdvanceExpressionBaseNode {
         get => _advanceExpressionBaseNode;
         set {
             _advanceExpressionBaseNode = value;
             GDAnimationTree.AdvanceExpressionBaseNode = value;
             OnPropertyChanged();
         }
-    } */
+    }
 
     /// <summary>
     /// The path to the <see cref="AnimationPlayer"/> used for animating.
@@ -46,16 +46,15 @@ public partial class AnimationTree : AnimationMixer
     /// should be handled using only the <c>AnimationTree</c> and its constituent <see cref="AnimationNode"/>(s).
     /// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
     /// </summary>
-/*     [Editable, ScriptProperty]
-    public AnimationPlayer? AnimPlayer {
+    [Editable, ScriptProperty, DefaultValue("")]
+    public string AnimPlayer {
         get => _animPlayer;
         set {
             _animPlayer = value;
-            if (value != null) GDAnimationTree.AnimPlayer = value.GDAnimationPlayer.GetPath();
-            else GDAnimationTree.AnimPlayer = "";
+            GDAnimationTree.AnimPlayer = value;
             OnPropertyChanged();
         }
-    } */
+    }
 
     /// <summary>
     /// Ordinarily, tracks can be set to <c>Animation.UPDATE_DISCRETE</c> to update infrequently, usually when using nearest interpolation.

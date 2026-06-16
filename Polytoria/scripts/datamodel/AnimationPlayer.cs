@@ -375,16 +375,24 @@ public partial class AnimationPlayer : AnimationMixer
     /// If the end marker is empty, the section ends on the end of the animation.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkers(string? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
-        => GDAnimationPlayer.PlaySectionWithMarkers(name == null ? null : new StringName(name), startMarker, endMarker, customBlend, customSpeed, fromEnd);
+    public void PlaySectionWithMarkers(string? name = null, string? startMarker = null, string? endMarker = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
+        => GDAnimationPlayer.PlaySectionWithMarkers(
+            name == null ? null : new StringName(name),
+            startMarker == null ? null : new StringName(startMarker),
+            endMarker == null ? null : new StringName(endMarker),
+            customBlend, customSpeed, fromEnd);
 
     /// <summary>
     /// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
     /// This method is a shorthand for <see cref="PlaySectionWithMarkers"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
     /// </summary>
     [ScriptMethod]
-    public void PlaySectionWithMarkersBackwards(string? name = null, StringName? startMarker = null, StringName? endMarker = null, double customBlend = -1)
-        => GDAnimationPlayer.PlaySectionWithMarkersBackwards(name == null ? null : new StringName(name), startMarker, endMarker, customBlend);
+    public void PlaySectionWithMarkersBackwards(string? name = null, string? startMarker = null, string? endMarker = null, double customBlend = -1)
+        => GDAnimationPlayer.PlaySectionWithMarkersBackwards(
+            name == null ? null : new StringName(name),
+            startMarker == null ? null : new StringName(startMarker),
+            endMarker == null ? null : new StringName(endMarker),
+            customBlend);
 
     /// <summary>
     /// You can use this method to use more detailed options for capture than those performed by <see cref="PlaybackAutoCapture"/>.
@@ -427,7 +435,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// Specifies a blend time (in seconds) between two animations, referenced by their keys.
     /// </summary>
     [ScriptMethod]
-    public void SetBlendTime(StringName animationFrom, StringName animationTo, double sec)
+    public void SetBlendTime(string animationFrom, string animationTo, double sec)
         => GDAnimationPlayer.SetBlendTime(animationFrom, animationTo, sec);
 
     /// <summary>
@@ -444,8 +452,10 @@ public partial class AnimationPlayer : AnimationMixer
     /// If the argument is empty, the section uses the beginning or end of the animation. If both are empty, it means that the section is not set.
     /// </summary>
     [ScriptMethod]
-    public void SetSectionWithMarkers(StringName? startMarker = null, StringName? endMarker = null)
-        => GDAnimationPlayer.SetSectionWithMarkers(startMarker, endMarker);
+    public void SetSectionWithMarkers(string? startMarker = null, string? endMarker = null)
+        => GDAnimationPlayer.SetSectionWithMarkers(
+            startMarker == null ? null : new StringName(startMarker),
+            endMarker == null ? null : new StringName(endMarker));
 
     /// <summary>
     /// Stops the currently playing animation. The animation position is reset to <c>0</c> and the <c>customSpeed</c> is reset to <c>1.0</c>.
