@@ -47,7 +47,7 @@ public partial class InsertMenuPopup : PopupPanel
 			"Decal",
 			"Camera",
 		},
-		[new() { Title = "Animation"}] = new()
+		[new() { Title = "Animation" }] = new()
 		{
 			"Animation",
 			"AnimationLibrary",

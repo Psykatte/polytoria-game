@@ -18,164 +18,164 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationLibrary : Instance
 {
-    private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
-    private Godot.AnimationLibrary GDAnimationLibrary = null!;
+	private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
+	private Godot.AnimationLibrary GDAnimationLibrary = null!;
 
-    // Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
-    private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
-    {
-        return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib => lib.GDAnimationLibrary = gdAnimationLibrary);
-    }
+	// Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
+	private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
+	{
+		return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib => lib.GDAnimationLibrary = gdAnimationLibrary);
+	}
 
-    // Implicit conversion from ACL type to Godot type.
-    public static implicit operator Godot.AnimationLibrary?(AnimationLibrary acl) => acl?.GDAnimationLibrary;
+	// Implicit conversion from ACL type to Godot type.
+	public static implicit operator Godot.AnimationLibrary?(AnimationLibrary acl) => acl?.GDAnimationLibrary;
 
 	// Implicit conversion from Godot type to ACL type.
-    public static implicit operator AnimationLibrary(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
+	public static implicit operator AnimationLibrary(Godot.AnimationLibrary gd) => GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
-    /// <summary>
-    /// Emitted when an <see cref="Animation"> is added to the library.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<string> AnimationAdded { get; private set; } = new();
+	/// <summary>
+	/// Emitted when an <see cref="Animation"> is added to the library.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationAdded { get; private set; } = new();
 
-    /// <summary>
-    /// Emitted when an <see cref="Animation"> in the library is modified.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<string> AnimationChanged { get; private set; } = new();
+	/// <summary>
+	/// Emitted when an <see cref="Animation"> in the library is modified.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationChanged { get; private set; } = new();
 
-    /// <summary>
-    /// Emitted when an <see cref="Animation"> is removed from the library.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<string> AnimationRemoved { get; private set; } = new();
+	/// <summary>
+	/// Emitted when an <see cref="Animation"> is removed from the library.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationRemoved { get; private set; } = new();
 
-    /// <summary>
-    /// Emitted when an <see cref="Animation"> key is renamed.
-    /// </summary>
-    [ScriptProperty]
-    public PTSignal<string> AnimationRenamed{ get; private set; } = new();
+	/// <summary>
+	/// Emitted when an <see cref="Animation"> key is renamed.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationRenamed { get; private set; } = new();
 
-    private void OnAnimationAdded(StringName name)
-    {
-        AnimationAdded.Invoke(name);
-    }
+	private void OnAnimationAdded(StringName name)
+	{
+		AnimationAdded.Invoke(name);
+	}
 
-    private void OnAnimationChanged(StringName name)
-    {
-        AnimationChanged.Invoke(name);
-    }
+	private void OnAnimationChanged(StringName name)
+	{
+		AnimationChanged.Invoke(name);
+	}
 
-    private void OnAnimationRemoved(StringName name)
-    {
-        AnimationRemoved.Invoke(name);
-    }
+	private void OnAnimationRemoved(StringName name)
+	{
+		AnimationRemoved.Invoke(name);
+	}
 
-    private void OnAnimationRenamed(StringName name, StringName toName)
-    {
-        AnimationRenamed.Invoke(name, toName);
-    }
+	private void OnAnimationRenamed(StringName name, StringName toName)
+	{
+		AnimationRenamed.Invoke(name, toName);
+	}
 
-    public override void Init()
-    {
-        GDAnimationLibrary ??= new Godot.AnimationLibrary();
-        GDAnimationLibraries.Add(GDAnimationLibrary, this);
-        GDAnimationLibrary.AnimationAdded += OnAnimationAdded;
-        GDAnimationLibrary.AnimationChanged += OnAnimationChanged;
-        GDAnimationLibrary.AnimationRemoved += OnAnimationRemoved;
-        GDAnimationLibrary.AnimationRenamed += OnAnimationRenamed;
-        base.Init();
-    }
+	public override void Init()
+	{
+		GDAnimationLibrary ??= new Godot.AnimationLibrary();
+		GDAnimationLibraries.Add(GDAnimationLibrary, this);
+		GDAnimationLibrary.AnimationAdded += OnAnimationAdded;
+		GDAnimationLibrary.AnimationChanged += OnAnimationChanged;
+		GDAnimationLibrary.AnimationRemoved += OnAnimationRemoved;
+		GDAnimationLibrary.AnimationRenamed += OnAnimationRenamed;
+		base.Init();
+	}
 
 	public override void PreDelete()
 	{
-        GDAnimationLibrary.AnimationAdded -= OnAnimationAdded;
-        GDAnimationLibrary.AnimationChanged -= OnAnimationChanged;
-        GDAnimationLibrary.AnimationRemoved -= OnAnimationRemoved;
-        GDAnimationLibrary.AnimationRenamed -= OnAnimationRenamed;
-        GDAnimationLibrary.Dispose();
+		GDAnimationLibrary.AnimationAdded -= OnAnimationAdded;
+		GDAnimationLibrary.AnimationChanged -= OnAnimationChanged;
+		GDAnimationLibrary.AnimationRemoved -= OnAnimationRemoved;
+		GDAnimationLibrary.AnimationRenamed -= OnAnimationRenamed;
+		GDAnimationLibrary.Dispose();
 		base.PreDelete();
 	}
 
-    /// <summary>
-    /// Adds the <paramref name="animation"> to the library, accessible by the key <paramref name="name">.
-    /// </summary>
-    /// <param name="name">The name of the key used to access the stored <see cref="Animation">.</param>
-    /// <param name="animation">The <see cref="Animation"> to store.</param>
-    /// <returns>The <see cref="ErrorEnum"> returned by Godot.</returns>
-    [ScriptMethod]
-    public ErrorEnum AddAnimation(string name, Animation animation)
-    {
-        return (ErrorEnum)GDAnimationLibrary.AddAnimation(name, animation);
-    }
+	/// <summary>
+	/// Adds the <paramref name="animation"> to the library, accessible by the key <paramref name="name">.
+	/// </summary>
+	/// <param name="name">The name of the key used to access the stored <see cref="Animation">.</param>
+	/// <param name="animation">The <see cref="Animation"> to store.</param>
+	/// <returns>The <see cref="ErrorEnum"> returned by Godot.</returns>
+	[ScriptMethod]
+	public ErrorEnum AddAnimation(string name, Animation animation)
+	{
+		return (ErrorEnum)GDAnimationLibrary.AddAnimation(name, animation);
+	}
 
-    /// <summary>
-    /// Returns the <see cref="Animation"> with the key <paramref name="name">.
-    /// </summary>
-    /// <param name="name">The key of the animation to retrieve.</param>
-    /// <returns>The <see cref="Animation"> if found, otherwise <c>null</c>.</returns>
-    [ScriptMethod]
-    public Animation? GetAnimation(string name)
-    {
-        return GDAnimationLibrary.GetAnimation(name);
-    }
+	/// <summary>
+	/// Returns the <see cref="Animation"> with the key <paramref name="name">.
+	/// </summary>
+	/// <param name="name">The key of the animation to retrieve.</param>
+	/// <returns>The <see cref="Animation"> if found, otherwise <c>null</c>.</returns>
+	[ScriptMethod]
+	public Animation? GetAnimation(string name)
+	{
+		return GDAnimationLibrary.GetAnimation(name);
+	}
 
-    /// <summary>
-    /// Returns the keys for the <see cref="Animation">s stored in the library.
-    /// </summary>
-    /// <returns>An array of <see cref="StringName"> keys.</returns>
-    [ScriptMethod]
-    public string[] GetAnimationList()
-    {
-        var array = GDAnimationLibrary.GetAnimationList();
-        var result = new string[array.Count];
-        for (int i = 0; i < array.Count; i++)
-        {
-            result[i] = (string)array[i];
-        }
-        return result;
-    }
+	/// <summary>
+	/// Returns the keys for the <see cref="Animation">s stored in the library.
+	/// </summary>
+	/// <returns>An array of <see cref="StringName"> keys.</returns>
+	[ScriptMethod]
+	public string[] GetAnimationList()
+	{
+		var array = GDAnimationLibrary.GetAnimationList();
+		var result = new string[array.Count];
+		for (int i = 0; i < array.Count; i++)
+		{
+			result[i] = (string)array[i];
+		}
+		return result;
+	}
 
-    /// <summary>
-    /// Returns the number of animations stored in the library.
-    /// </summary>
-    /// <returns>The count of animation keys.</returns>
-    [ScriptMethod]
-    public int GetAnimationListSize()
-    {
-        return GDAnimationLibrary.GetAnimationListSize();
-    }
+	/// <summary>
+	/// Returns the number of animations stored in the library.
+	/// </summary>
+	/// <returns>The count of animation keys.</returns>
+	[ScriptMethod]
+	public int GetAnimationListSize()
+	{
+		return GDAnimationLibrary.GetAnimationListSize();
+	}
 
-    /// <summary>
-    /// Checks if the library stores an <see cref="Animation"> with the specified key.
-    /// </summary>
-    /// <param name="name">The key to check.</param>
-    /// <returns><c>true</c> if the animation exists, otherwise <c>false</c>.</returns>
-    [ScriptMethod]
-    public bool HasAnimation(string name)
-    {
-        return GDAnimationLibrary.HasAnimation(name);
-    }
+	/// <summary>
+	/// Checks if the library stores an <see cref="Animation"> with the specified key.
+	/// </summary>
+	/// <param name="name">The key to check.</param>
+	/// <returns><c>true</c> if the animation exists, otherwise <c>false</c>.</returns>
+	[ScriptMethod]
+	public bool HasAnimation(string name)
+	{
+		return GDAnimationLibrary.HasAnimation(name);
+	}
 
-    /// <summary>
-    /// Removes the <see cref="Animation"> with the specified key.
-    /// </summary>
-    /// <param name="name">The key of the animation to remove.</param>
-    [ScriptMethod]
-    public void RemoveAnimation(string name)
-    {
-        GDAnimationLibrary.RemoveAnimation(name);
-    }
+	/// <summary>
+	/// Removes the <see cref="Animation"> with the specified key.
+	/// </summary>
+	/// <param name="name">The key of the animation to remove.</param>
+	[ScriptMethod]
+	public void RemoveAnimation(string name)
+	{
+		GDAnimationLibrary.RemoveAnimation(name);
+	}
 
-    /// <summary>
-    /// Changes the key of an <see cref="Animation"> from <paramref name="name"> to <paramref name="newname">.
-    /// </summary>
-    /// <param name="name">The current key of the animation.</param>
-    /// <param name="newname">The new key for the animation.</param>
-    [ScriptMethod]
-    public void RenameAnimation(string name, string newname)
-    {
-        GDAnimationLibrary.RenameAnimation(name, newname);
-    }
+	/// <summary>
+	/// Changes the key of an <see cref="Animation"> from <paramref name="name"> to <paramref name="newname">.
+	/// </summary>
+	/// <param name="name">The current key of the animation.</param>
+	/// <param name="newname">The new key for the animation.</param>
+	[ScriptMethod]
+	public void RenameAnimation(string name, string newname)
+	{
+		GDAnimationLibrary.RenameAnimation(name, newname);
+	}
 }
