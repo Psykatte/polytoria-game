@@ -25,7 +25,6 @@ public partial class AnimationPlayer : AnimationMixer
 
     private string? _assignedAnimation = null;
     private string _autoplay = "";
-    private readonly string _currentAnimation = "";
     private bool _movieQuitOnFinish = false;
     private bool _playbackAutoCapture = true;
     private float _playbackAutoCaptureDuration = -1.0f;
@@ -118,7 +117,7 @@ public partial class AnimationPlayer : AnimationMixer
     /// </summary>
     [ScriptProperty, DefaultValue("")]
     public string CurrentAnimation {
-        get => _currentAnimation;
+        get => GDAnimationPlayer.CurrentAnimation;
     }
 
     /// <summary>
