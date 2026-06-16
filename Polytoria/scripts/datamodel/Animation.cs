@@ -89,7 +89,7 @@ public partial class Animation : Instance
 	public static implicit operator Godot.Animation(Animation acl) => acl.GDAnimation;
 
 	// Implicit conversion from Godot type to ACL type.
-	public static implicit operator Animation(Godot.Animation gd) => GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
+	public static implicit operator Animation?(Godot.Animation? gd) => gd is null ? null : GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
 
 	/// <summary>
 	/// Adds a marker to this Animation.
