@@ -101,6 +101,7 @@ public partial class Animation : Instance
 
     /// <summary>
     /// Adds a track to the Animation.
+    /// <para><strong>Note:</strong> Method and Audio tracks are not available from scripting.</para>
     /// </summary>
     /// <param name="type">The type of the track to add.</param>
     /// <param name="atPosition">The position in the track list where the new track should be inserted. Use -1 to append at the end.</param>
@@ -148,7 +149,9 @@ public partial class Animation : Instance
         GDAnimation.AnimationTrackSetKeyAnimation(trackIdx, keyIdx, animation);
     }
 
-    /// <summary>
+    // Audio tracks are excluded from scripting for the time being, they may be included with a refactor that
+    // integrates these new types into the existing codebase.
+/*     /// <summary>
     /// Returns the end offset of the key identified by <paramref name="keyIdx"/>. The <paramref name="trackIdx"/> must be the index of an Audio Track.
     /// <para>End offset is the number of seconds cut off at the ending of the audio stream.</para>
     /// </summary>
@@ -168,11 +171,11 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the Audio Track.</param>
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The start offset in seconds.</returns>
-/*     [ScriptMethod]
+    [ScriptMethod]
     public float AudioTrackGetKeyStartOffset(int trackIdx, int keyIdx)
     {
         return GDAnimation.AudioTrackGetKeyStartOffset(trackIdx, keyIdx);
-    } */
+    }
 
     /// <summary>
     /// Returns the audio stream of the key identified by <paramref name="keyIdx"/>. The <paramref name="trackIdx"/> must be the index of an Audio Track.
@@ -180,11 +183,11 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the Audio Track.</param>
     /// <param name="keyIdx">The index of the key.</param>
     /// <returns>The AudioStream resource assigned to the key.</returns>
-/*     [ScriptMethod]
+    [ScriptMethod]
     public Resource AudioTrackGetKeyStream(int trackIdx, int keyIdx)
     {
         return GDAnimation.AudioTrackGetKeyStream(trackIdx, keyIdx);
-    } */
+    }
 
     /// <summary>
     /// Inserts an Audio Track key at the given <paramref name="time"/> in seconds. The <paramref name="trackIdx"/> must be the index of an Audio Track.
@@ -196,11 +199,11 @@ public partial class Animation : Instance
     /// <param name="startOffset">The number of seconds to skip at the start of the audio stream.</param>
     /// <param name="endOffset">The number of seconds to cut from the end of the audio stream.</param>
     /// <returns>The index of the newly inserted key.</returns>
-/*     [ScriptMethod]
+    [ScriptMethod]
     public int AudioTrackInsertKey(int trackIdx, float time, Resource stream, float startOffset = 0f, float endOffset = 0f)
     {
         return GDAnimation.AudioTrackInsertKey(trackIdx, time, stream, startOffset, endOffset);
-    } */
+    }
 
     /// <summary>
     /// Returns <c>true</c> if the track at <paramref name="trackIdx"/> will be blended with other animations.
@@ -254,7 +257,7 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="trackIdx">The index of the track to modify.</param>
     /// <param name="enable">Whether to enable blending for this track.</param>
-/*     [ScriptMethod]
+    [ScriptMethod]
     public void AudioTrackSetUseBlend(int trackIdx, bool enable)
     {
         GDAnimation.AudioTrackSetUseBlend(trackIdx, enable);
@@ -745,7 +748,7 @@ public partial class Animation : Instance
     /// </summary>
     /// <param name="trackIdx">The index of the track.</param>
     /// <param name="keyIdx">The index of the key.</param>
-    /// <returns>The value stored at the key (as a Variant).</returns>
+    /// <returns>The value stored at the key.</returns>
     [ScriptMethod]
     public Variant TrackGetKeyValue(int trackIdx, int keyIdx)
     {
@@ -995,7 +998,7 @@ public partial class Animation : Instance
     /// <param name="trackIdx">The index of the value track.</param>
     /// <param name="timeSec">The time (in seconds) to interpolate.</param>
     /// <param name="backward">If true, searches backwards for the previous key if no exact match is found.</param>
-    /// <returns>The interpolated value (as a Variant).</returns>
+    /// <returns>The interpolated value.</returns>
     [ScriptMethod]
     public Variant ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
     {

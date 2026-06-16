@@ -81,6 +81,7 @@ public partial class AnimationTree : AnimationMixer
         set => base.Deterministic = value;
     }
 
+    // Not exposed: requires an AnimationRootNode/AnimationNode ACL which doesn't exist yet.
     /// <summary>
     /// The root animation node of this <c>AnimationTree</c>. See <see cref="AnimationRootNode"/>.
     /// </summary>

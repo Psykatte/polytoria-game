@@ -270,12 +270,13 @@ public abstract partial class AnimationMixer : Instance
 		base.PreDelete();
 	}
 
-    /// <summary>
+    // I don't feel confident implementing this without extensive testing.
+/*     /// <summary>
     /// A virtual function for processing after getting a key during playback.
     /// </summary>
     [ScriptMethod]
     public virtual Variant PostProcessKeyValue(Animation animation, int track, Variant value, int objectId, int objectSubIdx)
-        => new();
+        => new(); */
 
     /// <summary>
     /// Adds <paramref name="library"/> to the animation player, under the key <paramref name="name"/>.
