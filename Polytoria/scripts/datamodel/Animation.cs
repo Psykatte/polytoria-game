@@ -557,7 +557,7 @@ public partial class Animation : Instance
 		return GDAnimation.HasMarker(name);
 	}
 
-	// Need to be very careful with this.
+	// I don't feel confident implementing this without extensive testing.
 	/// <summary>
 	/// Returns the method name of a method track.
 	/// </summary>
@@ -568,16 +568,15 @@ public partial class Animation : Instance
 		public string MethodTrackGetName(int trackIdx, int keyIdx)
 		{
 			return GDAnimation.MethodTrackGetName(trackIdx, keyIdx);
-		} */
+		}
 
-	// Need to be very careful with this.
 	/// <summary>
 	/// Returns the arguments values to be called on a method track for a given key in a given track.
 	/// </summary>
 	/// <param name="trackIdx">The index of the method track.</param>
 	/// <param name="keyIdx">The index of the key.</param>
 	/// <returns>An Array containing the parameter values.</returns>
-	/*     [ScriptMethod]
+	    [ScriptMethod]
 		public Array MethodTrackGetParams(int trackIdx, int keyIdx)
 		{
 			return GDAnimation.MethodTrackGetParams(trackIdx, keyIdx);
