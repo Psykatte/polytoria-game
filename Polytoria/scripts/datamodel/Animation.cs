@@ -8,6 +8,8 @@ using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 
+using static Polytoria.Utils.AntiCorruption;
+
 namespace Polytoria.Datamodel;
 
 // Polytoria.Datamodel.Animation is an anti-corruption layer for interfacing with Godot.Animation.
@@ -19,18 +21,15 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class Animation : Instance
 {
+	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+
 	private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
 	private Godot.Animation GDAnimation = null!;
-	private readonly bool _captureIncluded = false;
 	private float _length = 1.0f;
 	private LoopModeEnum _loopMode = LoopModeEnum.None;
 	private float _step = 1f / 60f;
 
-	/// <summary>
-	/// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
-	/// </summary>
-	[ScriptProperty, DefaultValue(false)]
-	public bool CaptureIncluded { get => _captureIncluded; }
+	// ------------------------------------------------ Properties -----------------------------------------------------
 
 	/// <summary>
 	/// The total length of the animation (in seconds).
@@ -42,6 +41,10 @@ public partial class Animation : Instance
 		get => _length;
 		set
 		{
+			ValidateFinite(value);
+			if (value <= 0f)
+				throw new ArgumentOutOfRangeException(nameof(value), value, "Length must be greater than zero.");
+
 			_length = value;
 			GDAnimation.Length = value;
 			OnPropertyChanged();
@@ -57,6 +60,8 @@ public partial class Animation : Instance
 		get => _loopMode;
 		set
 		{
+			ValidateEnum(value);
+
 			_loopMode = value;
 			GDAnimation.LoopMode = (Godot.Animation.LoopModeEnum)value;
 			OnPropertyChanged();
@@ -72,24 +77,16 @@ public partial class Animation : Instance
 		get => _step;
 		set
 		{
+			ValidateFinite(value);
 			float val = Math.Max(1f / 120f, value);
+
 			_step = val;
 			GDAnimation.Step = val;
 			OnPropertyChanged();
 		}
 	}
 
-	// Intialize an Animation from a Godot type, this is done to mitigate possible memory leaks.
-	private static Animation FromGDObject(Godot.Animation gdAnimation)
-	{
-		return Polytoria.Shared.Globals.LoadInstance<Animation>(World.Current, anim => anim.GDAnimation = gdAnimation);
-	}
-
-	// Implicit conversion from ACL type to Godot type.
-	public static implicit operator Godot.Animation(Animation acl) => acl.GDAnimation;
-
-	// Implicit conversion from Godot type to ACL type.
-	public static implicit operator Animation?(Godot.Animation? gd) => gd is null ? null : GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
+	// -------------------------------------------------- Methods ------------------------------------------------------
 
 	/// <summary>
 	/// Adds a marker to this Animation.
@@ -99,36 +96,12 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void AddMarker(string name, float time)
 	{
+		ValidateName(name);
+		if (GDAnimation.HasMarker(name))
+			throw new ArgumentException($"A marker cannot have the same name as an existing marker within an animation.");
+		ValidateFinite(time);
+
 		GDAnimation.AddMarker(name, time);
-	}
-
-	// Converts a Godot Variant to a value marshallable to Luau. Godot structs (Vector3, Quaternion,
-	// Color, ...) are returned as their Godot type and automagically handled by the scripting bridge.
-	private static object? FromVariant(Variant variant) => variant.Obj;
-
-	// Converts a value coming from Luau into a Godot Variant. Only the marshallable scalar/struct types
-	// are accepted; anything else (e.g. dictionaries that could encode a method-call key) is rejected.
-	// I am not yet comfortable implimenting logic that marshalls method-call, as it will require extensive testing.
-	// This can later be implemented as a PT scripting type, as it will be helpful for bridging Godot features.
-	private static Variant ToVariant(object? value)
-	{
-		return value switch
-		{
-			null => new Variant(),
-			bool b => b,
-			string s => s,
-			// Luau numbers arrive as double.
-			double d => d,
-			// Accept the other numeric types defensively.
-			float f => f,
-			int i => i,
-			long l => l,
-			Vector2 v2 => v2,
-			Vector3 v3 => v3,
-			Quaternion q => q,
-			Color c => c,
-			_ => throw new ArgumentException($"Unsupported key value type for animation track: {value.GetType().Name}")
-		};
 	}
 
 	/// <summary>
@@ -141,8 +114,13 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int AddTrack(TrackTypeEnum type, int atPosition = -1)
 	{
+		ValidateEnum(type);
 		if (type is TrackTypeEnum.Method or TrackTypeEnum.Audio)
-			throw new ArgumentException($"{type} tracks cannot be created from scripting.");
+			throw new ArgumentException($"{type} tracks cannot be created from scripting yet.");
+		int count = GDAnimation.GetTrackCount();
+		if (atPosition < -1 || atPosition > count)
+			throw new ArgumentOutOfRangeException(nameof(atPosition), atPosition,
+				$"Insert position must be -1 (append) or 0..{count}.");
 
 		return GDAnimation.AddTrack((Godot.Animation.TrackType)type, atPosition);
 	}
@@ -156,6 +134,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public string AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Animation);
+
 		return GDAnimation.AnimationTrackGetKeyAnimation(trackIdx, keyIdx);
 	}
 
@@ -169,6 +149,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int AnimationTrackInsertKey(int trackIdx, float time, string animation)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Animation);
+		ValidateFinite(time);
+		ValidateName(animation);
+
 		return GDAnimation.AnimationTrackInsertKey(trackIdx, time, animation);
 	}
 
@@ -181,6 +165,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void AnimationTrackSetKeyAnimation(int trackIdx, int keyIdx, string animation)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Animation);
+		ValidateName(animation);
+
 		GDAnimation.AnimationTrackSetKeyAnimation(trackIdx, keyIdx, animation);
 	}
 
@@ -307,6 +294,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Vector2 BezierTrackGetKeyInHandle(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+
 		return GDAnimation.BezierTrackGetKeyInHandle(trackIdx, keyIdx);
 	}
 
@@ -319,6 +308,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Vector2 BezierTrackGetKeyOutHandle(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+
 		return GDAnimation.BezierTrackGetKeyOutHandle(trackIdx, keyIdx);
 	}
 
@@ -331,6 +322,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public float BezierTrackGetKeyValue(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+
 		return GDAnimation.BezierTrackGetKeyValue(trackIdx, keyIdx);
 	}
 
@@ -347,6 +340,12 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int BezierTrackInsertKey(int trackIdx, float time, float value, Vector2 inHandle = default, Vector2 outHandle = default)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Bezier);
+		ValidateFinite(time);
+		ValidateFinite(value);
+		ValidateFinite(inHandle);
+		ValidateFinite(outHandle);
+
 		return GDAnimation.BezierTrackInsertKey(trackIdx, time, value, inHandle, outHandle);
 	}
 
@@ -359,6 +358,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public float BezierTrackInterpolate(int trackIdx, float time)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Bezier);
+		ValidateFinite(time);
+
 		return GDAnimation.BezierTrackInterpolate(trackIdx, time);
 	}
 
@@ -372,6 +374,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void BezierTrackSetKeyInHandle(int trackIdx, int keyIdx, Vector2 inHandle, float balancedValueTimeRatio = 1.0f)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+		ValidateFinite(inHandle);
+		ValidateFinite(balancedValueTimeRatio);
+
 		GDAnimation.BezierTrackSetKeyInHandle(trackIdx, keyIdx, inHandle, balancedValueTimeRatio);
 	}
 
@@ -385,6 +391,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void BezierTrackSetKeyOutHandle(int trackIdx, int keyIdx, Vector2 outHandle, float balancedValueTimeRatio = 1.0f)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+		ValidateFinite(outHandle);
+		ValidateFinite(balancedValueTimeRatio);
+
 		GDAnimation.BezierTrackSetKeyOutHandle(trackIdx, keyIdx, outHandle, balancedValueTimeRatio);
 	}
 
@@ -397,6 +407,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void BezierTrackSetKeyValue(int trackIdx, int keyIdx, float value)
 	{
+		ValidateKey(trackIdx, keyIdx, Godot.Animation.TrackType.Bezier);
+		ValidateFinite(value);
+
 		GDAnimation.BezierTrackSetKeyValue(trackIdx, keyIdx, value);
 	}
 
@@ -410,6 +423,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int BlendShapeTrackInsertKey(int trackIdx, float time, float amount)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.BlendShape);
+		ValidateFinite(time);
+		ValidateFinite(amount);
+
 		return GDAnimation.BlendShapeTrackInsertKey(trackIdx, time, amount);
 	}
 
@@ -423,6 +440,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public float BlendShapeTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.BlendShape);
+		ValidateFinite(timeSec);
+
 		return GDAnimation.BlendShapeTrackInterpolate(trackIdx, timeSec, backward);
 	}
 
@@ -445,6 +465,14 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void Compress(uint pageSize = 8192, uint fps = 120, float splitTolerance = 4.0f)
 	{
+		if (pageSize < 256)
+			throw new ArgumentOutOfRangeException(nameof(pageSize), pageSize, "Page size must be greater than or equal to 256.");
+		if (fps == 0)
+			throw new ArgumentOutOfRangeException(nameof(fps), fps, "FPS must be greater than zero.");
+		if (fps > 120)
+			throw new ArgumentOutOfRangeException(nameof(fps), fps, "FPS must be less than or equal to 120.");
+		ValidateFinite(splitTolerance);
+
 		GDAnimation.Compress(pageSize, fps, splitTolerance);
 	}
 
@@ -456,18 +484,25 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void CopyTrack(int trackIdx, Animation toAnimation)
 	{
+		ValidateTrack(trackIdx);
+		if (toAnimation is null)
+			throw new ArgumentNullException(nameof(toAnimation), "Target animation cannot be nil.");
+
 		GDAnimation.CopyTrack(trackIdx, toAnimation.GDAnimation);
 	}
 
 	/// <summary>
 	/// Returns the index of the specified track. If the track is not found, return -1.
 	/// </summary>
-	/// <param name="path">The node path of the property/bone being animated, for example <c>"zombie:torso"</c>.</param>
+	/// <param name="path">The node path of the property/bone being animated, for example <c>"skeleton:torso"</c>.</param>
 	/// <param name="type">The type of track to search for.</param>
 	/// <returns>The index of the track, or -1 if not found.</returns>
 	[ScriptMethod]
 	public int FindTrack(string path, TrackTypeEnum type)
 	{
+		ValidateName(path);
+		ValidateEnum(type, nameof(type));
+
 		return GDAnimation.FindTrack(path, (Godot.Animation.TrackType)type);
 	}
 
@@ -479,6 +514,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public string GetMarkerAtTime(float time)
 	{
+		ValidateFinite(time);
+
 		return GDAnimation.GetMarkerAtTime(time);
 	}
 
@@ -490,6 +527,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Color GetMarkerColor(string name)
 	{
+		ValidateMarkerExists(name);
+
 		return GDAnimation.GetMarkerColor(name);
 	}
 
@@ -511,6 +550,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public double GetMarkerTime(string name)
 	{
+		ValidateMarkerExists(name);
+
 		return GDAnimation.GetMarkerTime(name);
 	}
 
@@ -522,6 +563,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public string GetNextMarker(float time)
 	{
+		ValidateFinite(time);
+
 		return GDAnimation.GetNextMarker(time);
 	}
 
@@ -533,6 +576,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public string GetPrevMarker(float time)
 	{
+		ValidateFinite(time);
+
 		return GDAnimation.GetPrevMarker(time);
 	}
 
@@ -554,8 +599,16 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public bool HasMarker(string name)
 	{
+		ValidateName(name);
+
 		return GDAnimation.HasMarker(name);
 	}
+
+	/// <summary>
+	/// Returns <c>true</c> if the capture track is included. This is a cached readonly value for performance.
+	/// </summary>
+	[ScriptMethod]
+	public bool IsCaptureIncluded() { return GDAnimation.IsCaptureIncluded(); }
 
 	// I don't feel confident implementing this without extensive testing.
 	/// <summary>
@@ -591,6 +644,11 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void Optimize(float allowedVelocityErr = 0.01f, float allowedAngularErr = 0.01f, int precision = 3)
 	{
+		ValidateFinite(allowedVelocityErr);
+		ValidateFinite(allowedAngularErr);
+
+		if (precision < 0)
+			throw new ArgumentOutOfRangeException(nameof(precision), precision, "Precision cannot be negative.");
 		GDAnimation.Optimize(allowedVelocityErr, allowedAngularErr, precision);
 	}
 
@@ -604,6 +662,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int PositionTrackInsertKey(int trackIdx, float time, Vector3 position)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Position3D);
+		ValidateFinite(time);
+		ValidateFinite(position);
+
 		return GDAnimation.PositionTrackInsertKey(trackIdx, time, position);
 	}
 
@@ -617,6 +679,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Vector3 PositionTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Position3D);
+		ValidateFinite(timeSec);
+
 		return GDAnimation.PositionTrackInterpolate(trackIdx, timeSec, backward);
 	}
 
@@ -627,6 +692,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void RemoveMarker(string name)
 	{
+		ValidateMarkerExists(name);
+
 		GDAnimation.RemoveMarker(name);
 	}
 
@@ -637,6 +704,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void RemoveTrack(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.RemoveTrack(trackIdx);
 	}
 
@@ -650,6 +719,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int RotationTrackInsertKey(int trackIdx, float time, Quaternion rotation)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Rotation3D);
+		ValidateFinite(time);
+		ValidateFinite(rotation);
+
 		return GDAnimation.RotationTrackInsertKey(trackIdx, time, rotation);
 	}
 
@@ -663,6 +736,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Quaternion RotationTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Rotation3D);
+		ValidateFinite(timeSec);
+
 		return GDAnimation.RotationTrackInterpolate(trackIdx, timeSec, backward);
 	}
 
@@ -676,6 +752,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int ScaleTrackInsertKey(int trackIdx, float time, Vector3 scale)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Scale3D);
+		ValidateFinite(time);
+		ValidateFinite(scale);
+
 		return GDAnimation.ScaleTrackInsertKey(trackIdx, time, scale);
 	}
 
@@ -689,6 +769,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public Vector3 ScaleTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Scale3D);
+		ValidateFinite(timeSec);
+
 		return GDAnimation.ScaleTrackInterpolate(trackIdx, timeSec, backward);
 	}
 
@@ -700,6 +783,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void SetMarkerColor(string name, Color color)
 	{
+		ValidateMarkerExists(name);
+
 		GDAnimation.SetMarkerColor(name, color);
 	}
 
@@ -715,8 +800,13 @@ public partial class Animation : Instance
 	/// <param name="backward">If true, reverses the search direction.</param>
 	/// <returns>The index of the found key, or -1 if not found.</returns>
 	[ScriptMethod]
-	public int TrackFindKey(int trackIdx, float time, FindModeEnum findMode = FindModeEnum.Nearest, bool limit = false, bool backward = false)
+	public int TrackFindKey(int trackIdx, float time, FindModeEnum findMode = FindModeEnum.Nearest, bool limit = false,
+		bool backward = false)
 	{
+		ValidateTrack(trackIdx);
+		ValidateFinite(time);
+		ValidateEnum(findMode, nameof(findMode));
+
 		return GDAnimation.TrackFindKey(trackIdx, time, (Godot.Animation.FindMode)findMode, limit, backward);
 	}
 
@@ -728,6 +818,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public bool TrackGetInterpolationLoopWrap(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackGetInterpolationLoopWrap(trackIdx);
 	}
 
@@ -739,6 +831,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public InterpolationTypeEnum TrackGetInterpolationType(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return (InterpolationTypeEnum)GDAnimation.TrackGetInterpolationType(trackIdx);
 	}
 
@@ -750,6 +844,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int TrackGetKeyCount(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackGetKeyCount(trackIdx);
 	}
 
@@ -762,6 +858,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public double TrackGetKeyTime(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx);
+
 		return GDAnimation.TrackGetKeyTime(trackIdx, keyIdx);
 	}
 
@@ -774,6 +872,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public float TrackGetKeyTransition(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx);
+
 		return GDAnimation.TrackGetKeyTransition(trackIdx, keyIdx);
 	}
 
@@ -786,7 +886,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public object? TrackGetKeyValue(int trackIdx, int keyIdx)
 	{
-		return FromVariant(GDAnimation.TrackGetKeyValue(trackIdx, keyIdx));
+		ValidateKey(trackIdx, keyIdx);
+
+		return Utils.Variant.FromGodot(GDAnimation.TrackGetKeyValue(trackIdx, keyIdx));
 	}
 
 	/// <summary>
@@ -797,6 +899,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public string TrackGetPath(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackGetPath(trackIdx).ToString();
 	}
 
@@ -808,6 +912,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public TrackTypeEnum TrackGetType(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return (TrackTypeEnum)GDAnimation.TrackGetType(trackIdx);
 	}
 
@@ -822,10 +928,14 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public int TrackInsertKey(int trackIdx, float time, object key, float transition = 1.0f)
 	{
-		if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
-			throw new ArgumentException("Cannot insert keys on a method track from scripting.");
+		ValidateTrack(trackIdx);
+		ValidateFinite(time);
+		ValidateFinite(transition);
 
-		return GDAnimation.TrackInsertKey(trackIdx, time, ToVariant(key), transition);
+		if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
+			throw new ArgumentException("Cannot insert keys on a method track from scripting yet.");
+
+		return GDAnimation.TrackInsertKey(trackIdx, time, Utils.Variant.ToGodot(key), transition);
 	}
 
 	/// <summary>
@@ -836,6 +946,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public bool TrackIsCompressed(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackIsCompressed(trackIdx);
 	}
 
@@ -847,6 +959,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public bool TrackIsEnabled(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackIsEnabled(trackIdx);
 	}
 
@@ -858,6 +972,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public bool TrackIsImported(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		return GDAnimation.TrackIsImported(trackIdx);
 	}
 
@@ -868,6 +984,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackMoveDown(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.TrackMoveDown(trackIdx);
 	}
 
@@ -879,6 +997,12 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackMoveTo(int trackIdx, int toIdx)
 	{
+		ValidateTrack(trackIdx);
+		int count = GDAnimation.GetTrackCount();
+		if (toIdx < 0 || toIdx >= count)
+			throw new ArgumentOutOfRangeException(nameof(toIdx), toIdx,
+				$"Destination index is out of range (must be 0..{count - 1}).");
+
 		GDAnimation.TrackMoveTo(trackIdx, toIdx);
 	}
 
@@ -889,6 +1013,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackMoveUp(int trackIdx)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.TrackMoveUp(trackIdx);
 	}
 
@@ -900,6 +1026,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackRemoveKey(int trackIdx, int keyIdx)
 	{
+		ValidateKey(trackIdx, keyIdx);
+
 		GDAnimation.TrackRemoveKey(trackIdx, keyIdx);
 	}
 
@@ -911,6 +1039,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackRemoveKeyAtTime(int trackIdx, float time)
 	{
+		ValidateTrack(trackIdx);
+		ValidateFinite(time);
+
 		GDAnimation.TrackRemoveKeyAtTime(trackIdx, time);
 	}
 
@@ -922,6 +1053,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetEnabled(int trackIdx, bool enabled)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.TrackSetEnabled(trackIdx, enabled);
 	}
 
@@ -933,6 +1066,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetImported(int trackIdx, bool imported)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.TrackSetImported(trackIdx, imported);
 	}
 
@@ -944,6 +1079,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetInterpolationLoopWrap(int trackIdx, bool interpolation)
 	{
+		ValidateTrack(trackIdx);
+
 		GDAnimation.TrackSetInterpolationLoopWrap(trackIdx, interpolation);
 	}
 
@@ -955,6 +1092,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetInterpolationType(int trackIdx, InterpolationTypeEnum interpolation)
 	{
+		ValidateTrack(trackIdx);
+		ValidateEnum(interpolation);
+
 		GDAnimation.TrackSetInterpolationType(trackIdx, (Godot.Animation.InterpolationType)interpolation);
 	}
 
@@ -967,6 +1107,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetKeyTime(int trackIdx, int keyIdx, float time)
 	{
+		ValidateKey(trackIdx, keyIdx);
+		ValidateFinite(time);
+
 		GDAnimation.TrackSetKeyTime(trackIdx, keyIdx, time);
 	}
 
@@ -979,6 +1122,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetKeyTransition(int trackIdx, int keyIdx, float transition)
 	{
+		ValidateKey(trackIdx, keyIdx);
+		ValidateFinite(transition);
+
 		GDAnimation.TrackSetKeyTransition(trackIdx, keyIdx, transition);
 	}
 
@@ -991,10 +1137,12 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetKeyValue(int trackIdx, int keyIdx, object value)
 	{
-		if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
-			throw new ArgumentException("Cannot set key values on a method track from scripting.");
+		ValidateKey(trackIdx, keyIdx);
+		Godot.Animation.TrackType type = GDAnimation.TrackGetType(trackIdx);
+		if (type is Godot.Animation.TrackType.Method or Godot.Animation.TrackType.Audio)
+			throw new ArgumentException($"Cannot set key values on {type} tracks from scripting yet.");
 
-		GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, ToVariant(value));
+		GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, Utils.Variant.ToGodot(value));
 	}
 
 	/// <summary>
@@ -1006,6 +1154,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSetPath(int trackIdx, string path)
 	{
+		ValidateTrack(trackIdx);
+		ValidateName(path);
+
 		GDAnimation.TrackSetPath(trackIdx, path);
 	}
 
@@ -1017,6 +1168,9 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void TrackSwap(int trackIdx, int withIdx)
 	{
+		ValidateTrack(trackIdx);
+		ValidateTrack(withIdx);
+
 		GDAnimation.TrackSwap(trackIdx, withIdx);
 	}
 
@@ -1028,6 +1182,8 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public UpdateModeEnum ValueTrackGetUpdateMode(int trackIdx)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Value);
+
 		return (UpdateModeEnum)GDAnimation.ValueTrackGetUpdateMode(trackIdx);
 	}
 
@@ -1042,7 +1198,10 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public object? ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
-		return FromVariant(GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward));
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Value);
+		ValidateFinite(timeSec);
+
+		return Utils.Variant.FromGodot(GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward));
 	}
 
 	/// <summary>
@@ -1053,8 +1212,13 @@ public partial class Animation : Instance
 	[ScriptMethod]
 	public void ValueTrackSetUpdateMode(int trackIdx, UpdateModeEnum mode)
 	{
+		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Value);
+		ValidateEnum(mode);
+
 		GDAnimation.ValueTrackSetUpdateMode(trackIdx, (Godot.Animation.UpdateMode)mode);
 	}
+
+	// ---------------------------------------------- Init and Deinit --------------------------------------------------
 
 	public override void Init()
 	{
@@ -1067,5 +1231,71 @@ public partial class Animation : Instance
 	{
 		GDAnimations.Remove(GDAnimation);
 		base.PreDelete();
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	// Intialize an Animation from a Godot type.
+	private static Animation FromGDObject(Godot.Animation gdAnimation)
+	{
+		return Polytoria.Shared.Globals.LoadInstance<Animation>(World.Current, anim => anim.GDAnimation = gdAnimation);
+	}
+
+	// Implicit conversion from ACL type to Godot type.
+	public static implicit operator Godot.Animation(Animation acl) => acl.GDAnimation;
+
+	// Implicit conversion from Godot type to ACL type.
+	public static implicit operator Animation?(Godot.Animation? gd) =>
+		gd is null ? null : GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
+
+	// -----------------------------------------------------------------------------------------------------------------
+
+	// Ensures trackIdx refers to an existing track.
+	private void ValidateTrack(int trackIdx)
+	{
+		int count = GDAnimation.GetTrackCount();
+		if (count == 0)
+			throw new ArgumentOutOfRangeException(nameof(trackIdx), trackIdx,
+				$"There are no tracks assigned the animation {base.Name}.");
+		if (trackIdx < 0 || trackIdx >= count)
+			throw new ArgumentOutOfRangeException(nameof(trackIdx), trackIdx,
+				$"Track index is out of range (must be 0..{count - 1}, there are {count} track(s)).");
+	}
+
+	// Ensures trackIdx exists and keyIdx refers to an existing key within it.
+	private void ValidateKey(int trackIdx, int keyIdx, Godot.Animation.TrackType? expected = null)
+	{
+		if (expected != null) ValidateTrackType(trackIdx, expected.Value);
+		else ValidateTrack(trackIdx);
+		int count = GDAnimation.TrackGetKeyCount(trackIdx);
+		if (count == 0)
+			throw new ArgumentOutOfRangeException(nameof(trackIdx), trackIdx,
+				$"There are no keys assigned to track {trackIdx}.");
+		if (keyIdx < 0 || keyIdx >= count)
+			throw new ArgumentOutOfRangeException(nameof(keyIdx), keyIdx,
+				$"Key index is out of range for track {trackIdx} (must be 0..{count - 1}, there are {count} key(s)).");
+	}
+
+	// Ensures trackIdx exists and is of the expected type. Type-specific accessors (Bezier, Position3D, ...) corrupt
+	// or return garbage when called against a track of the wrong type, so the mismatch is rejected here.
+	private void ValidateTrackType(int trackIdx, Godot.Animation.TrackType expected)
+	{
+		ValidateTrack(trackIdx);
+
+		Godot.Animation.TrackType actual = GDAnimation.TrackGetType(trackIdx);
+		if (actual != expected)
+			throw new ArgumentException(
+				$"Track {trackIdx} is a {(TrackTypeEnum)actual} track, but a {(TrackTypeEnum)expected} track is required for this operation.",
+				nameof(trackIdx));
+	}
+
+	// Ensures a marker with the given name exists before reading or mutating it; otherwise Godot returns sentinel
+	// garbage (e.g. a time of -1 or a default color) that masquerades as a real value.
+	private void ValidateMarkerExists(string name)
+	{
+		ValidateName(name);
+
+		if (!GDAnimation.HasMarker(name))
+			throw new ArgumentException($"No marker named '{name}' exists on this Animation.", nameof(name));
 	}
 }

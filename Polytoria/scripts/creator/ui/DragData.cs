@@ -65,7 +65,7 @@ public partial class DragData : IDragDataUnion
 		return SerializeUtils.Serialize<IDragDataUnion>(this);
 	}
 
-	public static IDragDataUnion? Deserialize(Variant from)
+	public static IDragDataUnion? Deserialize(Godot.Variant from)
 	{
 		return SerializeUtils.Deserialize<IDragDataUnion>(from.AsByteArray());
 	}
