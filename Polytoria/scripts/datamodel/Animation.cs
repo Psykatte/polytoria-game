@@ -1233,7 +1233,7 @@ public partial class Animation : Instance
 		base.PreDelete();
 	}
 
-	// -----------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------------- Conversion ------------------------------------------------------
 
 	// Intialize an Animation from a Godot type.
 	private static Animation FromGDObject(Godot.Animation gdAnimation)
@@ -1248,7 +1248,7 @@ public partial class Animation : Instance
 	public static implicit operator Animation?(Godot.Animation? gd) =>
 		gd is null ? null : GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
 
-	// -----------------------------------------------------------------------------------------------------------------
+	// ----------------------------------------------- Validation ------------------------------------------------------
 
 	// Ensures trackIdx refers to an existing track.
 	private void ValidateTrack(int trackIdx)
