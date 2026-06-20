@@ -2,11 +2,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System;
 using System.Runtime.CompilerServices;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
+
+using static Polytoria.Utils.AntiCorruption;
 
 namespace Polytoria.Datamodel;
 
@@ -18,20 +21,108 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationLibrary : Instance
 {
+	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+
 	private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
 	private Godot.AnimationLibrary GDAnimationLibrary = null!;
 
-	// Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
-	private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
+	// -------------------------------------------------- Methods ------------------------------------------------------
+
+	/// <summary>
+	/// Adds the <paramref name="animation"> to the library, accessible by the key <paramref name="name">.
+	/// </summary>
+	/// <param name="name">The name of the key used to access the stored <see cref="Animation">.</param>
+	/// <param name="animation">The <see cref="Animation"> to store.</param>
+	/// <returns>The <see cref="ErrorEnum"> returned by Godot.</returns>
+	[ScriptMethod]
+	public ErrorEnum AddAnimation(string name, Animation animation)
 	{
-		return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib => lib.GDAnimationLibrary = gdAnimationLibrary);
+		ValidateName(name);
+		if (animation is null)
+			throw new ArgumentNullException(nameof(animation), "Animation cannot be nil.");
+
+		return (ErrorEnum)GDAnimationLibrary.AddAnimation(name, animation);
 	}
 
-	// Implicit conversion from ACL type to Godot type.
-	public static implicit operator Godot.AnimationLibrary(AnimationLibrary acl) => acl.GDAnimationLibrary;
+	/// <summary>
+	/// Returns the <see cref="Animation"> with the key <paramref name="name">.
+	/// </summary>
+	/// <param name="name">The key of the animation to retrieve.</param>
+	/// <returns>The <see cref="Animation"> if found, otherwise <c>null</c>.</returns>
+	[ScriptMethod]
+	public Animation? GetAnimation(string name)
+	{
+		ValidateName(name);
 
-	// Implicit conversion from Godot type to ACL type.
-	public static implicit operator AnimationLibrary?(Godot.AnimationLibrary? gd) => gd is null ? null : GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
+		return GDAnimationLibrary.GetAnimation(name);
+	}
+
+	/// <summary>
+	/// Returns the keys for the <see cref="Animation">s stored in the library.
+	/// </summary>
+	/// <returns>An array of <see cref="StringName"> keys.</returns>
+	[ScriptMethod]
+	public string[] GetAnimationList()
+	{
+		var array = GDAnimationLibrary.GetAnimationList();
+		var result = new string[array.Count];
+		for (int i = 0; i < array.Count; i++)
+			result[i] = (string)array[i];
+		return result;
+	}
+
+	/// <summary>
+	/// Returns the number of animations stored in the library.
+	/// </summary>
+	/// <returns>The count of animation keys.</returns>
+	[ScriptMethod]
+	public int GetAnimationListSize()
+	{
+		return GDAnimationLibrary.GetAnimationListSize();
+	}
+
+	/// <summary>
+	/// Checks if the library stores an <see cref="Animation"> with the specified key.
+	/// </summary>
+	/// <param name="name">The key to check.</param>
+	/// <returns><c>true</c> if the animation exists, otherwise <c>false</c>.</returns>
+	[ScriptMethod]
+	public bool HasAnimation(string name)
+	{
+		ValidateName(name);
+
+		return GDAnimationLibrary.HasAnimation(name);
+	}
+
+	/// <summary>
+	/// Removes the <see cref="Animation"> with the specified key.
+	/// </summary>
+	/// <param name="name">The key of the animation to remove.</param>
+	[ScriptMethod]
+	public void RemoveAnimation(string name)
+	{
+		ValidateAnimationExists(name);
+
+		GDAnimationLibrary.RemoveAnimation(name);
+	}
+
+	/// <summary>
+	/// Changes the key of an <see cref="Animation"> from <paramref name="name"> to <paramref name="newname">.
+	/// </summary>
+	/// <param name="name">The current key of the animation.</param>
+	/// <param name="newname">The new key for the animation.</param>
+	[ScriptMethod]
+	public void RenameAnimation(string name, string newname)
+	{
+		ValidateAnimationExists(name);
+		ValidateName(newname);
+		if (GDAnimationLibrary.HasAnimation(newname))
+			throw new ArgumentException($"An animation with the name '{newname}' already exists in this library.", nameof(newname));
+
+		GDAnimationLibrary.RenameAnimation(name, newname);
+	}
+
+	// ------------------------------------------------ Signals --------------------------------------------------------
 
 	/// <summary>
 	/// Emitted when an <see cref="Animation"> is added to the library.
@@ -77,6 +168,8 @@ public partial class AnimationLibrary : Instance
 		AnimationRenamed.Invoke(name, toName);
 	}
 
+	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+
 	public override void Init()
 	{
 		GDAnimationLibrary ??= new Godot.AnimationLibrary();
@@ -98,84 +191,29 @@ public partial class AnimationLibrary : Instance
 		base.PreDelete();
 	}
 
-	/// <summary>
-	/// Adds the <paramref name="animation"> to the library, accessible by the key <paramref name="name">.
-	/// </summary>
-	/// <param name="name">The name of the key used to access the stored <see cref="Animation">.</param>
-	/// <param name="animation">The <see cref="Animation"> to store.</param>
-	/// <returns>The <see cref="ErrorEnum"> returned by Godot.</returns>
-	[ScriptMethod]
-	public ErrorEnum AddAnimation(string name, Animation animation)
+	// ----------------------------------------------- Conversion ------------------------------------------------------
+
+	// Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
+	private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
 	{
-		return (ErrorEnum)GDAnimationLibrary.AddAnimation(name, animation);
+		return Polytoria.Shared.Globals.LoadInstance<AnimationLibrary>(World.Current, lib =>
+			lib.GDAnimationLibrary = gdAnimationLibrary);
 	}
 
-	/// <summary>
-	/// Returns the <see cref="Animation"> with the key <paramref name="name">.
-	/// </summary>
-	/// <param name="name">The key of the animation to retrieve.</param>
-	/// <returns>The <see cref="Animation"> if found, otherwise <c>null</c>.</returns>
-	[ScriptMethod]
-	public Animation? GetAnimation(string name)
-	{
-		return GDAnimationLibrary.GetAnimation(name);
-	}
+	// Implicit conversion from ACL type to Godot type.
+	public static implicit operator Godot.AnimationLibrary(AnimationLibrary acl) => acl.GDAnimationLibrary;
 
-	/// <summary>
-	/// Returns the keys for the <see cref="Animation">s stored in the library.
-	/// </summary>
-	/// <returns>An array of <see cref="StringName"> keys.</returns>
-	[ScriptMethod]
-	public string[] GetAnimationList()
-	{
-		var array = GDAnimationLibrary.GetAnimationList();
-		var result = new string[array.Count];
-		for (int i = 0; i < array.Count; i++)
-		{
-			result[i] = (string)array[i];
-		}
-		return result;
-	}
+	// Implicit conversion from Godot type to ACL type.
+	public static implicit operator AnimationLibrary?(Godot.AnimationLibrary? gd) =>
+		gd is null ? null : GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
-	/// <summary>
-	/// Returns the number of animations stored in the library.
-	/// </summary>
-	/// <returns>The count of animation keys.</returns>
-	[ScriptMethod]
-	public int GetAnimationListSize()
-	{
-		return GDAnimationLibrary.GetAnimationListSize();
-	}
+	// ----------------------------------------------- Validation ------------------------------------------------------
 
-	/// <summary>
-	/// Checks if the library stores an <see cref="Animation"> with the specified key.
-	/// </summary>
-	/// <param name="name">The key to check.</param>
-	/// <returns><c>true</c> if the animation exists, otherwise <c>false</c>.</returns>
-	[ScriptMethod]
-	public bool HasAnimation(string name)
+	// Ensures an animation with the given key exists before reading, renaming, or removing it.
+	private void ValidateAnimationExists(string name)
 	{
-		return GDAnimationLibrary.HasAnimation(name);
-	}
-
-	/// <summary>
-	/// Removes the <see cref="Animation"> with the specified key.
-	/// </summary>
-	/// <param name="name">The key of the animation to remove.</param>
-	[ScriptMethod]
-	public void RemoveAnimation(string name)
-	{
-		GDAnimationLibrary.RemoveAnimation(name);
-	}
-
-	/// <summary>
-	/// Changes the key of an <see cref="Animation"> from <paramref name="name"> to <paramref name="newname">.
-	/// </summary>
-	/// <param name="name">The current key of the animation.</param>
-	/// <param name="newname">The new key for the animation.</param>
-	[ScriptMethod]
-	public void RenameAnimation(string name, string newname)
-	{
-		GDAnimationLibrary.RenameAnimation(name, newname);
+		ValidateName(name);
+		if (!GDAnimationLibrary.HasAnimation(name))
+			throw new ArgumentException($"No animation with the key '{name}' exists in this library.", nameof(name));
 	}
 }
