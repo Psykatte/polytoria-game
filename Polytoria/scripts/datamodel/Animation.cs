@@ -130,7 +130,7 @@ public partial class Animation : Instance
 	/// </summary>
 	/// <param name="trackIdx">The index of the Animation Track.</param>
 	/// <param name="keyIdx">The index of the key within the track.</param>
-	/// <returns>The animation name (StringName) at the specified key.</returns>
+	/// <returns>The animation name at the specified key.</returns>
 	[ScriptMethod]
 	public string AnimationTrackGetKeyAnimation(int trackIdx, int keyIdx)
 	{
@@ -510,7 +510,7 @@ public partial class Animation : Instance
 	/// Returns the name of the marker located at the given time.
 	/// </summary>
 	/// <param name="time">The time (in seconds) to check for a marker.</param>
-	/// <returns>The name of the marker, or an empty StringName if none exists.</returns>
+	/// <returns>The name of the marker, or an empty <c>string</c> if none exists.</returns>
 	[ScriptMethod]
 	public string GetMarkerAtTime(float time)
 	{
@@ -556,10 +556,10 @@ public partial class Animation : Instance
 	}
 
 	/// <summary>
-	/// Returns the closest marker that comes after the given time. If no such marker exists, an empty string is returned.
+	/// Returns the closest marker that comes after the given time. If no such marker exists, an empty <c>string</c> is returned.
 	/// </summary>
 	/// <param name="time">The reference time (in seconds).</param>
-	/// <returns>The name of the next marker, or an empty StringName.</returns>
+	/// <returns>The name of the next marker, or an empty <c>string</c>.</returns>
 	[ScriptMethod]
 	public string GetNextMarker(float time)
 	{
@@ -569,10 +569,10 @@ public partial class Animation : Instance
 	}
 
 	/// <summary>
-	/// Returns the closest marker that comes before the given time. If no such marker exists, an empty string is returned.
+	/// Returns the closest marker that comes before the given time. If no such marker exists, an empty <c>string</c> is returned.
 	/// </summary>
 	/// <param name="time">The reference time (in seconds).</param>
-	/// <returns>The name of the previous marker, or an empty StringName.</returns>
+	/// <returns>The name of the previous marker, or an empty <c>string</c>.</returns>
 	[ScriptMethod]
 	public string GetPrevMarker(float time)
 	{

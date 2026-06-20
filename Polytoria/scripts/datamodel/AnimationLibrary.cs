@@ -16,7 +16,7 @@ namespace Polytoria.Datamodel;
 // Polytoria.Datamodel.AnimationLibrary is an anti-corruption layer for interfacing with Godot.AnimationLibrary.
 
 /// <summary>
-/// An animation library stores a set of animations accessible through <see cref="StringName"> keys, for use with <see cref="AnimationPlayer"> nodes.
+/// An animation library stores a set of animations accessible through string keys, for use with <see cref="AnimationPlayer"> nodes.
 /// </summary>
 [Instantiable]
 public partial class AnimationLibrary : Instance
@@ -60,7 +60,7 @@ public partial class AnimationLibrary : Instance
 	/// <summary>
 	/// Returns the keys for the <see cref="Animation">s stored in the library.
 	/// </summary>
-	/// <returns>An array of <see cref="StringName"> keys.</returns>
+	/// <returns>An array of string keys.</returns>
 	[ScriptMethod]
 	public string[] GetAnimationList()
 	{
@@ -150,22 +150,22 @@ public partial class AnimationLibrary : Instance
 
 	private void OnAnimationAdded(StringName name)
 	{
-		AnimationAdded.Invoke(name);
+		AnimationAdded.Invoke((string)name);
 	}
 
 	private void OnAnimationChanged(StringName name)
 	{
-		AnimationChanged.Invoke(name);
+		AnimationChanged.Invoke((string)name);
 	}
 
 	private void OnAnimationRemoved(StringName name)
 	{
-		AnimationRemoved.Invoke(name);
+		AnimationRemoved.Invoke((string)name);
 	}
 
 	private void OnAnimationRenamed(StringName name, StringName toName)
 	{
-		AnimationRenamed.Invoke(name, toName);
+		AnimationRenamed.Invoke((string)name, (string)toName);
 	}
 
 	// ---------------------------------------------- Init and Deinit --------------------------------------------------
