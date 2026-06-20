@@ -226,6 +226,9 @@ public abstract partial class AnimationMixer : Instance
 	/// Adds <paramref name="library"/> to the animation player, under the key <paramref name="name"/>.
 	/// AnimationMixer has a global library by default with an empty string as key.
 	/// </summary>
+	/// <param name="name">The key under which to store the animation library.</param>
+	/// <param name="library">The AnimationLibrary resource to add.</param>
+	/// <returns>An error code indicating success or failure.</returns>
 	[ScriptMethod]
 	public ErrorEnum AddAnimationLibrary(string name, AnimationLibrary library)
 	{
@@ -239,6 +242,7 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Manually advance the animations by the specified time (in seconds).
 	/// </summary>
+	/// <param name="delta">The time (in seconds) to advance the animation.</param>
 	[ScriptMethod]
 	public void Advance(float delta)
 	{
@@ -251,6 +255,10 @@ public abstract partial class AnimationMixer : Instance
 	/// If the animation track specified by <paramref name="name"/> has an option <c>Animation.UPDATE_CAPTURE</c>, stores current values of the objects indicated by the track path as a cache.
 	/// After this it will interpolate with current animation blending result during the playback process for the time specified by <paramref name="duration"/>.
 	/// </summary>
+	/// <param name="name">The key of the animation to capture for.</param>
+	/// <param name="duration">The duration (in seconds) over which to interpolate the captured values.</param>
+	/// <param name="transType">The transition type for the capture interpolation (default Linear).</param>
+	/// <param name="easeType">The ease type for the capture interpolation (default In).</param>
 	[ScriptMethod]
 	public void Capture(string name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
 	{
@@ -273,6 +281,8 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns the key of <paramref name="animation"/> or an empty <c>string</c> if not found.
 	/// </summary>
+	/// <param name="animation">The Animation to find the key for.</param>
+	/// <returns>The key of the animation, or an empty string if not found.</returns>
 	[ScriptMethod]
 	public string FindAnimation(Animation animation)
 	{
@@ -284,6 +294,8 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>string</c> if not found.
 	/// </summary>
+	/// <param name="animation">The Animation to find the parent library key for.</param>
+	/// <returns>The key of the parent library, or an empty string if not found.</returns>
 	[ScriptMethod]
 	public string FindAnimationLibrary(Animation animation)
 	{
@@ -295,6 +307,8 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
 	/// </summary>
+	/// <param name="name">The key of the animation to retrieve.</param>
+	/// <returns>The Animation with the specified key, or <c>null</c> if not found.</returns>
 	[ScriptMethod]
 	public Animation? GetAnimation(string name)
 	{
@@ -307,6 +321,8 @@ public abstract partial class AnimationMixer : Instance
 	/// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
 	/// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
 	/// </summary>
+	/// <param name="name">The key of the animation library to retrieve.</param>
+	/// <returns>The AnimationLibrary with the specified key, or <c>null</c> if not found.</returns>
 	[ScriptMethod]
 	public AnimationLibrary? GetAnimationLibrary(string name)
 	{
@@ -318,6 +334,7 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns the list of stored library keys.
 	/// </summary>
+	/// <returns>An array of animation library keys.</returns>
 	[ScriptMethod]
 	public string[] GetAnimationLibraryList()
 	{
@@ -333,6 +350,7 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns the list of stored animation keys.
 	/// </summary>
+	/// <returns>An array of animation keys.</returns>
 	[ScriptMethod]
 	public string[] GetAnimationList() => GDAnimationMixer.GetAnimationList();
 
@@ -340,6 +358,7 @@ public abstract partial class AnimationMixer : Instance
 	/// Retrieve the motion delta of position with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
 	/// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_POSITION_3D</c>, returns <c>Vector3(0, 0, 0)</c>.
 	/// </summary>
+	/// <returns>The position motion delta as a Vector3.</returns>
 	[ScriptMethod]
 	public Vector3 GetRootMotionPosition() => GDAnimationMixer.GetRootMotionPosition();
 
@@ -347,6 +366,7 @@ public abstract partial class AnimationMixer : Instance
 	/// Retrieve the blended value of the position tracks with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
 	/// This is useful in cases where you want to respect the initial key values of the animation.
 	/// </summary>
+	/// <returns>The accumulated position value as a Vector3.</returns>
 	[ScriptMethod]
 	public Vector3 GetRootMotionPositionAccumulator() => GDAnimationMixer.GetRootMotionPositionAccumulator();
 
@@ -354,6 +374,7 @@ public abstract partial class AnimationMixer : Instance
 	/// Retrieve the motion delta of rotation with the <see cref="RootMotionTrack"/> as a <c>Quaternion</c> that can be used elsewhere.
 	/// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_ROTATION_3D</c>, returns <c>Quaternion(0, 0, 0, 1)</c>.
 	/// </summary>
+	/// <returns>The rotation motion delta as a Quaternion.</returns>
 	[ScriptMethod]
 	public Quaternion GetRootMotionRotation() => GDAnimationMixer.GetRootMotionRotation();
 
@@ -361,6 +382,7 @@ public abstract partial class AnimationMixer : Instance
 	/// Retrieve the blended value of the rotation tracks with the <see cref="RootMotionTrack"/> as a <c>Quaternion</c> that can be used elsewhere.
 	/// This is necessary to apply the root motion position correctly, taking rotation into account.
 	/// </summary>
+	/// <returns>The accumulated rotation value as a Quaternion.</returns>
 	[ScriptMethod]
 	public Quaternion GetRootMotionRotationAccumulator() => GDAnimationMixer.GetRootMotionRotationAccumulator();
 
@@ -368,18 +390,22 @@ public abstract partial class AnimationMixer : Instance
 	/// Retrieve the motion delta of scale with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
 	/// If <see cref="RootMotionTrack"/> is not a path to a track of type <c>Animation.TYPE_SCALE_3D</c>, returns <c>Vector3(0, 0, 0)</c>.
 	/// </summary>
+	/// <returns>The scale motion delta as a Vector3.</returns>
 	[ScriptMethod]
 	public Vector3 GetRootMotionScale() => GDAnimationMixer.GetRootMotionScale();
 
 	/// <summary>
 	/// Retrieve the blended value of the scale tracks with the <see cref="RootMotionTrack"/> as a <c>Vector3</c> that can be used elsewhere.
 	/// </summary>
+	/// <returns>The accumulated scale value as a Vector3.</returns>
 	[ScriptMethod]
 	public Vector3 GetRootMotionScaleAccumulator() => GDAnimationMixer.GetRootMotionScaleAccumulator();
 
 	/// <summary>
 	/// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>Animation</c> with key <paramref name="name"/>.
 	/// </summary>
+	/// <param name="name">The key of the animation to check for.</param>
+	/// <returns><c>true</c> if the animation exists; otherwise, <c>false</c>.</returns>
 	[ScriptMethod]
 	public bool HasAnimation(string name)
 	{
@@ -391,6 +417,8 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>AnimationLibrary</c> with key <paramref name="name"/>.
 	/// </summary>
+	/// <param name="name">The key of the animation library to check for.</param>
+	/// <returns><c>true</c> if the animation library exists; otherwise, <c>false</c>.</returns>
 	[ScriptMethod]
 	public bool HasAnimationLibrary(string name)
 	{
@@ -402,6 +430,7 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Removes the <c>AnimationLibrary</c> associated with the key <paramref name="name"/>.
 	/// </summary>
+	/// <param name="name">The key of the animation library to remove.</param>
 	[ScriptMethod]
 	public void RemoveAnimationLibrary(string name)
 	{
@@ -416,6 +445,8 @@ public abstract partial class AnimationMixer : Instance
 	/// <summary>
 	/// Moves the <c>AnimationLibrary</c> associated with the key <paramref name="name"/> to the key <paramref name="newname"/>.
 	/// </summary>
+	/// <param name="name">The current key of the animation library.</param>
+	/// <param name="newname">The new key for the animation library.</param>
 	[ScriptMethod]
 	public void RenameAnimationLibrary(string name, string newname)
 	{

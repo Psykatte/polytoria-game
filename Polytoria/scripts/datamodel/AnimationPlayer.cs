@@ -252,6 +252,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <summary>
 	/// Returns the key of the animation which is queued to play after the <paramref name="animationFrom"/> animation.
 	/// </summary>
+	/// <param name="animationFrom">The key of the animation to check the next animation for.</param>
+	/// <returns>The key of the next animation, or an empty string if none is queued.</returns>
 	[ScriptMethod]
 	public string AnimationGetNext(string animationFrom)
 	{
@@ -263,6 +265,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <summary>
 	/// Triggers the <paramref name="animationTo"/> animation when the <paramref name="animationFrom"/> animation completes.
 	/// </summary>
+	/// <param name="animationFrom">The key of the animation to trigger from.</param>
+	/// <param name="animationTo">The key of the animation to play next.</param>
 	[ScriptMethod]
 	public void AnimationSetNext(string animationFrom, string animationTo)
 	{
@@ -281,6 +285,9 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <summary>
 	/// Returns the blend time (in seconds) between two animations, referenced by their keys.
 	/// </summary>
+	/// <param name="animationFrom">The key of the source animation.</param>
+	/// <param name="animationTo">The key of the destination animation.</param>
+	/// <returns>The blend time in seconds.</returns>
 	[ScriptMethod]
 	public double GetBlendTime(string animationFrom, string animationTo)
 	{
@@ -295,12 +302,14 @@ public partial class AnimationPlayer : AnimationMixer
 	/// This speed is the <see cref="SpeedScale"/> property multiplied by <c>customSpeed</c> argument specified when calling the <see cref="Play"/> method.
 	/// Returns a negative value if the current animation is playing backwards.
 	/// </summary>
+	/// <returns>The actual playing speed, or 0 if no animation is playing.</returns>
 	[ScriptMethod]
 	public float GetPlayingSpeed() => GDAnimationPlayer.GetPlayingSpeed();
 
 	/// <summary>
 	/// Returns a list of the animation keys that are currently queued to play.
 	/// </summary>
+	/// <returns>An array of queued animation keys.</returns>
 	[ScriptMethod]
 	public string[] GetQueue()
 	{
@@ -316,18 +325,21 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <summary>
 	/// Returns the end time of the section currently being played.
 	/// </summary>
+	/// <returns>The end time in seconds, or 0 if no section is active.</returns>
 	[ScriptMethod]
 	public double GetSectionEndTime() => GDAnimationPlayer.GetSectionEndTime();
 
 	/// <summary>
 	/// Returns the start time of the section currently being played.
 	/// </summary>
+	/// <returns>The start time in seconds, or 0 if no section is active.</returns>
 	[ScriptMethod]
 	public double GetSectionStartTime() => GDAnimationPlayer.GetSectionStartTime();
 
 	/// <summary>
 	/// Returns <c>true</c> if an animation is currently playing with a section.
 	/// </summary>
+	/// <returns><c>true</c> if a section is active; otherwise, <c>false</c>.</returns>
 	[ScriptMethod]
 	public bool HasSection() => GDAnimationPlayer.HasSection();
 
@@ -336,12 +348,14 @@ public partial class AnimationPlayer : AnimationMixer
 	/// and was not finished yet, or was stopped by calling <see cref="Stop"/>.
 	/// This can be used to check whether an animation is currently paused or stopped.
 	/// </summary>
+	/// <returns><c>true</c> if an animation is active; otherwise, <c>false</c>.</returns>
 	[ScriptMethod]
 	public bool IsAnimationActive() => GDAnimationPlayer.IsAnimationActive();
 
 	/// <summary>
 	/// Returns <c>true</c> if an animation is currently playing (even if <see cref="SpeedScale"/> and/or <c>customSpeed</c> are <c>0</c>).
 	/// </summary>
+	/// <returns><c>true</c> if an animation is playing; otherwise, <c>false</c>.</returns>
 	[ScriptMethod]
 	public bool IsPlaying() => GDAnimationPlayer.IsPlaying();
 
@@ -364,6 +378,10 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <para><strong>Note:</strong> The animation will be updated the next time the <c>Polytoria.Datamodel.AnimationPlayer</c> is processed.
 	/// If other variables are updated at the same time this is called, they may be updated too early. To perform the update immediately, call <c>Advance(0)</c>.</para>
 	/// </summary>
+	/// <param name="name">The key of the animation to play. If null, plays the assigned animation.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
+	/// <param name="customSpeed">The speed scale for playback (default 1.0).</param>
+	/// <param name="fromEnd">If true, starts from the end of the animation (default false).</param>
 	[ScriptMethod]
 	public void Play(string? name = null, double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
 	{
@@ -378,6 +396,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// Plays the animation with key <paramref name="name"/> in reverse.
 	/// This method is a shorthand for <see cref="Play"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
+	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
 	[ScriptMethod]
 	public void PlayBackwards(string? name = null, double customBlend = -1)
 	{
@@ -393,6 +413,12 @@ public partial class AnimationPlayer : AnimationMixer
 	/// and setting <paramref name="endTime"/> to a value outside the range of the animation means the end of the animation will be used instead.
 	/// <paramref name="startTime"/> cannot be equal to <paramref name="endTime"/>.
 	/// </summary>
+	/// <param name="name">The key of the animation to play. If null, plays the assigned animation.</param>
+	/// <param name="startTime">The start time of the section in seconds. If negative, uses the animation start.</param>
+	/// <param name="endTime">The end time of the section in seconds. If negative, uses the animation end.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
+	/// <param name="customSpeed">The speed scale for playback (default 1.0).</param>
+	/// <param name="fromEnd">If true, starts from the end of the section (default false).</param>
 	[ScriptMethod]
 	public void PlaySection(string? name = null, double startTime = -1, double endTime = -1, double customBlend = -1,
 		float customSpeed = 1, bool fromEnd = false)
@@ -413,6 +439,10 @@ public partial class AnimationPlayer : AnimationMixer
 	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/> in reverse.
 	/// This method is a shorthand for <see cref="PlaySection"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
+	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
+	/// <param name="startTime">The start time of the section in seconds. If negative, uses the animation start.</param>
+	/// <param name="endTime">The end time of the section in seconds. If negative, uses the animation end.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
 	[ScriptMethod]
 	public void PlaySectionBackwards(string? name = null, double startTime = -1, double endTime = -1,
 		double customBlend = -1)
@@ -433,6 +463,12 @@ public partial class AnimationPlayer : AnimationMixer
 	/// If the start marker is empty, the section starts from the beginning of the animation.
 	/// If the end marker is empty, the section ends on the end of the animation.
 	/// </summary>
+	/// <param name="name">The key of the animation to play. If null, plays the assigned animation.</param>
+	/// <param name="startMarker">The name of the start marker. If null, uses the animation start.</param>
+	/// <param name="endMarker">The name of the end marker. If null, uses the animation end.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
+	/// <param name="customSpeed">The speed scale for playback (default 1.0).</param>
+	/// <param name="fromEnd">If true, starts from the end of the section (default false).</param>
 	[ScriptMethod]
 	public void PlaySectionWithMarkers(string? name = null, string? startMarker = null, string? endMarker = null,
 		double customBlend = -1, float customSpeed = 1, bool fromEnd = false)
@@ -452,6 +488,10 @@ public partial class AnimationPlayer : AnimationMixer
 	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
 	/// This method is a shorthand for <see cref="PlaySectionWithMarkers"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
+	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
+	/// <param name="startMarker">The name of the start marker. If null, uses the animation start.</param>
+	/// <param name="endMarker">The name of the end marker. If null, uses the animation end.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
 	[ScriptMethod]
 	public void PlaySectionWithMarkersBackwards(string? name = null, string? startMarker = null,
 		string? endMarker = null, double customBlend = -1)
@@ -467,6 +507,13 @@ public partial class AnimationPlayer : AnimationMixer
 	/// When <paramref name="fromEnd"/> is <c>true</c>, uses the interval between the current position and the last key instead.
 	/// <para><strong>Note:</strong> The <paramref name="duration"/> takes <see cref="SpeedScale"/> into account, but <paramref name="customSpeed"/> does not.</para>
 	/// </summary>
+	/// <param name="name">The key of the animation to play. If null, plays the assigned animation.</param>
+	/// <param name="duration">The duration for capture interpolation in seconds. If negative, uses the interval to the first/last key.</param>
+	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
+	/// <param name="customSpeed">The speed scale for playback (default 1.0).</param>
+	/// <param name="fromEnd">If true, starts from the end of the animation (default false).</param>
+	/// <param name="transType">The transition type for capture interpolation (default Linear).</param>
+	/// <param name="easeType">The ease type for capture interpolation (default In).</param>
 	[ScriptMethod]
 	public void PlayWithCapture(string? name = null, double duration = -1, double customBlend = -1,
 		float customSpeed = 1, bool fromEnd = false, TransitionTypeEnum transType = TransitionTypeEnum.Linear,
@@ -487,6 +534,7 @@ public partial class AnimationPlayer : AnimationMixer
 	/// Queues an animation for playback once the current animation and all previously queued animations are done.
 	/// <para><strong>Note:</strong> If a looped animation is currently playing, the queued animation will never play unless the looped animation is stopped somehow.</para>
 	/// </summary>
+	/// <param name="name">The key of the animation to queue for playback.</param>
 	[ScriptMethod]
 	public void Queue(string name)
 	{
@@ -509,6 +557,9 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <para><strong>Note:</strong> Seeking to the end of the animation doesn't emit <c>AnimationMixer.AnimationFinished</c>.
 	/// If you want to skip animation and emit the signal, use <c>AnimationMixer.Advance()</c>.</para>
 	/// </summary>
+	/// <param name="seconds">The time in seconds to seek to.</param>
+	/// <param name="update">If true, immediately updates the animation. Otherwise updates at process time (default false).</param>
+	/// <param name="updateOnly">If true, does not process method, audio, or animation playback tracks (default false).</param>
 	[ScriptMethod]
 	public void Seek(double seconds, bool update = false, bool updateOnly = false)
 	{
@@ -520,6 +571,9 @@ public partial class AnimationPlayer : AnimationMixer
 	/// <summary>
 	/// Specifies a blend time (in seconds) between two animations, referenced by their keys.
 	/// </summary>
+	/// <param name="animationFrom">The key of the source animation.</param>
+	/// <param name="animationTo">The key of the destination animation.</param>
+	/// <param name="sec">The blend time in seconds.</param>
 	[ScriptMethod]
 	public void SetBlendTime(string animationFrom, string animationTo, double sec)
 	{
@@ -536,6 +590,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// Changes the start and end times of the section being played. The current playback position will be clamped within the new section.
 	/// See also <see cref="PlaySection"/>.
 	/// </summary>
+	/// <param name="startTime">The start time of the section in seconds. Must be non-negative.</param>
+	/// <param name="endTime">The end time of the section in seconds. Must be non-negative and greater than startTime.</param>
 	[ScriptMethod]
 	public void SetSection(double startTime = -1, double endTime = -1)
 	{
@@ -558,6 +614,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// See also <see cref="PlaySectionWithMarkers"/>.
 	/// If the argument is empty, the section uses the beginning or end of the animation. If both are empty, it means that the section is not set.
 	/// </summary>
+	/// <param name="startMarker">The name of the start marker. If null, uses the animation start.</param>
+	/// <param name="endMarker">The name of the end marker. If null, uses the animation end.</param>
 	[ScriptMethod]
 	public void SetSectionWithMarkers(string? startMarker = null, string? endMarker = null)
 		=> GDAnimationPlayer.SetSectionWithMarkers(
@@ -570,6 +628,7 @@ public partial class AnimationPlayer : AnimationMixer
 	/// If <paramref name="keepState"/> is <c>true</c>, the animation state is not updated visually.
 	/// <para><strong>Note:</strong> The method / audio / animation playback tracks will not be processed by this method.</para>
 	/// </summary>
+	/// <param name="keepState">If true, the animation state is not updated visually (default false).</param>
 	[ScriptMethod]
 	public void Stop(bool keepState = false) => GDAnimationPlayer.Stop(keepState);
 
