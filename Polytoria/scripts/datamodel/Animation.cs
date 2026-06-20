@@ -98,7 +98,7 @@ public partial class Animation : Instance
 	{
 		ValidateName(name);
 		if (GDAnimation.HasMarker(name))
-			throw new ArgumentException($"A marker cannot have the same name as an existing marker within an animation.");
+			throw new ArgumentException($"A marker with the name '{name}' already exists in this animation.", nameof(name));
 		ValidateFinite(time);
 
 		GDAnimation.AddMarker(name, time);
@@ -1285,7 +1285,7 @@ public partial class Animation : Instance
 		Godot.Animation.TrackType actual = GDAnimation.TrackGetType(trackIdx);
 		if (actual != expected)
 			throw new ArgumentException(
-				$"Track {trackIdx} is a {(TrackTypeEnum)actual} track, but a {(TrackTypeEnum)expected} track is required for this operation.",
+				$"Track {trackIdx} is a '{(TrackTypeEnum)actual}' track, but a '{(TrackTypeEnum)expected}' track is required for this operation.",
 				nameof(trackIdx));
 	}
 
