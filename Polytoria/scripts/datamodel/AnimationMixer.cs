@@ -16,7 +16,7 @@ namespace Polytoria.Datamodel;
 
 /// <summary>
 /// <para>Base class for <see cref="AnimationPlayer"/> and <see cref="AnimationTree"/> to manage animation lists. It also has general properties and methods for playback and blending.</para>
-/// <para>After instantiating the playback information data within the extended class, the blending is processed by the <c>AnimationMixer</c>.</para>
+/// <para>After instantiating the playback information data within the extended class, the blending is processed by the <see cref="AnimationMixer"/>.</para>
 /// </summary>
 [Abstract]
 public abstract partial class AnimationMixer : Instance
@@ -224,10 +224,10 @@ public abstract partial class AnimationMixer : Instance
 
 	/// <summary>
 	/// Adds <paramref name="library"/> to the animation player, under the key <paramref name="name"/>.
-	/// AnimationMixer has a global library by default with an empty string as key.
+	/// <see cref="AnimationMixer"/> has a global library by default with an empty string as key.
 	/// </summary>
 	/// <param name="name">The key under which to store the animation library.</param>
-	/// <param name="library">The AnimationLibrary resource to add.</param>
+	/// <param name="library">The <see cref="AnimationLibrary"/> resource to add.</param>
 	/// <returns>An error code indicating success or failure.</returns>
 	[ScriptMethod]
 	public ErrorEnum AddAnimationLibrary(string name, AnimationLibrary library)

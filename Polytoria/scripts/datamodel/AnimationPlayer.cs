@@ -15,7 +15,7 @@ namespace Polytoria.Datamodel;
 // Polytoria.Datamodel.AnimationPlayer is an anti-corruption layer for interfacing with Godot.AnimationPlayer.
 
 /// <summary>
-/// An animation player is used for general-purpose playback of animations. It contains a dictionary of <see cref="AnimationLibrary"/> resources and custom blend times between animation transitions.
+/// An animation player is used for general-purpose playback of <see cref="Animation"/>s. It contains a dictionary of <see cref="AnimationLibrary"/> resources and custom blend times between animation transitions.
 /// <para>Some methods and properties use a single key to reference an animation directly. These keys are formatted as the key for the library, followed by a forward slash, then the key for the animation within the library, for example <c>"movement/run"</c>. If the library's key is an empty string (known as the default library), the forward slash is omitted, being the same key used by the library.</para>
 /// <para><strong>AnimationPlayer</strong> is better-suited than <see cref="Tween"/> for more complex animations, for example ones with non-trivial timings. It can also be used over <see cref="Tween"/> if the animation track editor is more convenient than doing it in code.</para>
 /// <para>Updating the target properties of animations occurs at the process frame.</para>
@@ -41,7 +41,7 @@ public partial class AnimationPlayer : AnimationMixer
 	// ------------------------------------------------ Properties -----------------------------------------------------
 
 	/// <summary>
-	/// If playing, the current animation's key, otherwise, the animation last played.
+	/// If playing, the current <see cref="Animation"/>'s key, otherwise, the animation last played.
 	/// When set, this changes the animation, but will not play it unless already playing.
 	/// See also <see cref="CurrentAnimation"/>.
 	/// </summary>
@@ -69,7 +69,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// The key of the animation to play when the scene loads.
+	/// The key of the <see cref="Animation"/> to play when the scene loads.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("")]
 	public string Autoplay
@@ -87,7 +87,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// The key of the currently playing animation. If no animation is playing, the property's value is an empty string.
+	/// The key of the currently playing <see cref="Animation"/>. If no animation is playing, the property's value is an empty string.
 	/// Changing this value does not restart the animation. See <see cref="Play"/> for more information on playing animations.
 	/// <para><strong>Note:</strong> While this property appears in the Inspector, it's not meant to be edited, and it's not saved in the scene.
 	/// This property is mainly used to get the currently playing animation, and internally for animation playback tracks.</para>
@@ -99,7 +99,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// The length (in seconds) of the currently playing animation.
+	/// The length (in seconds) of the currently playing <see cref="Animation"/>.
 	/// </summary>
 	[ScriptProperty, DefaultValue(0.0f)]
 	public float CurrentAnimationLength
@@ -108,7 +108,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// The position (in seconds) of the currently playing animation.
+	/// The position (in seconds) of the currently playing <see cref="Animation"/>.
 	/// </summary>
 	[ScriptProperty, DefaultValue(0.0f)]
 	public float? CurrentAnimationPosition
@@ -134,9 +134,9 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// If <c>true</c>, performs <c>AnimationMixer.Capture()</c> before playback automatically.
+	/// If <c>true</c>, performs <see cref="AnimationMixer.Capture"/> before playback automatically.
 	/// This means just <see cref="PlayWithCapture"/> is executed with default arguments instead of <see cref="Play"/>.
-	/// <para><strong>Note:</strong> Capture interpolation is only performed if the animation contains a capture track. See also <c>Animation.UpdateCapture</c>.</para>
+	/// <para><strong>Note:</strong> Capture interpolation is only performed if the animation contains a capture track. See also <see cref="Animation"/>.</para>
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(true)]
 	public bool PlaybackAutoCapture
@@ -368,15 +368,15 @@ public partial class AnimationPlayer : AnimationMixer
 	public void Pause() => GDAnimationPlayer.Pause();
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/>. Custom blend times and speed can be set.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/>. Custom blend times and speed can be set.
 	/// The <paramref name="fromEnd"/> option only affects when switching to a new animation track, or if the same track but at the start or end.
 	/// It does not affect resuming playback that was paused in the middle of an animation.
 	/// If <paramref name="customSpeed"/> is negative and <paramref name="fromEnd"/> is <c>true</c>, the animation will play backwards (equivalent to <see cref="PlayBackwards"/>).
-	/// The <c>Polytoria.Datamodel.AnimationPlayer</c> keeps track of its current or last played animation with <see cref="AssignedAnimation"/>.
+	/// The <see cref="AnimationPlayer"/> keeps track of its current or last played animation with <see cref="AssignedAnimation"/>.
 	/// If this method is called with that same animation <paramref name="name"/>, or with no <paramref name="name"/> parameter,
 	/// the assigned animation will resume playing if it was paused.
-	/// <para><strong>Note:</strong> The animation will be updated the next time the <c>Polytoria.Datamodel.AnimationPlayer</c> is processed.
-	/// If other variables are updated at the same time this is called, they may be updated too early. To perform the update immediately, call <c>Advance(0)</c>.</para>
+	/// <para><strong>Note:</strong> The animation will be updated the next time the <see cref="AnimationPlayer"/> is processed.
+	/// If other variables are updated at the same time this is called, they may be updated too early. To perform the update immediately, call <see cref="AnimationMixer.Advance"/>.</para>
 	/// </summary>
 	/// <param name="name">The key of the animation to play. If null, plays the assigned animation.</param>
 	/// <param name="customBlend">The blend time (in seconds) to use. If negative, uses the default blend time.</param>
@@ -393,7 +393,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/> in reverse.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> in reverse.
 	/// This method is a shorthand for <see cref="Play"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
 	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
@@ -408,7 +408,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/>.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/>.
 	/// Setting <paramref name="startTime"/> to a value outside the range of the animation means the start of the animation will be used instead,
 	/// and setting <paramref name="endTime"/> to a value outside the range of the animation means the end of the animation will be used instead.
 	/// <paramref name="startTime"/> cannot be equal to <paramref name="endTime"/>.
@@ -436,7 +436,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/> in reverse.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/> in reverse.
 	/// This method is a shorthand for <see cref="PlaySection"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
 	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
@@ -459,7 +459,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/>.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/>.
 	/// If the start marker is empty, the section starts from the beginning of the animation.
 	/// If the end marker is empty, the section ends on the end of the animation.
 	/// </summary>
@@ -485,7 +485,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Plays the animation with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
+	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
 	/// This method is a shorthand for <see cref="PlaySectionWithMarkers"/> with <c>customSpeed = -1.0</c> and <c>fromEnd = true</c>.
 	/// </summary>
 	/// <param name="name">The key of the animation to play in reverse. If null, plays the assigned animation.</param>
@@ -501,7 +501,7 @@ public partial class AnimationPlayer : AnimationMixer
 
 	/// <summary>
 	/// You can use this method to use more detailed options for capture than those performed by <see cref="PlaybackAutoCapture"/>.
-	/// When <see cref="PlaybackAutoCapture"/> is <c>false</c>, this method is almost the same as calling <c>Capture()</c> followed by <see cref="Play"/>.
+	/// When <see cref="PlaybackAutoCapture"/> is <c>false</c>, this method is almost the same as calling <see cref="AnimationMixer.Capture"/> followed by <see cref="Play"/>.
 	/// If <paramref name="name"/> is blank, it specifies <see cref="AssignedAnimation"/>.
 	/// If <paramref name="duration"/> is a negative value, the duration is set to the interval between the current position and the first key.
 	/// When <paramref name="fromEnd"/> is <c>true</c>, uses the interval between the current position and the last key instead.
@@ -531,7 +531,7 @@ public partial class AnimationPlayer : AnimationMixer
 	}
 
 	/// <summary>
-	/// Queues an animation for playback once the current animation and all previously queued animations are done.
+	/// Queues an <see cref="Animation"/> for playback once the current animation and all previously queued animations are done.
 	/// <para><strong>Note:</strong> If a looped animation is currently playing, the queued animation will never play unless the looped animation is stopped somehow.</para>
 	/// </summary>
 	/// <param name="name">The key of the animation to queue for playback.</param>
@@ -554,8 +554,8 @@ public partial class AnimationPlayer : AnimationMixer
 	/// If <paramref name="update"/> is <c>true</c>, the animation updates too, otherwise it updates at process time.
 	/// Events between the current frame and <paramref name="seconds"/> are skipped.
 	/// If <paramref name="updateOnly"/> is <c>true</c>, the method / audio / animation playback tracks will not be processed.
-	/// <para><strong>Note:</strong> Seeking to the end of the animation doesn't emit <c>AnimationMixer.AnimationFinished</c>.
-	/// If you want to skip animation and emit the signal, use <c>AnimationMixer.Advance()</c>.</para>
+	/// <para><strong>Note:</strong> Seeking to the end of the animation doesn't emit <see cref="AnimationMixer.AnimationFinished"/>.
+	/// If you want to skip animation and emit the signal, use <see cref="AnimationMixer.Advance"/>.</para>
 	/// </summary>
 	/// <param name="seconds">The time in seconds to seek to.</param>
 	/// <param name="update">If true, immediately updates the animation. Otherwise updates at process time (default false).</param>
@@ -623,7 +623,7 @@ public partial class AnimationPlayer : AnimationMixer
 			endMarker == null ? null : new StringName(endMarker));
 
 	/// <summary>
-	/// Stops the currently playing animation. The animation position is reset to <c>0</c> and the <c>customSpeed</c> is reset to <c>1.0</c>.
+	/// Stops the currently playing <see cref="Animation"/>. The animation position is reset to <c>0</c> and the <c>customSpeed</c> is reset to <c>1.0</c>.
 	/// See also <see cref="Pause"/>.
 	/// If <paramref name="keepState"/> is <c>true</c>, the animation state is not updated visually.
 	/// <para><strong>Note:</strong> The method / audio / animation playback tracks will not be processed by this method.</para>
@@ -636,7 +636,7 @@ public partial class AnimationPlayer : AnimationMixer
 
 	/// <summary>
 	/// Emitted when a queued animation plays after the previous animation finished. See also <see cref="Queue"/>.
-	/// <para><strong>Note:</strong> The signal is not emitted when the animation is changed via <see cref="Play"/> or by an <c>AnimationTree</c>.</para>
+	/// <para><strong>Note:</strong> The signal is not emitted when the animation is changed via <see cref="Play"/> or by an <see cref="AnimationTree"/>.</para>
 	/// </summary>
 	[ScriptProperty]
 	public PTSignal<string, string> AnimationChanged { get; private set; } = new();

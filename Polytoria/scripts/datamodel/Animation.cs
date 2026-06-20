@@ -16,7 +16,7 @@ namespace Polytoria.Datamodel;
 
 /// <summary>
 /// Base class for <see cref="AnimationPlayer"/> and <see cref="AnimationTree"/> to manage animation lists. It also has general properties and methods for playback and blending.
-/// <para>After instantiating the playback information data within the extended class, the blending is processed by the <c>AnimationMixer</c>.</para>
+/// <para>After instantiating the playback information data within the extended class, the blending is processed by the <see cref="AnimationMixer"/>.</para>
 /// </summary>
 [Instantiable]
 public partial class Animation : Instance

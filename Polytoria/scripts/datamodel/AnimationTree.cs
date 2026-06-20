@@ -16,7 +16,7 @@ namespace Polytoria.Datamodel;
 
 /// <summary>
 /// A node used for advanced animation transitions in an <see cref="AnimationPlayer"/>.
-/// <para><strong>Note:</strong> When linked with an <see cref="AnimationPlayer"/>, several properties and methods of the corresponding <see cref="AnimationPlayer"/> will not function as expected. Playback and transitions should be handled using only the <c>AnimationTree</c> and its constituent <see cref="AnimationNode"/>(s). The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
+/// <para><strong>Note:</strong> When linked with an <see cref="AnimationPlayer"/>, several properties and methods of the corresponding <see cref="AnimationPlayer"/> will not function as expected. Playback and transitions should be handled using only the <see cref="AnimationTree"/> and its constituent <see cref="AnimationNode"/>(s). The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing <see cref="Animation"/>s.</para>
 /// </summary>
 [Instantiable]
 public partial class AnimationTree : AnimationMixer
@@ -32,7 +32,7 @@ public partial class AnimationTree : AnimationMixer
 	// ------------------------------------------------ Properties -----------------------------------------------------
 
 	/// <summary>
-	/// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
+	/// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <c>Expression</c>
 	/// if one is not explicitly specified internally.
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(".")]
@@ -54,8 +54,8 @@ public partial class AnimationTree : AnimationMixer
 	/// The path to the <see cref="AnimationPlayer"/> used for animating.
 	/// <para><strong>Note:</strong> When linked with an <see cref="AnimationPlayer"/>, several properties and methods
 	/// of the corresponding <see cref="AnimationPlayer"/> will not function as expected. Playback and transitions
-	/// should be handled using only the <c>AnimationTree</c> and its constituent <see cref="AnimationNode"/>(s).
-	/// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing animations.</para>
+	/// should be handled using only the <see cref="AnimationTree"/> and its constituent <see cref="AnimationNode"/>(s).
+	/// The <see cref="AnimationPlayer"/> node should be used solely for adding, deleting, and editing <see cref="Animation"/>s.</para>
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue("")]
 	public string AnimPlayer

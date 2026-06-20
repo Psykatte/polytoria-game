@@ -16,7 +16,7 @@ namespace Polytoria.Datamodel;
 // Polytoria.Datamodel.AnimationLibrary is an anti-corruption layer for interfacing with Godot.AnimationLibrary.
 
 /// <summary>
-/// An animation library stores a set of animations accessible through string keys, for use with <see cref="AnimationPlayer"> nodes.
+/// An animation library stores a set of <see cref="Animation"/>s accessible through string keys, for use with <see cref="AnimationPlayer"/> nodes.
 /// </summary>
 [Instantiable]
 public partial class AnimationLibrary : Instance
