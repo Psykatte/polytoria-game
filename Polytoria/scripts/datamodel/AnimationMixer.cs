@@ -85,7 +85,7 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeDiscrete;
 		set
 		{
-			ValidateEnum(value, nameof(value));
+			ValidateEnum(value);
 
 			_callbackModeDiscrete = value;
 			GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
@@ -102,7 +102,7 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeMethod;
 		set
 		{
-			ValidateEnum(value, nameof(value));
+			ValidateEnum(value);
 
 			_callbackModeMethod = value;
 			GDAnimationMixer.CallbackModeMethod = (Godot.AnimationMixer.AnimationCallbackModeMethod)(int)value;
@@ -119,7 +119,7 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeProcess;
 		set
 		{
-			ValidateEnum(value, nameof(value));
+			ValidateEnum(value);
 
 			_callbackModeProcess = value;
 			GDAnimationMixer.CallbackModeProcess = (Godot.AnimationMixer.AnimationCallbackModeProcess)(int)value;
@@ -182,7 +182,7 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootMotionTrack;
 		set
 		{
-			ValidateName(value, nameof(value));
+			ValidateName(value);
 
 			_rootMotionTrack = value;
 			GDAnimationMixer.RootMotionTrack = value;
@@ -199,7 +199,7 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootNode;
 		set
 		{
-			ValidateName(value, nameof(value));
+			ValidateName(value);
 
 			_rootNode = value;
 			GDAnimationMixer.RootNode = value;
@@ -224,7 +224,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public ErrorEnum AddAnimationLibrary(string name, AnimationLibrary library)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 		if (library is null)
 			throw new ArgumentNullException(nameof(library), "Animation library cannot be nil.");
 
@@ -237,7 +237,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public void Advance(float delta)
 	{
-		ValidateFinite(delta, nameof(delta));
+		ValidateFinite(delta);
 
 		GDAnimationMixer.Advance(delta);
 	}
@@ -249,10 +249,10 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public void Capture(string name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
 	{
-		ValidateName(name, nameof(name));
-		ValidateFinite(duration, nameof(duration));
-		ValidateEnum(transType, nameof(transType));
-		ValidateEnum(easeType, nameof(easeType));
+		ValidateName(name);
+		ValidateFinite(duration);
+		ValidateEnum(transType);
+		ValidateEnum(easeType);
 		if (!GDAnimationMixer.HasAnimation(name))
 			throw new ArgumentException($"No animation with the key '{name}' exists in this mixer.", nameof(name));
 
@@ -293,7 +293,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public Animation? GetAnimation(string name)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 
 		return GDAnimationMixer.GetAnimation(name);
 	}
@@ -305,7 +305,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public AnimationLibrary? GetAnimationLibrary(string name)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 
 		return GDAnimationMixer.GetAnimationLibrary(name);
 	}
@@ -378,7 +378,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public bool HasAnimation(string name)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 
 		return GDAnimationMixer.HasAnimation(name);
 	}
@@ -389,7 +389,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public bool HasAnimationLibrary(string name)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 
 		return GDAnimationMixer.HasAnimationLibrary(name);
 	}
@@ -400,7 +400,7 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public void RemoveAnimationLibrary(string name)
 	{
-		ValidateName(name, nameof(name));
+		ValidateName(name);
 
 		if (!GDAnimationMixer.HasAnimationLibrary(name))
 			throw new ArgumentException($"No animation library with the key '{name}' exists in this mixer.",
@@ -414,8 +414,8 @@ public abstract partial class AnimationMixer : Instance
 	[ScriptMethod]
 	public void RenameAnimationLibrary(string name, string newname)
 	{
-		ValidateName(name, nameof(name));
-		ValidateName(newname, nameof(newname));
+		ValidateName(name);
+		ValidateName(newname);
 		if (!GDAnimationMixer.HasAnimationLibrary(name))
 			throw new ArgumentException($"No animation library with the key '{name}' exists in this mixer.", nameof(name));
 		if (newname != name && GDAnimationMixer.HasAnimationLibrary(newname))

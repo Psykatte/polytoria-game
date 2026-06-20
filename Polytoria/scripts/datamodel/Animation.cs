@@ -501,7 +501,7 @@ public partial class Animation : Instance
 	public int FindTrack(string path, TrackTypeEnum type)
 	{
 		ValidateName(path);
-		ValidateEnum(type, nameof(type));
+		ValidateEnum(type);
 
 		return GDAnimation.FindTrack(path, (Godot.Animation.TrackType)type);
 	}
@@ -805,7 +805,7 @@ public partial class Animation : Instance
 	{
 		ValidateTrack(trackIdx);
 		ValidateFinite(time);
-		ValidateEnum(findMode, nameof(findMode));
+		ValidateEnum(findMode);
 
 		return GDAnimation.TrackFindKey(trackIdx, time, (Godot.Animation.FindMode)findMode, limit, backward);
 	}
