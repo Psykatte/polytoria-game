@@ -41,7 +41,7 @@ public partial class AnimationTree : AnimationMixer
 		get => _advanceExpressionBaseNode;
 		set
 		{
-			if (value is null)
+			if (ShouldValidate && value is null)
 				throw new ArgumentNullException(nameof(value), "AdvanceExpressionBaseNode cannot be nil.");
 
 			_advanceExpressionBaseNode = value;
@@ -63,7 +63,7 @@ public partial class AnimationTree : AnimationMixer
 		get => _animPlayer;
 		set
 		{
-			if (value is null)
+			if (ShouldValidate && value is null)
 				throw new ArgumentNullException(nameof(value), "AnimPlayer cannot be nil.");
 
 			_animPlayer = value;
@@ -83,7 +83,8 @@ public partial class AnimationTree : AnimationMixer
 		get => _callbackModeDiscrete;
 		set
 		{
-			ValidateEnum(value, nameof(value));
+			if (ShouldValidate)
+				ValidateEnum(value, nameof(value));
 
 			_callbackModeDiscrete = value;
 			GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;

@@ -18,6 +18,20 @@ namespace Polytoria.Utils;
 
 public static class AntiCorruption
 {
+	// ------------------------------------------------- Gating --------------------------------------------------------
+
+	// ScriptProperty setters validate their inputs and throw on invalid values. The same build runs the Creator, where
+	// properties are edited live exceptions must not be thrown. The Creator and Client share the CREATOR binary, so
+	// they can only be told apart at runtime: validation is skipped unless running as the client. Because places are
+	// loaded through the property setters (see XmlFormat), this guarantees authored values are validated when the
+	// client starts. In non-Creator builds validation is always on.
+	public static bool ShouldValidate =>
+#if CREATOR
+		Polytoria.Shared.Globals.CurrentAppEntry == Polytoria.Shared.Globals.AppEntryEnum.Client;
+#else
+		true;
+#endif
+
 	// ------------------------------------------------- Values --------------------------------------------------------
 
 	// Reject NaN/Infinity.

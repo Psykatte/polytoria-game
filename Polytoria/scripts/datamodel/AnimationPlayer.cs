@@ -58,10 +58,12 @@ public partial class AnimationPlayer : AnimationMixer
 					_assignedAnimation = value;
 					GDAnimationPlayer.AssignedAnimation = value;
 				}
-				else throw new ArgumentException($"No animation with the key '{value}' exists in this player.",
-					nameof(value));
+				else if (ShouldValidate)
+					throw new ArgumentException($"No animation with the key '{value}' exists in this player.",
+						nameof(value));
 			}
-			else throw new ArgumentNullException(nameof(value), $"AssignedAnimation cannot be nil.");
+			else if (ShouldValidate)
+				throw new ArgumentNullException(nameof(value), $"AssignedAnimation cannot be nil.");
 			OnPropertyChanged();
 		}
 	}
@@ -75,7 +77,8 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _autoplay;
 		set
 		{
-			ValidateName(value);
+			if (ShouldValidate)
+				ValidateName(value);
 
 			_autoplay = value;
 			GDAnimationPlayer.Autoplay = value;
@@ -157,7 +160,8 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _playbackAutoCaptureDuration;
 		set
 		{
-			ValidateFinite(value);
+			if (ShouldValidate)
+				ValidateFinite(value);
 
 			_playbackAutoCaptureDuration = value;
 			GDAnimationPlayer.PlaybackAutoCaptureDuration = value;
@@ -174,7 +178,8 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _playbackAutoCaptureTransitionType;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_playbackAutoCaptureTransitionType = value;
 			GDAnimationPlayer.PlaybackAutoCaptureTransitionType = (Godot.Tween.TransitionType)(int)value;
@@ -191,7 +196,8 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _playbackAutoCaptureEaseType;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_playbackAutoCaptureEaseType = value;
 			GDAnimationPlayer.PlaybackAutoCaptureEaseType = (Godot.Tween.EaseType)(int)value;
@@ -208,9 +214,12 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _playbackDefaultBlendTime;
 		set
 		{
-			ValidateFinite(value);
-			if (value < 0.0f)
-				throw new ArgumentOutOfRangeException(nameof(value), value, "PlaybackDefaultBlendTime cannot be negative.");
+			if (ShouldValidate)
+			{
+				ValidateFinite(value);
+				if (value < 0.0f)
+					throw new ArgumentOutOfRangeException(nameof(value), value, "PlaybackDefaultBlendTime cannot be negative.");
+			}
 
 			_playbackDefaultBlendTime = value;
 			GDAnimationPlayer.PlaybackDefaultBlendTime = value;
@@ -229,7 +238,8 @@ public partial class AnimationPlayer : AnimationMixer
 		get => _speedScale;
 		set
 		{
-			ValidateFinite(value);
+			if (ShouldValidate)
+				ValidateFinite(value);
 
 			_speedScale = value;
 			GDAnimationPlayer.SpeedScale = value;
@@ -411,9 +421,9 @@ public partial class AnimationPlayer : AnimationMixer
 		ValidateFinite(startTime);
 		ValidateFinite(endTime);
 		ValidateFinite(customBlend);
-		
 		if (startTime >= 0 && endTime >= 0 && startTime == endTime)
 			throw new ArgumentException("Section startTime cannot be equal to endTime.", nameof(endTime));
+
 		GDAnimationPlayer.PlaySectionBackwards(name == null ? null : new StringName(name), startTime, endTime,
 			customBlend);
 	}

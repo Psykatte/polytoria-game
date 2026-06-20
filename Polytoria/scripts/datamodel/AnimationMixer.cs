@@ -85,7 +85,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeDiscrete;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_callbackModeDiscrete = value;
 			GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
@@ -102,7 +103,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeMethod;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_callbackModeMethod = value;
 			GDAnimationMixer.CallbackModeMethod = (Godot.AnimationMixer.AnimationCallbackModeMethod)(int)value;
@@ -119,7 +121,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeProcess;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_callbackModeProcess = value;
 			GDAnimationMixer.CallbackModeProcess = (Godot.AnimationMixer.AnimationCallbackModeProcess)(int)value;
@@ -182,7 +185,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootMotionTrack;
 		set
 		{
-			ValidateName(value);
+			if (ShouldValidate)
+				ValidateName(value);
 
 			_rootMotionTrack = value;
 			GDAnimationMixer.RootMotionTrack = value;
@@ -199,7 +203,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootNode;
 		set
 		{
-			ValidateName(value);
+			if (ShouldValidate)
+				ValidateName(value);
 
 			_rootNode = value;
 			GDAnimationMixer.RootNode = value;

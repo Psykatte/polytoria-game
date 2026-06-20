@@ -41,9 +41,12 @@ public partial class Animation : Instance
 		get => _length;
 		set
 		{
-			ValidateFinite(value);
-			if (value <= 0f)
-				throw new ArgumentOutOfRangeException(nameof(value), value, "Length must be greater than zero.");
+			if (ShouldValidate)
+			{
+				ValidateFinite(value);
+				if (value <= 0f)
+					throw new ArgumentOutOfRangeException(nameof(value), value, "Length must be greater than zero.");
+			}
 
 			_length = value;
 			GDAnimation.Length = value;
@@ -60,7 +63,8 @@ public partial class Animation : Instance
 		get => _loopMode;
 		set
 		{
-			ValidateEnum(value);
+			if (ShouldValidate)
+				ValidateEnum(value);
 
 			_loopMode = value;
 			GDAnimation.LoopMode = (Godot.Animation.LoopModeEnum)value;
@@ -77,9 +81,10 @@ public partial class Animation : Instance
 		get => _step;
 		set
 		{
-			ValidateFinite(value);
+			if (ShouldValidate)
+				ValidateFinite(value);
+				
 			float val = Math.Max(1f / 120f, value);
-
 			_step = val;
 			GDAnimation.Step = val;
 			OnPropertyChanged();
