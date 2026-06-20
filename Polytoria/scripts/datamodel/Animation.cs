@@ -25,7 +25,7 @@ public partial class Animation : Instance
 
 	private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
 	private Godot.Animation GDAnimation = null!;
-	private double _length = 1.0f;
+	private float _length = 1.0f;
 	private LoopModeEnum _loopMode = LoopModeEnum.None;
 	private float _step = 1f / 60f;
 
@@ -36,7 +36,7 @@ public partial class Animation : Instance
 	/// <para><strong>Note:</strong> Length is not delimited by the last key, as this one may be before or after the end to ensure correct interpolation and looping.</para>
 	/// </summary>
 	[Editable, ScriptProperty, DefaultValue(1.0f)]
-	public double Length
+	public float Length
 	{
 		get => _length;
 		set
@@ -49,7 +49,7 @@ public partial class Animation : Instance
 			}
 
 			_length = value;
-			GDAnimation.Length = value;
+			GDAnimation.Length = (double)value;
 			OnPropertyChanged();
 		}
 	}
@@ -83,7 +83,7 @@ public partial class Animation : Instance
 		{
 			if (ShouldValidate)
 				ValidateFinite(value);
-				
+
 			float val = Math.Max(1f / 120f, value);
 			_step = val;
 			GDAnimation.Step = val;
