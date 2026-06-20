@@ -2,10 +2,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
+
+using static Polytoria.Utils.AntiCorruption;
 
 namespace Polytoria.Datamodel;
 
@@ -18,12 +21,15 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationTree : AnimationMixer
 {
+	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+
 	private Godot.AnimationTree GDAnimationTree = null!;
 	protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationTree;
 
 	private string _advanceExpressionBaseNode = ".";
 	private string _animPlayer = "";
-	// private AnimationRootNode? _treeRoot = null;
+
+	// ------------------------------------------------ Properties -----------------------------------------------------
 
 	/// <summary>
 	/// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <see cref="Expression"/>
@@ -35,6 +41,9 @@ public partial class AnimationTree : AnimationMixer
 		get => _advanceExpressionBaseNode;
 		set
 		{
+			if (value is null)
+				throw new ArgumentNullException(nameof(value), "AdvanceExpressionBaseNode cannot be nil.");
+
 			_advanceExpressionBaseNode = value;
 			GDAnimationTree.AdvanceExpressionBaseNode = value;
 			OnPropertyChanged();
@@ -54,6 +63,9 @@ public partial class AnimationTree : AnimationMixer
 		get => _animPlayer;
 		set
 		{
+			if (value is null)
+				throw new ArgumentNullException(nameof(value), "AnimPlayer cannot be nil.");
+
 			_animPlayer = value;
 			GDAnimationTree.AnimPlayer = value;
 			OnPropertyChanged();
@@ -71,6 +83,8 @@ public partial class AnimationTree : AnimationMixer
 		get => _callbackModeDiscrete;
 		set
 		{
+			ValidateEnum(value, nameof(value));
+
 			_callbackModeDiscrete = value;
 			GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
 			OnPropertyChanged();
@@ -102,6 +116,8 @@ public partial class AnimationTree : AnimationMixer
 			}
 		} */
 
+	// ------------------------------------------------ Signals --------------------------------------------------------
+
 	/// <summary>
 	/// Emitted when the <see cref="AnimPlayer"/> is changed.
 	/// </summary>
@@ -112,6 +128,8 @@ public partial class AnimationTree : AnimationMixer
 	{
 		AnimationPlayerChanged.Invoke();
 	}
+
+	// ---------------------------------------------- Init and Deinit --------------------------------------------------
 
 	public override Node CreateGDNode()
 	{
