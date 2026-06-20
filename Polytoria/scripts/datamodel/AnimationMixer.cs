@@ -2,10 +2,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+using System;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
 using Polytoria.Scripting;
+
+using static Polytoria.Utils.AntiCorruption;
 
 namespace Polytoria.Datamodel;
 
@@ -18,9 +21,11 @@ namespace Polytoria.Datamodel;
 [Abstract]
 public abstract partial class AnimationMixer : Instance
 {
+	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+
 	protected abstract Godot.AnimationMixer GDAnimationMixer { get; }
 	private bool _active = true;
-	private int _audioMaxPolyphony = 32;
+	// private int _audioMaxPolyphony = 32;
 	protected AnimationCallbackModeDiscreteEnum _callbackModeDiscrete = AnimationCallbackModeDiscreteEnum.Recessive;
 	private AnimationCallbackModeMethodEnum _callbackModeMethod = AnimationCallbackModeMethodEnum.Deferred;
 	private AnimationCallbackModeProcessEnum _callbackModeProcess = AnimationCallbackModeProcessEnum.Idle;
@@ -32,6 +37,8 @@ public abstract partial class AnimationMixer : Instance
 
 	[SyncVar]
 	public bool AutoInit { get; set; } = true;
+
+	// ------------------------------------------------ Properties -----------------------------------------------------
 
 	/// <summary>
 	/// If <c>true</c>, the <strong>AnimationMixer</strong> will be processing.
@@ -48,21 +55,24 @@ public abstract partial class AnimationMixer : Instance
 		}
 	}
 
-	/// <summary>
-	/// The number of possible simultaneous sounds for each of the assigned AudioStreamPlayers.
-	/// For example, if this value is <c>32</c> and the animation has two audio tracks, the two <c>AudioStreamPlayer</c>s assigned can play simultaneously up to <c>32</c> voices each.
-	/// </summary>
-	[Editable, ScriptProperty, DefaultValue(32)]
-	public int AudioMaxPolyphony
-	{
-		get => _audioMaxPolyphony;
-		set
+	/* 	/// <summary>
+		/// The number of possible simultaneous sounds for each of the assigned AudioStreamPlayers.
+		/// For example, if this value is <c>32</c> and the animation has two audio tracks, the two <c>AudioStreamPlayer</c>s assigned can play simultaneously up to <c>32</c> voices each.
+		/// </summary>
+		[Editable, ScriptProperty, DefaultValue(32)]
+		public int AudioMaxPolyphony
 		{
-			_audioMaxPolyphony = value;
-			GDAnimationMixer.AudioMaxPolyphony = value;
-			OnPropertyChanged();
-		}
-	}
+			get => _audioMaxPolyphony;
+			set
+			{
+				if (value < 1)
+					throw new ArgumentOutOfRangeException(nameof(value), value, "AudioMaxPolyphony cannot be less than 1.");
+
+				_audioMaxPolyphony = value;
+				GDAnimationMixer.AudioMaxPolyphony = value;
+				OnPropertyChanged();
+			}
+		} */
 
 	/// <summary>
 	/// Ordinarily, tracks can be set to <c>Animation.UPDATE_DISCRETE</c> to update infrequently, usually when using nearest interpolation.
@@ -75,6 +85,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeDiscrete;
 		set
 		{
+			ValidateEnum(value, nameof(value));
+
 			_callbackModeDiscrete = value;
 			GDAnimationMixer.CallbackModeDiscrete = (Godot.AnimationMixer.AnimationCallbackModeDiscrete)(int)value;
 			OnPropertyChanged();
@@ -90,6 +102,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeMethod;
 		set
 		{
+			ValidateEnum(value, nameof(value));
+
 			_callbackModeMethod = value;
 			GDAnimationMixer.CallbackModeMethod = (Godot.AnimationMixer.AnimationCallbackModeMethod)(int)value;
 			OnPropertyChanged();
@@ -105,6 +119,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _callbackModeProcess;
 		set
 		{
+			ValidateEnum(value, nameof(value));
+
 			_callbackModeProcess = value;
 			GDAnimationMixer.CallbackModeProcess = (Godot.AnimationMixer.AnimationCallbackModeProcess)(int)value;
 			OnPropertyChanged();
@@ -166,6 +182,8 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootMotionTrack;
 		set
 		{
+			ValidateName(value, nameof(value));
+
 			_rootMotionTrack = value;
 			GDAnimationMixer.RootMotionTrack = value;
 			OnPropertyChanged();
@@ -181,117 +199,18 @@ public abstract partial class AnimationMixer : Instance
 		get => _rootNode;
 		set
 		{
+			ValidateName(value, nameof(value));
+
 			_rootNode = value;
 			GDAnimationMixer.RootNode = value;
 			OnPropertyChanged();
 		}
 	}
 
-	/// <summary>
-	/// Notifies when an animation finished playing.
-	/// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal<string> AnimationFinished { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when the animation libraries have changed.
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal AnimationLibrariesUpdated { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when an animation list is changed.
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal AnimationListChanged { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when an animation starts playing.
-	/// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal<string> AnimationStarted { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when the caches have been cleared, either automatically, or manually via <see cref="ClearCaches"/>.
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal CachesCleared { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when the blending result related have been applied to the target objects.
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal MixerApplied { get; private set; } = new();
-
-	/// <summary>
-	/// Notifies when the property related process have been updated.
-	/// </summary>
-	[ScriptProperty]
-	public PTSignal MixerUpdated { get; private set; } = new();
-
-	private void OnAnimationFinished(StringName name)
-	{
-		AnimationFinished.Invoke(name);
-	}
-
-	private void OnAnimationStarted(StringName name)
-	{
-		AnimationStarted.Invoke(name);
-	}
-
-	private void OnAnimationListChanged()
-	{
-		AnimationListChanged.Invoke();
-	}
-
-	private void OnAnimationLibrariesUpdated()
-	{
-		AnimationLibrariesUpdated.Invoke();
-	}
-
-	private void OnCachesCleared()
-	{
-		CachesCleared.Invoke();
-	}
-
-	private void OnMixerApplied()
-	{
-		MixerApplied.Invoke();
-	}
-
-	private void OnMixerUpdated()
-	{
-		MixerUpdated.Invoke();
-	}
-
-	public override void Init()
-	{
-		GDAnimationMixer.AnimationFinished += OnAnimationFinished;
-		GDAnimationMixer.AnimationStarted += OnAnimationStarted;
-		GDAnimationMixer.AnimationListChanged += OnAnimationListChanged;
-		GDAnimationMixer.AnimationLibrariesUpdated += OnAnimationLibrariesUpdated;
-		GDAnimationMixer.CachesCleared += OnCachesCleared;
-		GDAnimationMixer.MixerApplied += OnMixerApplied;
-		GDAnimationMixer.MixerUpdated += OnMixerUpdated;
-		base.Init();
-	}
-
-	public override void PreDelete()
-	{
-		GDAnimationMixer.AnimationFinished -= OnAnimationFinished;
-		GDAnimationMixer.AnimationStarted -= OnAnimationStarted;
-		GDAnimationMixer.AnimationListChanged -= OnAnimationListChanged;
-		GDAnimationMixer.AnimationLibrariesUpdated -= OnAnimationLibrariesUpdated;
-		GDAnimationMixer.CachesCleared -= OnCachesCleared;
-		GDAnimationMixer.MixerApplied -= OnMixerApplied;
-		GDAnimationMixer.MixerUpdated -= OnMixerUpdated;
-		base.PreDelete();
-	}
+	// -------------------------------------------------- Methods ------------------------------------------------------
 
 	// I don't feel confident implementing this without extensive testing.
-	/*     /// <summary>
+	/*	/// <summary>
 		/// A virtual function for processing after getting a key during playback.
 		/// </summary>
 		[ScriptMethod]
@@ -304,13 +223,24 @@ public abstract partial class AnimationMixer : Instance
 	/// </summary>
 	[ScriptMethod]
 	public ErrorEnum AddAnimationLibrary(string name, AnimationLibrary library)
-		=> (ErrorEnum)GDAnimationMixer.AddAnimationLibrary(name, library);
+	{
+		ValidateName(name, nameof(name));
+		if (library is null)
+			throw new ArgumentNullException(nameof(library), "Animation library cannot be nil.");
+
+		return (ErrorEnum)GDAnimationMixer.AddAnimationLibrary(name, library);
+	}
 
 	/// <summary>
 	/// Manually advance the animations by the specified time (in seconds).
 	/// </summary>
 	[ScriptMethod]
-	public void Advance(float delta) => GDAnimationMixer.Advance(delta);
+	public void Advance(float delta)
+	{
+		ValidateFinite(delta, nameof(delta));
+
+		GDAnimationMixer.Advance(delta);
+	}
 
 	/// <summary>
 	/// If the animation track specified by <paramref name="name"/> has an option <c>Animation.UPDATE_CAPTURE</c>, stores current values of the objects indicated by the track path as a cache.
@@ -318,7 +248,16 @@ public abstract partial class AnimationMixer : Instance
 	/// </summary>
 	[ScriptMethod]
 	public void Capture(string name, float duration, TransitionTypeEnum transType = TransitionTypeEnum.Linear, EaseTypeEnum easeType = EaseTypeEnum.In)
-		=> GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
+	{
+		ValidateName(name, nameof(name));
+		ValidateFinite(duration, nameof(duration));
+		ValidateEnum(transType, nameof(transType));
+		ValidateEnum(easeType, nameof(easeType));
+		if (!GDAnimationMixer.HasAnimation(name))
+			throw new ArgumentException($"No animation with the key '{name}' exists in this mixer.", nameof(name));
+
+		GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
+	}
 
 	/// <summary>
 	/// <strong>AnimationMixer</strong> caches animated nodes. It may not notice if a node disappears; <see cref="ClearCaches"/> forces it to update the cache again.
@@ -327,29 +266,49 @@ public abstract partial class AnimationMixer : Instance
 	public void ClearCaches() => GDAnimationMixer.ClearCaches();
 
 	/// <summary>
-	/// Returns the key of <paramref name="animation"/> or an empty <c>StringName</c> if not found.
+	/// Returns the key of <paramref name="animation"/> or an empty <c>string</c> if not found.
 	/// </summary>
 	[ScriptMethod]
-	public string FindAnimation(Animation animation) => GDAnimationMixer.FindAnimation(animation);
+	public string FindAnimation(Animation animation)
+	{
+		ValidateAnimationNonNil(animation);
+
+		return GDAnimationMixer.FindAnimation(animation);
+	}
 
 	/// <summary>
-	/// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>StringName</c> if not found.
+	/// Returns the key for the <c>AnimationLibrary</c> that contains <paramref name="animation"/> or an empty <c>string</c> if not found.
 	/// </summary>
 	[ScriptMethod]
-	public string FindAnimationLibrary(Animation animation) => GDAnimationMixer.FindAnimationLibrary(animation);
+	public string FindAnimationLibrary(Animation animation)
+	{
+		ValidateAnimationNonNil(animation);
+
+		return GDAnimationMixer.FindAnimationLibrary(animation);
+	}
 
 	/// <summary>
 	/// Returns the <c>Animation</c> with the key <paramref name="name"/>. If the animation does not exist, <c>null</c> is returned and an error is logged.
 	/// </summary>
 	[ScriptMethod]
-	public Animation? GetAnimation(string name) => GDAnimationMixer.GetAnimation(name);
+	public Animation? GetAnimation(string name)
+	{
+		ValidateName(name, nameof(name));
+
+		return GDAnimationMixer.GetAnimation(name);
+	}
 
 	/// <summary>
 	/// Returns the first <c>AnimationLibrary</c> with key <paramref name="name"/> or <c>null</c> if not found.
 	/// To get the <strong>AnimationMixer</strong>'s global animation library, use <c>get_animation_library("")</c>.
 	/// </summary>
 	[ScriptMethod]
-	public AnimationLibrary? GetAnimationLibrary(string name) => GDAnimationMixer.GetAnimationLibrary(name);
+	public AnimationLibrary? GetAnimationLibrary(string name)
+	{
+		ValidateName(name, nameof(name));
+
+		return GDAnimationMixer.GetAnimationLibrary(name);
+	}
 
 	/// <summary>
 	/// Returns the list of stored library keys.
@@ -417,23 +376,167 @@ public abstract partial class AnimationMixer : Instance
 	/// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>Animation</c> with key <paramref name="name"/>.
 	/// </summary>
 	[ScriptMethod]
-	public bool HasAnimation(string name) => GDAnimationMixer.HasAnimation(name);
+	public bool HasAnimation(string name)
+	{
+		ValidateName(name, nameof(name));
+
+		return GDAnimationMixer.HasAnimation(name);
+	}
 
 	/// <summary>
 	/// Returns <c>true</c> if the <strong>AnimationMixer</strong> stores an <c>AnimationLibrary</c> with key <paramref name="name"/>.
 	/// </summary>
 	[ScriptMethod]
-	public bool HasAnimationLibrary(string name) => GDAnimationMixer.HasAnimationLibrary(name);
+	public bool HasAnimationLibrary(string name)
+	{
+		ValidateName(name, nameof(name));
+
+		return GDAnimationMixer.HasAnimationLibrary(name);
+	}
 
 	/// <summary>
 	/// Removes the <c>AnimationLibrary</c> associated with the key <paramref name="name"/>.
 	/// </summary>
 	[ScriptMethod]
-	public void RemoveAnimationLibrary(string name) => GDAnimationMixer.RemoveAnimationLibrary(name);
+	public void RemoveAnimationLibrary(string name)
+	{
+		ValidateName(name, nameof(name));
+
+		if (!GDAnimationMixer.HasAnimationLibrary(name))
+			throw new ArgumentException($"No animation library with the key '{name}' exists in this mixer.",
+				nameof(name));
+		GDAnimationMixer.RemoveAnimationLibrary(name);
+	}
 
 	/// <summary>
 	/// Moves the <c>AnimationLibrary</c> associated with the key <paramref name="name"/> to the key <paramref name="newname"/>.
 	/// </summary>
 	[ScriptMethod]
-	public void RenameAnimationLibrary(string name, string newname) => GDAnimationMixer.RenameAnimationLibrary(name, newname);
+	public void RenameAnimationLibrary(string name, string newname)
+	{
+		ValidateName(name, nameof(name));
+		ValidateName(newname, nameof(newname));
+		if (!GDAnimationMixer.HasAnimationLibrary(name))
+			throw new ArgumentException($"No animation library with the key '{name}' exists in this mixer.", nameof(name));
+		if (newname != name && GDAnimationMixer.HasAnimationLibrary(newname))
+			throw new ArgumentException($"An animation library with the key '{newname}' already exists in this mixer.", nameof(newname));
+
+		GDAnimationMixer.RenameAnimationLibrary(name, newname);
+	}
+
+	// ------------------------------------------------ Signals --------------------------------------------------------
+
+	/// <summary>
+	/// Notifies when an animation finished playing.
+	/// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationFinished { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when the animation libraries have changed.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal AnimationLibrariesUpdated { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when an animation list is changed.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal AnimationListChanged { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when an animation starts playing.
+	/// <para><strong>Note:</strong> This signal is not emitted if an animation is looping.</para>
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal<string> AnimationStarted { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when the caches have been cleared, either automatically, or manually via <see cref="ClearCaches"/>.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal CachesCleared { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when the blending result related have been applied to the target objects.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal MixerApplied { get; private set; } = new();
+
+	/// <summary>
+	/// Notifies when the property related process have been updated.
+	/// </summary>
+	[ScriptProperty]
+	public PTSignal MixerUpdated { get; private set; } = new();
+
+	private void OnAnimationFinished(StringName name)
+	{
+		AnimationFinished.Invoke((string)name);
+	}
+
+	private void OnAnimationStarted(StringName name)
+	{
+		AnimationStarted.Invoke((string)name);
+	}
+
+	private void OnAnimationListChanged()
+	{
+		AnimationListChanged.Invoke();
+	}
+
+	private void OnAnimationLibrariesUpdated()
+	{
+		AnimationLibrariesUpdated.Invoke();
+	}
+
+	private void OnCachesCleared()
+	{
+		CachesCleared.Invoke();
+	}
+
+	private void OnMixerApplied()
+	{
+		MixerApplied.Invoke();
+	}
+
+	private void OnMixerUpdated()
+	{
+		MixerUpdated.Invoke();
+	}
+
+	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+
+	public override void Init()
+	{
+		GDAnimationMixer.AnimationFinished += OnAnimationFinished;
+		GDAnimationMixer.AnimationStarted += OnAnimationStarted;
+		GDAnimationMixer.AnimationListChanged += OnAnimationListChanged;
+		GDAnimationMixer.AnimationLibrariesUpdated += OnAnimationLibrariesUpdated;
+		GDAnimationMixer.CachesCleared += OnCachesCleared;
+		GDAnimationMixer.MixerApplied += OnMixerApplied;
+		GDAnimationMixer.MixerUpdated += OnMixerUpdated;
+		base.Init();
+	}
+
+	public override void PreDelete()
+	{
+		GDAnimationMixer.AnimationFinished -= OnAnimationFinished;
+		GDAnimationMixer.AnimationStarted -= OnAnimationStarted;
+		GDAnimationMixer.AnimationListChanged -= OnAnimationListChanged;
+		GDAnimationMixer.AnimationLibrariesUpdated -= OnAnimationLibrariesUpdated;
+		GDAnimationMixer.CachesCleared -= OnCachesCleared;
+		GDAnimationMixer.MixerApplied -= OnMixerApplied;
+		GDAnimationMixer.MixerUpdated -= OnMixerUpdated;
+		base.PreDelete();
+	}
+
+	// ----------------------------------------------- Validation ------------------------------------------------------
+
+	// Ensures an animation with the given key exists before reading, renaming, or removing it.
+	private void ValidateAnimationNonNil(Animation animation)
+	{
+		if (animation == null)
+			throw new ArgumentNullException(nameof(animation), $"Animation cannot be nil.");
+	}
 }
