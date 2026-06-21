@@ -6,6 +6,7 @@ using System;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
+using Polytoria.Networking;
 using Polytoria.Scripting;
 
 using static Polytoria.Utils.AntiCorruption;
@@ -365,7 +366,16 @@ public partial class AnimationPlayer : AnimationMixer
 	/// See also <see cref="Stop"/>.
 	/// </summary>
 	[ScriptMethod]
-	public void Pause() => GDAnimationPlayer.Pause();
+	public void Pause()
+	{
+		GDAnimationPlayer.Pause();
+
+		if (HasAuthority)
+			Rpc(nameof(NetPause));
+	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPause() => GDAnimationPlayer.Pause();
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/>. Custom blend times and speed can be set.
@@ -390,7 +400,15 @@ public partial class AnimationPlayer : AnimationMixer
 		ValidateFinite(customSpeed);
 
 		GDAnimationPlayer.Play(name == null ? null : new StringName(name), customBlend, customSpeed, fromEnd);
+
+		// Validation already happened, so reciever can skip it.
+		if (HasAuthority)
+			Rpc(nameof(NetPlay), name, customBlend, customSpeed, fromEnd);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPlay(string? name, double customBlend, float customSpeed, bool fromEnd)
+		=> GDAnimationPlayer.Play(name == null ? null : new StringName(name), customBlend, customSpeed, fromEnd);
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> in reverse.
@@ -405,7 +423,14 @@ public partial class AnimationPlayer : AnimationMixer
 		ValidateFinite(customBlend);
 
 		GDAnimationPlayer.PlayBackwards(name == null ? null : new StringName(name), customBlend);
+
+		if (HasAuthority)
+			Rpc(nameof(NetPlayBackwards), name, customBlend);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPlayBackwards(string? name, double customBlend)
+		=> GDAnimationPlayer.PlayBackwards(name == null ? null : new StringName(name), customBlend);
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/>.
@@ -433,7 +458,16 @@ public partial class AnimationPlayer : AnimationMixer
 			throw new ArgumentException("Section startTime cannot be equal to endTime.", nameof(endTime));
 		GDAnimationPlayer.PlaySection(name == null ? null : new StringName(name), startTime, endTime, customBlend,
 			customSpeed, fromEnd);
+
+		if (HasAuthority)
+			Rpc(nameof(NetPlaySection), name, startTime, endTime, customBlend, customSpeed, fromEnd);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPlaySection(string? name, double startTime, double endTime, double customBlend, float customSpeed,
+		bool fromEnd)
+		=> GDAnimationPlayer.PlaySection(name == null ? null : new StringName(name), startTime, endTime, customBlend,
+			customSpeed, fromEnd);
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startTime"/> and ending on <paramref name="endTime"/> in reverse.
@@ -456,7 +490,15 @@ public partial class AnimationPlayer : AnimationMixer
 
 		GDAnimationPlayer.PlaySectionBackwards(name == null ? null : new StringName(name), startTime, endTime,
 			customBlend);
+
+		if (HasAuthority)
+			Rpc(nameof(NetPlaySectionBackwards), name, startTime, endTime, customBlend);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPlaySectionBackwards(string? name, double startTime, double endTime, double customBlend)
+		=> GDAnimationPlayer.PlaySectionBackwards(name == null ? null : new StringName(name), startTime, endTime,
+			customBlend);
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/>.
@@ -482,7 +524,19 @@ public partial class AnimationPlayer : AnimationMixer
 			startMarker == null ? null : new StringName(startMarker),
 			endMarker == null ? null : new StringName(endMarker),
 			customBlend, customSpeed, fromEnd);
+
+		if (HasAuthority)
+			Rpc(nameof(NetPlaySectionWithMarkers), name, startMarker, endMarker, customBlend, customSpeed, fromEnd);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetPlaySectionWithMarkers(string? name, string? startMarker, string? endMarker, double customBlend,
+		float customSpeed, bool fromEnd)
+		=> GDAnimationPlayer.PlaySectionWithMarkers(
+			name == null ? null : new StringName(name),
+			startMarker == null ? null : new StringName(startMarker),
+			endMarker == null ? null : new StringName(endMarker),
+			customBlend, customSpeed, fromEnd);
 
 	/// <summary>
 	/// Plays the <see cref="Animation"/> with key <paramref name="name"/> and the section starting from <paramref name="startMarker"/> and ending on <paramref name="endMarker"/> in reverse.
@@ -566,7 +620,14 @@ public partial class AnimationPlayer : AnimationMixer
 		ValidateFinite(seconds);
 
 		GDAnimationPlayer.Seek(seconds, update, updateOnly);
+
+		if (HasAuthority)
+			Rpc(nameof(NetSeek), seconds, update, updateOnly);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetSeek(double seconds, bool update, bool updateOnly)
+		=> GDAnimationPlayer.Seek(seconds, update, updateOnly);
 
 	/// <summary>
 	/// Specifies a blend time (in seconds) between two animations, referenced by their keys.
@@ -630,7 +691,16 @@ public partial class AnimationPlayer : AnimationMixer
 	/// </summary>
 	/// <param name="keepState">If true, the animation state is not updated visually (default false).</param>
 	[ScriptMethod]
-	public void Stop(bool keepState = false) => GDAnimationPlayer.Stop(keepState);
+	public void Stop(bool keepState = false)
+	{
+		GDAnimationPlayer.Stop(keepState);
+
+		if (HasAuthority)
+			Rpc(nameof(NetStop), keepState);
+	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetStop(bool keepState) => GDAnimationPlayer.Stop(keepState);
 
 	// ------------------------------------------------ Signals --------------------------------------------------------
 

@@ -6,6 +6,7 @@ using System;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
+using Polytoria.Networking;
 using Polytoria.Scripting;
 
 using static Polytoria.Utils.AntiCorruption;
@@ -249,7 +250,13 @@ public abstract partial class AnimationMixer : Instance
 		ValidateFinite(delta);
 
 		GDAnimationMixer.Advance(delta);
+
+		if (HasAuthority)
+			Rpc(nameof(NetAdvance), delta);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetAdvance(float delta) => GDAnimationMixer.Advance(delta);
 
 	/// <summary>
 	/// If the animation track specified by <paramref name="name"/> has an option <c>Animation.UPDATE_CAPTURE</c>, stores current values of the objects indicated by the track path as a cache.
@@ -270,13 +277,29 @@ public abstract partial class AnimationMixer : Instance
 			throw new ArgumentException($"No animation with the key '{name}' exists in this mixer.", nameof(name));
 
 		GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)(int)transType, (Godot.Tween.EaseType)(int)easeType);
+
+		if (HasAuthority)
+			Rpc(nameof(NetCapture), name, duration, (int)transType, (int)easeType);
 	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetCapture(string name, float duration, int transType, int easeType)
+		=> GDAnimationMixer.Capture(name, duration, (Godot.Tween.TransitionType)transType, (Godot.Tween.EaseType)easeType);
 
 	/// <summary>
 	/// <strong>AnimationMixer</strong> caches animated nodes. It may not notice if a node disappears; <see cref="ClearCaches"/> forces it to update the cache again.
 	/// </summary>
 	[ScriptMethod]
-	public void ClearCaches() => GDAnimationMixer.ClearCaches();
+	public void ClearCaches()
+	{
+		GDAnimationMixer.ClearCaches();
+
+		if (HasAuthority)
+			Rpc(nameof(NetClearCaches));
+	}
+
+	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
+	private void NetClearCaches() => GDAnimationMixer.ClearCaches();
 
 	/// <summary>
 	/// Returns the key of <paramref name="animation"/> or an empty <c>string</c> if not found.
