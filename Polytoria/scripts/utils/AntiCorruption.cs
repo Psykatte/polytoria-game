@@ -43,6 +43,7 @@ public static class AntiCorruption
 		bool isFinite = value switch
 		{
 			float v => float.IsFinite(v),
+			double v => double.IsFinite(v),
 			Vector2 v => v.IsFinite(),
 			Vector3 v => v.IsFinite(),
 			Quaternion v => v.IsFinite(),
