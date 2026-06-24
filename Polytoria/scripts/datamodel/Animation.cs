@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using Godot;
 using Polytoria.Attributes;
 using Polytoria.Enums;
+using Polytoria.Scripting.Datatypes;
 
 using static Polytoria.Utils.AntiCorruption;
 
@@ -883,17 +884,17 @@ public partial class Animation : Instance
 	}
 
 	/// <summary>
-	/// Returns the value of a given key in a given track.
+	/// Returns a <see cref="PTVariant"/> containing the value of a given key in a given track.
 	/// </summary>
 	/// <param name="trackIdx">The index of the track.</param>
 	/// <param name="keyIdx">The index of the key.</param>
-	/// <returns>The value stored at the key.</returns>
+	/// <returns>A <see cref="PTVariant"/> containing the value stored at the key.</returns>
 	[ScriptMethod]
-	public object? TrackGetKeyValue(int trackIdx, int keyIdx)
+	public PTVariant TrackGetKeyValue(int trackIdx, int keyIdx)
 	{
 		ValidateKey(trackIdx, keyIdx);
 
-		return Utils.Variant.FromGodot(GDAnimation.TrackGetKeyValue(trackIdx, keyIdx));
+		return GDAnimation.TrackGetKeyValue(trackIdx, keyIdx);
 	}
 
 	/// <summary>
@@ -927,11 +928,11 @@ public partial class Animation : Instance
 	/// </summary>
 	/// <param name="trackIdx">The index of the track.</param>
 	/// <param name="time">The time (in seconds) where the key is inserted.</param>
-	/// <param name="key">The value to insert.</param>
+	/// <param name="key">A <see cref="PTVariant"/> containing the value to insert.</param>
 	/// <param name="transition">The transition curve value (default 1.0).</param>
 	/// <returns>The index of the newly inserted key.</returns>
 	[ScriptMethod]
-	public int TrackInsertKey(int trackIdx, float time, object key, float transition = 1.0f)
+	public int TrackInsertKey(int trackIdx, float time, PTVariant key, float transition = 1.0f)
 	{
 		ValidateTrack(trackIdx);
 		ValidateFinite(time);
@@ -940,7 +941,7 @@ public partial class Animation : Instance
 		if (GDAnimation.TrackGetType(trackIdx) == Godot.Animation.TrackType.Method)
 			throw new ArgumentException("Cannot insert keys on a method track from scripting yet.");
 
-		return GDAnimation.TrackInsertKey(trackIdx, time, Utils.Variant.ToGodot(key), transition);
+		return GDAnimation.TrackInsertKey(trackIdx, time, key, transition);
 	}
 
 	/// <summary>
@@ -1138,16 +1139,16 @@ public partial class Animation : Instance
 	/// </summary>
 	/// <param name="trackIdx">The index of the track.</param>
 	/// <param name="keyIdx">The index of the key.</param>
-	/// <param name="value">The new value to set.</param>
+	/// <param name="value">A <see cref="PTVariant"/> containing the new value to set.</param>
 	[ScriptMethod]
-	public void TrackSetKeyValue(int trackIdx, int keyIdx, object value)
+	public void TrackSetKeyValue(int trackIdx, int keyIdx, PTVariant value)
 	{
 		ValidateKey(trackIdx, keyIdx);
 		Godot.Animation.TrackType type = GDAnimation.TrackGetType(trackIdx);
 		if (type is Godot.Animation.TrackType.Method or Godot.Animation.TrackType.Audio)
 			throw new ArgumentException($"Cannot set key values on {type} tracks from scripting yet.");
 
-		GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, Utils.Variant.ToGodot(value));
+		GDAnimation.TrackSetKeyValue(trackIdx, keyIdx, value);
 	}
 
 	/// <summary>
@@ -1199,14 +1200,14 @@ public partial class Animation : Instance
 	/// <param name="trackIdx">The index of the value track.</param>
 	/// <param name="timeSec">The time (in seconds) to interpolate.</param>
 	/// <param name="backward">If true, searches backwards for the previous key if no exact match is found.</param>
-	/// <returns>The interpolated value.</returns>
+	/// <returns>A <see cref="PTVariant"/> containing the interpolated value.</returns>
 	[ScriptMethod]
-	public object? ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
+	public PTVariant ValueTrackInterpolate(int trackIdx, float timeSec, bool backward = false)
 	{
 		ValidateTrackType(trackIdx, Godot.Animation.TrackType.Value);
 		ValidateFinite(timeSec);
 
-		return Utils.Variant.FromGodot(GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward));
+		return GDAnimation.ValueTrackInterpolate(trackIdx, timeSec, backward);
 	}
 
 	/// <summary>
