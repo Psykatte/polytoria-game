@@ -21,7 +21,8 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationTree : AnimationMixer
 {
-	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Data
 
 	private Godot.AnimationTree GDAnimationTree = null!;
 	protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationTree;
@@ -29,7 +30,8 @@ public partial class AnimationTree : AnimationMixer
 	private string _advanceExpressionBaseNode = ".";
 	private string _animPlayer = "";
 
-	// ------------------------------------------------ Properties -----------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Properties
 
 	/// <summary>
 	/// The path to the <see cref="Node"/> used to evaluate the <see cref="AnimationNode"/> <c>Expression</c>
@@ -117,7 +119,8 @@ public partial class AnimationTree : AnimationMixer
 			}
 		} */
 
-	// ------------------------------------------------ Signals --------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Signals
 
 	/// <summary>
 	/// Emitted when the <see cref="AnimPlayer"/> is changed.
@@ -130,7 +133,8 @@ public partial class AnimationTree : AnimationMixer
 		AnimationPlayerChanged.Invoke();
 	}
 
-	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Initialization and Cleanup
 
 	public override Node CreateGDNode()
 	{

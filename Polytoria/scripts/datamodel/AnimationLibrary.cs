@@ -21,12 +21,14 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationLibrary : Instance
 {
-	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Data
 
 	private static readonly ConditionalWeakTable<Godot.AnimationLibrary, AnimationLibrary> GDAnimationLibraries = [];
 	private Godot.AnimationLibrary GDAnimationLibrary = null!;
 
-	// -------------------------------------------------- Methods ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Scripting Methods
 
 	/// <summary>
 	/// Adds the <paramref name="animation"> to the library, accessible by the key <paramref name="name">.
@@ -122,7 +124,8 @@ public partial class AnimationLibrary : Instance
 		GDAnimationLibrary.RenameAnimation(name, newname);
 	}
 
-	// ------------------------------------------------ Signals --------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Signals
 
 	/// <summary>
 	/// Emitted when an <see cref="Animation"> is added to the library.
@@ -168,7 +171,8 @@ public partial class AnimationLibrary : Instance
 		AnimationRenamed.Invoke((string)name, (string)toName);
 	}
 
-	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Initialization and Cleanup
 
 	public override void Init()
 	{
@@ -191,7 +195,8 @@ public partial class AnimationLibrary : Instance
 		base.PreDelete();
 	}
 
-	// ----------------------------------------------- Conversion ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Conversions
 
 	// Intialize an AnimationLibrary from a Godot type, this is done to mitigate possible memory leaks.
 	private static AnimationLibrary FromGDObject(Godot.AnimationLibrary gdAnimationLibrary)
@@ -207,7 +212,8 @@ public partial class AnimationLibrary : Instance
 	public static implicit operator AnimationLibrary?(Godot.AnimationLibrary? gd) =>
 		gd is null ? null : GDAnimationLibraries.GetOrAdd(gd, _ => FromGDObject(gd));
 
-	// ----------------------------------------------- Validation ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Private Validation
 
 	// Ensures an animation with the given key exists before reading, renaming, or removing it.
 	private void ValidateAnimationExists(string name)

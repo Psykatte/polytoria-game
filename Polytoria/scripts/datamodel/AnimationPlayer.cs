@@ -24,7 +24,8 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class AnimationPlayer : AnimationMixer
 {
-	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Data
 
 	internal Godot.AnimationPlayer GDAnimationPlayer = null!;
 	protected override Godot.AnimationMixer GDAnimationMixer => GDAnimationPlayer;
@@ -39,7 +40,8 @@ public partial class AnimationPlayer : AnimationMixer
 	private float _playbackDefaultBlendTime = 0.0f;
 	private float _speedScale = 1.0f;
 
-	// ------------------------------------------------ Properties -----------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Properties
 
 	/// <summary>
 	/// If playing, the current <see cref="Animation"/>'s key, otherwise, the animation last played.
@@ -248,7 +250,8 @@ public partial class AnimationPlayer : AnimationMixer
 		}
 	}
 
-	// -------------------------------------------------- Methods ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Methods
 
 	/// <summary>
 	/// Returns the key of the animation which is queued to play after the <paramref name="animationFrom"/> animation.
@@ -702,7 +705,8 @@ public partial class AnimationPlayer : AnimationMixer
 	[NetRpc(AuthorityMode.Authority, TransferMode = TransferMode.Reliable)]
 	private void NetStop(bool keepState) => GDAnimationPlayer.Stop(keepState);
 
-	// ------------------------------------------------ Signals --------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Signals
 
 	/// <summary>
 	/// Emitted when a queued animation plays after the previous animation finished. See also <see cref="Queue"/>.
@@ -727,7 +731,8 @@ public partial class AnimationPlayer : AnimationMixer
 		CurrentAnimationChanged.Invoke((string)name);
 	}
 
-	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Initialization and Cleanup
 
 	// TODO: Double-check all of the network replication logic.
 	public override Node CreateGDNode()
@@ -755,7 +760,8 @@ public partial class AnimationPlayer : AnimationMixer
 		base.PreDelete();
 	}
 
-	// ----------------------------------------------- Validation ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Private Validation
 
 	// Ensures an animation with the given key exists before reading, renaming, or removing it.
 	private void ValidateAnimationExists(string animation)

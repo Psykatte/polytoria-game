@@ -22,7 +22,8 @@ namespace Polytoria.Datamodel;
 [Instantiable]
 public partial class Animation : Instance
 {
-	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Data
 
 	private static readonly ConditionalWeakTable<Godot.Animation, Animation> GDAnimations = [];
 	private Godot.Animation GDAnimation = null!;
@@ -30,7 +31,8 @@ public partial class Animation : Instance
 	private LoopModeEnum _loopMode = LoopModeEnum.None;
 	private float _step = 1f / 60f;
 
-	// ------------------------------------------------ Properties -----------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Properties
 
 	/// <summary>
 	/// The total length of the animation (in seconds).
@@ -92,7 +94,8 @@ public partial class Animation : Instance
 		}
 	}
 
-	// -------------------------------------------------- Methods ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Scripting Methods
 
 	/// <summary>
 	/// Adds a marker to this Animation.
@@ -1224,7 +1227,8 @@ public partial class Animation : Instance
 		GDAnimation.ValueTrackSetUpdateMode(trackIdx, (Godot.Animation.UpdateMode)mode);
 	}
 
-	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Initialization and Cleanup
 
 	public override void Init()
 	{
@@ -1239,7 +1243,8 @@ public partial class Animation : Instance
 		base.PreDelete();
 	}
 
-	// ----------------------------------------------- Conversion ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Conversions
 
 	// Intialize an Animation from a Godot type.
 	private static Animation FromGDObject(Godot.Animation gdAnimation)
@@ -1254,7 +1259,8 @@ public partial class Animation : Instance
 	public static implicit operator Animation?(Godot.Animation? gd) =>
 		gd is null ? null : GDAnimations.GetOrAdd(gd, _ => FromGDObject(gd));
 
-	// ----------------------------------------------- Validation ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Private Validation
 
 	// Ensures trackIdx refers to an existing track.
 	private void ValidateTrack(int trackIdx)

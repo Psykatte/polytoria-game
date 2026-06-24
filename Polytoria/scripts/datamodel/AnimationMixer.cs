@@ -22,7 +22,8 @@ namespace Polytoria.Datamodel;
 [Abstract]
 public abstract partial class AnimationMixer : Instance
 {
-	// ---------------------------------------------- Internal Logic ---------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Internal Data
 
 	protected abstract Godot.AnimationMixer GDAnimationMixer { get; }
 	private bool _active = true;
@@ -39,7 +40,8 @@ public abstract partial class AnimationMixer : Instance
 	[SyncVar]
 	public bool AutoInit { get; set; } = true;
 
-	// ------------------------------------------------ Properties -----------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Properties
 
 	/// <summary>
 	/// If <c>true</c>, the <strong>AnimationMixer</strong> will be processing.
@@ -213,7 +215,8 @@ public abstract partial class AnimationMixer : Instance
 		}
 	}
 
-	// -------------------------------------------------- Methods ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Exposed Scripting Methods
 
 	// I don't feel confident implementing this without extensive testing.
 	/*	/// <summary>
@@ -564,7 +567,8 @@ public abstract partial class AnimationMixer : Instance
 		MixerUpdated.Invoke();
 	}
 
-	// ---------------------------------------------- Init and Deinit --------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Initialization and Cleanup
 
 	public override void Init()
 	{
@@ -590,7 +594,8 @@ public abstract partial class AnimationMixer : Instance
 		base.PreDelete();
 	}
 
-	// ----------------------------------------------- Validation ------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
+	// Private Validation
 
 	// Ensures an animation with the given key exists before reading, renaming, or removing it.
 	private void ValidateAnimationNonNil(Animation animation)
