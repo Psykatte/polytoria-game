@@ -22,8 +22,7 @@ namespace Polytoria.Utils;
 
 public static class AntiCorruption
 {
-	// -----------------------------------------------------------------------------------------------------------------
-	// Internal Entry-Gating Logic
+	// ------------------------------------------------- Gating --------------------------------------------------------
 
 	// ScriptProperty setters that use anti-corruption validation logic validate their inputs and throw on invalid
 	// values. The same build runs the Creator, where properties are edited live and exceptions must not be thrown. The
@@ -38,8 +37,7 @@ public static class AntiCorruption
 		true;
 #endif
 
-	// -----------------------------------------------------------------------------------------------------------------
-	// Internal Number Validation
+	// ------------------------------------------------ Numbers -------------------------------------------------------
 
 	// Ensure finite value.
 	public static void ValidateFinite<T>(
@@ -111,8 +109,7 @@ public static class AntiCorruption
 			throw new ArgumentException($"{paramName} must be non-zero.", paramName);
 	}
 
-	// -----------------------------------------------------------------------------------------------------------------
-	// Internal Name Validation
+	// -------------------------------------------------- Names --------------------------------------------------------
 
 	// Reject nil/null strings.
 	public static void ValidateNameNotNil(
@@ -141,8 +138,7 @@ public static class AntiCorruption
 		ValidateNameNotEmpty(name, paramName);
 	}
 
-	// -----------------------------------------------------------------------------------------------------------------
-	// Internal Enumeration Validation
+	// -------------------------------------------------- Enums --------------------------------------------------------
 
 	// Reject enum values outside the defined set.
 	public static void ValidateEnum<T>(
